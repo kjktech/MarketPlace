@@ -1,0 +1,88 @@
+<footer class="footer">
+    <div class="footer__wrapper">
+        <div class="footer__item mb-3">
+            <h3 class="footer__heading">GET TO KNOW US</h3>
+            <a href="{{ route('page.aboutus') }}">About Us</a>
+            <a href="{{ route('page.comingsoon') }}">Career</a>
+            {# <a href="{{ route('blogetc.index') }}">Blog</a> #}
+            <a href="{{ route('page.faq') }}">FAQ</a>
+            <a href="{{ route('page.contactus') }}">Contact US</a>
+        </div>
+        <div class="footer__item mb-3">
+            <h3 class="footer__heading">SECURED BY</h3>
+              <img width="80px;" src="{{ asset('themes/' ~ current_theme() ~ '/images/commodo-seal.png') }}" /> <br>
+              <img width="80px;" src="{{ asset('themes/' ~ current_theme() ~ '/images/site-lock.png') }}" /><br>
+              <img width="80px;" src="{{ asset('themes/' ~ current_theme() ~ '/images/site-guard.png') }}" />
+        </div>
+        <div class="footer__item mb-3">
+            <h3 class="footer__heading">EXPLORE</h3>
+            <a href="{{ route('page.topbrands') }}">Top Brands</a>
+            <a href="{{ route('page.privacypolicy')}}">Privacy Policy</a>
+            <a href="{{ route('page.disclaimer')}}">Disclaimer</a>
+            <a href="{{ route('page.billingpolicy')}}">Billing Policy</a>
+            <a href="{{ route('page.termsuse')}}">Terms of Use</a>
+            <a href="{{ route('page.comingsoon') }}">Advertise with Us</a>
+        </div>
+        <div class="footer__item mb-3">
+            <h3 class="footer__heading">SELL ON AFIAANYI</h3>
+            {% if auth_guest() %}
+              <a href="#registerbusiness" data-toggle="modal">Register your Businesss</a>
+            {% else %}
+              <a href="{{url('create')}}">Register your Business</a>
+            {% endif %}
+            <a href="{{ route('page.comingsoon') }}">Create a Store</a>
+            <a href="{{ route('page.comingsoon') }}">How it works</a>
+            <a href="{{ route('page.trustsafety') }}">Trust & Safety</a>
+        </div>
+        <div class="footer__item mb-3">
+            <h3 class="footer__heading">DELIVERY</h3>
+            <a href="javascript:void(0)">EMS Parcel</a>
+        </div>
+        <div class="footer__item-download mb-3 ">
+            <h3 class="footer__heading">DOWNLOAD & CONNECT WITH US</h3>
+            <a href="{{ route('page.comingsoon') }}" class="footer__app-store mr-1">
+                <img src="{{ asset('themes/' ~  current_theme()  ~ '/icon2/apple.svg') }}" alt="" class="img-fluid">
+            </a>
+            <a href="{{ route('page.comingsoon') }}" class="footer__app-store">
+                <img src="{{ asset('themes/' ~  current_theme()  ~ '/icon2/android.svg') }}" alt="" class="img-fluid">
+            </a>
+            <div class="footer__social">
+                <span>Follow Us:</span>
+                <a href="https://www.facebook.com/afiaanyi/">
+                    <svg class="icon icon-facebook">
+                        <use xlink:href="#icon-facebook"></use>
+                    </svg>
+                </a>
+                <a href="https://www.instagram.com/afiaanyi/">
+                    <svg class="icon icon-instagram">
+                        <use xlink:href="#icon-instagram"></use>
+                    </svg>
+                </a>
+                <a href="https://www.linkedin.com/company/afiaanyi/">
+                    <svg class="icon icon-linkedin">
+                        <use xlink:href="#icon-linkedin"></use>
+                    </svg>
+                </a>
+                <a href="https://twitter.com/afiaanyi">
+                    <svg class="icon icon-twitter">
+                        <use xlink:href="#icon-twitter"></use>
+                    </svg>
+                </a>
+            </div>
+            <div class="footer__poweredby">
+                <span>Powered By:</span>
+                <img src="{{ asset('themes/' ~  current_theme()  ~ '/icon2/kjk-white.svg') }}" alt="">
+            </div>
+        </div>
+    </div>
+    <div class="footer__states mb-2">
+      <img src="{{ asset('themes/' ~  current_theme()  ~ '/images/states/AWKACCIMA.svg') }}" alt="" class="mr-1">
+       <!--
+       <img src="{{ asset('themes/' ~  current_theme()  ~ '/images/states/Onitsha.svg') }}" alt="" class="mr-1">
+       -->
+      <img src="{{ asset('themes/' ~  current_theme()  ~ '/images/states/NCCIMA.svg') }}" alt="" class="mr-1">
+      <img src="{{ asset('themes/' ~  current_theme()  ~ '/images/states/ONCCIMA.svg') }}" alt="" class="mr-1">
+    </div>
+    <p class="footer__copyright">Copyright © 2019 Afiaanyi Services Limited, All Rights Reserved.</p>
+    <img src="{{ asset('themes/' ~  current_theme()  ~ '/icon2/afiaanyi icon.svg') }}" alt="" class="footer__design">
+</footer>

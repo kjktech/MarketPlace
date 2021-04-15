@@ -1,0 +1,29 @@
+
+<div class="dropdown__header animated fadeIn">
+    <div class="drop-down__content">
+      <div class="drop-down__column">
+          <h4 class="drop-drop__list-title">category.other.0.name</h4>
+          <ul>
+           {% for child in category.other %}
+           {% if child.depth != 1 %}
+              <li><a href="">child.name</a></li>
+            {% endif %}
+            {% endfor %}
+          </ul>
+      </div>
+   </div>
+</div>
+
+{% for child in category.other %}
+ {% if child.depth == 1 %}
+   <h4 class="drop-drop__list-title">{{child.name}}</h4>
+   <ul>
+ {% endif %}
+ {% if child.depth != 1 %}
+    <li><a href="">{{child.name}}</a></li>
+ {% endif %}
+ {% if loop.last %}
+   </ul>
+ {% endif %}
+
+{% endfor %}

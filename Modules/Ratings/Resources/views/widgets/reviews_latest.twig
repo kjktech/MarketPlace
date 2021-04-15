@@ -1,0 +1,95 @@
+{% if comments | length > 0 %}
+<section class="product-page__customer-review">
+    <h3>Customer Reviews</h3>
+    <div class="product-page__customer-review-sort">
+        <span>Sort by</span>
+        <select name="Sort" id="">
+            <option value="Top Reviews">Top Reviews</option>
+            <option value="Worst Reviews">Worst Reviews</option>
+            <option value="Creation Date">Creation Date</option>
+        </select>
+    </div>
+
+    <div class="product-page__customer-review-invite">
+        <div class="ml-auto quickview__modal-ratings">
+            <svg class="icon icon-star">
+                <use xlink:href="#icon-star"></use>
+            </svg>
+            <svg class="icon icon-star">
+                <use xlink:href="#icon-star"></use>
+            </svg>
+            <svg class="icon icon-star">
+                <use xlink:href="#icon-star"></use>
+            </svg>
+            <svg class="icon icon-star">
+                <use xlink:href="#icon-star"></use>
+            </svg>
+            <svg class="icon icon-star">
+                <use xlink:href="#icon-star"></use>
+            </svg>
+            <span class="quickview__modal-ratings-figure">Out <span> of </span>5</span>
+            <div class="product-page__customer-review-share">
+                <span>Share your thoughts with other customers</span>
+                <a style="color: white;" href="../../listing/{{listing.getRouteKey()}}/{{listing.slug}}/reviews/create" class="btn btn-primary marketplace__product-quickview-btn">Write a review</a>
+            </div>
+        </div>
+
+        <h4 class="product-page__customer-review-heading">Top Customers Review</h4>
+
+        <div class="product-page__customer-review-individual">
+
+            {% for comment in comments %}
+            <div class="ml-auto quickview__modal-ratings">
+                {{ include('components.star_rating', {rating: comment.rating}) }}
+                <span class="quickview__modal-ratings-figure">{{ comment.rating }} <span> of </span>5</span>
+            </div>
+            <div class="product-page__customer-review-individual-details">
+                <span class="product-page__customer-review-individual-details-name">
+                    <span>By:</span>
+                    {{ comment.commenter.display_name }}
+                </span>
+
+                <span class="product-page__customer-review-individual-details-date">
+                    <span>on</span>
+                    {{ comment.created_at.toFormattedDateString() }}
+                </span>
+
+                <p class="product-page__customer-review-individual-details-keyword"></p>
+                <p class="product-page__customer-review-individual-review">
+                    {{ comment.comment }}
+                </p>
+                <hr class="product-page__customer-review-individual-divider mx-0">
+            </div>
+
+            {% endfor %}
+        </div>
+    </div>
+    <div class="product-page__customer-review-paging">
+        <div class="product-page__customer-review-paging-individual">
+            1
+        </div>
+        <div class="product-page__customer-review-paging-individual current">
+            2
+        </div>
+        <div class="product-page__customer-review-paging-individual">
+            3
+        </div>
+        <span>...</span>
+        <div class="product-page__customer-review-paging-individual">
+            30
+        </div>
+        <div class="product-page__customer-review-paging-individual">
+            <svg class="icon icon-next-page">
+                <use xlink:href="#icon-next-page"></use>
+            </svg>
+        </div>
+    </div>
+</section>
+{% else %}
+<section class="product-page__customer-review">
+<div class="no-review">
+<strong>{{ __('There are no customer reviews yet.') }}</strong><br/><br/>
+<a href="../../listing/{{listing.getRouteKey()}}/{{listing.slug}}/reviews/create" class="btn btn-primary btn-review"><i class="mdi mdi-plus"></i> {{ __("Be the first to write a review") }}</a>
+</div>
+</section>
+{% endif %}

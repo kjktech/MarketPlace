@@ -1,0 +1,23 @@
+{% extends "layouts.app_email" %}
+
+{% block content %}
+    <div class="container verifymsg">
+        <div class="row flex-column pt-5 mt-5 align-items-center">
+            <div class="col-lg-6 col-sm-10 col-xs-6" style="position: relative">
+
+                {% include 'notifications' %}
+
+                <h1>{{ __('Successfully verified your email!') }}</h1>
+                <p id="redirect_text">{{ __("You will be redirected in 5 seconds...") }}</p>
+                <a href="{{ route('home') }}" class="btn-custom-demo">{{ "Go Home" }}</a>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            window.setTimeout(function () {
+                window.location.href = "{{ url }}";
+            }, 5000);
+        });
+    </script>
+{% endblock %}

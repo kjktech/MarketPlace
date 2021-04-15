@@ -1,0 +1,155 @@
+{% extends "layouts.app_general" %}
+{% block style%}
+
+@import url({{ asset('themes/' ~ current_theme() ~ '/css/terms_of_use_res.css') }});
+@import url({{ asset('themes/' ~ current_theme() ~ '/css/privacy-policy_res.css') }});
+{% endblock %}
+{% block hero %}
+<div class="hero">
+          <div class="hero__text-box">
+              <h2 class="hero__content-title">Afiaanyi Privacy Policy</h2>
+          </div>
+      </div>
+{% endblock %}
+{% block content %}
+<section>
+
+      <div class="terms__outer-wrapper">
+          <div class="terms__wrapper">
+
+              <p class="terms__content">
+                  IMPORTANT: PLEASE READ THESE TERMS CAREFULLY.
+                  These Terms of Use, along with any Terms and
+                  Conditions appearing on the website, any Terms
+                  of Offer appearing on the website, along with
+                  any posted rules or instructions, constitute
+                  the entire agreement between you and us regarding
+                  your use of the website and related information,
+                  data and services (collectively, the "Services" or "Service").
+                  YOUR USE OF THE SERVICE CONSTITUTES ACCEPTANCE
+                  OF THESE TERMS OF USE, INCLUDING THE <u><a href="">PRIVACY POLICY</a></u>.
+              </p>
+
+
+
+
+              <div>
+                  <div class="drop-down__container" id="terms">
+                      <h3 class="dropdown__title">
+                          <img class="handle handle--open" width="14px" src="{{ asset('themes/' ~ current_theme() ~ '/images/front-arrow.svg') }}">
+                          Use of the Service by children under the age of 13
+                      </h3>
+                      <div class="terms__dropdown terms__dropdown--hide">
+                          <p>
+                              Welcome to the Afiaanyi.ng website (the "Site"). These terms & conditions ("Terms and
+                              Conditions") apply to the Site, and all of its divisions, subsidiaries, and affiliate
+                              operated
+                              Internet sites which reference these Terms and Conditions.
+                              This website is owned and operated by Afiaanyi Investment Limited. .</p>
+
+                      </div>
+                  </div>
+
+                  <div class="drop-down__container" id="user">
+                      <h3 class="dropdown__title"><img class="handle" width="14px" src="{{ asset('themes/' ~ current_theme() ~ '/images/front-arrow.svg') }}">
+                          Business List
+                      </h3>
+                      <div class="terms__dropdown">
+                          <p>
+                              Anything that you submit to the Site and/or provide to us, including but not
+                              limited to,
+                              questions, reviews, comments, and suggestions (collectively, "Submissions") will
+                              become our
+                              sole and exclusive property and shall not be returned to you.
+                          </p>
+                      </div>
+                  </div>
+
+                  <div class="drop-down__container" id="site">
+                      <h3 class="dropdown__title">
+                          <img class="handle" width="14px" src="{{ asset('themes/' ~ current_theme() ~ '/images/front-arrow.svg') }}">
+                          What are your rights?
+                      </h3>
+                      <div class="terms__dropdown">
+                          <p>
+                              You confirm that you are at least 18 years of age or are accessing the Site under the
+                              supervision of a parent or legitimate guardian.<br>
+                              Both parties agree that this website may only be used in accordance with these Terms
+                              and
+                              Conditions of Use. If you do not agree with the Terms and Conditions of Use or do not
+                              wish to
+                              be bound by them, you agree to desist from using this website.<br>
+                              We grant you a non-transferable, revocable and non-exclusive license to use this Site,
+                              in
+                              accordance with the Terms and Conditions of Use, for such things as: shopping for
+                              personal
+                              items sold on the site, gathering prior information regarding our products and services
+                              and
+                              making purchases.
+                          </p>
+                      </div>
+                  </div>
+
+
+                  <div class="drop-down__container" id="links">
+                      <h3 class="dropdown__title">
+                          <img class="handle" width="14px" src="{{ asset('themes/' ~ current_theme() ~ '/images/front-arrow.svg') }}">
+                          Images rights?
+                      </h3>
+                      <div class="terms__dropdown">
+                          <p>
+                              We may include links to third party websites at any time. However, the
+                              existence of a link to
+                              another website should not be consider as an affiliation or a
+                              partnership with
+                              a third party or
+                              viewed as an endorsement of a particular website unless explicitly
+                              stated
+                              otherwise.<br>
+                              In the event the user follows a link to another website, he or she does
+                              so at
+                              his or her own
+                              risk.
+                              We accept no responsibility for any content, including, but not limited
+                              to,
+                              information,
+                              products
+                              and services, available on third party websites.<br>
+                              Creating a link to this website is strictly forbidden without our prior
+                              written
+                              consent.
+                              Furthermore, we reserve the right to withdraw our consent without
+                              notice or
+                              justification.
+                          </p>
+                      </div>
+                  </div>
+
+                  <div class="drop-down__container" id="misc">
+                      <h3 class="dropdown__title">
+                          <img class="handle" width="14px" src="{{ asset('themes/' ~ current_theme() ~ '/images/front-arrow.svg') }}">
+                          What is a cookie and why does afiaanyi use them?
+                      </h3>
+                      <div class="terms__dropdown">
+                          <p>
+                              You agree that all agreements, notices,
+                              disclosures and other communications
+                              that we
+                              provide to
+                              you
+                              electronically satisfy any legal
+                              requirement
+                              that such communications be in writing.
+                          </p>
+                      </div>
+                  </div>
+
+              </div>
+
+          </div>
+      </div>
+
+
+
+  </section>
+{% endblock %}

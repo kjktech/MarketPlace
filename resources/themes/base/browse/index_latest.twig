@@ -1,0 +1,120 @@
+{% extends "layouts.app_browse" %}
+
+{% block content %}
+
+<section class="info">
+    <div class="info-header">
+        <p class="info-header__content">
+            We have found below businesses that best match your requirements.<br />
+            We recommend you try as much as possible to connect only with verified businesses.
+        </p>
+    </div>
+
+
+    <div class="info-cards__container row">
+         {% for item in listings %}
+           <div class="info-card__container">
+
+                      <div class="card">
+                          <div class="info-card__upper-section">
+                              <img class="info-card__logo" src="{{ asset('themes/' ~ current_theme() ~ '/images/directory/comp-icon.svg') }}" width="60px" height="60px">
+                              <p class="info-card__title">{{item.name}}</p>
+                              <p class="info-card__content">
+                                  <span>
+                                    {% if item.ratings %}
+                                    <img class="info-card__icon" src="{{ asset('themes/' ~ current_theme() ~ '/images/directory/star.svg') }}">{{item.ratings}}/5
+                                    {% endif %}
+                                  </span>
+                                  <span><img class="info-card__icon info-card__icon--left-space" src="{{ asset('themes/' ~ current_theme() ~ '/images/directory/like.svg') }}">1
+                                      review</span>
+                                  <span>
+                                    <!--<img class="info-card__icon info-card__icon--left-space" src="{{ asset('themes/' ~ current_theme() ~ '/images/directory/hired.svg') }}">-->
+                                  </span>
+                              </p>
+                              <p class="info-card__content">
+                                  <span><img class="info-card__icon" src="{{ asset('themes/' ~ current_theme() ~ '/images/directory/verified.svg') }}">Verified info</span>
+                                  <span><img class="info-card__icon info-card__icon--left-space" src="{{ asset('themes/' ~ current_theme() ~ '/images/directory/checked.svg') }}">{{item.phone}}</span>
+                              </p>
+                              <p class="info-card__content">
+                                  <span><img class="info-card__icon" src="{{ asset('themes/' ~ current_theme() ~ '/images/directory/checked.svg') }}">{{item.email}}</span>
+                                  <span><img class="info-card__icon info-card__icon--left-space" src="{{ asset('themes/' ~ current_theme() ~ '/images/directory/checked.svg') }}"></span>
+                              </p>
+                          </div>
+
+                          <div class="info-card__lower-section">
+                              <div class="info-card__lower-container">
+                                  <div class="info-card__phone">
+                                      <img class="info-card__icon info-card__icon--align" src="{{ asset('themes/' ~ current_theme() ~ '/images/directory/phone.svg') }}">
+                                      <span>{{item.phone}}</span>
+                                  </div>
+                                  <a href="{{ route('branding.showtopbrands', {'id' : item, 'slug' : str_slug(item.name)})  }}">
+                                      <img src="{{ asset('themes/' ~ current_theme() ~ '/images/directory/more.svg') }}">
+                                  </a>
+
+                              </div>
+
+                          </div>
+                      </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="product__pagination-container row">
+      {{ listings.links() | raw }}
+      <!--
+        <div class="product__pages product__pages--active">
+            1
+        </div>
+        <div class="product__pages">
+            2
+        </div>
+        <div class="product__pages">
+            3
+        </div>
+        <div class="product__pages ellipses">
+            ...
+        </div>
+        <div class="product__pages">
+            22
+        </div>
+        <div class="product__pages">
+            >
+        </div>
+        -->
+    </div>
+
+</section>
+
+<section class="contact__container">
+    <div class="contact row">
+        <div class="one">
+            <p>
+                <strong>SUPPORT</strong><br>
+
+                <img class="" src="resources/img/phone.svg" alt=""> +234 803 400 0000
+            </p>
+        </div>
+        <div class="two">
+            <p>
+                <strong>EMAIL SUPPORT</strong>
+            </p>
+            <p>
+                <img class="" src="resources/img/mail.svg" alt=""> info@afiaayan.com
+            </p>
+        </div>
+        <div class="three">
+            <p>
+                <span>
+                    <strong>GET LATEST DEALS & UPDATES</strong>
+                </span>
+                <br>
+                <i>Stay in the loop on all upcoming promotions,
+                    <br> discounts and latest updates.</i>
+            </p>
+        </div>
+        <div class="four">
+            <input type="email" id="mail" placeholder="Enter e-mail"><input id="send" type="submit" value="send">
+        </div>
+    </div>
+</section>
+
+{% endblock %}

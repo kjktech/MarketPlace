@@ -1,0 +1,259 @@
+/*Generic Css rules */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.clearfix {
+    zoom: 1
+}
+
+.clearfix::after {
+    content: '.';
+    clear: both;
+    display: block;
+    height: 0;
+    visibility: hidden;
+}
+
+h1{
+    margin: 0;
+}
+
+html {
+    background-color: #ffffff;
+    color: #000;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+}
+
+
+.clearfix {
+    zoom: 1
+}
+
+aside{
+    position: relative;
+}
+
+.clearfix::after {
+    content: '.';
+    clear: both;
+    display: block;
+    height: 0;
+    visibility: hidden;
+}
+
+.row {
+    max-width: 84%;
+    margin: 0 auto;
+}
+
+.main-page{
+    background: url(../images/mask_group.png);
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    position: relative;
+}
+
+.main__container{
+    background-image: linear-gradient(rgba(255, 255, 255, .9), rgba(255, 255, 255, .9)), url(.../images/Marketplace.jpg);
+    background-size: cover;
+    background-position: 100% 100%;
+    height: 100vh;
+    position: fixed;
+    width: 100%;
+    margin: 0 8%;
+}
+
+.logo__container{
+    position: absolute;
+    top: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+}
+
+.logo__container img{
+    height: 100px;
+}
+
+.main__title{
+    font-size: 2.8rem;
+    font-weight: 600;
+    padding-bottom: 11px;
+}
+
+.main__subtitle{
+    font-size: 1.875rem;
+    font-weight: 500;
+    padding-bottom: 2%
+}
+
+.main__notified{
+    font-size: 1.125rem;
+    font-weight: 500;
+    padding-top: 14%;
+    padding-bottom: 4%;
+}
+
+.main__middle-content{
+    width: 50%;
+    /* left: 10.5%; */
+    transform: scale(.9);
+    -webkit-transform: scale(.9);
+    -moz-transform: scale(.9);
+    -ms-transform: scale(.9);
+    -o-transform: scale(.9);
+    padding-bottom: 18px;
+}
+
+input[type=email]{
+    padding: 16px 19px;
+    border: none;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 60px;
+    width: 320px;
+    font-family: "Montserrat";
+    -webkit-border-radius: 60px;
+    -moz-border-radius: 60px;
+    -ms-border-radius: 60px;
+    -o-border-radius: 60px;
+}
+
+input[type=submit]{
+    padding: 16px 19px;
+    border: none;
+    background: linear-gradient(90deg, #E6B712 31.25%, #CAAA3B 88.19%);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 60px;
+    margin-left: 4px;
+    width: 170px;
+    font-family: "Montserrat";
+    color: white;
+    cursor: pointer;
+    font-weight: 500;
+    -webkit-border-radius: 60px;
+    -moz-border-radius: 60px;
+    -ms-border-radius: 60px;
+    -o-border-radius: 60px;
+}
+
+input:focus{
+    outline: none;
+}
+
+input[type=email]::placeholder{
+    font-family: "Montserrat";
+}
+
+.footer{
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100px;
+    width: 100%;
+    padding-left: 145px;
+    padding-right: 145px;
+}
+
+.footer p{
+    font-size: 12px;
+    padding: 0 20px
+}
+
+.main__container{
+    padding: 0 32px;
+}
+
+.social--box,
+.powered{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+}
+
+p.social--box span,
+p.social--box img{
+    padding-right: 9px;
+}
+
+.back__container{
+    display: flex;
+    align-items: center;
+}
+
+.back_icon{
+    padding-right: 12px;
+}
+
+a:link,
+a:visited{
+  color: black;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.main__mock{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    padding-left: 5%;
+    padding-right: 5%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+}
+
+.mock__up{
+    width: 50%;
+    background: url(../images/Marketplace.fw.png);
+    background-position: center;
+    background-size: contain;
+    height: 500px;
+    background-repeat: no-repeat;
+}
+
+.marketplace{
+    width: 100%;
+}
+
+.marketplace__container{
+    text-align: right;
+    position: absolute;
+    left: 50%;
+}
+
+.input__wrapper{
+    white-space: nowrap;
+}
+
+.btn__back{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    box-shadow: none;
+    background: transparent;
+    cursor: pointer;
+    border: none;
+    padding: 14px 20px;
+    white-space: nowrap;
+}

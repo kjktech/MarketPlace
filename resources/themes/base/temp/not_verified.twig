@@ -1,0 +1,32 @@
+{% extends "layouts.app_master_dashboard" %}
+
+{% block content %}
+<style>
+    .panel-table .panel-body .table-bordered{
+        border-style: none;
+        margin:0;
+        width: 680px;
+    }
+    .panel-table .panel-body .table-bordered > thead > tr > th:last-of-type {
+        text-align:center;
+    }
+</style>
+
+<div class="row  pt-sm-5 pb-5">
+<section class="seller-profile">
+    <div class="row">
+        <br/>
+        <div class="col-md-10 col-md-offset-4">
+          <div class="row">
+              <div class="col-12">
+                  <h1>You do not have any created business that has been verified, to proceed create a
+                  business and request for its verification by an admin
+                  </h1>
+              </div>
+          </div>
+        </div>
+    </div>
+</section>
+</div>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
+{% endblock %}

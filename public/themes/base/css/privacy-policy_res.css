@@ -1,0 +1,21 @@
+.hero {
+    height: 160px;
+}
+
+.hero__content-title {
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+.notify {
+    margin-bottom: 6px;
+}
+
+@media only screen and (max-width: 540px) {
+    .hero {
+        height: 100px;
+    }
+    .hero__content-title {
+        margin-top: 0;
+    }
+}

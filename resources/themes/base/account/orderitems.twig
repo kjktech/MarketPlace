@@ -1,0 +1,48 @@
+{% extends "account.master" %}
+
+{% block user_area %}
+
+    <div class="card panel-default">
+        <h6 class="card-header bg-white"><i class="mdi mdi-account mr-2"></i> {{ __('Orders') }}</h6>
+        <div class="card-body">
+
+
+            <table class="table table-sm border-top-0">
+                <thead class="thead-light">
+                <tr>
+                    <th scope="col">{{ __('Product') }}</th>
+                    <th scope="col" class="d-none d-sm-block">{{ __('Date Created') }}</th>
+                    <th scope="col">{{ __('Payment status') }}</th>
+                    <th scope="col">Reference</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for i, item in orders %}
+                    <tr>
+                        <td><a href="#" class="text-dark">{{ item.listing.title }}</a>
+                           <br/>
+                           {%  for key, val in item.choices %}
+                            {% if key != "listing_id"  %}
+                              {{key}}: {{val}} <br/>
+                            {% endif %}
+                           {% endfor %}
+                        </td>
+                        <td class="d-none d-sm-block">{{ item.created_at.toFormattedDateString() }}</td>
+                        <td>
+                          {% if item.order.status == "paid" %}
+                            Paid
+                          {% else %}
+                            Pending
+                          {% endif %}
+                        </td>
+                        <td>{{item.order.reference}}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {{ orders.links() | raw }}
+        </div>
+    </div>
+
+
+{% endblock %}

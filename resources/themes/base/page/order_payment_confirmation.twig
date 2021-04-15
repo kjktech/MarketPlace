@@ -1,0 +1,195 @@
+{% extends "layouts.app_browse_b" %}
+
+{% block styles %}
+   @import url({{ asset('themes/' ~ current_theme() ~ '/css/checkout.css') }});
+   @import url({{ asset('themes/' ~ current_theme() ~ '/css/checkout_thanks.css') }});
+{% endblock %}
+{% block hero %}{% endblock %}
+{% block content %}
+<section>
+
+       <div class="body_row">
+
+           <div class="row main_container">
+
+               <div class="thanks_container">
+
+                   <div class="check_mark_svg_container">
+
+                       <svg width="125" height="125" viewBox="0 0 125 125" fill="none" xmlns="http://www.w3.org/2000/svg">
+                           <path d="M62.4999 0C27.9838 0 0 27.9826 0 62.4999C0 97.0171 27.9838 125 62.4999 125C97.0198 125 125 97.0171 125 62.4999C125 27.9826 97.0186 0 62.4999 0ZM51.0348 94.6048L23.5148 67.086L32.6874 57.9134L51.0348 76.2597L92.3123 34.981L101.485 44.1536L51.0348 94.6048Z" fill="url(#paint0_linear)" />
+                           <defs>
+                               <linearGradient id="paint0_linear" x1="39.0624" y1="125" x2="110.243" y2="125" gradientUnits="userSpaceOnUse">
+                                   <stop stop-color="#E6B712" />
+                                   <stop offset="1" stop-color="#CAAA3B" />
+                               </linearGradient>
+                           </defs>
+                       </svg>
+
+                   </div>
+
+                   <div>
+                       <p class="thanks__text">
+                           Thank You!
+                       </p>
+
+                       <div class="thanks__order_num">
+                           Order No: {{ items.reference }}
+                       </div>
+                   </div>
+
+               </div>
+
+               <h3 class="steps__title">
+                   NEXT STEPS
+               </h3>
+
+               <div class="details-box">
+
+                   <div>
+                       <div class="details-box__header details-box__header--order">
+
+                           <h3 class="details-box__header-title">
+                               <span class="details-box__numbering">1.</span>
+                               CONFIRMATION
+                           </h3>
+
+                       </div>
+
+                       <div class="details-content details-content--row">
+                           <p class="details-content__text">Congratulations! Your order was successfully submitted. A confirmation email has been sent to you
+                               and our Customer Service may contact you to verify your order.</p>
+
+                       </div>
+                   </div>
+
+                   <div>
+                       <div class="details-box__header details-box__header--order">
+
+                           <h3 class="details-box__header-title">
+                               <span class="details-box__numbering">2.</span>
+                               SHIPPING
+                           </h3>
+
+                       </div>
+
+                       <div class="details-content details-content--row">
+                           <p class="details-content__text">Your order will be prepared for shipment once it is confirmed. You will receive shopping updates soon.</p>
+
+                       </div>
+                   </div>
+
+                   <div>
+                       <div class="details-box__header details-box__header--order">
+
+                           <h3 class="details-box__header-title">
+                               <span class="details-box__numbering">3.</span>
+                               MY ACCOUNT
+                           </h3>
+
+                       </div>
+
+                       <div class="details-content details-content--row">
+                           <p class="details-content__text">You can follow the status of your order by clicking on “My Orders” in your account.</p>
+
+                       </div>
+                   </div>
+
+               </div>
+
+               <button class="chkout-btn chkout-btn--color">
+                   <span>CONTINUE SHOPPING</span>
+               </button>
+
+               <h3 class="steps__title">
+                   ORDER SUMMARY
+               </h3>
+
+               <div class="details-box">
+                   <div class="details-box__header details-box__header--order">
+                       <h3 class="details-box__header-title">
+                          {% set item_count = items.items|length %}
+                           YOUR ORDER ({{ item_count }} Item)
+                       </h3>
+
+                   </div>
+
+                   <div class="details-content details-content--row">
+
+                       <div class="product_container_side">
+                           {% for item in items.items %}
+                           <div class="product_summary_list">
+                               <div class="summary_product_container">
+
+                                   <div class="summary_product__img-container">
+
+                                       <img src="{{ cart_content(item.listing_id)  }}" class="item__img" alt="item picture">
+
+                                   </div>
+
+                                   <div class="summary_product_details">
+
+
+                                       <p class="details-content__text details-content__text--black">
+                                           {{ item.listing.title }}
+                                       </p>
+
+                                       <p class="checkout-calc__p checkout-calc__p--currency checkout-calc__p--no-space">
+                                           &#x20A6;&nbsp;{{ item.price }}
+                                       </p>
+
+                                       <p class="checkout-calc__p checkout-calc__p--no-space item__quant">Qty: {{ item.quantity }}</p>
+                                   </div>
+
+                               </div>
+                           </div>
+                           {% endfor %}
+
+                       </div>
+
+
+
+                       <div>
+
+                           <div>
+
+
+                               <div class="upper_calc">
+                                   <div class="checkout-calc">
+
+                                       <p class="checkout-calc__p checkout-calc__p--no-space">Subtotal</p>
+                                       <p class="checkout-calc__p">&#x20A6;&nbsp;{{ items.amount }}</p>
+
+                                   </div>
+                                   <div class="checkout-calc">
+
+                                       <p class="checkout-calc__p checkout-calc__p--no-space">Shipping Amount</p>
+                                       <p class="checkout-calc__p">&#x20A6;&nbsp;500</p>
+
+                                   </div>
+                               </div>
+                               <div class="checkout-calc">
+
+                                   <p class="checkout-calc__p checkout-calc__p--total" style="padding-left: 0">Total</p>
+                                   <p class="checkout-calc__p checkout-calc__p--currency">₦&nbsp;{{ items.amount + 500 }}</p>
+                               </div>
+
+
+
+                           </div>
+
+
+                       </div>
+
+
+                   </div>
+
+               </div>
+
+           </div>
+
+       </div>
+
+   </section>
+
+{% endblock %}

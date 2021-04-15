@@ -1,0 +1,70 @@
+{% extends "layouts.app_master_dashboard" %}
+
+{% block content %}
+<style>
+    .panel-table .panel-body .table-bordered{
+        border-style: none;
+        margin:0;
+        width: 680px;
+    }
+    .panel-table .panel-body .table-bordered > thead > tr > th:last-of-type {
+        text-align:center;
+    }
+</style>
+
+<div class="row  pt-sm-5 pb-5">
+<section class="seller-profile">
+    <div class="row">
+        <br/>
+        <div class="col-md-10 col-md-offset-4">
+           {% if stores|length > 0 %}
+            <div class="panel panel-default panel-table">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col col-md-11">
+                            <h2 class="panel-title">{{ __('Stores') }}</h2>
+                        </div>
+                        <div class="col col-md-1">
+                            <!--<a href="{{route('createstore.store')}}" class="btn btn-sm btn-danger btn-create">Create New</a>-->
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="panel-body">
+                    <table class="table table-striped table-bordered table-list">
+                        <thead>
+                        <tr>
+                            <th class="hidden-xs">{{ __('Title') }}</th>
+                            <th>{{ __('Date Created') }}</th>
+                            <th>{{ __('Activated On') }}</th>
+                            <th><em class="fa fa-cog"></em></th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for i, item in stores %}
+                            <tr>
+                                <td><a href="{{ item.url }}/page" class="text-dark">{{ item.name | str_limit(40) }}</a></td>
+                                <td class="hidden-xs">{{ item.created_at.toFormattedDateString() }}</td>
+                                <td class="hidden-xs">{{ item.is_admin_verified }}</td>
+                                <td align="center">
+                                    <a href="{{ item.edit_url }}" class="btn btn-danger"><em class="fa fa-pencil"></em></a>
+                                    <a href="store/{{ item.id }}" class="btn btn-warning"><em class="fa fa-eye"></em></a>
+                                    <a href="{{route('transaction', {'shopping' : item})}}" class="btn btn-success"><em class="fa fa-percent"></em></a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        {{ stores.links() | raw }}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            {% else %}
+              <h1>You need to create a store under a registered business</h1>
+            {% endif %}
+        </div>
+    </div>
+</section>
+</div>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
+{% endblock %}

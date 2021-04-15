@@ -1,0 +1,477 @@
+<style>
+  .input-stepper {
+      background: white;
+      border: 2px solid #dedede;
+      display: inline-block;
+      font-size: 20px;
+      margin-bottom: 0px;
+      padding: 5px;
+          padding-top: 5px;
+          padding-bottom: 5px;
+      padding-top: 3px;
+      padding-bottom: 8px;
+      width: 130px;
+  }
+.input-stepper button {
+-webkit-appearance: none;
+-moz-appearance: none;
+appearance: none;
+background-color: transparent;
+border: none;
+cursor: pointer;
+font-size: 20px;
+}
+
+.input-stepper button[disabled] {
+cursor: not-allowed;
+opacity: .4;
+}
+
+.input-stepper button i {
+color: #262a2d;
+}
+
+.input-stepper input {
+-webkit-appearance: none;
+-moz-appearance: none;
+appearance: none;
+border: none;
+font-size: 20px;
+text-align: center;
+width: 36px;
+}
+.fa-plus::before {
+    content: "\f067";
+    font-size: 12px;
+}
+.fa-minus::before {
+    content: "\f067";
+    font-size: 12px;
+}
+.quickview__modal-info a {
+   float: none;
+}
+.quickview__modal-colour {
+    margin-top: 0px;
+}
+.quickview__modal-info {
+    width: 170px;
+}
+.input-container{
+  justify-content: space-between;
+}
+@media screen and (max-width: 658px) {
+  .quickview__modal-button-wrapper {
+    flex-wrap: wrap;
+ }
+ .input-stepper{
+   width: 48%;
+   margin-left: 20px;
+   margin-bottom: 15px;
+ }
+ .marketplace__product-quickview-btn{
+
+ }
+ .input-container{
+   display: block !important;
+ }
+ .quantity-hd{
+   margin-left: 20px;
+ }
+}
+
+@media screen and (max-width: 404px) {
+
+ .marketplace__product-quickview-btn{
+   margin-bottom: 15px;
+ }
+
+}
+</style>
+   <div style="display: table;">
+    <div style="display: table-row;">
+    <div style="display: table-cell; width: 50%;">
+    {% if listing.variant_options %}
+        {% for name,variation in listing.variant_options %}
+         {% if name == "Size" %}
+          <div class="quickview__modal-sizing">
+
+            <h4>{{ _l(name) }}</h4>
+            {{ form_hidden('variant['~name~']', array_combine(variation, variation)|first, {'class' : 'form-control form-control-sm variant-input', 'data-variant': name}) }}
+            <div class="quickview__modal-size">
+              {% for variation in array_combine(variation, variation) %}
+                {% if loop.index == 1 %}
+                 <div data-input={{name}} data-id="{{variation}}" class="{{ name }}_class quickview__modal-size-individual selected">{{ variation }}</div>
+                {% else %}
+                 <div data-input={{name}} data-id="{{variation}}" class="{{ name }}_class quickview__modal-size-individual">{{ variation }}</div>
+                {% endif %}
+              {% endfor %}
+            </div>
+            <br>
+            </div>
+          {% else %}
+          <div class="quickview__modal-colour-wrapper">
+              <h4>{{ _l(name) }}</h4>
+              {{ form_hidden('variant['~name~']', array_combine(variation, variation)|first, {'class' : 'form-control form-control-sm variant-input', 'data-variant': name}) }}
+              <div>
+                 {% for variation in array_combine(variation, variation) %}
+
+                  {% if loop.index == 1 %}
+                   <!--<div data-input={{name}} data-id="{{variation}}" class="{{ name }}_class quickview__modal-size-individual selected">{{ variation }}</div>-->
+                   <div class="quickview__modal-colour-individual">
+                       <div data-input={{name}} data-id="{{variation}}" class="{{ name }}_class quickview__modal-size-individual selected"></div>
+                       <span>{{ variation }}</span>
+                   </div>
+
+                  {% else %}
+                   <!--<div data-input={{name}} data-id="{{variation}}" class="{{ name }}_class quickview__modal-size-individual">{{ variation }}</div>-->
+                   <div class="quickview__modal-colour-individual">
+                       <div data-input={{name}} data-id="{{variation}}" class="{{ name }}_class quickview__modal-size-individual"></div>
+                       <span>{{ variation }}</span>
+                   </div>
+                  {% endif %}
+                {% endfor %}
+              </div>
+          </div>
+          {% endif %}
+        {% endfor %}
+    {% endif %}
+    </div>
+    <div style="display: table-cell;" class="quickview__modal-colour d-flex">
+
+  <div class="quickview__modal-info">
+      <!--<a>Size Guidelines</a>-->
+      <div style="margin-top: 30px;">
+          <p><span>Sold By:</span> <a href="{{ route('shopping.vendor', {'shopping' : listing.store, 'slug': listing.store.slug}) }}"> {{ listing.store.name }} </a></p>
+      </div>
+      <div>
+         {% if listing.totalSales().0.quantity %}
+           <p><span>{{ listing.totalSales().0.quantity }}+</span> Successful Sales</p>
+         {% else %}
+           <!--<p><span>0</span> Successful Sales</p>-->
+         {% endif %}
+      </div>
+      <div>
+          <!--<p><span>Seller Score:</span><span class="quickview__modal-info-seller-score">4.7/5</span></p>-->
+      </div>
+      <div>
+          <p><span>Delivery:</span> Get it in Lagos by Friday. Allow up to 2
+              aditional
+              days for other cities</p>
+      </div>
+  </div>
+    </div>
+    </div>
+   </div>
+  {% if listing.stock >= 1 and listing.is_published %}
+  <div class="quickview__modal-button-wrapper">
+    <h4 class="quantity-hd">Quantity</h4>
+    <div class="d-flex input-container">
+    <div class="input-stepper">
+     <button class="minus"><i class="fa fa-minus"></i></button>
+      <input id="quantity-input" type="text" value="{{selected_quantity}}" />
+     <button class="plus"><i class="fa fa-plus"></i></button>
+    </div>
+    <button class="buynow btn btn-primary marketplace__product-quickview-btn">Buy Now</button>
+    <button class="addcart btn btn-primary quickview__modal-quantity-addtocart">Add to Cart <i class="add-spinner fa fa-refresh fa-spin" aria-hidden="true"></i></button>
+   </div>
+   {% if listing.showWholeSale() %}
+     <br>
+     <div>
+      <button class="btn btn-primary marketplace__product-quickview-btn" style="margin-left: 0px; background: linear-gradient(90deg, #1B8F18 31.25%, #1B8F28 88.19%);">
+      Buy WholeSale
+      </button>
+     </div>
+   {% endif %}
+</div>
+{% else %}
+    {{ form_hidden('quantity', 1) }}
+    Product not active
+{% endif %}
+<script src="{{ asset('themes/' ~ current_theme() ~ '/js/jquery.min.js') }}"></script>
+<script>
+  /*
+   $.ajaxSetup({
+    headers: {
+    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+   });
+   */
+    //$('.pop').webuiPopover();
+    // Add to cart function
+    $(document).ready(function(){
+
+      $('.quickview__modal-size-individual').on('click', function(){
+        var variant_name = $(this).data('id');
+        var variant_input = $(this).data('input');
+        var input_name = `'variant[${variant_input}]'`;
+        //alert(input_name);
+         //$(this).removeClass("selected");
+         $("." + variant_input + "_class").removeClass("selected");
+         $(this).addClass("selected");
+         $("input[name=" + input_name + "]").val(variant_name);
+      })
+      $('.quickview__modal-colour-individual').on('click', function(){
+        var variant_name = $(this).data('id');
+        var variant_input = $(this).data('input');
+        var input_name = `'variant[${variant_input}]'`;
+        //alert(input_name);
+         //$(this).removeClass("selected");
+         $("." + variant_input + "_class").removeClass("selected");
+         $(this).addClass("selected");
+         $("input[name=" + input_name + "]").val(variant_name);
+      })
+      $('.add-spinner').hide();
+      var listing_quantity = {{quantity_max}};
+      var total_cart = "{{ price }}";
+      var listing_id = "{{ listing.id }}";
+      var listing_name = "{{ listing.title }}";
+      var options = '';
+      var add_cart = false;
+      $(".addcart").on('click', function(e){
+        //alert('Coming soon');
+        //return;
+       //alert($('meta[name="csrf-token"]').attr('content'));
+
+        options = '';
+        e.preventDefault();
+        var variant_count = 0;
+        var numItems = $('.variant-input').length
+        $('.variant-input').each(function() {
+         //test
+
+         if($(this).val() != ""){
+          variant_count = variant_count + 1;
+          if(options == ''){
+           options = $(this).data('variant') + "_" + $(this).val();
+          }else{
+           options = options + "," + $(this).data('variant') + "_" + $(this).val();
+          }
+         }
+        });
+
+        var post_var = {};
+        if(options != ""){
+          post_var['options'] = options;
+        }
+        var quantity = $('#quantity-input').val();
+        if(numItems != variant_count || quantity == 0){
+          alert("Please select all options including quantity");
+          return;
+        }
+        //var quantity = $('select[name=quantity]').val();
+
+        post_var['quantity'] = quantity
+        post_var['listing_name'] = listing_name;
+        post_var['total'] = total_cart;
+        post_var['listing_id'] = listing_id;
+        //alert("Pop cart " + quantity);
+        if(add_cart == false){
+        $('.add-spinner').show();
+        add_cart = true;
+        $.ajax({
+            url: '../../shop',
+            type: "POST",
+            data: post_var,
+            beforeSend: function(xhr) {
+              xhr.setRequestHeader("X-CSRF-TOKEN", $('meta[name="csrf-token"]').attr('content'));
+            },
+            success: function(data) {
+               add_cart = false;
+               $('.add-spinner').hide();
+               alert('Successful added to cart');
+            },
+            error: function(data) {
+               add_cart = false;
+               alert('Error occured');
+            },
+            complete: function(data) {
+              add_cart = false;
+              $('.add-spinner').hide();
+            }
+        });
+        }else{
+           alert('Please wait');
+        }
+      });
+      // Buy Now
+
+      $(".buynow").on('click', function(e){
+        //alert('Coming soon');
+        //return;
+       //alert($('meta[name="csrf-token"]').attr('content'));
+
+        options = '';
+        e.preventDefault();
+        var variant_count = 0;
+        var numItems = $('.variant-input').length
+        $('.variant-input').each(function() {
+         //test
+
+         if($(this).val() != ""){
+          variant_count = variant_count + 1;
+          if(options == ''){
+           options = $(this).data('variant') + "_" + $(this).val();
+          }else{
+           options = options + "," + $(this).data('variant') + "_" + $(this).val();
+          }
+         }
+        });
+
+        var post_var = {};
+        if(options != ""){
+          post_var['options'] = options;
+        }
+        var quantity = $('#quantity-input').val();
+        if(numItems != variant_count || quantity == 0){
+          alert("Please select all options including quantity");
+          return;
+        }
+        //var quantity = $('select[name=quantity]').val();
+
+        post_var['quantity'] = quantity
+        post_var['listing_name'] = listing_name;
+        post_var['total'] = total_cart;
+        post_var['listing_id'] = listing_id;
+        //alert("Pop cart " + quantity);
+        if(add_cart == false){
+        $('.add-spinner').show();
+        add_cart = true;
+        $.ajax({
+            url: '../../shop',
+            type: "POST",
+            data: post_var,
+            beforeSend: function(xhr) {
+              xhr.setRequestHeader("X-CSRF-TOKEN", $('meta[name="csrf-token"]').attr('content'));
+            },
+            success: function(data) {
+               add_cart = false;
+               $('.add-spinner').hide();
+               location = "{{ route('checkoutb') }}";
+               //alert('Successful added to cart');
+            },
+            error: function(data) {
+               add_cart = false;
+               alert('Error occured');
+            },
+            complete: function(data) {
+              add_cart = false;
+              $('.add-spinner').hide();
+            }
+        });
+        }else{
+           alert('Please wait');
+        }
+      });
+
+      // stepper func
+      var stepper = function () {
+        var stepperNumber,
+            minusButton;
+
+        return {
+
+          allSteppers: $( '.input-stepper' ),
+
+          // check to see if the input is at '0'...
+          checkStepperNumber: function ( thisStepper ) {
+            stepperInput = $( thisStepper ).find( 'input' );
+            stepperNumber = stepperInput.val();
+            decrementButton = $( thisStepper ).find( 'button.minus' );
+            incrementButton = $( thisStepper ).find( 'button.plus' );
+            if ( stepperNumber === '0' || stepperNumber <= 0 ) {
+              // if so, disable the minus button.
+              decrementButton.prop( 'disabled', true );
+              stepperInput.val( 0 );
+              $('#quantity-hidden').val(0);
+              $('#quantity-request').val(0);
+            } else {
+              // if number is positive, enable the minus button
+              decrementButton.prop( 'disabled', false );
+            }
+
+            if ( stepperNumber === listing_quantity || stepperNumber > listing_quantity ) {
+              // if so, plus the minus button.
+              incrementButton.prop( 'disabled', true );
+              stepperInput.val( listing_quantity );
+              $('#quantity-hidden').val(listing_quantity);
+              $('#quantity-request').val(listing_quantity);
+            } else {
+              // if number is positive, enable the minus button
+              incrementButton.prop( 'disabled', false );
+            }
+
+          },
+
+          init: function () {
+            stepper.allSteppers.each( function ( index, element ) {
+              var thisStepperInput = $( element ).find( 'input' );
+              var thisMinusButton = $( element ).find( 'button.minus' );
+
+              if ( thisStepperInput.val() === '0' || thisStepperInput.val() <= 0 ) {
+                thisMinusButton.prop( 'disabled', true );
+                thisStepperInput.val( 0 );
+                $('#quantity-hidden').val(0);
+                $('#quantity-request').val(0);
+              } else {
+                // if number is positive, enable the minus button
+                thisMinusButton.prop( 'disabled', false );
+              }
+            });
+          }
+
+        }
+      }();
+
+      // on button.plus click ...
+      $( '.input-stepper button.plus' ).on( 'click', function ( e ) {
+        e.preventDefault();
+        thisStepper = $( e.target ).closest( '.input-stepper' );
+        stepperInput = thisStepper.find( 'input' );
+
+        // check the input value
+        stepperNumber = stepperInput.val();
+
+        // increment the input value
+        stepperNumber++;
+        stepperInput.val( stepperNumber );
+        $('#quantity-hidden').val(stepperNumber);
+        $('#quantity-request').val(stepperNumber);
+        // then check the stepper number
+        stepper.checkStepperNumber( thisStepper );
+        //Intercooler.triggerRequest('.checkout-form');
+      });
+
+      // on button.minus click ...
+      $( '.input-stepper button.minus' ).on( 'click', function ( e ) {
+        e.preventDefault();
+        thisStepper = $( e.target ).closest( '.input-stepper' );
+        stepperInput = thisStepper.find( 'input' );
+
+        // check the input value
+        stepperNumber = stepperInput.val();
+
+        // decrement the input value
+        stepperNumber--;
+        stepperInput.val( stepperNumber );
+        $('#quantity-hidden').val(stepperNumber);
+        $('#quantity-request').val(stepperNumber);
+        // then check the stepper number
+        stepper.checkStepperNumber( thisStepper );
+        //Intercooler.triggerRequest('.checkout-form');
+      });
+
+      // on input field blur ...
+      $( '.input-stepper input' ).on( 'blur', function ( e ) {
+        thisStepper = $( e.target ).closest( '.input-stepper' );
+        // check the stepper number
+        stepper.checkStepperNumber( thisStepper );
+      });
+
+      // check the stepper number on load
+      if ( $( '.input-stepper' ).length ) {
+        stepper.init();
+       }
+      // end stepper
+    });
+</script>

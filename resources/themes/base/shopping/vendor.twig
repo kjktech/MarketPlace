@@ -1,0 +1,615 @@
+{% extends "layouts.app_base_layout" %}
+
+{% block content %}
+<style>
+  .loaderdot,
+  .loaderdot:before,
+  .loaderdot:after {
+    border-radius: 50%;
+    width: 2.5em;
+    height: 2.5em;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation: load7 1.8s infinite ease-in-out;
+    animation: load7 1.8s infinite ease-in-out;
+  }
+  .loaderdot {
+    color: #CAAA3B;
+    font-size: 10px;
+    margin: 120px auto;
+    position: relative;
+    text-indent: -9999em;
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-animation-delay: -0.16s;
+    animation-delay: -0.16s;
+  }
+  .loaderdot:before,
+  .loaderdot:after {
+    content: '';
+    position: absolute;
+    top: 0;
+  }
+  .loaderdot:before {
+    left: -3.5em;
+    -webkit-animation-delay: -0.32s;
+    animation-delay: -0.32s;
+  }
+  .loaderdot:after {
+    left: 3.5em;
+  }
+  @-webkit-keyframes load7 {
+    0%,
+    80%,
+    100% {
+      box-shadow: 0 2.5em 0 -1.3em;
+    }
+    40% {
+      box-shadow: 0 2.5em 0 0;
+    }
+  }
+  @keyframes load7 {
+    0%,
+    80%,
+    100% {
+      box-shadow: 0 2.5em 0 -1.3em;
+    }
+    40% {
+      box-shadow: 0 2.5em 0 0;
+    }
+  }
+  .rating{
+   cursor: pointer;
+  }
+</style>
+<section>
+    <div class="product__section-container row">
+
+        <div class="scroll__relative  scroll__fixed">
+            <aside class="product__navigations">
+                <div class="filters">
+                    <h6 class="filter__title">Filters</h6>
+                    <h6><a href="" class="filter__reset-btn">Reset</a></h6>
+                </div>
+                <div class="filters__first-nav">
+                    <h6 class="filter__category-title">Categories</h6>
+                    <ul class="filter__category-list-container">
+                         {#
+                         {% for item in category_present %}
+                          <li class="filter__category-list"><a href="" class="filter__category-link" :active>{{item.category.name}}</a><span
+                                class="right increased-font">({{ item.total }})</span></li>
+                         {% endfor %}
+                         #}
+                           {% for parent_category in parent_categories %}
+                            <li class="filter__category-list"><a class="filter__category-link" data-category="{{ parent_category.parent_id }}" href="{{ request().fullUrlWithQuery({'category' : parent_category.parent_id}) }}" class="category-link text-capitalize"><i class="fa fa-caret-left" aria-hidden="true"></i>
+                            {{ _l(parent_category.name)}}</a></li>
+                           {% endfor %}
+
+
+                            {% for level_category in level_categories %}
+                             {% if filter %}
+                              {% if level_category.id in filter_value %}
+                               <p class="categories__clear"><a class="filter__category-link" data-category="{{ level_category.id }}" href="{{ request().fullUrlWithQuery({'category' : level_category.id}) }}" class="category-link text-capitalize text-{{ (category and level_category.id == category.id)?'primary':'muted' }}">{{ _l(level_category.name) }}</a></p>
+                              {% endif %}
+                             {% else %}
+                              <p class="categories__clear"><a class="filter__category-link" data-category="{{ level_category.id }}" href="{{ request().fullUrlWithQuery({'category' : level_category.id}) }}" class="category-link text-capitalize text-{{ (category and level_category.id == category.id)?'primary':'muted' }}">{{ _l(level_category.name) }}</a></p>
+                             {% endif %}
+                            {% endfor %}
+
+
+                    </ul>
+                </div>
+
+                <form class="auto_submit_item">
+                  {{ form_hidden( 'category',  category_id) }}
+                  <!--
+                    <div class="form__sections">
+                        <div>
+                            <span class="--title">Shipped from</span><span class="minus__ship right">&#8212;</span>
+                            <span class="right plus__ship">&#43;</span><br /><br />
+                            <div class="inset ship--toggle">
+                                <input type="checkbox" id="Nigeria">
+                                <label for="Nigeria" class="input__text">Nigeria</label>
+                                <span class="right">(100000)</span>
+                            </div>
+                        </div>
+
+                    </div>
+                    -->
+                    {% for variant in variants|slice(0, 2) %}
+                    <div class="form__sections">
+
+
+                        <div class="">
+                            <span class="--title">{{ variant.attribute }}</span><span class="right minus__size">&#8212;</span>
+                            <span class="right plus__size">&#43;</span><br /><br />
+                            <div class="search__container  size--toggle">
+                                <input type="search" id="form__size-search" placeholder="Search {{ variant.attribute }}">
+                                <img src="{{ asset('themes/' ~ current_theme() ~ '/images/vendor/search__gold.svg') }}">
+                            </div>
+                            <div class="inset form__sections--scroll animated fadeIn size--toggle">
+                                {% for value in variant.values %}
+                                  <div class="spacer">
+                                    <input data-value="{{ value }}" type="checkbox" data-id="{{ variant.attribute }}" class="variant_picker {{ variant.attribute }}_check">
+                                    <label for="large" class="input__text">{{ value }}</label>
+                                    <span class="right"></span>
+                                  </div>
+                                {% endfor %}
+                            </div>
+                            <input name="variant[]" class="{{ variant.attribute }}_hidden variant_hidden" type="hidden" />
+                        </div>
+
+                    </div>
+                    {% endfor %}
+                    <!--
+                    <div class="form__sections">
+
+                        <div class="">
+                            <span class="--title">Colour</span><span class="right minus__colour">&#8212;</span>
+                            <span class="right plus__colour">&#43;</span>
+                            <br /><br />
+
+                            <div class="inset form__sections--scroll animated fadeIn colour--toggle">
+                                <div class="spacer">
+                                    <input type="checkbox" id="multi">
+                                    <label for="multi" class="input__text">Multi</label>
+                                    <span class="right">(100000)</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    -->
+                    <div class="form__sections">
+                        <input id="brand-input" type="hidden" name="brand-input" />
+                        <div class="">
+                            <span class="--title">Brand</span><span class="right minus__brand">&#8212;</span>
+                            <span class="right plus__brand">&#43;</span><br /><br />
+
+                            <div class="inset form__sections--scroll animated fadeIn brand--toggle">
+                                <div class="spacer">
+                                    <input data-id=0 type="checkbox" class="brand">
+                                    <label for="Generic" class="input__text">Generic</label>
+                                    <span class="right"></span>
+                                </div>
+                                {% for brand in brands %}
+                                <div class="spacer">
+                                    <input data-id={{ brand.id }} type="checkbox" class="brand">
+                                    <label for="Generic" class="input__text">{{ brand.name }}</label>
+                                    <span class="right"></span>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form__sections">
+
+                            <div class="">
+                                <span class="--title">Price</span><span class="right minus__price">&#8212;</span>
+                                <span class="right plus__price">&#43;</span><br />
+                                <div class="price__centering price--toggle animated fadeIn">
+                                    <div style="padding: 15px">
+                                        <div id="slider-range"></div>
+                                    </div>
+                                    <div class="range__input">
+                                        <span>₦</span><input name="price_from" type="text" id="amount1">
+
+
+                                        <span>₦</span><input name="price_to" type="text" id="amount2">
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    <div class="form__sections">
+                        <input id="rating-input" type="hidden" name="rating" />
+                        <div class="">
+                            <span class="--title">Ratings</span><span class="right minus__ratings">&#8212;</span>
+                            <span class="right plus__ratings">&#43;</span>
+                            <br /><br />
+
+                            <div class=" form__sections--scroll  animated fadeIn ratings--toggle">
+
+                                 <div data-rate=5 class="spacer rating">
+                                    <span class="input__text inset">
+                                        <img src="{{ asset('themes/' ~ current_theme() ~ '/images/ratings.svg') }}" height="13px" width="13px" alt="rating">
+                                        <img src="{{ asset('themes/' ~ current_theme() ~ '/images/ratings.svg') }}" height="13px" width="13px" alt="rating">
+                                        <img src="{{ asset('themes/' ~ current_theme() ~ '/images/ratings.svg') }}" height="13px" width="13px" alt="rating">
+                                        <img src="{{ asset('themes/' ~ current_theme() ~ '/images/ratings.svg') }}" height="13px" width="13px" alt="rating">
+                                        <img src="{{ asset('themes/' ~ current_theme() ~ '/images/ratings.svg') }}" height="13px" width="13px" alt="rating">
+                                    </span>
+                                    <span class="right">5 Star</span>
+                                </div>
+                                <div data-rate=4 class="spacer rating">
+                                    <span class="input__text inset">
+                                        <img src="{{ asset('themes/' ~ current_theme() ~ '/images/ratings.svg') }}" height="13px" width="13px" alt="rating">
+                                        <img src="{{ asset('themes/' ~ current_theme() ~ '/images/ratings.svg') }}" height="13px" width="13px" alt="rating">
+                                        <img src="{{ asset('themes/' ~ current_theme() ~ '/images/ratings.svg') }}" height="13px" width="13px" alt="rating">
+                                        <img src="{{ asset('themes/' ~ current_theme() ~ '/images/ratings.svg') }}" height="13px" width="13px" alt="rating">
+                                        <img src="{{ asset('themes/' ~ current_theme() ~ '/images/ratins-none.svg') }}" height="13px" width="13px" alt="rating">
+                                    </span>
+                                    <span class="right">4 Star</span>
+                                </div>
+                                <div data-rate=3 class="spacer rating">
+                                    <span class="input__text inset">
+                                        <img src="{{ asset('themes/' ~ current_theme() ~ '/images/ratings.svg') }}" height="13px" width="13px" alt="rating">
+                                        <img src="{{ asset('themes/' ~ current_theme() ~ '/images/ratings.svg') }}" height="13px" width="13px" alt="rating">
+                                        <img src="{{ asset('themes/' ~ current_theme() ~ '/images/ratings.svg') }}" height="13px" width="13px" alt="rating">
+                                        <img src="{{ asset('themes/' ~ current_theme() ~ '/images/ratins-none.svg') }}" height="13px" width="13px" alt="rating">
+                                        <img src="{{ asset('themes/' ~ current_theme() ~ '/images/ratins-none.svg') }}" height="13px" width="13px" alt="rating">
+                                        <span class="right">3 Star</span>
+                                </div>
+                                <div data-rate=2 class="spacer rating">
+                                    <span class="input__text inset">
+                                        <img src="{{ asset('themes/' ~ current_theme() ~ '/images/ratings.svg') }}" height="13px" width="13px" alt="rating">
+                                        <img src="{{ asset('themes/' ~ current_theme() ~ '/images/ratings.svg') }}" height="13px" width="13px" alt="rating">
+                                        <img src="{{ asset('themes/' ~ current_theme() ~ '/images/ratins-none.svg') }}" height="13px" width="13px" alt="rating">
+                                        <img src="{{ asset('themes/' ~ current_theme() ~ '/images/ratins-none.svg') }}" height="13px" width="13px" alt="rating">
+                                        <img src="{{ asset('themes/' ~ current_theme() ~ '/images/ratins-none.svg') }}" height="13px" width="13px" alt="rating">
+                                    </span>
+                                    <span class="right">2 Star</span>
+                                </div>
+                                <div data-rate=1 class="spacer rating">
+                                    <span class="input__text inset">
+                                        <img src="{{ asset('themes/' ~ current_theme() ~ '/images/ratings.svg') }}" height="13px" width="13px" alt="rating">
+                                        <img src="{{ asset('themes/' ~ current_theme() ~ '/images/ratins-none.svg') }}" height="13px" width="13px" alt="rating">
+                                        <img src="{{ asset('themes/' ~ current_theme() ~ '/images/ratins-none.svg') }}" height="13px" width="13px" alt="rating">
+                                        <img src="{{ asset('themes/' ~ current_theme() ~ '/images/ratins-none.svg') }}" height="13px" width="13px" alt="rating">
+                                        <img src="{{ asset('themes/' ~ current_theme() ~ '/images/ratins-none.svg') }}" height="13px" width="13px" alt="rating">
+                                    </span>
+                                    <span class="right">1 Star</span>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    {% for variant in variants|slice(3, variants.length -1 ) %}
+                    <div class="form__sections">
+
+
+                        <div class="">
+                            <span class="--title">{{ variant.attribute }}</span><span class="right minus__size">&#8212;</span>
+                            <span class="right plus__size">&#43;</span><br /><br />
+                            <div class="search__container  size--toggle">
+                                <input type="search" id="form__size-search" placeholder="Search {{ variant.attribute }}">
+                                <img src="{{ asset('themes/' ~ current_theme() ~ '/images/vendor/search__gold.svg') }}">
+                            </div>
+                            <div class="inset form__sections--scroll animated fadeIn size--toggle">
+                                {% for value in variant.values %}
+                                <div class="spacer">
+                                    <input type="checkbox" data-id="{{ variant.attribute }}" class="variant_picker {{ variant.attribute }}_check">
+                                    <label for="large" class="input__text">{{ value }}</label>
+                                    <span class="right"></span>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <input name="variant[]" class="{{ variant.attribute }}_hidden variant_hidden" type="hidden" />
+                        </div>
+
+                    </div>
+                    {% endfor %}
+                    <div class="form__sections">
+                       <input id="discount-input" name="discount_hidden" type="hidden"/>
+                        <div class="">
+                            <span class="--title">Discount</span><span class="right minus__discount">&#8212;</span>
+                            <span class="right plus__discount">&#43;</span>
+                            <br />
+                            <span class="right clear-discount">Clear</span>
+                            <br />
+
+                            <div class="inset form__sections--scroll  animated fadeIn discount--toggle">
+                                <div class="spacer">
+                                    <input name="discount" data-id=1 class="discount" type="radio" id="90">
+                                    <label for="90" class="input__text">80% - 99%</label>
+                                    <span class="right"></span>
+                                </div>
+                                <div class="spacer">
+                                    <input name="discount" data-id=2 class="discount" type="radio" id="70">
+                                    <label for="70" class="input__text">60% - 79%</label>
+                                    <span class="right"></span>
+                                </div>
+                                <div class="spacer">
+                                    <input name="discount" data-id=3 class="discount" type="radio" id="30">
+                                    <label for="30" class="input__text">20% - 39%</label>
+                                    <span class="right"></span>
+                                </div>
+                                <div class="spacer">
+                                    <input name="discount" data-id=4 class="discount" type="radio" id="10">
+                                    <label for="10" class="input__text">1% - 19%</label>
+                                    <span class="right"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </form>
+
+            </aside>
+        </div>
+
+        <div class="outer__product-container">
+            <div class="product__container">
+                <div class="title-page__nav">
+                    <div class="product__title-container">
+                        <!--<h2 class="product__title">WOMEN'S CLOTHING</h2>-->
+                        <br>
+                        <br>
+                        <p class="product__count">Products</p>
+                    </div>
+                   <!--
+                    <div class="product__pagination-container">
+                        <div class="product__pages product__pages--active">
+                            1
+                        </div>
+                        <div class="product__pages">
+                            2
+                        </div>
+                        <div class="product__pages">
+                            3
+                        </div>
+                        <div class="product__pages ellipses">
+                            ...
+                        </div>
+                        <div class="product__pages">
+                            22
+                        </div>
+                        <div class="product__pages">
+                            >
+                        </div>
+                    </div>
+                    -->
+                </div>
+                <div id="indicator" style="display: none; text-align: center; background: rgba(255,255,255, 0.75); width: 100%; height: 100%; position: absolute; top: 0; left: 0;">
+                    <div class="loaderdot">{{ __("Loading...") }}</div>
+                </div>
+                <div class="product-list__container">
+
+                {% for item in listing %}
+                <div class="product__card">
+                                <div class="product-modal">
+                                    <div class="product-modal__content">
+                                    <a href="{{ item.url }}" class="quick-view">View</a>
+                                    </div>
+                                </div>
+                                <div class="paper">
+                                    <div class="product-image">
+                                    <div class="badge__new-container">
+                                    <div class="badge__new">NEW</div>
+                                    </div>
+                                    <div class="img__overlay">
+                                        <img src="{{ item.cover_image}}" class="product__img" alt="product">
+                                    </div>
+                                        <span class="product__badge"></span>
+                                    </div>
+
+                                    <div>
+                                        <span class="brand__name"></span>
+                                        <hr>
+                                        <span class="full__brand-name">
+                                            {{ item.title}}
+                                        </span>
+
+                                        <div class="price-details">
+                                            <p class="price">
+                                            &#x20A6;{{ item.price}}
+                                            </p>
+                                            <p class="percentage__off">
+                                                {{ item.discount}}
+                                            </p>
+                                        </div>
+                                        <div class="ratings-numbers">
+                                            <div class="ratings">
+
+                                            </div>
+                                            <div class="numbers">
+                                                {{ item.quantity}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                          {% endfor %}
+                </div>
+
+            </div>
+           <!--
+            <div class="product__pagination-container">
+                <div class="product__pages product__pages--active">
+                    1
+                </div>
+                <div class="product__pages">
+                    2
+                </div>
+                <div class="product__pages">
+                    3
+                </div>
+                <div class="product__pages ellipses">
+                    ...
+                </div>
+                <div class="product__pages">
+                    22
+                </div>
+                <div class="product__pages">
+                    >
+                </div>
+            </div>
+            -->
+
+            <div class="search__history">
+                <h6 class="search__title">You didn't find what you want? Go back to the top</h6>
+                <div class="search__product-container">
+
+                </div>
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+
+
+</section>
+{% endblock %}
+{% block scripts %}
+  <script src="{{ asset('themes/' ~ current_theme() ~ '/js/vendor.js')}}"></script>
+  <script>
+    var xhr = null
+  $(document).ready(function(){
+   $(".discount").click(function(){
+      let discount_id = $(this).data('id');
+      $("#discount-input").val(discount_id);
+      var url = '{{ route('shopping.vendor', {'shopping' : store, 'slug': store.slug}) }}?' + $(".auto_submit_item").awesomeFormSerializer({
+
+      });
+      loadPage(url);
+   });
+   $(".brand").click(function(){
+     let brand_check_val = "";
+     $(".brand").each(function(i, obj){
+       //console.log( $(obj).data('value') );
+       if($(obj).prop("checked") == true){
+         if(brand_check_val == ""){
+           brand_check_val = $(obj).data('id');
+         }else{
+           brand_check_val = brand_check_val + "_" + $(obj).data('id');
+         }
+       }
+     });
+     if(brand_check_val != ""){
+       $("#brand-input").val(brand_check_val);
+       var url = '{{ route('shopping.vendor', {'shopping' : store, 'slug': store.slug}) }}?' + $(".auto_submit_item").awesomeFormSerializer({
+
+       });
+       loadPage(url);
+     }
+   });
+   $(".variant_picker").click(function(){
+     let class_id = $(this).data('id');
+     // go through and create val
+     let class_hidden = "." + class_id + "_hidden";
+     let class_check = "." + class_id + "_check";
+     var push_val = "";
+     var check_val = "";
+     $(class_check).each(function(i, obj){
+       //console.log( $(obj).data('value') );
+       if($(obj).prop("checked") == true){
+         if(check_val == ""){
+           check_val = $(obj).data('value');
+         }else{
+           check_val = check_val + "_" + $(obj).data('value');
+         }
+       }
+     });
+     if(check_val != ""){
+       push_val = class_id + "_" + check_val;
+       //console.log( push_val );
+       $(class_hidden).val(push_val);
+     }else{
+       $(class_hidden).val("");
+     }
+
+     var url = '{{ route('shopping.vendor', {'shopping' : store, 'slug': store.slug}) }}?' + $(".auto_submit_item").awesomeFormSerializer({
+         /*city: $(this).data('city'),*/
+     });
+     loadPage(url);
+   });
+  });
+
+  function loadPage(url) {
+
+      if (xhr && xhr.readyState < 4) {
+          xhr.abort();
+      }
+      $('#indicator').show();
+      var start_time = new Date();
+
+      xhr = $.ajax({
+          url: url,
+          success: function (data) {
+            $(".filters__first-nav").html($(data).find(".filters__first-nav").html());
+            $(".product-list__container").html($(data).find(".product-list__container").html());
+            initListings();
+          },
+          complete: function (data) {
+            $('#indicator').hide();
+          }
+      });
+  }
+  $(function () {
+      $("#slider-range").slider({
+          range: true,
+          min: 0,
+          max: 500000,
+          values: [0, 500000],
+          slide: function (event, ui) {
+              $("#amount1").val(ui.values[0]);
+              $("#amount2").val(ui.values[1]);
+
+              //loadPage(url);
+          },
+          change: function(event, ui) {
+            var url = '{{ route('shopping.vendor', {'shopping' : store, 'slug': store.slug}) }}?' + $(".auto_submit_item").awesomeFormSerializer({
+                /*city: $(this).data('city'),*/
+            });
+            loadPage(url);
+          },
+      });
+      $("#amount1").val($("#slider-range").slider("values", 0));
+      $("#amount2").val($("#slider-range").slider("values", 1));
+
+
+      $("#amount1").bind("change paste keyup", function () {
+          $("#slider-range").slider("", 7000)
+
+      });
+  });
+  $(".filter__category-link").click(function (e) {
+      e.preventDefault();
+      var url = '{{ route('shopping.vendor', {'shopping' : store, 'slug': store.slug}) }}?' + $(".auto_submit_item").awesomeFormSerializer({
+          category: $(this).data('category'),
+      });
+      loadPage(url);
+  });
+  $(".rating").on('click', function (e) {
+      let rating = $(this).data('rate');
+      $("#rating-input").val(rating);
+      var url = '{{ route('shopping.vendor', {'shopping' : store, 'slug': store.slug}) }}?' + $(".auto_submit_item").awesomeFormSerializer({
+
+      });
+      loadPage(url);
+  });
+  function initListings() {
+
+
+      //on click categories submit new URL
+      $(".filter__category-link").click(function (e) {
+          e.preventDefault();
+          var url = '{{ route('shopping.vendor', {'shopping' : store, 'slug': store.slug}) }}?' + $(".auto_submit_item").awesomeFormSerializer({
+              category: $(this).data('category'),
+          });
+          loadPage(url);
+      });
+
+  }
+  $(function () {
+      initListings();
+  });
+  $(".clear-discount").on('click', function(){
+    $(".discount").prop("checked", false);
+    $("#discount-input").val('');
+    var url = '{{ categoryUrl(category.id, category.slug) }}?' + $(".auto_submit_item").awesomeFormSerializer({
+
+    });
+    loadPage(url);
+  });
+  </script>
+{% endblock %}

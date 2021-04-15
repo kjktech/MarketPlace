@@ -1,0 +1,855 @@
+{% extends "layouts.app_marketplace" %}
+{% block content %}
+<div class="hero-ad-container row">
+        <!-- <div class="marketplace__hero"> -->
+        <div class="slides">
+            <div class="slider__outer-cont">
+                <div class="slider__container">
+                    <div class="slide--market"></div>
+                    <div class="slide--market"></div>
+                    <div class="slide--market"></div>
+                    <div class="slide--market"></div>
+                    <div class="slide--market"></div>
+                </div>
+            </div>
+
+            <div class="legend__controller">
+                <div class=".control">
+                    <img src="{{ asset('themes/' ~ current_theme() ~ '/icon2/pause.svg')}}" class="pause" height="10px">
+                    <img src="{{ asset('themes/' ~ current_theme() ~ '/icon2/play-button.svg')}}" class="hide play" height="10px" width="10px">
+                </div>
+                <div class="legend legend--active"></div>
+                <div class="legend"></div>
+                <div class="legend"></div>
+                <div class="legend"></div>
+                <div class="legend"></div>
+            </div>
+            <div class="hero--text">Perfume Tips &
+                <br> Tricks
+                <br>
+                <a href="" class="btn btn--hero">Shop Now</a>
+            </div>
+
+            <img class="hero__slider-nav" src="{{ asset('themes/' ~ current_theme() ~ '/icon2/slider-nav.svg')}}">
+            <img class="hero__slider-nav--left" src="{{ asset('themes/' ~ current_theme() ~ '/icon2/slider-left-nav.svg')}}">
+        </div>
+
+        <div class="hero__next"></div>
+        <div class="hero__previous"></div>
+        <!-- </div> -->
+        <section class="ml-auto tring-hard">
+            <div class="marketplace__topAd">
+                <div class="marketplace__topAd-info">
+                    <svg class="icon icon-sell-on">
+                        <use xlink:href="#icon-sell-on"></use>
+                    </svg>
+                    <div>
+                        <h3>Sell on Afiaanyi</h3>
+                        <a href="#">Become a Vendor!</a>
+                    </div>
+                </div>
+                <div class="marketplace__topAd-info">
+                    <svg class="icon icon-delivery">
+                        <use xlink:href="#icon-delivery"></use>
+                    </svg>
+                    <div>
+                        <h3>Free returns</h3>
+                        <a href="#">Within 7 days</a>
+                    </div>
+                </div>
+                <div class="marketplace__topAd-info">
+                    <svg class="icon icon-offers">
+                        <use xlink:href="#icon-offers"></use>
+                    </svg>
+                    <div>
+                        <h3>exclusive offers</h3>
+                        <a href="#">Download Afiaanyi App</a>
+                    </div>
+                </div>
+            </div>
+            <div class="marketplace__topAd-banner">
+                <img src="{{ asset('themes/' ~ current_theme() ~ '/images/top-banner.png')}}" alt="" class="img-fluid">
+            </div>
+        </section>
+
+
+
+
+        <!-- <div class="advert-space">
+            <div class="advert-space__upper-division">
+                <p>SELL ON AFIANYI
+                    <span>
+                        <br>Become a Vendor!</span>
+                </p>
+
+
+                <p>FREE RETURNS
+                    <span>
+                        <br>Within 7 days</span>
+                </p>
+
+
+                <p>EXCLUSIVE OFFERS
+                    <span>
+                        <br>Download Afiaanyi app</span>
+                </p>
+
+            </div>
+            <div class="advert-space__lower-division">
+                <img src="resources/img/top-deal.svg">
+            </div>
+        </div> -->
+
+    </div>
+
+<section class="marketplace__featured-brand">
+    <h3 class="marketplace__section-heading">Featured Brands</h3>
+    <div class="marketplace__featured-brand-wrapper">
+       {% for brand in featured_brands %}
+        <div class="marketplace__featured-individual-brand marketplace__featured-individual-brand-one">
+
+            <div class="marketplace__featured-individual-brand-overlay">
+                <div class="marketplace__featured-individual-brand-info">
+                    <h3>{{ brand.name }}</h3>
+                    <p>
+                       {% set contentnew = brand.description|striptags %}
+
+                       {{ contentnew|length > 67 ? contentnew|slice(0, 67) ~ ' more ...' : contentnew  }}
+                    </p>
+                    <a href="{{ brand.is_topbrand ? route('branding.showtopbrands', {'id' : brand, 'slug' : str_slug(brand.name)}) : route('branding', {'id' : brand, 'slug' : str_slug(brand.name)}) }}" class="marketplace__featured-individual-brand-info-button btn btn-primary">Explore our
+                        Catalogue</a>
+                </div>
+            </div>
+        </div>
+       {% endfor %}
+    </div>
+</section>
+
+<section class="marketplace__banner">
+    <img src="{{ asset('themes/' ~ current_theme() ~ '/images/banner-one.png') }}" alt="Ad banner" class="img-fluid w-100" style="min-height: 73px;">
+</section>
+
+<section class="marketplace__top-deal">
+    <div class="marketplace__top-deal-banner">
+        <img src="{{ asset('themes/' ~ current_theme() ~ '/images/top-deal-banner.png') }}" alt="Top Deal banner" class="img-fluid">
+    </div>
+    <div class="marketplace__product-wrapper">
+      {% for item in discount %}
+        <div class="marketplace__product">
+            <div class="marketplace__product-image">
+                <img height="200" src="{{ item.cover_image }}" alt="" class="img-fluid">
+                <div class="marketplace__product-new">New</div>
+                <div class="marketplace__product-quickview">
+                    <a href="{{item.url}}" data-id={{item.id}} class="btn btn-primary marketplace__product-quickview-btn">Quick View</a>
+                </div>
+            </div>
+            <div class="marketplace__product-details">
+                <small class="marketplace__product-brand">{{ item.brand.name }}</small>
+                <hr class="marketplace__product-line">
+                <a href="#" class="marketplace__product-name">{{ item.title }}</a>
+                <div class="marketplace__product-price-wrapper">
+                    <p class="marketplace__product-price"><span>₦</span>55,990.00</p>
+                    <div class="marketplace__product-discount">
+                        -{{ item.discount }}%
+                    </div>
+                </div>
+                <div class="marketplace__product-rating">
+                    <svg class="icon icon-star marketplace__product-rating-stars">
+                        <use xlink:href="#icon-star"></use>
+                    </svg>
+                    <svg class="icon icon-star marketplace__product-rating-stars">
+                        <use xlink:href="#icon-star"></use>
+                    </svg>
+                    <svg class="icon icon-star marketplace__product-rating-stars">
+                        <use xlink:href="#icon-star"></use>
+                    </svg>
+                    <svg class="icon icon-star marketplace__product-rating-stars">
+                        <use xlink:href="#icon-star"></use>
+                    </svg>
+                    <svg class="icon icon-star marketplace__product-rating-stars">
+                        <use xlink:href="#icon-star"></use>
+                    </svg>
+                    <p class="marketplace__product-rating-number">(899)</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="marketplace__recommended">
+    <div class="marketplace__recommended-wrapper">
+        <div class="marketplace__recommended-top">
+            <svg class="icon icon-recommended">
+                <use xlink:href="#icon-recommended"></use>
+            </svg>
+            <span class="marketplace__recommended-heading">Recommended for you</span>
+        </div>
+        <div class="marketplace__recommended-options-wrapper nav flex-column nav-pills" id="v-pills-tab" role="tablist"
+            aria-orientation="vertical">
+            <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab"
+                aria-controls="v-pills-home" aria-selected="true">your recommendations
+                <svg class="icon icon-arrow-next">
+                    <use xlink:href="#icon-arrow-next"></use>
+                </svg>
+            </a>
+            <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab"
+                aria-controls="v-pills-profile" aria-selected="false">Most Popular
+                <svg class="icon icon-arrow-next">
+                    <use xlink:href="#icon-arrow-next"></use>
+                </svg>
+            </a>
+            <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab"
+                aria-controls="v-pills-messages" aria-selected="false">Best of phones
+                <svg class="icon icon-arrow-next">
+                    <use xlink:href="#icon-arrow-next"></use>
+                </svg>
+            </a>
+            <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab"
+                aria-controls="v-pills-settings" aria-selected="false">Top picks in Appliances
+                <svg class="icon icon-arrow-next">
+                    <use xlink:href="#icon-arrow-next"></use>
+                </svg>
+            </a>
+            <a class="nav-link" id="v-pills-fashion-tab" data-toggle="pill" href="#v-pills-fashion" role="tab"
+                aria-controls="v-pills-fashion" aria-selected="false">Top picks in fashion
+                <svg class="icon icon-arrow-next">
+                    <use xlink:href="#icon-arrow-next"></use>
+                </svg>
+            </a>
+        </div>
+    </div>
+    <div class="tab-content" id="v-pills-tabContent" style="min-width: 0;
+    min-height: 0;">
+        <div class="marketplace__product-wrapper marketplace__tab tab-pane fade show active" id="v-pills-home" role="tabpanel"
+            aria-labelledby="v-pills-home-tab">
+            {% for item in discount %}
+            <div class="marketplace__product">
+                <div class="marketplace__product-image">
+                    <img src="{{ item.cover_image }}" alt="" class="img-fluid">
+                    <div class="marketplace__product-new">New</div>
+                    <div class="marketplace__product-quickview">
+                        <a href="{{item.url}}" data-id={{item.id}} class="btn btn-primary marketplace__product-quickview-btn">Quick View</a>
+                    </div>
+                </div>
+                <div class="marketplace__product-details">
+                    <small class="marketplace__product-brand">{{ item.brand.name }}</small>
+                    <hr class="marketplace__product-line">
+                    <a href="#" class="marketplace__product-name">{{ item.title }}</a>
+                    <div class="marketplace__product-price-wrapper">
+                        <p class="marketplace__product-price"><span>₦</span>{{ item.price }}</p>
+                        <div class="marketplace__product-discount">
+                            -{{ item.discount }}%
+                        </div>
+                    </div>
+                    <div class="marketplace__product-rating">
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <p class="marketplace__product-rating-number">(899)</p>
+                    </div>
+                </div>
+            </div>
+
+            {% endfor %}
+        </div>
+        <div class="marketplace__product-wrapper marketplace__tab tab-pane fade" id="v-pills-profile" role="tabpanel"
+            aria-labelledby="v-pills-profile-tab">
+            {% for item in best_sellers %}
+            <div class="marketplace__product">
+                <div class="marketplace__product-image">
+                    <img src="{{ item.cover_image }}" alt="" class="img-fluid">
+                    <div class="marketplace__product-new">New</div>
+                    <div class="marketplace__product-quickview">
+                        <a href="{{item.url}}" data-id={{item.id}} class="btn btn-primary marketplace__product-quickview-btn">Quick View</a>
+                    </div>
+                </div>
+                <div class="marketplace__product-details">
+                    <small class="marketplace__product-brand">{{ item.brand.name }}</small>
+                    <hr class="marketplace__product-line">
+                    <a href="#" class="marketplace__product-name">{{ item.title }}</a>
+                    <div class="marketplace__product-price-wrapper">
+                        <p class="marketplace__product-price"><span>₦</span>{{ item.price }}</p>
+                        <div class="marketplace__product-discount">
+                            -{{ item.discount }}%
+                        </div>
+                    </div>
+                    <div class="marketplace__product-rating">
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <p class="marketplace__product-rating-number">(899)</p>
+                    </div>
+                </div>
+            </div>
+
+            {% endfor %}
+
+        </div>
+        <div class="marketplace__product-wrapper marketplace__tab tab-pane fade" id="v-pills-messages" role="tabpanel"
+            aria-labelledby="v-pills-messages-tab">
+            {% for item in best_phone %}
+            <div class="marketplace__product">
+                <div class="marketplace__product-image">
+                    <img src="{{ item.cover_image }}" alt="" class="img-fluid">
+                    <div class="marketplace__product-new">New</div>
+                    <div class="marketplace__product-quickview">
+                        <a href="{{item.url}}" data-id={{item.id}} class="btn btn-primary marketplace__product-quickview-btn">Quick View</a>
+                    </div>
+                </div>
+                <div class="marketplace__product-details">
+                    <small class="marketplace__product-brand">{{ item.brand.name }}</small>
+                    <hr class="marketplace__product-line">
+                    <a href="#" class="marketplace__product-name">{{ item.title }}</a>
+                    <div class="marketplace__product-price-wrapper">
+                        <p class="marketplace__product-price"><span>₦</span>{{ item.price }}</p>
+                        <div class="marketplace__product-discount">
+                            -{{ item.discount }}%
+                        </div>
+                    </div>
+                    <div class="marketplace__product-rating">
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <p class="marketplace__product-rating-number">(899)</p>
+                    </div>
+                </div>
+            </div>
+
+            {% endfor %}
+
+        </div>
+        <div class="marketplace__product-wrapper marketplace__tab tab-pane fade" id="v-pills-settings" role="tabpanel"
+            aria-labelledby="v-pills-settings-tab">
+            {% for item in listing_appliance %}
+            <div class="marketplace__product">
+                <div class="marketplace__product-image">
+                    <img src="{{ item.cover_image }}" alt="" class="img-fluid">
+                    <div class="marketplace__product-new">New</div>
+                    <div class="marketplace__product-quickview">
+                        <a href="{{item.url}}" data-id={{item.id}} class="btn btn-primary marketplace__product-quickview-btn">Quick View</a>
+                    </div>
+                </div>
+                <div class="marketplace__product-details">
+                    <small class="marketplace__product-brand">{{ item.brand.name }}</small>
+                    <hr class="marketplace__product-line">
+                    <a href="#" class="marketplace__product-name">{{ item.title }}</a>
+                    <div class="marketplace__product-price-wrapper">
+                        <p class="marketplace__product-price"><span>₦</span>{{ item.price }}</p>
+                        <div class="marketplace__product-discount">
+                            -{{ item.discount }}%
+                        </div>
+                    </div>
+                    <div class="marketplace__product-rating">
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <p class="marketplace__product-rating-number">(899)</p>
+                    </div>
+                </div>
+            </div>
+
+            {% endfor %}
+
+        </div>
+        <div class="marketplace__product-wrapper marketplace__tab tab-pane fade" id="v-pills-fashion" role="tabpanel"
+            aria-labelledby="v-pills-fashion-tab">
+            {% for item in listing_fashion %}
+            <div class="marketplace__product">
+                <div class="marketplace__product-image">
+                    <img src="{{ item.cover_image }}" alt="" class="img-fluid">
+                    <div class="marketplace__product-new">New</div>
+                    <div class="marketplace__product-quickview">
+                        <a href="{{item.url}}" data-id={{item.id}} class="btn btn-primary marketplace__product-quickview-btn">Quick View</a>
+                    </div>
+                </div>
+                <div class="marketplace__product-details">
+                    <small class="marketplace__product-brand">{{ item.brand.name }}</small>
+                    <hr class="marketplace__product-line">
+                    <a href="#" class="marketplace__product-name">{{ item.title }}</a>
+                    <div class="marketplace__product-price-wrapper">
+                        <p class="marketplace__product-price"><span>₦</span>{{ item.price }}</p>
+                        <div class="marketplace__product-discount">
+                            -{{ item.discount }}%
+                        </div>
+                    </div>
+                    <div class="marketplace__product-rating">
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <p class="marketplace__product-rating-number">(899)</p>
+                    </div>
+                </div>
+            </div>
+
+            {% endfor %}
+
+        </div>
+    </div>
+
+
+</section>
+
+
+<section class="marketplace__stores">
+    <div class="marketplace__recommended-wrapper marketplace__stores-wrapper">
+        <div class="marketplace__recommended-top">
+            <svg class="icon icon-phones-tablet">
+                <use xlink:href="#icon-phones-tablet"></use>
+            </svg>
+            <span class="marketplace__recommended-heading marketplace__stores-heading">{{ results_test.0.header.name }}</span>
+        </div>
+        <div class="marketplace__recommended-options-wrapper marketplace__stores-options-wrapper">
+            <div class="marketplace__stores-brand text-center">
+                <a href="#">
+                    <img src="{{ asset('themes/' ~  current_theme()  ~ '/images/sony.png') }}" alt="sony brand logo" class="img-fluid">
+                </a>
+            </div>
+            <div class="marketplace__stores-brand text-center">
+                <a href="#">
+                    <img src="{{ asset('themes/' ~  current_theme()  ~ '/images/htc.jpg') }}" alt="sony brand logo" class="img-fluid">
+                </a>
+            </div>
+            <div class="marketplace__stores-brand text-center">
+                <a href="#">
+                    <img src="{{ asset('themes/' ~  current_theme()  ~ '/images/samsung.jpg') }}" alt="sony brand logo" class="img-fluid">
+                </a>
+            </div>
+            <div class="marketplace__stores-brand text-center">
+                <a href="#">
+                    <img src="{{ asset('themes/' ~  current_theme()  ~ '/images/blackberry.jpg') }}" alt="sony brand logo" class="img-fluid">
+                </a>
+            </div>
+            <div class="marketplace__stores-brand text-center">
+                <a href="#">
+                    <img src="{{ asset('themes/' ~  current_theme()  ~ '/images/Lenovo.jpg') }}" alt="sony brand logo" class="img-fluid">
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="marketplace__stores-explore">
+        <div class="marketplace__stores-explore-top">
+            <p>Explore Our stores</p>
+        </div>
+        <div class="marketplace__stores-explore-products">
+            <!-- smart phones -->
+            {% for item in results_test.0.other %}
+            {% if item.depth == 1 %}
+             <a href="#">
+                <h3 class="marketplace__stores-explore-products-heading">{{ item.name }}</h3>
+             </a>
+            {% else %}
+            <a href="#">
+                <p class="marketplace__stores-explore-products-name">{{ item.name }}</p>
+            </a>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    <div class="marketplace__stores-banner">
+        <img src="{{ asset('themes/' ~  current_theme()  ~ '/images/phone-banner.jpg') }}" alt="phone banner" class="img-fluid h-100">
+    </div>
+    <div class="marketplace__stores-product-slider">
+      {% for item in results_test_products.0 %}
+          {% if loop.index0 % 2 == 0 %}
+           <div class="marketplace__stores-product-slider-wrapper">
+           {% endif %}
+           <div class="{{ loop.index0 % 2 == 0 ? 'marketplace__stores-product-slider-bottom' : 'marketplace__stores-product-slider-top' }} d-flex">
+               <div class="marketplace__product">
+                   <div class="marketplace__product-image">
+                       <img src="{{ item.cover_image }}" alt="" class="img-fluid">
+                       <div class="marketplace__product-new">New</div>
+                       <div class="marketplace__product-quickview">
+                           <a href="{{item.url}}" class="btn btn-primary marketplace__product-quickview-btn">Quick View</a>
+                       </div>
+                   </div>
+                   <div class="marketplace__product-details">
+                       <small class="marketplace__product-brand">{{ item.brand.name }}</small>
+                       <hr class="marketplace__product-line">
+                       <a href="#" class="marketplace__product-name">{{ item.title }}</a>
+                       <div class="marketplace__product-price-wrapper">
+                           <p class="marketplace__product-price"><span>₦</span>{{ item.price }}</p>
+                           <div class="marketplace__product-discount">
+                               -{{ item.discount }}%
+                           </div>
+                       </div>
+                       <div class="marketplace__product-rating">
+                           <svg class="icon icon-star marketplace__product-rating-stars">
+                               <use xlink:href="#icon-star"></use>
+                           </svg>
+                           <svg class="icon icon-star marketplace__product-rating-stars">
+                               <use xlink:href="#icon-star"></use>
+                           </svg>
+                           <svg class="icon icon-star marketplace__product-rating-stars">
+                               <use xlink:href="#icon-star"></use>
+                           </svg>
+                           <svg class="icon icon-star marketplace__product-rating-stars">
+                               <use xlink:href="#icon-star"></use>
+                           </svg>
+                           <svg class="icon icon-star marketplace__product-rating-stars">
+                               <use xlink:href="#icon-star"></use>
+                           </svg>
+                           <p class="marketplace__product-rating-number">(899)</p>
+                       </div>
+                   </div>
+               </div>
+           </div>
+            {% if loop.index0 % 2 == 1 or loop.last %}
+          </div>
+         {% endif %}
+        {% endfor %}
+        <!--
+        <div class="marketplace__stores-product-slider-wrapper">
+
+
+        </div>
+        -->
+    </div>
+</section>
+
+
+<section class="marketplace__stores">
+    <div class="marketplace__recommended-wrapper marketplace__stores-wrapper marketplace__home-office">
+        <div class="marketplace__recommended-top">
+            <svg class="icon icon-home-office">
+                <use xlink:href="#icon-home-office"></use>
+            </svg>
+            <span class="marketplace__recommended-heading">{{ results_test.1.header.name }}</span>
+        </div>
+        <div class="marketplace__recommended-options-wrapper marketplace__stores-options-wrapper marketplace__home-office-options">
+            <div class="marketplace__home-office-brand text-center">
+                <a href="#">
+                    <img src="{{ asset('themes/' ~  current_theme()  ~ '/images/henkel.jpg') }}" alt="henkel brand logo" class="img-fluid">
+                </a>
+            </div>
+            <div class="marketplace__home-office-brand text-center">
+                <a href="#">
+                    <img src="{{ asset('themes/' ~  current_theme()  ~ '/images/origins.jpg') }}" alt="Origins brand logo" class="img-fluid">
+                </a>
+            </div>
+            <div class="marketplace__home-office-brand text-center">
+                <a href="#">
+                    <img src="{{ asset('themes/' ~  current_theme()  ~ '/images/Gresham.jpg') }}" alt="Gresham brand logo" class="img-fluid">
+                </a>
+            </div>
+            <div class="marketplace__home-office-brand text-center">
+                <a href="#">
+                    <img src="{{ asset('themes/' ~  current_theme()  ~ '/images/av-pro.jpg') }}" alt="sony brand logo" class="img-fluid">
+                </a>
+            </div>
+            <div class="marketplace__home-office-brand text-center">
+                <a href="#">
+                    <img src="{{ asset('themes/' ~  current_theme()  ~ '/images/home-office.jpg') }}" alt="sony brand logo" class="img-fluid">
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="marketplace__stores-explore">
+        <div class="marketplace__stores-explore-top">
+            <p>Explore Our stores</p>
+        </div>
+        <div class="marketplace__stores-explore-products">
+          {% for item in results_test.1.other %}
+          {% if item.depth == 1 %}
+           <a href="#">
+              <h3 class="marketplace__stores-explore-products-heading">{{ item.name }}</h3>
+           </a>
+          {% else %}
+          <a href="#">
+              <p class="marketplace__stores-explore-products-name">{{ item.name }}</p>
+          </a>
+          {% endif %}
+          {% endfor %}
+        </div>
+    </div>
+    <div class="marketplace__stores-banner">
+        <img src="{{ asset('themes/' ~  current_theme()  ~ '/images/home-office-banner.jpg') }}" alt="phone banner" class="img-fluid h-100">
+    </div>
+    <div class="marketplace__stores-product-slider">
+      {% for item in results_test_products.0 %}
+          {% if loop.index0 % 2 == 0 %}
+           <div class="marketplace__stores-product-slider-wrapper">
+           {% endif %}
+           <div class="{{ loop.index0 % 2 == 0 ? 'marketplace__stores-product-slider-bottom' : 'marketplace__stores-product-slider-top' }} d-flex">
+               <div class="marketplace__product">
+                   <div class="marketplace__product-image">
+                       <img src="{{ item.cover_image }}" alt="" class="img-fluid">
+                       <div class="marketplace__product-new">New</div>
+                       <div class="marketplace__product-quickview">
+                           <a href="{{item.url}}" class="btn btn-primary marketplace__product-quickview-btn">Quick View</a>
+                       </div>
+                   </div>
+                   <div class="marketplace__product-details">
+                       <small class="marketplace__product-brand">{{ item.brand.name }}</small>
+                       <hr class="marketplace__product-line">
+                       <a href="#" class="marketplace__product-name">{{ item.title }}</a>
+                       <div class="marketplace__product-price-wrapper">
+                           <p class="marketplace__product-price"><span>₦</span>{{ item.price }}</p>
+                           <div class="marketplace__product-discount">
+                               -{{ item.discount }}%
+                           </div>
+                       </div>
+                       <div class="marketplace__product-rating">
+                           <svg class="icon icon-star marketplace__product-rating-stars">
+                               <use xlink:href="#icon-star"></use>
+                           </svg>
+                           <svg class="icon icon-star marketplace__product-rating-stars">
+                               <use xlink:href="#icon-star"></use>
+                           </svg>
+                           <svg class="icon icon-star marketplace__product-rating-stars">
+                               <use xlink:href="#icon-star"></use>
+                           </svg>
+                           <svg class="icon icon-star marketplace__product-rating-stars">
+                               <use xlink:href="#icon-star"></use>
+                           </svg>
+                           <svg class="icon icon-star marketplace__product-rating-stars">
+                               <use xlink:href="#icon-star"></use>
+                           </svg>
+                           <p class="marketplace__product-rating-number">(899)</p>
+                       </div>
+                   </div>
+               </div>
+           </div>
+          {% if loop.index0 % 2 == 1 or loop.last %}
+           </div>
+          {% endif %}
+         {% endfor %}
+        <!--
+        <div class="marketplace__stores-product-slider-wrapper">
+
+
+        </div>
+        -->
+    </div>
+</section>
+
+<section class="marketplace__banner">
+    <img src="{{ asset('themes/' ~ current_theme() ~ '/images/banner-two.jpg') }}" alt="Ad banner" class="img-fluid w-100" style="min-height: 73px;">
+</section>
+
+<section class="marketplace__stores">
+    <div class="marketplace__recommended-wrapper marketplace__stores-wrapper marketplace__health-beauty">
+        <div class="marketplace__recommended-top">
+            <svg class="icon icon-health-beauty">
+                <use xlink:href="#icon-health-beauty"></use>
+            </svg>
+            <span class="marketplace__recommended-heading">{{ results_test.2.header.name }}</span>
+        </div>
+        <div class="marketplace__recommended-options-wrapper marketplace__stores-options-wrapper marketplace__home-office-options">
+            <div class="text-center">
+                <a href="#">
+                    <img src="{{ asset('themes/' ~  current_theme()  ~ '/images/hills.jpg') }}" alt="hills brand logo" class="img-fluid">
+                </a>
+            </div>
+            <div class="text-center">
+                <a href="#">
+                    <img src="{{ asset('themes/' ~  current_theme()  ~ '/images/watsons.jpg') }}" alt="watsons brand logo" class="img-fluid">
+                </a>
+            </div>
+            <div class="text-center">
+                <a href="#">
+                    <img src="{{ asset('themes/' ~  current_theme()  ~ '/images/lynx.jpg') }}" alt="lynx brand logo" class="img-fluid">
+                </a>
+            </div>
+            <div class="text-center">
+                <a href="#">
+                    <img src="{{ asset('themes/' ~  current_theme()  ~ '/images/Axe.jpg') }}" alt="Axe brand logo" class="img-fluid">
+                </a>
+            </div>
+            <div class="text-center">
+                <a href="#">
+                    <img src="{{ asset('themes/' ~  current_theme()  ~ '/images/Braun.jpg') }}" alt="Braun brand logo" class="img-fluid">
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="marketplace__stores-explore">
+        <div class="marketplace__stores-explore-top">
+            <p>Explore Our stores</p>
+        </div>
+        <div class="marketplace__stores-explore-products">
+          {% for item in results_test.2.other %}
+          {% if item.depth == 1 %}
+           <a href="#">
+              <h3 class="marketplace__stores-explore-products-heading">{{ item.name }}</h3>
+           </a>
+          {% else %}
+          <a href="#">
+              <p class="marketplace__stores-explore-products-name">{{ item.name }}</p>
+          </a>
+          {% endif %}
+          {% endfor %}
+        </div>
+    </div>
+    <div class="marketplace__stores-banner">
+        <img src="{{ asset('themes/' ~  current_theme()  ~ '/images/health-beauty.jpg') }}" alt="phone banner" class="img-fluid h-100">
+    </div>
+    <div class="marketplace__stores-product-slider">
+      {% for item in results_test_products.0 %}
+          {% if loop.index0 % 2 == 0 %}
+           <div class="marketplace__stores-product-slider-wrapper">
+           {% endif %}
+           <div class="{{ loop.index0 % 2 == 0 ? 'marketplace__stores-product-slider-bottom' : 'marketplace__stores-product-slider-top' }} d-flex">
+               <div class="marketplace__product">
+                   <div class="marketplace__product-image">
+                       <img src="{{ item.cover_image }}" alt="" class="img-fluid">
+                       <div class="marketplace__product-new">New</div>
+                       <div class="marketplace__product-quickview">
+                           <a href="{{item.url}}" class="btn btn-primary marketplace__product-quickview-btn">Quick View</a>
+                       </div>
+                   </div>
+                   <div class="marketplace__product-details">
+                       <small class="marketplace__product-brand">{{ item.brand.name }}</small>
+                       <hr class="marketplace__product-line">
+                       <a href="#" class="marketplace__product-name">{{ item.title }}</a>
+                       <div class="marketplace__product-price-wrapper">
+                           <p class="marketplace__product-price"><span>₦</span>{{ item.price }}</p>
+                           <div class="marketplace__product-discount">
+                               -{{ item.discount }}%
+                           </div>
+                       </div>
+                       <div class="marketplace__product-rating">
+                           <svg class="icon icon-star marketplace__product-rating-stars">
+                               <use xlink:href="#icon-star"></use>
+                           </svg>
+                           <svg class="icon icon-star marketplace__product-rating-stars">
+                               <use xlink:href="#icon-star"></use>
+                           </svg>
+                           <svg class="icon icon-star marketplace__product-rating-stars">
+                               <use xlink:href="#icon-star"></use>
+                           </svg>
+                           <svg class="icon icon-star marketplace__product-rating-stars">
+                               <use xlink:href="#icon-star"></use>
+                           </svg>
+                           <svg class="icon icon-star marketplace__product-rating-stars">
+                               <use xlink:href="#icon-star"></use>
+                           </svg>
+                           <p class="marketplace__product-rating-number">(899)</p>
+                       </div>
+                   </div>
+               </div>
+           </div>
+            {% if loop.index0 % 2 == 1 or loop.last %}
+          </div>
+         {% endif %}
+        {% endfor %}
+        <!--
+        <div class="marketplace__stores-product-slider-wrapper">
+
+
+        </div>
+        -->
+    </div>
+</section>
+<!--
+<div class="marketplace__loading text-center">
+    <svg class="icon icon-loading">
+        <use xlink:href="#icon-loading"></use>
+    </svg>
+    <span>Loading</span>
+</div>
+-->
+
+<section class="newsletter marketplace__newsletter">
+    <div class="row m-0">
+        <div class="col-lg-5 col-md-5 col-sm-6 col-12 mb-4 pl-0">
+            <div class="row m-0">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                    <h4 class="newsletter__head">PHONE SUPPORT</h4>
+                    <svg class="icon icon-phone newsletter__icon">
+                        <use xlink:href="#icon-phone"></use>
+                    </svg>
+                    <span class=" newsletter__info">+234 803 400 0000</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                    <h4 class="newsletter__head">EMAIL SUPPORT</h4>
+                    <svg class="icon icon-email newsletter__icon">
+                        <use xlink:href="#icon-email"></use>
+                    </svg>
+                    <span class=" newsletter__info">info@afiaanyi.com</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-7 col-md-7 col-sm-6 col-12 newsletter__get-latest">
+            <div class="row m-0">
+                <div class="col-lg-6 col-md-12 mb-3">
+                    <h4 class="newsletter__head">GET LATEST DEALS & UPDATES</h4>
+                    <p class="newsletter__info newsletter__info-getupdate">Stay in the loop on all upcoming
+                        promotions, discounts and latest
+                        updates.</p>
+                </div>
+                <div class="col-lg-6 col-md-12 pr-0">
+                    <div class="newsletter__input-wrapper">
+                        <input type="text" name="" id="" placeholder="Enter e-mail" class="newsletter__input">
+                        <div class="newsletter__input-btn">
+                            <svg class="icon icon-go">
+                                <use xlink:href="#icon-go"></use>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

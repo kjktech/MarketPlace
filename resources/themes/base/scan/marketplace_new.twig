@@ -1,0 +1,1775 @@
+{% extends "layouts.app_marketplace_new" %}
+
+{% block content %}
+<style>
+ .btn--repositioned{
+   color: black;
+   text-decoration: none;
+ }
+</style>
+<section class="featured-brands">
+        <h1 class="featured-brands__header">Featured Brands</h1>
+        <div class="featured-brands__container main_row">
+          {% for store in featured_stores | slice(0, 5) %}
+           {% set dir_image = "/images/no_image.png" %}
+           {% if store.thumbnail != "/images/no_image.png" %}
+            {% set dir_image = store.thumbnail %}
+           {% endif %}
+            <div style="background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, .3)), url({{ dir_image }});" class="feautured-brands__content featured-brands__one">
+                <div class="featured-brands__text">
+                    <h5>{{ store.name }}</h5>
+                    <p>
+                      {% set contentnew = store.description|striptags %}
+
+                      {{ contentnew|length > 67 ? contentnew|slice(0, 67) ~ ' more ...' : contentnew  }}
+                    </p>
+                </div>
+                <a href="{{ route('shopping.vendor', {shopping : store, slug: store.slug}) }}" class="btn btn--repositioned">
+                    SHOP NOW
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+
+  </section>
+
+    <section>
+
+        <a href="" class="ad-bar">
+            <img src="{{ asset('themes/' ~ current_theme() ~ '/images/banner.svg') }}" width="100%">
+            <img class="ad-bar__get-started" src="{{ asset('themes/' ~ current_theme() ~ '/images/get_started.png') }}">
+        </a>
+
+    </section>
+
+    <section>
+
+        <div class="market__roll--wrapper row">
+
+            <a href="" class="market__ad">
+                <img src="{{ asset('themes/' ~ current_theme() ~ '/images/top-deals.jpg') }}">
+            </a>
+
+
+            <div class="market__product-wrapper">
+                <img src="{{ asset('themes/' ~ current_theme() ~ '/images/prev-gold.png')}}" class="slider__prev">
+                <img src="{{ asset('themes/' ~ current_theme() ~ '/images/next-gold.png')}}" class="slider__next">
+                <div class="market_product_slider_wrapper">
+                  {% if discount_sole != "" %}
+                   {{ discount_sole | raw }}
+                  {% else %}
+                  <div class="product__card product_c_f_R">
+                      <div class="product-modal">
+                          <div class="product-modal__content">
+                              <button class="quick-view" data-toggle="modal" data-target="#exampleModal" tabindex="0">Quick View</button>
+                          </div>
+                      </div>
+                      <div class="paper">
+                          <div class="product-image">
+                              <div class="badge__new-container">
+                                  <div class="badge__new">NEW</div>
+                              </div>
+                              <div class="img__overlay">
+                                  <img src="{{ asset('themes/' ~ current_theme() ~ '/images/phone_pro.jpg')}}" class="product__img" alt="product">
+                              </div>
+                              <span class="product__badge"></span>
+                          </div>
+
+                          <div>
+                              <span class="brand__name">Google</span>
+                              <hr>
+                              <span class="full__brand-name">
+                                  Google Pixel 3 XL, Android 9, 4GB RAM, 64GB ROM...
+                              </span>
+
+                              <div class="price-details">
+                                  <p class="price">
+                                      ₦500,000
+                                  </p>
+                                  <p class="percentage__off">
+                                      22%
+                                  </p>
+                              </div>
+                              <div class="ratings-numbers">
+                                  <div class="ratings">
+                                      <div data-rating="2.5" class="first-row-rateBox">
+
+                                      </div>
+                                  </div>
+                                  <div class="numbers">
+                                      (889)
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="product__card product_c_f_R">
+                      <div class="product-modal">
+                          <div class="product-modal__content">
+                              <button class="quick-view">Quick View</button>
+                          </div>
+                      </div>
+                      <div class="paper">
+                          <div class="product-image">
+                              <div class="badge__new-container">
+                                  <div class="badge__new">NEW</div>
+                              </div>
+                              <div class="img__overlay">
+                                  <img src="{{ asset('themes/' ~ current_theme() ~ '/images/phone_pro.jpg')}}" class="product__img" alt="product">
+                              </div>
+                              <span class="product__badge"></span>
+                          </div>
+
+                          <div>
+                              <span class="brand__name">Google</span>
+                              <hr>
+                              <span class="full__brand-name">
+                                  Google Pixel 3 XL, Android 9, 4GB RAM, 64GB ROM...
+                              </span>
+
+                              <div class="price-details">
+                                  <p class="price">
+                                      ₦500,000
+                                  </p>
+                                  <p class="percentage__off">
+                                      22%
+                                  </p>
+                              </div>
+                              <div class="ratings-numbers">
+                                  <div class="ratings">
+                                      <div class="first-row-rateBox" data-rating="3"></div>
+                                  </div>
+                                  <div class="numbers">
+                                      (889)
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  {% endif %}
+                </div>
+            </div>
+
+        </div>
+
+
+    </section>
+
+    <section>
+
+        <div class="market__roll--wrapper row">
+
+            <div class="market__nav">
+                <h2 class="market__nav-title"><img src="{{ asset('themes/' ~ current_theme() ~ '/images/thumb.svg') }}">&nbsp;&nbsp;RECOMMENDATION FOR YOU</h2>
+                <ul class="market__nav--list-container">
+                    <li class="market__nav-list"><a data-id="tab_1" class="tabs market__nav-link">YOUR RECOMMENDATIONS<img src="{{ asset('themes/' ~ current_theme() ~ '/images/nav__forward.svg')}}"></a></li>
+                    <li class="market__nav-list"><a data-id="tab_2" class="tabs market__nav-link">MOST POPULAR<img src="{{ asset('themes/' ~ current_theme() ~ '/images/nav__forward.svg')}}"></a></li>
+                    <li class="market__nav-list"><a data-id="tab_3" class="tabs market__nav-link">BEST OF PHONES<img src="{{ asset('themes/' ~ current_theme() ~ '/images/nav__forward.svg')}}"></a></li>
+                    <li class="market__nav-list"><a data-id="tab_4" class="tabs market__nav-link">TOP PICKS IN APPLIANCES<img src="{{ asset('themes/' ~ current_theme() ~ '/images/nav__forward.svg')}}"></a></li>
+                    <li class="market__nav-list"><a data-id="tab_5" class="tabs market__nav-link">TOP PICKS IN FASHION<img src="{{ asset('themes/' ~ current_theme() ~ '/images/nav__forward.svg')}}"></a></li>
+                </ul>
+            </div>
+
+            <div class="market__product-wrapper market__product-wrapper--two">
+                <img src="{{ asset('themes/' ~ current_theme() ~ '/images/prev-gold.png')}}" class="slider__prev slider__prev--two">
+                <img src="{{ asset('themes/' ~ current_theme() ~ '/images/next-gold.png')}}" class="slider__next slider__next--two">
+                <div id="loader" class="market_product_slider_wrapper--two">
+
+                 {% if not discount %}
+                  <div class="product__card product__crf">
+                      <div class="product-modal">
+                          <div class="product-modal__content">
+                              <button class="quick-view">View</button>
+                          </div>
+                      </div>
+                      <div class="paper">
+                          <div class="product-image">
+                              <div class="badge__new-container">
+                                  <div class="badge__new">NEW</div>
+                              </div>
+                              <div class="img__overlay">
+                                  <img src="{{ asset('themes/' ~ current_theme() ~ '/images/phone_pro.jpg')}}" class="product__img" alt="product">
+                              </div>
+                              <span class="product__badge"></span>
+                          </div>
+
+                          <div>
+                              <span class="brand__name">Google</span>
+                              <hr>
+                              <span class="full__brand-name">
+                                  Google Pixel 3 XL, Android 9, 4GB RAM, 64GB ROM...
+                              </span>
+
+                              <div class="price-details">
+                                  <p class="price">
+                                      &#x20A6;500,000
+                                  </p>
+                                  <p class="percentage__off">
+                                      22%
+                                  </p>
+                              </div>
+                              <div class="ratings-numbers">
+                                  <div class="ratings">
+
+                                  </div>
+                                  <div class="numbers">
+                                      (889)
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="product__card product__crf">
+                      <div class="product-modal">
+                          <div class="product-modal__content">
+                              <button class="quick-view">View</button>
+                          </div>
+                      </div>
+                      <div class="paper">
+                          <div class="product-image">
+                              <div class="badge__new-container">
+                                  <div class="badge__new">NEW</div>
+                              </div>
+                              <div class="img__overlay">
+                                  <img src="{{ asset('themes/' ~ current_theme() ~ '/images/phone_pro.jpg')}}" class="product__img" alt="product">
+                              </div>
+                              <span class="product__badge"></span>
+                          </div>
+
+                          <div>
+                              <span class="brand__name">Google</span>
+                              <hr>
+                              <span class="full__brand-name">
+                                  Google Pixel 3 XL, Android 9, 4GB RAM, 64GB ROM...
+                              </span>
+
+                              <div class="price-details">
+                                  <p class="price">
+                                      &#x20A6;500,000
+                                  </p>
+                                  <p class="percentage__off">
+                                      22%
+                                  </p>
+                              </div>
+                              <div class="ratings-numbers">
+                                  <div class="ratings">
+
+                                  </div>
+                                  <div class="numbers">
+                                      (889)
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="product__card product__crf">
+                      <div class="product-modal">
+                          <div class="product-modal__content">
+                              <button class="quick-view">View</button>
+                          </div>
+                      </div>
+                      <div class="paper">
+                          <div class="product-image">
+                              <div class="badge__new-container">
+                                  <div class="badge__new">NEW</div>
+                              </div>
+                              <div class="img__overlay">
+                                  <img src="{{ asset('themes/' ~ current_theme() ~ '/images/phone_pro.jpg')}}" class="product__img" alt="product">
+                              </div>
+                              <span class="product__badge"></span>
+                          </div>
+
+                          <div>
+                              <span class="brand__name">Google</span>
+                              <hr>
+                              <span class="full__brand-name">
+                                  Google Pixel 3 XL, Android 9, 4GB RAM, 64GB ROM...
+                              </span>
+
+                              <div class="price-details">
+                                  <p class="price">
+                                      &#x20A6;500,000
+                                  </p>
+                                  <p class="percentage__off">
+                                      22%
+                                  </p>
+                              </div>
+                              <div class="ratings-numbers">
+                                  <div class="ratings">
+
+                                  </div>
+                                  <div class="numbers">
+                                      (889)
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="product__card product__crf">
+                        <div class="product-modal">
+                            <div class="product-modal__content">
+                                <button class="quick-view">View</button>
+                            </div>
+                        </div>
+                        <div class="paper">
+                            <div class="product-image">
+                                <div class="badge__new-container">
+                                    <div class="badge__new">NEW</div>
+                                </div>
+                                <div class="img__overlay">
+                                    <img src="{{ asset('themes/' ~ current_theme() ~ '/images/phone_pro.jpg')}}" class="product__img" alt="product">
+                                </div>
+                                <span class="product__badge"></span>
+                            </div>
+
+                            <div>
+                                <span class="brand__name">Google</span>
+                                <hr>
+                                <span class="full__brand-name">
+                                    Google Pixel 3 XL, Android 9, 4GB RAM, 64GB ROM...
+                                </span>
+
+                                <div class="price-details">
+                                    <p class="price">
+                                        &#x20A6;500,000
+                                    </p>
+                                    <p class="percentage__off">
+                                        22%
+                                    </p>
+                                </div>
+                                <div class="ratings-numbers">
+                                    <div class="ratings">
+
+                                    </div>
+                                    <div class="numbers">
+                                        (889)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                  </div>
+                  {% else %}
+                    {{ discount | raw }}
+                  {% endif %}
+
+                </div>
+            </div>
+
+
+        </div>
+
+    </section>
+
+    <section class="col">
+
+        <div class="market__roll--wrapper row">
+
+            <div class="market__nav-outer-container">
+
+                <div class="market__nav market__nav--second-row">
+                    <h2 class="market__nav-title market__nav-title--blue">
+
+                      {% if results_test.0.header.icon %}
+                         <img width="20px;" src="{{ results_test.0.header.icon  }}" alt="">
+                      {% else %}
+                         <img width="20px;" src="{{ asset('themes/' ~ current_theme() ~ '/icons/cat_placeholder.png') }}" alt="">
+                      {% endif %}
+                      &nbsp;&nbsp;{{ results_test.0.header.name }}
+                    </h2>
+                    <div class="market__nav--list-container market__nav--list-container--two  market-brand__logo">
+                       <!-- Brand  logos -->
+                       {% for item in catbrands(results_test.0.header.id) %}
+                         {% if item.brand.logo %}
+                          <img src={{ item.brand.logo }} />
+                         {% endif %}
+                       {% endfor %}
+
+                    </div>
+                </div>
+
+                <div class="market__nav market__nav--second-row market__nav-plain ">
+
+                    <h2 class="market__nav-title market__nav-title--black">EXPLORE OUR STORES</h2>
+                    <div class="market__nav--list-container market__nav--list-container-two">
+                      {% for item in results_test.0.other %}
+
+                       {% if item.depth == 1 %}
+                        {% if loop.index0 != 0 %}
+                         </ul>
+                        {% endif %}
+                        <ul class="market_nav_inner__container">
+                        <li class="market__nav-list"><a href="{{ categoryUrl(item.id, item.slug) }}" class="market__nav-link market__nav-link--title">{{ item.name }}</a></li>
+                       {% else %}
+                        <li class="market__nav-list"><a href="{{ categoryUrl(item.id, item.slug) }}" class="market__nav-link">{{ item.name }}</a></li>
+                      {% endif %}
+                      {% if loop.last %}
+                       </ul>
+                      {% endif %}
+                      {% endfor %}
+
+                    </div>
+                </div>
+
+                <div style="text-decoration: none;" class="market_ad_cont">
+                <div style="padding-top: 30px; font-weight: 600; display: flex; flex-direction: column; width: 100%; height: 500px; margin-left: 17px">
+                <div style="font-size: 20px; text-align: center; flex: 0.1; color: red;">
+                  {{ results_test.0.header.name | upper }}
+                </div>
+                <div style="flex: 0.8;">
+                  {% set cat_image_res = getCatImage(results_test.0.header.id) %}
+                  {% if cat_image_res == "/images/no_image.png" %}
+                    {% set cat_image = asset('themes/' ~ current_theme() ~ '/images/generic_banner.jpg') %}
+                  {% else %}
+                    {% set cat_image = cat_image_res %}
+                  {% endif %}
+                 <img style="margin-left: 0px;" src="{{ cat_image }}" />
+                </div>
+                <div style="padding-top: 20px; background-color: red; font-size: 19px; text-align: center; flex: 0.1; color: white;">
+                  OVER {{ results_test.0.count }} PRODUCTS
+                </div>
+                </div>
+                </div>
+
+            </div>
+
+            <div class="market__product-wrapper--col">
+
+                <img src="{{ asset('themes/' ~ current_theme() ~ '/images/prev-gold.png')}}" class="slider__prev_two">
+
+                <img src="{{ asset('themes/' ~ current_theme() ~ '/images/next-gold.png')}}" class="slider__next_two">
+
+
+                <div class="col_wrapper_inner_container">
+                  {% for item in results_test_products.0 %}
+                      {% if loop.index0 % 2 == 0 %}
+                       <div class="col_wrapper_inner">
+                      {% endif %}
+                        <div class="{{ loop.index0 % 2 == 0 ? 'product__card product__card--col' : 'product__card product__card--col f-r' }}">
+                            <div class="product-modal">
+                                <div class="product-modal__content">
+                                    <a href="{{ item.url }}" class="quick-view">View</a>
+                                </div>
+                            </div>
+                            <div class="paper">
+                                <div class="product-image">
+                                    <div class="badge__new-container">
+                                        <div class="badge__new">NEW</div>
+                                    </div>
+                                    <div class="img__overlay">
+                                        <img src="{{ item.cover_image }}" class="product__img" alt="product">
+                                    </div>
+                                    <span class="product__badge"></span>
+                                </div>
+
+                                <div>
+                                    <span class="brand__name">{{ ( item.brand )? item.brand.name :'Generic'}}</span>
+                                    <hr>
+                                    <span class="full__brand-name">
+                                        {{ item.title }}
+                                    </span>
+
+                                    <div class="price-details">
+                                        <p class="price">
+                                            ₦{{ item.price }}
+                                        </p>
+                                        <p class="percentage__off">
+                                            {{ item.discount }}%
+                                        </p>
+                                    </div>
+                                    <div class="ratings-numbers">
+                                        <div class="ratings">
+
+                                        </div>
+                                        <div class="numbers">
+                                        {% if item.quantity > 0 %}
+                                        {{ item.quantity }}
+                                        {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% if loop.index0 % 2 == 1 or loop.last %}
+                       </div>
+                      {% endif %}
+                      {% endfor %}
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="col">
+
+        <div class="market__roll--wrapper row">
+
+            <div class="market__nav-outer-container">
+
+                <div class="market__nav market__nav--second-row market__nav--third-row">
+                    <h2 class="market__nav-title market__nav-title--green">
+                      {% if results_test.1.header.icon %}
+                         <img width="20px;" src="{{ results_test.1.header.icon  }}" alt="">
+                      {% else %}
+                         <img width="20px;" src="{{ asset('themes/' ~ current_theme() ~ '/icons/cat_placeholder.png') }}" alt="">
+                      {% endif %}
+                      &nbsp;&nbsp;{{ results_test.1.header.name }}
+                      </h2>
+                    <div class="market__nav--list-container market-brand__logo market__nav--list-container--three">
+                        <!-- Brand  logos -->
+                        {% for item in catbrands(results_test.1.header.id) %}
+                          {% if item.brand.logo %}
+                           <img src={{ item.brand.logo }} />
+                          {% endif %}
+                        {% endfor %}
+
+                    </div>
+                </div>
+
+                <div class="market__nav market__nav--second-row market__nav-plain ">
+
+                    <h2 class="market__nav-title market__nav-title--black">EXPLORE OUR STORES</h2>
+                    <div class="market__nav--list-container market__nav--list-container-two">
+                      {% for item in results_test.1.other %}
+
+                       {% if item.depth == 1 %}
+                        {% if loop.index0 != 0 %}
+                         </ul>
+                        {% endif %}
+                        <ul class="market_nav_inner__container">
+                        <li class="market__nav-list"><a href="{{ categoryUrl(item.id, item.slug) }}" class="market__nav-link market__nav-link--title">{{ item.name }}</a></li>
+                       {% else %}
+                        <li class="market__nav-list"><a href="{{ categoryUrl(item.id, item.slug) }}" class="market__nav-link">{{ item.name }}</a></li>
+                      {% endif %}
+                      {% if loop.last %}
+                       </ul>
+                      {% endif %}
+                      {% endfor %}
+                    </div>
+                </div>
+
+                <div style="text-decoration: none !important;" href="" class="market_ad_cont">
+                    <!--<img src="resources/img/home.jpg">-->
+                    <div style="padding-top: 30px; font-weight: 600; display: flex; flex-direction: column; width: 100%; height: 500px; margin-left: 17px">
+                    <div style="font-size: 20px; text-align: center; flex: 0.1; color: red;">
+                      {{ results_test.1.header.name | upper }}
+                    </div>
+                    <div style="flex: 0.8;">
+                      {% set cat_image_res = getCatImage(results_test.1.header.id) %}
+                      {% if cat_image_res == "/images/no_image.png" %}
+                        {% set cat_image = asset('themes/' ~ current_theme() ~ '/images/generic_banner.jpg') %}
+                      {% else %}
+                        {% set cat_image = cat_image_res %}
+                      {% endif %}
+                     <img style="margin-left: 0px;" src="{{ cat_image }}" />
+                    </div>
+                    <div style="padding-top: 20px; background-color: red; font-size: 19px; text-align: center; flex: 0.1; color: white;">
+                      OVER {{ results_test.1.count }} PRODUCTS
+                    </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="market__product-wrapper--col">
+
+                <img src="{{ asset('themes/' ~ current_theme() ~ '/images/prev-gold.png')}}" class="slider__prev_two slider__prev_three">
+
+                <img src="{{ asset('themes/' ~ current_theme() ~ '/images/next-gold.png')}}" class="slider__next_two slider__next_three">
+
+                <div class="col_wrapper_inner_container--two">
+                  {% for item in results_test_products.0 %}
+                      {% if loop.index0 % 2 == 0 %}
+                       <div class="col_wrapper_inner--two">
+                      {% endif %}
+                        <div class="{{ loop.index0 % 2 == 0 ? 'product__card product__card--col' : 'product__card product__card--col f-r' }}">
+                            <div class="product-modal">
+                                <div class="product-modal__content">
+                                    <a href="{{ item.url }}" class="quick-view">View</a>
+                                </div>
+                            </div>
+                            <div class="paper">
+                                <div class="product-image">
+                                    <div class="badge__new-container">
+                                        <div class="badge__new">NEW</div>
+                                    </div>
+                                    <div class="img__overlay">
+                                        <img src="{{ item.cover_image }}" class="product__img" alt="product">
+                                    </div>
+                                    <span class="product__badge"></span>
+                                </div>
+
+                                <div>
+                                    <span class="brand__name">{{ ( item.brand )? item.brand.name :'Generic'}}</span>
+                                    <hr>
+                                    <span class="full__brand-name">
+                                        {{ item.title }}
+                                    </span>
+
+                                    <div class="price-details">
+                                        <p class="price">
+                                            ₦{{ item.price }}
+                                        </p>
+                                        <p class="percentage__off">
+                                            {{ item.discount }}%
+                                        </p>
+                                    </div>
+                                    <div class="ratings-numbers">
+                                        <div class="ratings">
+
+                                        </div>
+                                        <div class="numbers">
+                                            {% if item.quantity > 0 %}
+                                            {{ item.quantity }}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% if loop.index0 % 2 == 1 or loop.last %}
+                       </div>
+                      {% endif %}
+                      {% endfor %}
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <section>
+        <a href="" class="ad-bar">
+            <img src="{{ asset('themes/' ~ current_theme() ~ '/images/banner3.jpg') }}" width="100%">
+        </a>
+    </section>
+
+    <section>
+
+        <div class="market__roll--wrapper row">
+
+            <div class="market__nav-outer-container">
+
+                <div class="market__nav market__nav--second-row market__nav market__nav--fourth-row">
+                    <h2 class="market__nav-title market__nav-title--purple">
+                      {% if results_test.2.header.icon %}
+                         <img width="20px;" src="{{ results_test.2.header.icon  }}" alt="">
+                      {% else %}
+                         <img width="20px;" src="{{ asset('themes/' ~ current_theme() ~ '/icons/cat_placeholder.png') }}" alt="">
+                      {% endif %}
+                      &nbsp;&nbsp;{{ results_test.2.header.name }}
+                    </h2>
+                    <div class="market__nav--list-container market-brand__logo">
+                        <!-- Brand  -->
+                        {% for item in catbrands(results_test.2.header.id) %}
+                          {% if item.brand.logo %}
+                           <img src={{ item.brand.logo }} />
+                          {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="market__nav market__nav--second-row market__nav-plain ">
+
+                    <h2 class="market__nav-title market__nav-title--black">EXPLORE OUR STORES</h2>
+                    <div class="market__nav--list-container market__nav--list-container-two">
+                      {% for item in results_test.2.other %}
+
+                       {% if item.depth == 1 %}
+                        {% if loop.index0 != 0 %}
+                         </ul>
+                        {% endif %}
+                        <ul class="market_nav_inner__container">
+                        <li class="market__nav-list"><a href="{{ categoryUrl(item.id, item.slug) }}" class="market__nav-link market__nav-link--title">{{ item.name }}</a></li>
+                       {% else %}
+                        <li class="market__nav-list"><a href="{{ categoryUrl(item.id, item.slug) }}" class="market__nav-link">{{ item.name }}</a></li>
+                      {% endif %}
+                      {% if loop.last %}
+                       </ul>
+                      {% endif %}
+                      {% endfor %}
+                    </div>
+                </div>
+
+                <div style="text-decoration: none;" href="" class="market_ad_cont">
+                <div style="padding-top: 30px; font-weight: 600; display: flex; flex-direction: column; width: 100%; height: 500px; margin-left: 17px">
+                <div style="font-size: 20px; text-align: center; flex: 0.1; color: red;">
+                  {{ results_test.2.header.name | upper }}
+                </div>
+                <div style="flex: 0.8;">
+                  {% set cat_image_res = getCatImage(results_test.2.header.id) %}
+                  {% if cat_image_res == "/images/no_image.png" %}
+                    {% set cat_image = asset('themes/' ~ current_theme() ~ '/images/generic_banner.jpg') %}
+                  {% else %}
+                    {% set cat_image = cat_image_res %}
+                  {% endif %}
+                 <img style="margin-left: 0px;" src="{{ cat_image }}" />
+                </div>
+                <div style="padding-top: 20px; background-color: red; font-size: 19px; text-align: center; flex: 0.1; color: white;">
+                  OVER {{ results_test.2.count }} PRODUCTS
+                </div>
+                </div>
+                </div>
+
+            </div>
+
+            <div class="market__product-wrapper--col">
+
+                <img src="{{ asset('themes/' ~ current_theme() ~ '/images/prev-gold.png')}}" class="slider__prev_two slider__prev_four">
+
+                <img src="{{ asset('themes/' ~ current_theme() ~ '/images/next-gold.png')}}" class="slider__next_two slider__next_four">
+
+
+                <div class="col_wrapper_inner_container--three">
+                  {% for item in results_test_products.0 %}
+                      {% if loop.index0 % 2 == 0 %}
+                       <div class="col_wrapper_inner--three">
+                      {% endif %}
+                        <div class="{{ loop.index0 % 2 == 0 ? 'product__card product__card--col' : 'product__card product__card--col f-r' }}">
+                            <div class="product-modal">
+                                <div class="product-modal__content">
+                                    <a href="{{ item.url }}" class="quick-view">View</a>
+                                </div>
+                            </div>
+                            <div class="paper">
+                                <div class="product-image">
+                                    <div class="badge__new-container">
+                                        <div class="badge__new">NEW</div>
+                                    </div>
+                                    <div class="img__overlay">
+                                        <img src="{{ item.cover_image }}" class="product__img" alt="product">
+                                    </div>
+                                    <span class="product__badge"></span>
+                                </div>
+
+                                <div>
+                                    <span class="brand__name">{{ ( item.brand )? item.brand.name :'Generic'}}</span>
+                                    <hr>
+                                    <span class="full__brand-name">
+                                        {{ item.title }}
+                                    </span>
+
+                                    <div class="price-details">
+                                        <p class="price">
+                                            ₦{{ item.price }}
+                                        </p>
+                                        <p class="percentage__off">
+                                            {{ item.discount }}%
+                                        </p>
+                                    </div>
+                                    <div class="ratings-numbers">
+                                        <div class="ratings">
+
+                                        </div>
+                                        <div class="numbers">
+                                        {% if item.quantity > 0 %}
+                                        {{ item.quantity }}
+                                        {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% if loop.index0 % 2 == 1 or loop.last %}
+                       </div>
+                      {% endif %}
+                      {% endfor %}
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <script>
+       let tab_1 = `<div class="product__card product__crf">
+           <div class="product-modal">
+               <div class="product-modal__content">
+                   <button class="quick-view">View</button>
+               </div>
+           </div>
+           <div class="paper">
+               <div class="product-image">
+                   <div class="badge__new-container">
+                       <div class="badge__new">NEW</div>
+                   </div>
+                   <div class="img__overlay">
+                       <img src="{{ asset('themes/' ~ current_theme() ~ '/images/phone_pro.jpg')}}" class="product__img" alt="product">
+                   </div>
+                   <span class="product__badge"></span>
+               </div>
+
+               <div>
+                   <span class="brand__name">Google</span>
+                   <hr>
+                   <span class="full__brand-name">
+                       Google Pixel 3 XL, Android 9, 4GB RAM, 64GB ROM...
+                   </span>
+
+                   <div class="price-details">
+                       <p class="price">
+                           &#x20A6;500,000
+                       </p>
+                       <p class="percentage__off">
+                           22%
+                       </p>
+                   </div>
+                   <div class="ratings-numbers">
+                       <div class="ratings">
+
+                       </div>
+                       <div class="numbers">
+                           (889)
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+
+       <div class="product__card product__crf">
+           <div class="product-modal">
+               <div class="product-modal__content">
+                   <button class="quick-view">View</button>
+               </div>
+           </div>
+           <div class="paper">
+               <div class="product-image">
+                   <div class="badge__new-container">
+                       <div class="badge__new">NEW</div>
+                   </div>
+                   <div class="img__overlay">
+                       <img src="{{ asset('themes/' ~ current_theme() ~ '/images/phone_pro.jpg')}}" class="product__img" alt="product">
+                   </div>
+                   <span class="product__badge"></span>
+               </div>
+
+               <div>
+                   <span class="brand__name">Google</span>
+                   <hr>
+                   <span class="full__brand-name">
+                       Google Pixel 3 XL, Android 9, 4GB RAM, 64GB ROM...
+                   </span>
+
+                   <div class="price-details">
+                       <p class="price">
+                           &#x20A6;500,000
+                       </p>
+                       <p class="percentage__off">
+                           22%
+                       </p>
+                   </div>
+                   <div class="ratings-numbers">
+                       <div class="ratings">
+
+                       </div>
+                       <div class="numbers">
+                           (889)
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+       <div class="product__card product__crf">
+           <div class="product-modal">
+               <div class="product-modal__content">
+                   <button class="quick-view">View</button>
+               </div>
+           </div>
+           <div class="paper">
+               <div class="product-image">
+                   <div class="badge__new-container">
+                       <div class="badge__new">NEW</div>
+                   </div>
+                   <div class="img__overlay">
+                       <img src="{{ asset('themes/' ~ current_theme() ~ '/images/phone_pro.jpg')}}" class="product__img" alt="product">
+                   </div>
+                   <span class="product__badge"></span>
+               </div>
+
+               <div>
+                   <span class="brand__name">Google</span>
+                   <hr>
+                   <span class="full__brand-name">
+                       Google Pixel 3 XL, Android 9, 4GB RAM, 64GB ROM...
+                   </span>
+
+                   <div class="price-details">
+                       <p class="price">
+                           &#x20A6;500,000
+                       </p>
+                       <p class="percentage__off">
+                           22%
+                       </p>
+                   </div>
+                   <div class="ratings-numbers">
+                       <div class="ratings">
+
+                       </div>
+                       <div class="numbers">
+                           (889)
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+
+       <div class="product__card product__crf">
+             <div class="product-modal">
+                 <div class="product-modal__content">
+                     <button class="quick-view">View</button>
+                 </div>
+             </div>
+             <div class="paper">
+                 <div class="product-image">
+                     <div class="badge__new-container">
+                         <div class="badge__new">NEW</div>
+                     </div>
+                     <div class="img__overlay">
+                         <img src="{{ asset('themes/' ~ current_theme() ~ '/images/phone_pro.jpg')}}" class="product__img" alt="product">
+                     </div>
+                     <span class="product__badge"></span>
+                 </div>
+
+                 <div>
+                     <span class="brand__name">Google</span>
+                     <hr>
+                     <span class="full__brand-name">
+                         Google Pixel 3 XL, Android 9, 4GB RAM, 64GB ROM...
+                     </span>
+
+                     <div class="price-details">
+                         <p class="price">
+                             &#x20A6;500,000
+                         </p>
+                         <p class="percentage__off">
+                             22%
+                         </p>
+                     </div>
+                     <div class="ratings-numbers">
+                         <div class="ratings">
+
+                         </div>
+                         <div class="numbers">
+                             (889)
+                         </div>
+                     </div>
+                 </div>
+             </div>
+       </div>`;
+
+       {% if discount %}
+         tab_1 = "{{ discount | raw }}"
+       {% endif %}
+
+       let tab_2 = `<div class="product__card product__crf">
+           <div class="product-modal">
+               <div class="product-modal__content">
+                   <button class="quick-view">View</button>
+               </div>
+           </div>
+           <div class="paper">
+               <div class="product-image">
+                   <div class="badge__new-container">
+                       <div class="badge__new">NEW</div>
+                   </div>
+                   <div class="img__overlay">
+                       <img src="{{ asset('themes/' ~ current_theme() ~ '/images/phone_pro.jpg')}}" class="product__img" alt="product">
+                   </div>
+                   <span class="product__badge"></span>
+               </div>
+
+               <div>
+                   <span class="brand__name">Google</span>
+                   <hr>
+                   <span class="full__brand-name">
+                       Google Pixel 3 XL, Android 9, 4GB RAM, 64GB ROM...
+                   </span>
+
+                   <div class="price-details">
+                       <p class="price">
+                           &#x20A6;500,000
+                       </p>
+                       <p class="percentage__off">
+                           22%
+                       </p>
+                   </div>
+                   <div class="ratings-numbers">
+                       <div class="ratings">
+
+                       </div>
+                       <div class="numbers">
+                           (889)
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+
+       <div class="product__card product__crf">
+           <div class="product-modal">
+               <div class="product-modal__content">
+                   <button class="quick-view">View</button>
+               </div>
+           </div>
+           <div class="paper">
+               <div class="product-image">
+                   <div class="badge__new-container">
+                       <div class="badge__new">NEW</div>
+                   </div>
+                   <div class="img__overlay">
+                       <img src="{{ asset('themes/' ~ current_theme() ~ '/images/phone_pro.jpg')}}" class="product__img" alt="product">
+                   </div>
+                   <span class="product__badge"></span>
+               </div>
+
+               <div>
+                   <span class="brand__name">Google</span>
+                   <hr>
+                   <span class="full__brand-name">
+                       Google Pixel 3 XL, Android 9, 4GB RAM, 64GB ROM...
+                   </span>
+
+                   <div class="price-details">
+                       <p class="price">
+                           &#x20A6;500,000
+                       </p>
+                       <p class="percentage__off">
+                           22%
+                       </p>
+                   </div>
+                   <div class="ratings-numbers">
+                       <div class="ratings">
+
+                       </div>
+                       <div class="numbers">
+                           (889)
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+       <div class="product__card product__crf">
+           <div class="product-modal">
+               <div class="product-modal__content">
+                   <button class="quick-view">View</button>
+               </div>
+           </div>
+           <div class="paper">
+               <div class="product-image">
+                   <div class="badge__new-container">
+                       <div class="badge__new">NEW</div>
+                   </div>
+                   <div class="img__overlay">
+                       <img src="{{ asset('themes/' ~ current_theme() ~ '/images/phone_pro.jpg')}}" class="product__img" alt="product">
+                   </div>
+                   <span class="product__badge"></span>
+               </div>
+
+               <div>
+                   <span class="brand__name">Google</span>
+                   <hr>
+                   <span class="full__brand-name">
+                       Google Pixel 3 XL, Android 9, 4GB RAM, 64GB ROM...
+                   </span>
+
+                   <div class="price-details">
+                       <p class="price">
+                           &#x20A6;500,000
+                       </p>
+                       <p class="percentage__off">
+                           22%
+                       </p>
+                   </div>
+                   <div class="ratings-numbers">
+                       <div class="ratings">
+
+                       </div>
+                       <div class="numbers">
+                           (889)
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+
+       <div class="product__card product__crf">
+             <div class="product-modal">
+                 <div class="product-modal__content">
+                     <button class="quick-view">View</button>
+                 </div>
+             </div>
+             <div class="paper">
+                 <div class="product-image">
+                     <div class="badge__new-container">
+                         <div class="badge__new">NEW</div>
+                     </div>
+                     <div class="img__overlay">
+                         <img src="{{ asset('themes/' ~ current_theme() ~ '/images/phone_pro.jpg')}}" class="product__img" alt="product">
+                     </div>
+                     <span class="product__badge"></span>
+                 </div>
+
+                 <div>
+                     <span class="brand__name">Google</span>
+                     <hr>
+                     <span class="full__brand-name">
+                         Google Pixel 3 XL, Android 9, 4GB RAM, 64GB ROM...
+                     </span>
+
+                     <div class="price-details">
+                         <p class="price">
+                             &#x20A6;500,000
+                         </p>
+                         <p class="percentage__off">
+                             22%
+                         </p>
+                     </div>
+                     <div class="ratings-numbers">
+                         <div class="ratings">
+
+                         </div>
+                         <div class="numbers">
+                             (889)
+                         </div>
+                     </div>
+                 </div>
+             </div>
+       </div>`;
+
+       {% if best_sellers %}
+         tab_2 = "{{ best_sellers | raw }}"
+       {% endif %}
+
+       let tab_3 = `<div class="product__card product__crf">
+           <div class="product-modal">
+               <div class="product-modal__content">
+                   <button class="quick-view">View</button>
+               </div>
+           </div>
+           <div class="paper">
+               <div class="product-image">
+                   <div class="badge__new-container">
+                       <div class="badge__new">NEW</div>
+                   </div>
+                   <div class="img__overlay">
+                       <img src="{{ asset('themes/' ~ current_theme() ~ '/images/phone_pro.jpg')}}" class="product__img" alt="product">
+                   </div>
+                   <span class="product__badge"></span>
+               </div>
+
+               <div>
+                   <span class="brand__name">Google</span>
+                   <hr>
+                   <span class="full__brand-name">
+                       Google Pixel 3 XL, Android 9, 4GB RAM, 64GB ROM...
+                   </span>
+
+                   <div class="price-details">
+                       <p class="price">
+                           &#x20A6;500,000
+                       </p>
+                       <p class="percentage__off">
+                           22%
+                       </p>
+                   </div>
+                   <div class="ratings-numbers">
+                       <div class="ratings">
+
+                       </div>
+                       <div class="numbers">
+                           (889)
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+
+       <div class="product__card product__crf">
+           <div class="product-modal">
+               <div class="product-modal__content">
+                   <button class="quick-view">View</button>
+               </div>
+           </div>
+           <div class="paper">
+               <div class="product-image">
+                   <div class="badge__new-container">
+                       <div class="badge__new">NEW</div>
+                   </div>
+                   <div class="img__overlay">
+                       <img src="{{ asset('themes/' ~ current_theme() ~ '/images/phone_pro.jpg')}}" class="product__img" alt="product">
+                   </div>
+                   <span class="product__badge"></span>
+               </div>
+
+               <div>
+                   <span class="brand__name">Google</span>
+                   <hr>
+                   <span class="full__brand-name">
+                       Google Pixel 3 XL, Android 9, 4GB RAM, 64GB ROM...
+                   </span>
+
+                   <div class="price-details">
+                       <p class="price">
+                           &#x20A6;500,000
+                       </p>
+                       <p class="percentage__off">
+                           22%
+                       </p>
+                   </div>
+                   <div class="ratings-numbers">
+                       <div class="ratings">
+
+                       </div>
+                       <div class="numbers">
+                           (889)
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+       <div class="product__card product__crf">
+           <div class="product-modal">
+               <div class="product-modal__content">
+                   <button class="quick-view">View</button>
+               </div>
+           </div>
+           <div class="paper">
+               <div class="product-image">
+                   <div class="badge__new-container">
+                       <div class="badge__new">NEW</div>
+                   </div>
+                   <div class="img__overlay">
+                       <img src="{{ asset('themes/' ~ current_theme() ~ '/images/phone_pro.jpg')}}" class="product__img" alt="product">
+                   </div>
+                   <span class="product__badge"></span>
+               </div>
+
+               <div>
+                   <span class="brand__name">Google</span>
+                   <hr>
+                   <span class="full__brand-name">
+                       Google Pixel 3 XL, Android 9, 4GB RAM, 64GB ROM...
+                   </span>
+
+                   <div class="price-details">
+                       <p class="price">
+                           &#x20A6;500,000
+                       </p>
+                       <p class="percentage__off">
+                           22%
+                       </p>
+                   </div>
+                   <div class="ratings-numbers">
+                       <div class="ratings">
+
+                       </div>
+                       <div class="numbers">
+                           (889)
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+
+       <div class="product__card product__crf">
+             <div class="product-modal">
+                 <div class="product-modal__content">
+                     <button class="quick-view">View</button>
+                 </div>
+             </div>
+             <div class="paper">
+                 <div class="product-image">
+                     <div class="badge__new-container">
+                         <div class="badge__new">NEW</div>
+                     </div>
+                     <div class="img__overlay">
+                         <img src="{{ asset('themes/' ~ current_theme() ~ '/images/phone_pro.jpg')}}" class="product__img" alt="product">
+                     </div>
+                     <span class="product__badge"></span>
+                 </div>
+
+                 <div>
+                     <span class="brand__name">Google</span>
+                     <hr>
+                     <span class="full__brand-name">
+                         Google Pixel 3 XL, Android 9, 4GB RAM, 64GB ROM...
+                     </span>
+
+                     <div class="price-details">
+                         <p class="price">
+                             &#x20A6;500,000
+                         </p>
+                         <p class="percentage__off">
+                             22%
+                         </p>
+                     </div>
+                     <div class="ratings-numbers">
+                         <div class="ratings">
+
+                         </div>
+                         <div class="numbers">
+                             (889)
+                         </div>
+                     </div>
+                 </div>
+             </div>
+       </div>`;
+
+       {% if best_phone != "" %}
+         tab_3 = "{{ best_phone | raw }}"
+       {% endif %}
+
+       let tab_4 = `<div class="product__card product__crf">
+           <div class="product-modal">
+               <div class="product-modal__content">
+                   <button class="quick-view">View</button>
+               </div>
+           </div>
+           <div class="paper">
+               <div class="product-image">
+                   <div class="badge__new-container">
+                       <div class="badge__new">NEW</div>
+                   </div>
+                   <div class="img__overlay">
+                       <img src="{{ asset('themes/' ~ current_theme() ~ '/images/phone_pro.jpg')}}" class="product__img" alt="product">
+                   </div>
+                   <span class="product__badge"></span>
+               </div>
+
+               <div>
+                   <span class="brand__name">Google</span>
+                   <hr>
+                   <span class="full__brand-name">
+                       Google Pixel 3 XL, Android 9, 4GB RAM, 64GB ROM...
+                   </span>
+
+                   <div class="price-details">
+                       <p class="price">
+                           &#x20A6;500,000
+                       </p>
+                       <p class="percentage__off">
+                           22%
+                       </p>
+                   </div>
+                   <div class="ratings-numbers">
+                       <div class="ratings">
+
+                       </div>
+                       <div class="numbers">
+                           (889)
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+
+       <div class="product__card product__crf">
+           <div class="product-modal">
+               <div class="product-modal__content">
+                   <button class="quick-view">View</button>
+               </div>
+           </div>
+           <div class="paper">
+               <div class="product-image">
+                   <div class="badge__new-container">
+                       <div class="badge__new">NEW</div>
+                   </div>
+                   <div class="img__overlay">
+                       <img src="{{ asset('themes/' ~ current_theme() ~ '/images/phone_pro.jpg')}}" class="product__img" alt="product">
+                   </div>
+                   <span class="product__badge"></span>
+               </div>
+
+               <div>
+                   <span class="brand__name">Google</span>
+                   <hr>
+                   <span class="full__brand-name">
+                       Google Pixel 3 XL, Android 9, 4GB RAM, 64GB ROM...
+                   </span>
+
+                   <div class="price-details">
+                       <p class="price">
+                           &#x20A6;500,000
+                       </p>
+                       <p class="percentage__off">
+                           22%
+                       </p>
+                   </div>
+                   <div class="ratings-numbers">
+                       <div class="ratings">
+
+                       </div>
+                       <div class="numbers">
+                           (889)
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+       <div class="product__card product__crf">
+           <div class="product-modal">
+               <div class="product-modal__content">
+                   <button class="quick-view">View</button>
+               </div>
+           </div>
+           <div class="paper">
+               <div class="product-image">
+                   <div class="badge__new-container">
+                       <div class="badge__new">NEW</div>
+                   </div>
+                   <div class="img__overlay">
+                       <img src="{{ asset('themes/' ~ current_theme() ~ '/images/phone_pro.jpg')}}" class="product__img" alt="product">
+                   </div>
+                   <span class="product__badge"></span>
+               </div>
+
+               <div>
+                   <span class="brand__name">Google</span>
+                   <hr>
+                   <span class="full__brand-name">
+                       Google Pixel 3 XL, Android 9, 4GB RAM, 64GB ROM...
+                   </span>
+
+                   <div class="price-details">
+                       <p class="price">
+                           &#x20A6;500,000
+                       </p>
+                       <p class="percentage__off">
+                           22%
+                       </p>
+                   </div>
+                   <div class="ratings-numbers">
+                       <div class="ratings">
+
+                       </div>
+                       <div class="numbers">
+                           (889)
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+
+       <div class="product__card product__crf">
+             <div class="product-modal">
+                 <div class="product-modal__content">
+                     <button class="quick-view">View</button>
+                 </div>
+             </div>
+             <div class="paper">
+                 <div class="product-image">
+                     <div class="badge__new-container">
+                         <div class="badge__new">NEW</div>
+                     </div>
+                     <div class="img__overlay">
+                         <img src="{{ asset('themes/' ~ current_theme() ~ '/images/phone_pro.jpg')}}" class="product__img" alt="product">
+                     </div>
+                     <span class="product__badge"></span>
+                 </div>
+
+                 <div>
+                     <span class="brand__name">Google</span>
+                     <hr>
+                     <span class="full__brand-name">
+                         Google Pixel 3 XL, Android 9, 4GB RAM, 64GB ROM...
+                     </span>
+
+                     <div class="price-details">
+                         <p class="price">
+                             &#x20A6;500,000
+                         </p>
+                         <p class="percentage__off">
+                             22%
+                         </p>
+                     </div>
+                     <div class="ratings-numbers">
+                         <div class="ratings">
+
+                         </div>
+                         <div class="numbers">
+                             (889)
+                         </div>
+                     </div>
+                 </div>
+             </div>
+       </div>`;
+
+       {% if listing_appliance %}
+         tab_4 = "{{ listing_appliance | raw }}"
+       {% endif %}
+
+       let tab_5 = `<div class="product__card product__crf">
+           <div class="product-modal">
+               <div class="product-modal__content">
+                   <button class="quick-view">View</button>
+               </div>
+           </div>
+           <div class="paper">
+               <div class="product-image">
+                   <div class="badge__new-container">
+                       <div class="badge__new">NEW</div>
+                   </div>
+                   <div class="img__overlay">
+                       <img src="{{ asset('themes/' ~ current_theme() ~ '/images/phone_pro.jpg')}}" class="product__img" alt="product">
+                   </div>
+                   <span class="product__badge"></span>
+               </div>
+
+               <div>
+                   <span class="brand__name">Google</span>
+                   <hr>
+                   <span class="full__brand-name">
+                       Google Pixel 3 XL, Android 9, 4GB RAM, 64GB ROM...
+                   </span>
+
+                   <div class="price-details">
+                       <p class="price">
+                           &#x20A6;500,000
+                       </p>
+                       <p class="percentage__off">
+                           22%
+                       </p>
+                   </div>
+                   <div class="ratings-numbers">
+                       <div class="ratings">
+
+                       </div>
+                       <div class="numbers">
+                           (889)
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+
+       <div class="product__card product__crf">
+           <div class="product-modal">
+               <div class="product-modal__content">
+                   <button class="quick-view">View</button>
+               </div>
+           </div>
+           <div class="paper">
+               <div class="product-image">
+                   <div class="badge__new-container">
+                       <div class="badge__new">NEW</div>
+                   </div>
+                   <div class="img__overlay">
+                       <img src="{{ asset('themes/' ~ current_theme() ~ '/images/phone_pro.jpg')}}" class="product__img" alt="product">
+                   </div>
+                   <span class="product__badge"></span>
+               </div>
+
+               <div>
+                   <span class="brand__name">Google</span>
+                   <hr>
+                   <span class="full__brand-name">
+                       Google Pixel 3 XL, Android 9, 4GB RAM, 64GB ROM...
+                   </span>
+
+                   <div class="price-details">
+                       <p class="price">
+                           &#x20A6;500,000
+                       </p>
+                       <p class="percentage__off">
+                           22%
+                       </p>
+                   </div>
+                   <div class="ratings-numbers">
+                       <div class="ratings">
+
+                       </div>
+                       <div class="numbers">
+                           (889)
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+       <div class="product__card product__crf">
+           <div class="product-modal">
+               <div class="product-modal__content">
+                   <button class="quick-view">View</button>
+               </div>
+           </div>
+           <div class="paper">
+               <div class="product-image">
+                   <div class="badge__new-container">
+                       <div class="badge__new">NEW</div>
+                   </div>
+                   <div class="img__overlay">
+                       <img src="{{ asset('themes/' ~ current_theme() ~ '/images/phone_pro.jpg')}}" class="product__img" alt="product">
+                   </div>
+                   <span class="product__badge"></span>
+               </div>
+
+               <div>
+                   <span class="brand__name">Google</span>
+                   <hr>
+                   <span class="full__brand-name">
+                       Google Pixel 3 XL, Android 9, 4GB RAM, 64GB ROM...
+                   </span>
+
+                   <div class="price-details">
+                       <p class="price">
+                           &#x20A6;500,000
+                       </p>
+                       <p class="percentage__off">
+                           22%
+                       </p>
+                   </div>
+                   <div class="ratings-numbers">
+                       <div class="ratings">
+
+                       </div>
+                       <div class="numbers">
+                           (889)
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+
+       <div class="product__card product__crf">
+             <div class="product-modal">
+                 <div class="product-modal__content">
+                     <button class="quick-view">View</button>
+                 </div>
+             </div>
+             <div class="paper">
+                 <div class="product-image">
+                     <div class="badge__new-container">
+                         <div class="badge__new">NEW</div>
+                     </div>
+                     <div class="img__overlay">
+                         <img src="{{ asset('themes/' ~ current_theme() ~ '/images/phone_pro.jpg')}}" class="product__img" alt="product">
+                     </div>
+                     <span class="product__badge"></span>
+                 </div>
+
+                 <div>
+                     <span class="brand__name">Google</span>
+                     <hr>
+                     <span class="full__brand-name">
+                         Google Pixel 3 XL, Android 9, 4GB RAM, 64GB ROM...
+                     </span>
+
+                     <div class="price-details">
+                         <p class="price">
+                             &#x20A6;500,000
+                         </p>
+                         <p class="percentage__off">
+                             22%
+                         </p>
+                     </div>
+                     <div class="ratings-numbers">
+                         <div class="ratings">
+
+                         </div>
+                         <div class="numbers">
+                             (889)
+                         </div>
+                     </div>
+                 </div>
+             </div>
+       </div>`;
+
+       {% if listing_fashion %}
+         tab_5 = "{{ listing_fashion | raw }}"
+       {% endif %}
+
+       $(".tabs").on('click', function(){
+          let id = $(this).data('id');
+
+          switch(id) {
+           case "tab_1":
+           // code block
+           $("#loader").html(tab_1);
+           let sliderzTwo = $(".product__crf");
+
+           if (sliderzTwo.length > 4) {
+               let widthOfInnerContainerTwo = sliderzTwo.length * 25;
+               let finalWidthTwo = widthOfInnerContainerTwo + "%";
+               slideInnerContainerTwo.css("width", finalWidthTwo);
+           } else {
+               slideInnerContainerTwo.css("width", "100%");
+               slideInnerContainerTwo.css('left', '0%');
+               $(".product__crf:first-child").css("visibility", "visible");
+           }
+           break;
+           case "tab_2":
+           // code block
+           $("#loader").html(tab_2);
+           let sliderzTwob = $(".product__crf");
+
+           if (sliderzTwob.length > 4) {
+               let widthOfInnerContainerTwo = sliderzTwob.length * 25;
+               let finalWidthTwo = widthOfInnerContainerTwo + "%";
+               slideInnerContainerTwo.css("width", finalWidthTwo);
+           } else {
+               slideInnerContainerTwo.css("width", "100%");
+               slideInnerContainerTwo.css('left', '0%');
+               $(".product__crf:first-child").css("visibility", "visible");
+           }
+           break;
+           case "tab_3":
+           // code block
+           $("#loader").html(tab_3);
+           $("#loader").html(tab_2);
+           let sliderzTwoc = $(".product__crf");
+
+           if (sliderzTwoc.length > 4) {
+               let widthOfInnerContainerTwo = sliderzTwoc.length * 25;
+               let finalWidthTwo = widthOfInnerContainerTwo + "%";
+               slideInnerContainerTwo.css("width", finalWidthTwo);
+           } else {
+               slideInnerContainerTwo.css("width", "100%");
+               slideInnerContainerTwo.css('left', '0%');
+               $(".product__crf:first-child").css("visibility", "visible");
+           }
+           break;
+           case "tab_4":
+           // code block
+           $("#loader").html(tab_4);
+           $("#loader").html(tab_2);
+           let sliderzTwod = $(".product__crf");
+
+           if (sliderzTwod.length > 4) {
+               let widthOfInnerContainerTwo = sliderzTwod.length * 25;
+               let finalWidthTwo = widthOfInnerContainerTwo + "%";
+               slideInnerContainerTwo.css("width", finalWidthTwo);
+           } else {
+               slideInnerContainerTwo.css("width", "100%");
+               slideInnerContainerTwo.css('left', '0%');
+               $(".product__crf:first-child").css("visibility", "visible");
+           }
+           break;
+           case "tab_5":
+           // code block
+           $("#loader").html(tab_5);
+           $("#loader").html(tab_2);
+           let sliderzTwoe = $(".product__crf");
+
+           if (sliderzTwoe.length > 4) {
+               let widthOfInnerContainerTwo = sliderzTwoe.length * 25;
+               let finalWidthTwo = widthOfInnerContainerTwo + "%";
+               slideInnerContainerTwo.css("width", finalWidthTwo);
+           } else {
+               slideInnerContainerTwo.css("width", "100%");
+               slideInnerContainerTwo.css('left', '0%');
+               $(".product__crf:first-child").css("visibility", "visible");
+           }
+           break;
+           default:
+           // code block
+         }
+       });
+    </script>
+
+{% endblock %}

@@ -1,0 +1,377 @@
+{% extends "layouts.app_signup" %}
+
+{% block content %}
+<div id="signup">
+  <section class="container-fluid">
+    <header>
+      <nav>
+        <ul class="nav-list">
+          <li class="nav-list-item"><a href="{{ route('browsebrand') }}">Discover</a></li>
+          <li class="nav-list-item"><a href="{{ route('browse') }}">Shop</a></li>
+          <li class="nav-list-item"><a href="">Jobs</a></li>
+          <li class="nav-list-item"><a href="">Login</a></li>
+          <li class="nav-list-item">
+            <a href="" class="active">Create an account</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+  </section>
+
+  <section class="get-started text-center">
+    <h2>Let's Get Started</h2>
+  </section>
+
+  <section class="create-account mt-5 container">
+    <ul
+      class="nav nav-tabs justify-content-center row no-gutters"
+      id="myTab"
+      role="tablist"
+    >
+      <li class="nav-item col-6 text-center font-weight-bold">
+        <a
+          class="nav-link{{ app.request.has('tab') == false ? ' active show' : '' }}"
+          id="create-account-customer-tab"
+          data-toggle="tab"
+          href="#create-account-customer"
+          role="tab"
+          aria-controls="home"
+          aria-selected="true"
+          >Create A Customer Account</a
+        >
+      </li>
+      <li class="nav-item col-6 text-center font-weight-bold">
+        <a
+          class="nav-link{{ app.request.has('tab') ? ' active show' : '' }}"
+          id="profile-tab"
+          data-toggle="tab"
+          href="#profile"
+          role="tab"
+          aria-controls="profile"
+          aria-selected="false"
+          >Create A Business Account</a
+        >
+      </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+      <div
+        class="tab-pane fade {{ app.request.has('tab') == false ? ' show active' : '' }}"
+        id="create-account-customer"
+        role="tabpanel"
+        aria-labelledby="create-account-customer-tab"
+      >
+        <div class="container-fluid mt-5">
+          <div class="row justify-content-center no-gutters">
+            <div class="col-12 col-md-5">
+              <form method="POST" action="{{ route('register') }}">
+                  {{ csrf_field() }}
+                <input
+                  type="text"
+                  class="form-control form-control-lg{{ errors.has('name') and app.request.has('tab') == false ? ' is-invalid' : '' }}"
+                  id="name"
+                  name="name" value="{{ app.request.has('tab') == false ? old('name') : '' }}"
+                  placeholder="Full name" required autofocus>
+                 {% if errors.has('name') and app.request.has('tab') == false %}
+                  <small class="form-control-feedback invalid-feedback">{{ errors.first('name') }}</small>
+                 {% endif %}
+                <input
+                  type="email"
+                  class="form-control form-control-lg mt-4{{ errors.has('email') and app.request.has('tab') == false ? ' is-invalid' : '' }}"
+                  id="email" name="email" value="{{ app.request.has('tab') == false ? old('email') : '' }}"
+                  placeholder="Email" required>
+                 {% if errors.has('email') and app.request.has('tab') == false %}
+                  <small class="form-control-feedback invalid-feedback">{{ errors.first('email') }}</small>
+                {% endif %}
+
+                <div class="input-group password-input-container mb-3 mt-4">
+                  <input
+                    class="form-control form-control-lg{{ errors.has('password') and app.request.has('tab') == false ? ' is-invalid' : '' }}"
+                    placeholder="{{ __("Password") }}" type="password" id="password" name="password" required
+                    aria-describedby="passwordHelp">
+                  <div class="input-group-append">
+                    <button
+                      class="btn btn-link"
+                      type="button"
+                      id="button-addon2"
+                    >
+                      <i class="fas fa-eye"></i>
+                    </button>
+                  </div>
+                  {% if errors.has('password') and app.request.has('tab') == false %}
+                     <div class="form-control-feedback invalid-feedback">{{ errors.first('password') }}</div>
+                  {% endif %}
+                </div>
+                <input
+                  class="form-control form-control-lg"
+                  placeholder="{{ __("Confirm Password") }}" type="password" id="password-confirm" name="password_confirmation" required>
+                <div class="form-group">
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="gridCheck"
+                    />
+                    <label class="form-check-label" for="gridCheck">
+                      I want to receive Afiaanyi's newletter with the best
+                      deals and offers
+                    </label>
+                  </div>
+                </div>
+
+                <p>
+                  By clicking on register, you accept Afiaanyi's
+                  <a href="" class="active">Terms & Conditions</a>
+                </p>
+
+                <button class="btn primary-btn btn-block btn-lg mt-4">
+                  REGISTER
+                </button>
+              </form>
+            </div>
+            <div class="col-12 col-md-2 text-center mt-5 pt-5">
+              <h3 class="font-weight-bold">OR</h3>
+            </div>
+            <div class="col-12 col-md-5 text-center">
+              <div class="social-auth-btns">
+              {% if(setting('facebook_key')) %}
+                <a href="./login/facebook" class="btn btn-block btn-lg mt-5 facebook-btn">
+                  <i
+                    class="fab fa-facebook-f d-inline-block mr-3"
+                  ></i>
+                  <span>Connect with Facebook</span>
+                </a>
+              {% endif %}
+                <!--
+                <button class="btn btn-block btn-lg mt-4 google-plus-btn">
+                  <i
+                    class="fab fa-google-plus-g d-inline-block mr-3"
+                  ></i>
+                  <span>Connect with Google</span>
+                </button>
+                -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="tab-pane fade{{ app.request.has('tab') ? ' show active' : '' }}"
+        id="profile"
+        role="tabpanel"
+        aria-labelledby="profile-tab"
+      >
+      <div
+        class="tab-pane fade show active"
+        id="create-account-customer"
+        role="tabpanel"
+        aria-labelledby="create-account-customer-tab"
+      >
+        <div class="container-fluid mt-5">
+          <div class="row justify-content-center no-gutters">
+            <div class="col-12 col-md-5">
+              <form method="POST" action="{{ route('register') }}">
+                  {{ csrf_field() }}
+                <input
+                  type="text"
+                  class="form-control form-control-lg{{ errors.has('name') and app.request.has('tab') ? ' is-invalid' : '' }}"
+                  id="name"
+                  name="name" value="{{ app.request.has('tab') ? old('name') : '' }}"
+                  placeholder="Full name business" required autofocus>
+                 {% if errors.has('name') and app.request.has('tab') %}
+                  <small class="form-control-feedback invalid-feedback">{{ errors.first('name') }}</small>
+                 {% endif %}
+                <input
+                  type="email"
+                  class="form-control form-control-lg mt-4{{ errors.has('email') and app.request.has('tab') ? ' is-invalid' : '' }}"
+                  id="email" name="email" value="{{ app.request.has('tab') ? old('email') : '' }}"
+                  placeholder="Email" required>
+                 {% if errors.has('email') %}
+                  <small class="form-control-feedback invalid-feedback">{{ errors.first('email') }}</small>
+                {% endif %}
+                {{ form_hidden('is_trader', '1') }}
+                <div class="input-group password-input-container mb-3 mt-4">
+                  <input
+                    class="form-control form-control-lg{{ errors.has('password') and app.request.has('tab') ? ' is-invalid' : '' }}"
+                    placeholder="{{ __("Password") }}" type="password" id="password" name="password" required
+                    aria-describedby="passwordHelp">
+                  <div class="input-group-append">
+                    <button
+                      class="btn btn-link"
+                      type="button"
+                      id="button-addon2"
+                    >
+                      <i class="fas fa-eye"></i>
+                    </button>
+                  </div>
+                  {% if errors.has('password') and app.request.has('tab') %}
+                     <div class="form-control-feedback invalid-feedback">{{ errors.first('password') }}</div>
+                  {% endif %}
+                </div>
+                <input
+                  class="form-control form-control-lg"
+                  placeholder="{{ __("Confirm Password") }}" type="password" id="password-confirm" name="password_confirmation" required>
+                <div class="form-group">
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="gridCheck"
+                    />
+                    <label class="form-check-label" for="gridCheck">
+                      I want to receive Afiaanyi's newletter with the best
+                      deals and offers
+                    </label>
+                  </div>
+                </div>
+
+                <p>
+                  By clicking on register, you accept Afiaanyi's
+                  <a href="" class="active">Terms & Conditions</a>
+                </p>
+
+                <button class="btn primary-btn btn-block btn-lg mt-4">
+                  REGISTER
+                </button>
+              </form>
+            </div>
+            <div class="col-12 col-md-2 text-center mt-5 pt-5">
+              <h3 class="font-weight-bold">OR</h3>
+            </div>
+            <div class="col-12 col-md-5 text-center">
+              <div class="social-auth-btns">
+               {% if(setting('facebook_key')) %}
+                <a href="./login/facebook" class="btn btn-block btn-lg mt-5 facebook-btn">
+                  <i
+                    class="fab fa-facebook-f d-inline-block mr-3"
+                  ></i>
+                  <span>Connect with Facebook</span>
+                </a>
+               {% endif %}
+                <!--
+                <button class="btn btn-block btn-lg mt-4 google-plus-btn">
+                  <i
+                    class="fab fa-google-plus-g d-inline-block mr-3"
+                  ></i>
+                  <span>Connect with Google</span>
+                </button>
+                -->
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </section>
+  <section>
+    <p class="text-center pt-4 pb-4 mt-5 mb-5">
+      Already Registered? <a href="" class="active">Sign in</a>
+    </p>
+  </section>
+
+  <footer class="border-top footer__login">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="row">
+            <div class="col-12 col-md-3">
+              <h5 class="active mb-3">Get to know us</h5>
+              <ul class="list-unstyled text-small">
+                <li class="mb-2"><a class="" href="#">About Us</a></li>
+                <li class="mb-2"><a class="" href="#">Careers</a></li>
+                <li class="mb-2"><a class="" href="#">Blog</a></li>
+                <li class="mb-2"><a class="" href="#">FAQ</a></li>
+              </ul>
+            </div>
+            <div class="col-12 col-md-3">
+              <h5 class="active mb-3">Payments</h5>
+              <ul class="list-unstyled text-small">
+                <li class="mb-2"><a class="" href="#">Mastercard</a></li>
+                <li class="mb-2"><a class="" href="#">Verve</a></li>
+                <li class="mb-2"><a class="" href="#">Visa</a></li>
+                <li class="mb-2"><a class="" href="#">Wallet</a></li>
+              </ul>
+            </div>
+            <div class="col-12 col-md-3">
+              <h5 class="active mb-3">Explore</h5>
+              <ul class="list-unstyled text-small">
+                <li class="mb-2"><a class="" href="#">Contact Us</a></li>
+                <li class="mb-2">
+                  <a class="" href="#">Private Policy</a>
+                </li>
+                <li class="mb-2"><a class="" href="#">Disclaimer</a></li>
+                <li class="mb-2"><a class="" href="#">Biling Policy</a></li>
+                <li class="mb-2"><a class="" href="#">Term of Use</a></li>
+                <li class="mb-2">
+                  <a class="" href="#">Advertise with Us</a>
+                </li>
+              </ul>
+            </div>
+            <div class="col-12 col-md-3">
+              <h5 class="active mb-3">Sell on Afiaanyi</h5>
+              <ul class="list-unstyled text-small">
+                <li class="mb-2">
+                  <a class="" href="#">Register your business</a>
+                </li>
+                <li class="mb-2">
+                  <a class="" href="#">Trust & Safety</a>
+                </li>
+                <li class="mb-2"><a class="" href="#">How it works</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <h5 class="mb-3 active">Download & connect with us</h5>
+          <div class="row">
+            <div class="col-6">
+              <img
+                src="./assets/images/ios.png"
+                class="d-block"
+                alt="IOS APP STORE"
+              />
+            </div>
+            <div class="col-6">
+              <img
+                src="./assets/images/play.png"
+                class="d-block"
+                alt="ANDRIOD APP STORE"
+              />
+            </div>
+          </div>
+          <div class="row mt-5">
+            <div class="col-12">
+              <p class="follow-links">
+                Follow:
+                <a href=""><i class="fab fa-facebook-f"></i>
+                </a><a href=""><i class="fab fa-instagram"></i></a>
+                <a href=""><i class="fab fa-linkedin-in"></i></a>
+                <a href=""><i class="fab fa-twitter"></i></a>
+              </p>
+              <p class="text-center mt-4">Power by: </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-5">
+        <p class="col-12">
+          Copyright (c) 2018 Afiaanyi. All rights reserved
+        </p>
+      </div>
+    </div>
+  </footer>
+</div>
+<script
+  src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+  integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+  crossorigin="anonymous"
+></script>
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+  integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+  crossorigin="anonymous"
+></script>
+<script
+  src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+  integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+  crossorigin="anonymous"
+></script>
+{% endblock %}

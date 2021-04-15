@@ -1,0 +1,41 @@
+{
+    "name": "ngiusti/random-string-generator",
+    "description": "Generates a random string based on a given pattern",
+    "keywords": [
+        "Random",
+        "String",
+        "Generator",
+        "Pattern"
+    ],
+    "homepage": "https://github.com/nathaliagiusti/random-string-generator",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nathalia Giusti",
+            "email": "contact@nathaliagiusti.com",
+            "homepage": "https://github.com/nathaliagiusti"
+        },
+        {
+            "name": "Caio Ceccon",
+            "email": "contact@caioceccon.com",
+            "homepage": "https://github.com/caioceccon"
+        }
+    ],
+    "require": {
+        "php": "^7.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "RandomStringGenerator\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "RandomStringGenerator\\Test\\": "test/"
+        }
+    }
+}

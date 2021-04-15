@@ -1,0 +1,122 @@
+{% extends "layouts.app_dashboard" %}
+
+{% block content %}
+
+
+<section class="user-profile">
+        {% include 'notifications' %}
+        <div class="user-profile__top">
+            <p class="user-profile__heading">You have the ability to view a snapshot of your recent account activity and
+                update your account info from
+                your dashboard</p>
+        </div>
+        <div class="user-profile__content d-flex">
+            <div class="user-profile__overview">
+                <div class="user-profile__overview-heading">
+                    <h3>Overview</h3>
+                </div>
+                <div class="user-profile__details">
+                    <table class="w-100 user-profile__details-table">
+                        <tr class="user-profile__details-row">
+                            <td class="user-profile__details-key">Name:</td>
+                            <td class="user-profile__details-answer">{{ auth_user().name}}</td>
+                        </tr>
+                        <!--
+                        <tr class="user-profile__details-row">
+                            <td class="user-profile__details-key">Business Name:</td>
+                            <td class="user-profile__details-answer">John Doe Enterprises</td>
+                        </tr>
+                        -->
+                        <tr class="user-profile__details-row">
+                            <td class="user-profile__details-key">Email:</td>
+                            <td class="user-profile__details-answer">{{ auth_user().email}}</td>
+                        </tr>
+                        <tr class="user-profile__details-row">
+                            <td class="user-profile__details-key">Registered On</td>
+                            <td class="user-profile__details-answer">{{ user.created_at.toFormattedDateString() }}</td>
+                        </tr>
+                        <tr class="user-profile__details-row">
+                            <td>Account Status</td>
+                            <td class="user-profile__details-answer">
+                                {% if user.verified == 0 %}
+                                    Not Activated
+                                {% else %}
+                                    Activated
+                                {% endif %}
+                              </td>
+                        </tr>
+                        {% if auth_user().phone %}
+                        <tr class="user-profile__details-row">
+                            <td class="user-profile__details-key">Tel:</td>
+                            <td class="user-profile__details-answer">{{ auth_user().phone}}</td>
+                        </tr>
+                        {% endif %}
+                        <tr class="user-profile__details-row">
+                            <td class="user-profile__details-key">Loyalty points</td>
+                            <td class="user-profile__details-answer">{{ auth_user().currentPoints() }}</td>
+                        </tr>
+                    </table>
+
+                </div>
+            </div>
+            <div class="user-profile__business">
+                <div class="user-profile__status">
+                    <h3 class="user-profile__status-heading">Your profile is <span>{{ auth_user().userProfileState()}}%</span> complete</h3>
+                    <div id="progressbar"></div>
+                    <a href="{{ route('account.edit_profile.index') }}" class="user-profile__edit">Edit Profile</a>
+                </div>
+                <!--
+                <div class="user-profile__business-known">
+                    <div class="user-profile__overview-heading">
+                        <h3>Businesses you may know</h3>
+                    </div>
+                    <div class="user-profile__business-list">
+                        <div class="user-profile__business-individual">
+                            <div class="user-profile__business-image">
+                                <img src="images/business-image.png" alt="" class="img-fluid">
+                            </div>
+                            <div class="user-profile__business-details">
+                                <p class="user-profile__business-name">Furnishop</p>
+                                <p class="user-profile__business-follower"><span>1000</span> followers</p>
+                            </div>
+                            <button class="btn btn-primary user-profile__business-follow-btn">Follow</button>
+                            <span class="user-profile__business-delete">&times;</span>
+                        </div>
+                        <div class="user-profile__business-individual">
+                            <div class="user-profile__business-image">
+                                <img src="images/business-image.png" alt="" class="img-fluid">
+                            </div>
+                            <div class="user-profile__business-details">
+                                <p class="user-profile__business-name">Furnishop</p>
+                                <p class="user-profile__business-follower"><span>1000</span> followers</p>
+                            </div>
+                            <button class="btn btn-primary user-profile__business-follow-btn">Follow</button>
+                            <span class="user-profile__business-delete">&times;</span>
+                        </div>
+                        <div class="user-profile__business-individual">
+                            <div class="user-profile__business-image">
+                                <img src="images/business-image.png" alt="" class="img-fluid">
+                            </div>
+                            <div class="user-profile__business-details">
+                                <p class="user-profile__business-name">Furnishop</p>
+                                <p class="user-profile__business-follower"><span>1000</span> followers</p>
+                            </div>
+                            <button class="btn btn-primary user-profile__business-follow-btn">Follow</button>
+                            <span class="user-profile__business-delete">&times;</span>
+                        </div>
+                    </div>
+                </div>
+                -->
+            </div>
+        </div>
+
+
+    </section>
+    <script>
+        $(function () {
+            $("#progressbar").progressbar({
+                value: {{ auth_user().userProfileState()}}
+            });
+        });
+    </script>
+{% endblock %}

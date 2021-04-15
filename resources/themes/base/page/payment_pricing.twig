@@ -1,0 +1,348 @@
+{% extends "layouts.app_pricing" %}
+
+{% block content %}
+<style>
+
+  .loader,
+  .loader:before,
+  .loader:after {
+    border-radius: 50%;
+    width: 2.5em;
+    height: 2.5em;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation: load7 1.8s infinite ease-in-out;
+    animation: load7 1.8s infinite ease-in-out;
+  }
+  .loader {
+    color: #CAAA3B;
+    font-size: 10px;
+    margin: 120px auto;
+    position: relative;
+    text-indent: -9999em;
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-animation-delay: -0.16s;
+    animation-delay: -0.16s;
+  }
+  .loader:before,
+  .loader:after {
+    content: '';
+    position: absolute;
+    top: 0;
+  }
+  .loader:before {
+    left: -3.5em;
+    -webkit-animation-delay: -0.32s;
+    animation-delay: -0.32s;
+  }
+  .loader:after {
+    left: 3.5em;
+  }
+  @-webkit-keyframes load7 {
+    0%,
+    80%,
+    100% {
+      box-shadow: 0 2.5em 0 -1.3em;
+    }
+    40% {
+      box-shadow: 0 2.5em 0 0;
+    }
+  }
+  @keyframes load7 {
+    0%,
+    80%,
+    100% {
+      box-shadow: 0 2.5em 0 -1.3em;
+    }
+    40% {
+      box-shadow: 0 2.5em 0 0;
+    }
+  }
+
+</style>
+<div id="indicator" style="display: none; text-align: center; background: rgba(255,255,255, 0.75); width: 100%; height: 100%; position: absolute; top: 0; left: 0;">
+    <div class="loader">{{ __("Loading...") }}</div>
+</div>
+  <section class="payment__banner">
+      <div class="payment__banner-info">
+          <h3 class="payment__banner-info-heading">Select your plan!</h3>
+          <p class="payment__banner-info-subtext">Always know what you are paying for.</p>
+      </div>
+  </section>
+
+  <section class="payment__categories">
+      <div class="payment__categories-wrapper">
+          <div class="payment__categories-individual">
+              <h3 class="payment__categories-individual-title">Individual Business Account</h3>
+              <h3 class="payment__categories-individual-price">₦1,000</h3>
+              <ul class="payment__categories-individual-todo">
+                  <li>
+                      <div></div>Create business profile
+                  </li>
+                  <li>
+                      <div></div>Online support
+                  </li>
+                  <li>
+                      <div></div>Upload 5 business pictures
+                  </li>
+              </ul>
+              <div class="payment__categories-individual-button-wrapper">
+                  {% if auth_user() %}
+                  <button id="btn-1000" class="payment__categories-individual-button">Get started</button>
+                  {% else %}
+                   <button class="payment__categories-individual-button">Login To Get started</button>
+                  {% endif %}
+              </div>
+          </div>
+
+          <div class="payment__categories-individual">
+              <h3 class="payment__categories-individual-title">Enterprise Account</h3>
+              <h3 class="payment__categories-individual-price">₦2,500</h3>
+              <ul class="payment__categories-individual-todo">
+                  <li>
+                      <div></div>Create business profile
+                  </li>
+                  <li>
+                      <div></div>Online support
+                  </li>
+                  <li>
+                      <div></div>Upload 10 business pictures
+                  </li>
+              </ul>
+              <div class="payment__categories-individual-button-wrapper">
+                  {% if auth_user() %}
+                  <button id="btn-2500" class="payment__categories-individual-button">Get started</button>
+                  {% else %}
+                   <button class="payment__categories-individual-button">Login To Get started</button>
+                  {% endif %}
+              </div>
+          </div>
+
+          <div class="payment__categories-individual">
+              <h3 class="payment__categories-individual-title">Limited Liability Account</h3>
+              <h3 class="payment__categories-individual-price">₦5,000</h3>
+              <ul class="payment__categories-individual-todo">
+                  <li>
+                      <div></div>Create business profile
+                  </li>
+                  <li>
+                      <div></div>Online support
+                  </li>
+                  <li>
+                      <div></div>Upload unlimited business pictures
+                  </li>
+                  <li>
+                      <div></div>Online support
+                  </li>
+              </ul>
+              <div class="payment__categories-individual-button-wrapper">
+                {% if auth_user() %}
+                  <button id="btn-5000" class="payment__categories-individual-button">Get started</button>
+                {% else %}
+                 <button class="payment__categories-individual-button">Login To Get started</button>
+                {% endif %}
+              </div>
+          </div>
+
+          <div class="payment__startnow">
+              <p class="font-italic">Start Now!</p>
+              <p>List your business and reach thousands of customers</p>
+          </div>
+
+
+      </div>
+  </section>
+
+  <section class="payment__other-businesses">
+      <h3 class="payment__other-businesses-heading">Other top businesses on our platform</h3>
+      <div class="payment__other-businesses-wrapper">
+          <div class="payment__other-businesses-individual">
+              <img src="{{ asset('themes/' ~ current_theme() ~ '/images/mh.png')}}" alt="" class="img-fluid">
+          </div>
+          <!--
+          <div class="payment__other-businesses-individual">
+              <img src="images/ml.png" alt="" class="img-fluid">
+          </div>
+          <div class="payment__other-businesses-individual">
+              <img src="images/intel.png" alt="" class="img-fluid">
+          </div>
+          <div class="payment__other-businesses-individual">
+              <img src="images/GA.png" alt="" class="img-fluid">
+          </div>
+          <div class="payment__other-businesses-individual">
+              <img src="images/sprint.png" alt="" class="img-fluid">
+          </div>
+          <div class="payment__other-businesses-individual">
+              <img src="images/sewing.png" alt="" class="img-fluid">
+          </div>
+          -->
+      </div>
+  </section>
+  <section>
+  <form id="pay-form" method="POST" action="{{ route('pay') }}" accept-charset="UTF-8" class="form-horizontal" role="form">
+          <div class="row" style="margin-bottom:40px;">
+            <div class="col-md-8 col-md-offset-2">
+              <input type="hidden" name="email" value="{{user_email}}">
+              <input id="orderId" type="hidden" name="orderID" value="">
+              <input id="amount" type="hidden" name="amount" value="">
+              <input type="hidden" name="metadata" value="{{ identity|json_encode() }}" >
+              <input id="reference" type="hidden" name="reference" value="{{ Paystack.genTranxRef() }}">
+              {{ csrf_field() }}
+          </div>
+  </form>
+  </section>
+<script>
+  var loading = false;
+  $("#btn-5000").on('click', function(){
+    if(loading){
+      return;
+    }else{
+      loading = true;
+      $('#btn-5000').prop('disabled', true);
+      $('#btn-2500').prop('disabled', true);
+      $('#btn-1000').prop('disabled', true);
+    }
+    $('#indicator').show();
+    $("#amount").val(500000);
+    var user = {{user_id}};
+    //Get order Id
+    $.ajax({
+      url: '{{ route('getpayid') }}',
+      type: 'POST',
+      beforeSend: function(request) {
+        request.setRequestHeader("X-CSRF-TOKEN", $('meta[name="csrf-token"]').attr('content'));
+      },
+      data:{payment_type: 3, user_id: user, reference: $("#reference").val(), amount: 5000},
+      error: function(response){
+        loading = false;
+        $('#btn-5000').prop('disabled', false);
+        $('#btn-2500').prop('disabled', false);
+        $('#btn-1000').prop('disabled', false);
+        $('#indicator').hide();
+      },
+      success: function(response){
+        loading = false;
+        $('#btn-5000').prop('disabled', false);
+        $('#btn-2500').prop('disabled', false);
+        $('#btn-1000').prop('disabled', false);
+         if(response.proceed == 'proceed'){
+           $("#orderId").val(response.order_id);
+           $("#reference").val(response.reference);
+           $("#pay-form").submit();
+         } else if (response.proceed == 'unresolved'){
+           alert('Please try again');
+         } else if (response.proceed == 'paid' || response.proceed == 'verified'){
+           alert('You have an unused slot, please use before purchasing another');
+         }
+         $('#indicator').hide();
+      },
+      completed: function(response){
+        loading = false;
+        $('#btn-5000').prop('disabled', false);
+        $('#btn-2500').prop('disabled', false);
+        $('#btn-1000').prop('disabled', false);
+         $('#indicator').hide();
+      }
+    });
+  });
+  $("#btn-2500").on('click', function(){
+    if(loading){
+      return;
+    }else{
+      loading = true;
+      $('#btn-5000').prop('disabled', true);
+      $('#btn-2500').prop('disabled', true);
+      $('#btn-1000').prop('disabled', true);
+    }
+    $('#indicator').show();
+    $("#amount").val(250000);
+    var user = {{user_id}};
+    //Get order Id
+
+    $.ajax({
+      url: '{{ route('getpayid') }}',
+      type: 'POST',
+      beforeSend: function(request) {
+        request.setRequestHeader("X-CSRF-TOKEN", $('meta[name="csrf-token"]').attr('content'));
+      },
+      data:{payment_type: 2, user_id: user, reference: $("#reference").val(), amount: 2500},
+      error: function(response){
+        $('#indicator').hide();
+      },
+      success: function(response){
+        loading = false;
+        $('#btn-5000').prop('disabled', false);
+        $('#btn-2500').prop('disabled', false);
+        $('#btn-1000').prop('disabled', false);
+        if(response.proceed == 'proceed'){
+          $("#orderId").val(response.order_id);
+           $("#reference").val(response.reference);
+          $("#pay-form").submit();
+        } else if (response.proceed == 'unresolved'){
+          alert('Please try again');
+        } else if (response.proceed == 'paid' || response.proceed == 'verified'){
+          alert('You have an unused slot, please use before purchasing another');
+        }
+        $('#indicator').hide();
+      },
+      completed: function(response){
+        loading = false;
+        $('#btn-5000').prop('disabled', false);
+        $('#btn-2500').prop('disabled', false);
+        $('#btn-1000').prop('disabled', false);
+       $('#indicator').hide();
+      }
+    });
+  });
+  $("#btn-1000").on('click', function(){
+    if(loading){
+      return;
+    }else{
+      loading = true;
+      $('#btn-5000').prop('disabled', true);
+      $('#btn-2500').prop('disabled', true);
+      $('#btn-1000').prop('disabled', true);
+    }
+    $('#indicator').show();
+    $("#amount").val(100000);
+    var user = {{user_id}};
+    //Get order Id
+    $.ajax({
+      url: '{{ route('getpayid') }}',
+      type: 'POST',
+      beforeSend: function(request) {
+        request.setRequestHeader("X-CSRF-TOKEN", $('meta[name="csrf-token"]').attr('content'));
+      },
+      data:{payment_type: 1, user_id: user, reference: $("#reference").val(), amount: 1000},
+      error: function(response){
+        $('#indicator').hide();
+      },
+      success: function(response){
+        loading = false;
+        $('#btn-5000').prop('disabled', false);
+        $('#btn-2500').prop('disabled', false);
+        $('#btn-1000').prop('disabled', false);
+         $('#indicator').hide();
+        if(response.proceed == 'proceed'){
+          $("#orderId").val(response.order_id);
+           $("#reference").val(response.reference);
+          $("#pay-form").submit();
+        } else if (response.proceed == 'unresolved'){
+           alert('Please try again');
+        } else if (response.proceed == 'paid' || response.proceed == 'verified'){
+           alert('You have an unused slot, please use before purchasing another');
+        }
+      },
+      completed: function(response){
+        loading = false;
+        $('#btn-5000').prop('disabled', false);
+        $('#btn-2500').prop('disabled', false);
+        $('#btn-1000').prop('disabled', false);
+       $('#indicator').hide();
+      }
+    });
+  });
+</script>
+{% endblock %}

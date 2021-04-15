@@ -1,0 +1,88 @@
+{# extends "account.master" % #}
+{% extends "layouts.app_master_dashboard" %}
+
+{% block content %}
+<section class="user-profile">
+
+ <h6 class="card-header bg-white"><i class="mdi mdi-account mr-2"></i> {{ __('Addresses') }}</h6>
+    <a href="" class="btn btn-link btn-xs"><i class="mdi mdi-plus"></i> Back</a>
+ <div class="row">
+   <div class="col-md-8">
+    {{ form_model(address, {'route' : ['account.edit_profile.updateaddress', address], 'class' : 'form', 'method' :
+    'PUT'}) }}
+     {{  csrf_field() }}
+    <div class="form-group">
+        <label>{{ __("Firstname") }} <span class="required">*</span></label>
+        {{ form_text('first_name', null, {'class' : 'form-control', 'required':'required'}) }}
+    </div>
+
+    <div class="form-group">
+        <label>{{ __("Lastname") }} <span class="required">*</span></label>
+        {{ form_text('last_name', null, {'class' : 'form-control', 'required':'required'}) }}
+    </div>
+
+    <div class="form-group">
+        <label>{{ __("phone") }} <span class="required">*</span></label>
+        {{ form_text('phone', null, {'class' : 'form-control', 'required':'required'}) }}
+    </div>
+
+    <div class="form-group">
+        <label>{{ __("address") }} <span class="required">*</span></label>
+        {{ form_text('address', null, {'class' : 'form-control', 'required':'required'}) }}
+    </div>
+    <div class="form-group">
+      <label>{{ __("City") }} <span class="required">*</span></label>
+      {# {{ form_text('city', null, {'class' : 'form-control', 'id' : 'city'}) }} #}
+      {{ form_select('city', city_array, city, {'class' : 'state-select autocomplete form-controls ', 'required':'required'}) }}
+    </div>
+    <div class="form-group">
+        <label>{{ __("lga") }} <span class="required">*</span></label>
+        <div>
+        {{ form_select('city_id', lga_array, city_id, {'class' : 'lga-select autocomplete-lga form-controls ', 'required':'required'}) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <input id="save-address" type="submit" value="{{ __('Edit address')  }}" class="btn  btn-primary float-right">
+    </div>
+
+    {{ form_close() }}
+    </div>
+    </div>
+ </section>
+ <script>
+   $('.autocomplete').selectize({
+       create: false,
+
+   });
+   $('.autocomplete-lga').selectize({
+       create: false,
+   });
+   $(".state-select").on('change', function(){
+     let state_name = $(this).val();
+     $.ajax({
+       url: '{{route('ajax.getcities')}}?state_name=' + state_name,
+       method: 'GET',
+       error: function(){
+
+       },
+       success: function(response){
+          let cities_arr = [];
+          $.each(response.cities, function(index, value){
+            //$(".lga-select").append(`<option value=${value.id}>${value.name}</option>`);
+            cities_arr.push({'value':value.id, 'text':value.name});
+          });
+          var selectize = $(".lga-select")[0].selectize;
+          selectize.clear();
+          selectize.clearOptions();
+          selectize.renderCache['option'] = {};
+          selectize.renderCache['item'] = {};
+          selectize.addOption(cities_arr);
+          selectize.setValue(cities_arr[0].value);
+       },
+       complete: function(){
+
+       }
+     });
+   })
+ </script>
+{% endblock %}

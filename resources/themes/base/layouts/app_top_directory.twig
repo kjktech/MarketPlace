@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel='shortcut icon' type='image/x-icon' href="{{ asset('images/favicon.ico') }}" />
+
+    {{  MetaTag.tag('description') | raw }}
+    {{  MetaTag.tag('image') | raw }}
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('themes/' ~  current_theme()  ~ '/css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('themes/' ~  current_theme()  ~ '/css/slick.css') }}">
+    <link rel="stylesheet" href="{{ asset('themes/' ~  current_theme()  ~ '/css/slick-theme.css') }}">
+    <link rel="stylesheet" href="{{ asset('themes/' ~  current_theme()  ~ '/css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('themes/' ~  current_theme()  ~ '/css/overload.css') }}">
+    {% block styles %}
+    {% endblock %}
+    <link rel="stylesheet" href="{{ asset('themes/' ~  current_theme()  ~ '/css/overload.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/14.0.8/css/intlTelInput.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css" integrity="sha384-v2Tw72dyUXeU3y4aM2Y0tBJQkGfplr39mxZqlTBDUZAb9BGoC40+rdFCG0m10lXk"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/fontawesome.css" integrity="sha384-q3jl8XQu1OpdLgGFvNRnPdj5VIlCvgsDQTQB6owSOHWlAurxul7f+JpUOVdAiJ5P"
+        crossorigin="anonymous">
+    <script src="{{ asset('themes/' ~  current_theme()  ~ '/js/csi.min.js') }}"></script>
+    <script
+			  src="https://code.jquery.com/jquery-3.3.1.min.js"
+			  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+			  crossorigin="anonymous"></script>
+
+    <title>Afiaanyi | Business Directory</title>
+    <style>
+
+    .intl-tel-input {
+       width: 100% !important;
+    }
+    .hero__search-companies::-webkit-input-placeholder {
+      font-size: 14px;
+      color: #000000 !important;
+      font-family: 'Montserrat', sans-serif;
+      font-weigth: 600 !important;
+    }
+    .hero__search-companies:-moz-placeholder {
+      font-size: 14px;
+      color: #000000 !important;
+      font-family: 'Montserrat', sans-serif;
+      font-weigth: 600 !important;
+    }
+    .hero__search-companies::-moz-placeholder {
+      font-size: 14px;
+      color: #000000 !important;
+      font-family: 'Montserrat', sans-serif;
+      font-weigth: 600 !important;
+    }
+    .hero__search-companies:-moz-placeholder {
+      font-size: 14px;
+      color: #000000 !important;
+      font-family: 'Montserrat', sans-serif;
+      font-weigth: 600 !important;
+    }
+    .all-services__individual-icon{
+      border-radius: 50%;
+    }
+    </style>
+</head>
+
+<body class="{{class_names}}">
+  <!--<div data-include="svg.html"></div>-->
+  {% include "layouts.svg" %}
+
+{% block nav %}
+    <header class="navbar__home business-directory__header fixed-top" id="topnav">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <a class="navbar-brand p-0 navbar__brand" href="{{ route('home') }}">
+                <img src="{{ asset('themes/' ~ current_theme() ~ '/images/afianni logo.svg') }}" width="76" height="71" alt="">
+            </a>
+
+            <ul class="d-sm-block d-lg-none ml-auto">
+                <li class="nav-item navbar__create-account navbar__create-account-resp ">
+                    <a class="nav-link" href="#">Business Owners</a>
+                </li>
+            </ul>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse responsive__nav-menu" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto business-directory__navbar">
+                  <li class="nav-item navbar__item">
+                    <a style="font-weight: bold; color: #E6B712 !important;" class="nav-link navbar__link" href="{{ route('page.topbrands') }}">Afiaanyi's Top Brands</a>
+                  </li>
+                   <li class="nav-item navbar__item">
+                       <a class="nav-link navbar__link" href="{{ route('page.directory') }}">Directory</a>
+                   </li>
+                   <li class="nav-item navbar__item">
+                       <a class="nav-link navbar__link" href="{{ route('browse') }}">Shop</a>
+                   </li>
+                   <li class="nav-item navbar__item">
+                       <a class="nav-link navbar__link" href="{{ route('page.comingsoon') }}">Jobs</a>
+                   </li>
+                   {% if auth_guest() %}
+                   <li class="nav-item navbar__item">
+                       <a class="nav-link navbar__link" href="#login" data-toggle="modal">Login</a>
+                   </li>
+                   {% endif %}
+                </ul>
+                {% if auth_user() %}
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="nav-item navbar__item p-0" style="line-height: 48px;">
+                        <span class="logged-navbar__welcome" style="color: #000000;">Welcome, <span style="color: #000000 !important"> {{ auth_user().first_name() }}!</span></span>
+                    </li>
+                    <li class="nav-item navbar__item dropdown">
+                        <a href="#" class="inset dropdown-toggle navbar__link" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                            <img src="{{ auth_user().avatar }}">
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{ route('account.') }}">User Dashboard</a>
+                            {% if auth_user().hasRole('admin') or auth_user().hasRole('super-admin') %}
+                              <div class="dropdown-divider"></div>
+                               <a href="./panel" class="dropdown-item">Manage Site</a>
+                            {% endif %}
+                            <div class="dropdown-divider"></div>
+                            <a href="{{ route('logout') }}"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="dropdown-item" href="#">Logout</a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                {{ csrf_field() }}
+                            </form>
+                        </div>
+                    </li>
+
+                </ul>
+                {% endif %}
+            </div>
+            {% if auth_guest() %}
+            <ul class="d-lg-block d-none">
+                <li class="nav-item navbar__create-account">
+                    <a class="nav-link" href="#signup-one" data-toggle="modal">Create an account</a>
+                </li>
+            </ul>
+           {% endif %}
+        </nav>
+        </nav>
+    </header>
+  {% endblock %}
+  {% block megamenu %}
+
+  {% endblock %}
+    {% block content %}
+
+
+    {% endblock %}
+
+    <section class="newsletter">
+        <div class="row m-0">
+            <div class="col-lg-5 col-md-5 col-sm-6 col-12 mb-4 pl-0">
+                <div class="row m-0">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                        <h4 class="newsletter__head">PHONE SUPPORT</h4>
+                        <svg class="icon icon-phone newsletter__icon">
+                            <use xlink:href="#icon-phone"></use>
+                        </svg>
+                        <span class=" newsletter__info">+234 905 300 0056-9</span>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                        <h4 class="newsletter__head">EMAIL SUPPORT</h4>
+                        <svg class="icon icon-email newsletter__icon">
+                            <use xlink:href="#icon-email"></use>
+                        </svg>
+                        <span class=" newsletter__info">info@afiaanyi.com</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7 col-md-7 col-sm-6 col-12 newsletter__get-latest">
+                <div class="row m-0">
+                    <div class="col-lg-6 col-md-12 mb-3">
+                        <h4 class="newsletter__head">GET LATEST DEALS & UPDATES</h4>
+                        <p class="newsletter__info newsletter__info-getupdate">Stay in the loop on all upcoming
+                            promotions, discounts and latest
+                            updates.</p>
+                    </div>
+                    <div class="col-lg-6 col-md-12 pr-0 newsletter-wrapper">
+                       <form id="subscribe-form" method="get" action="{{route('page.subscribe')}}">
+                        <div class="newsletter__input-wrapper">
+                            <input type="text" name="email" required placeholder="Enter e-mails" class="newsletter__input">
+                            <button style="visibility: hidden;" type="submit" id="subscribe-btn"></button>
+                            <div onclick="document.getElementById('subscribe-btn').click();" class="newsletter__input-btn">
+                                <svg class="icon icon-go">
+                                    <use xlink:href="#icon-go"></use>
+                                </svg>
+                            </div>
+                        </div>
+                      </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   {% include "layouts.footer_latest_base.twig" %}
+   {% include "layouts.partials.auth_modals.twig" %}
+   <script src="{{ asset('themes/' ~  current_theme()  ~ '/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('themes/' ~  current_theme()  ~ '/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('themes/' ~  current_theme()  ~ '/js/tether.min.js') }}"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="{{ asset('themes/' ~  current_theme()  ~ '/js/slick.min.js') }}"></script>
+    <script src="{{ asset('themes/' ~  current_theme()  ~ '/js/main.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/intercooler@1.2.1/dist/intercooler.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/14.0.8/js/intlTelInput-jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/14.0.8/js/intlTelInput.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/14.0.8/js/utils.js"></script>
+    {% include "layouts.partials.auth_js.twig" %}
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+     var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+      (function(){
+       var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+       s1.async=true;
+       s1.src='https://embed.tawk.to/5c6276e36cb1ff3c14cc1804/default';
+       s1.charset='UTF-8';
+       s1.setAttribute('crossorigin','*');
+       s0.parentNode.insertBefore(s1,s0);
+     })();
+    </script>
+    <!--End of Tawk.to Script-->
+</body>
+
+</html>

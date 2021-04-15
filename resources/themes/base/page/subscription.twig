@@ -1,0 +1,274 @@
+{% extends "layouts.app_email" %}
+
+{% block content %}
+<style>
+.card {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+}
+.form-control::placeholder {
+    color: #6c757d;
+    opacity: 1;
+}
+
+.form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #80bdff;
+    outline: 0;
+    -webkit-box-shadow: 0 0 0 .2rem rgba(0,123,255,.25);
+    box-shadow: 0 0 0 .2rem rgba(0,123,255,.25);
+}
+
+.form-control {
+    display: block;
+    width: 100%;
+    height: calc(2.25rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+        border-top-color: rgb(206, 212, 218);
+        border-right-color: rgb(206, 212, 218);
+        border-bottom-color: rgb(206, 212, 218);
+        border-left-color: rgb(206, 212, 218);
+    border-radius: 0;
+    -webkit-transition: border-color .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+    transition: border-color .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+}
+
+button, input {
+    overflow: visible;
+}
+
+button, input, optgroup, select, textarea {
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+body {
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    text-align: left;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #d8b027;
+    border-color: #d8b027;
+}
+
+.btn {
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+        border-top-color: transparent;
+        border-right-color: transparent;
+        border-bottom-color: transparent;
+        border-left-color: transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: 0;
+    -webkit-transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+}
+
+.btn-block {
+    display: block;
+    width: 100%;
+}
+
+.card {
+    word-wrap: break-word;
+}
+
+.container {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.row -custom{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+.col-md-8 {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 66.66666667%;
+    flex: 0 0 66.66666667%;
+    max-width: 66.66666667%;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 30px;
+}
+.col, .col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12, .col-auto, .col-lg, .col-lg-1, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-auto, .col-md, .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12, .col-md-auto, .col-sm, .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-auto, .col-xl, .col-xl-1, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl-auto {
+    position: relative;
+    width: 100%;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+.card-header {
+    padding: .75rem 1.25rem;
+    margin-bottom: 0;
+    background-color: rgba(0,0,0,.03);
+    border-bottom: 1px solid rgba(0,0,0,.125);
+}
+
+.card-body {
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 1.25rem;
+}
+.align-items-center {
+    -webkit-box-align: center !important;
+    -ms-flex-align: center !important;
+    align-items: center !important;
+}
+.pt-5, .py-5 {
+    padding-top: 3rem !important;
+}
+.flex-column {
+    -webkit-box-orient: vertical !important;
+    -ms-flex-direction: column !important;
+    flex-direction: column !important;
+}
+.flex-column, .flex-row {
+    -webkit-box-direction: normal !important;
+}
+label {
+    display: inline-block;
+    margin-bottom: .5rem;
+}
+.form-group {
+    margin-bottom: 1rem;
+}
+.newsletter-wrapper{
+  display: none;
+}
+</style>
+<div class="container">
+    <div class="row-custom flex-column pt-5 align-items-center">
+        <div class="col-md-8">
+           <div style="display: none;" class="card card-block card-message">
+              <div class="card-header">
+                  {{ __("Subscribed") }}  <span style="float: right; display: inline-block;"><a href="{{ app.redirect.getUrlGenerator().previous() }}">Back</a></span>
+              </div>
+              <div class="card-body">
+                  <h3>
+                    You where successfully subscribed
+                  </h3>
+                  <p>
+                    Get news alert, deals and general notifications to enhance your experience on Afiaanyi
+                  </p>
+              </div>
+           </div>
+
+            <div class="card card-block card-form">
+                <div class="card-header">
+                    {{ __("Subscribe to our Newsletter") }} <span style="float: right; display: inline-block;"><a href="{{ app.redirect.getUrlGenerator().previous() }}">Back</a></span>
+                </div>
+                <div class="card-body">
+                    <form id="subscribe-form" method="POST" action="{{ route('page.postsubscribe') }}">
+                        {{ csrf_field() }}
+                        <div class="form-group">
+                            <label class="form-control-label" for="email">{{ __("Email address") }}</label>
+                            <input class="form-control{{errors.has('email') ? ' is-invalid' : '' }}" type="text" id="email" name="email" value="{{ old('email', email) }}"
+                                   placeholder="Enter your email" required autofocus>
+                            {% if errors.has('email') %}
+                                <small class="form-control-feedback invalid-feedback">{{errors.first('email') }}</small>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label" for="email">{{ __("Name") }}</label>
+                            <input class="form-control{{errors.has('name') ? ' is-invalid' : '' }}" type="text" id="name" name="name" value="{{ old('name') }}"
+                                   placeholder="Enter your name" required autofocus>
+                            {% if errors.has('name') %}
+                                <small class="form-control-feedback invalid-feedback">{{errors.first('name') }}</small>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-md btn-primary btn-block">{{ __("Subscribe") }}</button>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% if subscribed %}
+  <script>
+    $('.card-form').hide();
+    $('.card-message').show();
+  </script>
+{% endif %}
+<script>
+  var subForm = $("#subscribe-form");
+  subForm.submit( function(e){
+
+    e.preventDefault();
+    //alert('Submitted');
+    var formData = subForm.serialize();
+    $.ajax({
+       url: '{{ route('page.postsubscribe') }}',
+       type:'POST',
+       data:formData,
+       success:function(data){
+        $('.card-form').hide();
+        $('.card-message').show();
+      },
+      error: function (data) {
+
+
+      },
+      completed: function (data) {
+
+      }
+    });
+  });
+</script>
+<!-- <a href="{{route('login')}}" class="close-btn" style="position: absolute; top: 20px; right: 20px;"><i class="mdi mdi-close text-muted" style="font-size: 30px;"></i></a> -->
+{% endblock %}

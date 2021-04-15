@@ -1,0 +1,108 @@
+.footer__copyupdate{
+  font-weight: bold;
+  color: #E6B712 !important;
+}
+
+.verifyemail{
+  height: 600px;
+  align-items: center;
+}
+.center-info{
+  font-size: 15px;
+  font-weight: 500;
+  padding-top: 35px;
+  width: 70%;
+  height: 30%;
+  overflow: auto;
+  margin: auto;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  text-align: center;
+}
+.verification__heading{
+    font-weight: 500;
+    font-size: 22px;
+    width: 100%;
+    align-content: center;
+    margin: auto;
+    margin-top: auto;
+    text-align: center;
+    margin-top: 100px;
+}
+.verification__footer{
+  color: red;
+  font-weight: 500;
+}
+.verify-details{
+  margin-top: 20px;
+}
+.loader-msg{
+   margin-bottom: 10px;
+}
+.loader-account-msg{
+   margin-bottom: 10px;
+}
+.form-error{
+  color: red;
+  display: none;
+}
+.account-input{
+  margin-bottom: 5px !important;
+}
+.flag-container {
+    margin-top: 20px !important;
+}
+.verifymsg{
+  padding-top: 80px;
+  padding-bottom: 80px;
+  text-align: center;
+  background-color: floralwhite;
+}
+.email-module #mail{
+    font-size: inherit;
+}
+.btn-custom-demo {
+  /* default for <button>, but useful for <a> */
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+
+  /* create a small space when buttons wrap on 2 lines */
+  margin: 2px 0;
+
+  /* invisible border (will be colored on hover/focus) */
+  border: solid 1px transparent;
+  border-radius: 4px;
+
+  /* size comes from text & padding (no width/height) */
+  padding: 0.5em 1em;
+
+  /* make sure colors have enough contrast! */
+  color: #ffffff;
+  background-color: #d8b027;
+}
+.browse-card{
+  height: 520px;
+  position: relative;
+}
+.browse-contact-btn{
+  bottom: 20px;
+  margin: 32px 0 17px 45%;
+  margin-bottom: 17px;
+  position: absolute;
+}
+.contact__container {
+    background-color: #fcfcfc;
+    padding-bottom: 55px;
+    padding-top: 30px;
+}
+.signup__form-already-in a {
+    color: #E6B712;
+    text-decoration: none;
+}
+.signup__form.signup__form-button{
+  margin-top: 0px;
+}
+.mt-4, .my-4 {
+    margin-top: 1.5rem !important;
+}

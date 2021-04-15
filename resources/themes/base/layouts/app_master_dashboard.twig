@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel='shortcut icon' type='image/x-icon' href="{{ asset('images/favicon.ico') }}" />
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <script type="text/javascript" src='https://maps.google.com/maps/api/js?sensor=false&libraries=places&key=
+AIzaSyCG_2SD-pe1Cj0T5YRbl2ocQChhfmXJ24w
+'></script>
+    {% set scripts = jsdeliver_combine("base", "js")|split(',') %}
+    {% for script in scripts %}
+        <script src="https://cdn.jsdelivr.net/{{script}}" type="text/javascript"></script>
+    {% endfor %}
+
+    {% if current_locale() != 'en' %}
+        <script src="https://npmcdn.com/flatpickr/dist/l10n/{{ current_locale() }}.js"></script>
+    {% endif %}
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-json/2.4.0/jquery.json.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/timepicker@1.11.14/jquery.timepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.2.17/jquery.timepicker.min.css"/>
+    <script src="{{ asset('themes/' ~ current_theme() ~ '/js/custom_selectize.js') }}" type="text/javascript"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.businessHours/1.0.1/jquery.businessHours.min.js"></script>
+
+    <!-- Styles -->
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.businessHours/1.0.1/jquery.businessHours.min.css" rel="stylesheet"/>
+    <!-- App Scripts & Styles -->
+    <script src="{{ asset('themes/' ~ current_theme() ~ '/js/app.js') }}"></script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700" rel="stylesheet">
+
+
+    <link rel="stylesheet" href="{{ asset('themes/' ~  current_theme()  ~ '/css/bootstrap.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('themes/' ~  current_theme()  ~ '/css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('themes/' ~  current_theme()  ~ '/css/logged-navbar.css') }}">
+    {% set styles = jsdeliver_combine("default", "css")|split(',') %}
+    {% for style_href in styles %}
+    <link href="https://cdn.jsdelivr.net/{{style_href}}" rel="stylesheet"/>
+    {% endfor %}
+    <link href="{{ asset('themes/' ~  current_theme()  ~ '/css/app_slim.css') }}" rel="stylesheet">
+
+    <title>Afiaanyi | User Profile</title>
+</head>
+
+<body>
+   {% include "layouts.svg.twig" %}
+    <aside class="user-sidebar">
+        <div class="user-sidebar__overlay">
+            <div class="user-sidebar__logo">
+              <a href="{{ route('home') }}">
+                <img src="{{ asset('themes/' ~  current_theme()  ~ '/images/logo.png') }}" alt="" class="img-fluid">
+              </a>
+            </div>
+            <ul class="user-sidebar__item">
+                <li class="user-sidebar__link {{ active(['account.overview'], 'user-sidebar__link-active')}}">
+                    <a href="{{ route('account.overview') }}">
+                      <svg class="icon icon-dashboard">
+                          <use xlink:href="#icon-dashboard"></use>
+                      </svg>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                {% if auth_user().hasRole('admin') or auth_user().hasRole('super-admin') %}
+                <li class="user-sidebar__link">
+                    <a href="{{ route('panel.') }}">
+                      <svg class="icon icon-dashboard">
+                          <use xlink:href="#icon-dashboard"></use>
+                      </svg>
+                        <span>Manage Site</span>
+                    </a>
+                </li>
+
+                {% endif %}
+                <li class="user-sidebar__link {{ active(['account.edit_profile.index'], 'user-sidebar__link-active')}}">
+                    <a href="{{ route('account.edit_profile.index') }}">
+                        <svg class="icon icon-person-profile">
+                            <use xlink:href="#icon-person-profile"></use>
+                        </svg>
+                        <span>My personal Info</span>
+                    </a>
+                </li>
+                <li class="user-sidebar__link {{ active(['account.edit_profile.address'], 'user-sidebar__link-active')}}">
+                    <a href="{{ route('account.edit_profile.address') }}">
+                        <svg class="icon icon-person-profile">
+                            <use xlink:href="#icon-person-profile"></use>
+                        </svg>
+                        <span>Delivery Address</span>
+                    </a>
+                </li>
+                <li class="user-sidebar__link {{ active(['account.brands.index'], 'user-sidebar__link-active')}}">
+                    <a href="{{ route('account.brands.index') }}">
+                        <svg class="icon icon-review">
+                            <use xlink:href="#icon-review"></use>
+                        </svg>
+                        <span>Businesses</span>
+                    </a>
+                </li>
+                <li class="user-sidebar__link {{ active(['account.view.wishlist'], 'user-sidebar__link-active')}}">
+                    <a href="{{ route('account.view.wishlist') }}">
+                        <svg class="icon icon-review">
+                            <use xlink:href="#icon-review"></use>
+                        </svg>
+                        <span>Wishlist</span>
+                    </a>
+                </li>
+                <li class="user-sidebar__link {{ active(['account.stores.index'], 'user-sidebar__link-active')}}">
+                    <a href="{{ route('account.stores.index') }}">
+                        <svg class="icon icon-review">
+                            <use xlink:href="#icon-review"></use>
+                        </svg>
+                        <span>Stores</span>
+                    </a>
+                </li>
+                {% if auth_user().hasRole('admin') or auth_user().hasRole('super-admin') %}
+                   <!--<a href="https://afiaanyi.com/panel" class="dropdown-item">Manage Site</a>-->
+                   <li class="user-sidebar__link">
+                       <a href="https://afiaanyi.com/panel">
+                           <svg class="icon icon-review">
+                               <use xlink:href="#icon-review"></use>
+                           </svg>
+                           <span>Manage Site</span>
+                       </a>
+                   </li>
+                {% endif %}
+                <!--
+                <li class="user-sidebar__link {{ active(['account.review'], 'user-sidebar__link-active')}}">
+                    <a href="{{ route('account.review') }}">
+                        <svg class="icon icon-review">
+                            <use xlink:href="#icon-review"></use>
+                        </svg>
+                        <span>Reviews</span>
+                    </a>
+                </li>
+                -->
+                <li class="user-sidebar__link">
+                    <svg class="icon icon-logout">
+                        <use xlink:href="#icon-logout"></use>
+                    </svg>
+                    <a style="color: #FFFFFF;" href="{{ route('logout') }}"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();" href="#">Logout</a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        {{ csrf_field() }}
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </aside>
+    <nav>
+        <div style="" class="row header__nav-content">
+            <div style="visibility:hidden;">
+                <a href="{{ route('home') }}"><img  class="header__logo" src="{{ asset('themes/' ~  current_theme()  ~ '/images/market-logo.svg') }}" class="header__logo" alt="Afiaanyi logo"></a>
+            </div>
+            <div class="account_search_form">
+              <form method="get" action={{ route('browsebrand') }}>
+                <input name="q" type="search" class="header__form-input header__input-nav" placeholder="Search for products, brands and categories">
+                <input type="submit" class="header__submit">
+              </form>
+            </div>
+
+            <div>
+                <ul class="header__nav-list-container">
+                  <li class="header__nav-list">
+                      <a class="header__nav-link" href="{{ route('page.directory') }}">Directory</a>
+                  </li>
+                  <!--
+                    <li class="header__nav-list">
+                        <a href="{{ route('page.directory')}}" class="header__nav-link">Directory</a>
+                    </li>
+                  -->
+                    <li class="header__nav-list">
+                        <a href="{{ route('browse') }}" class="header__nav-link">Shop</a>
+                    </li>
+                    {% if auth_user().hasRole('admin') or auth_user().hasRole('super-admin') %}
+                       <!--<a href="https://afiaanyi.com/panel" class="dropdown-item">Manage Site</a>-->
+                    {% endif %}
+                    <li class="header__nav-list">
+                        <a href="{{ route('page.comingsoon')}}" class="header__nav-link">Jobs</a>
+                    </li>
+                    <li class="header__nav-list">
+                        <a href="{{url('create')}}" class="header__nav-link header--outlined">Create A Business</a>
+                    </li>
+
+                </ul>
+            </div>
+
+
+            <div class="header__customized-items">
+                <p class="header__greeting">Welcome <span class="header__username">{{ auth_user().first_name() }}!</span></p>
+
+                <a href="">
+                    <img src="{{ auth_user().avatar }}" class="header-nav-icon header__avatar" height="35px" width="35px">
+                </a>
+
+
+            </div>
+        </div>
+    </nav>
+   <!-- block content -->
+   {% block content %}
+   <!-- Intrest -->
+
+   {% endblock %}
+</body>
+
+</html>

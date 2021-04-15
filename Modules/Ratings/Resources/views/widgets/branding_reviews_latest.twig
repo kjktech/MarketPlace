@@ -1,0 +1,40 @@
+{% if comments | length > 0 %}
+
+{% else %}
+
+{% for comment in comments %}
+<div class="review__per-user">
+    <div class="review__box-header-outer">
+
+        <div class="review__box-header">
+            <div class="rate__stars">
+                {{ include('components.star_rating', {rating: comment.rating}) }}
+            </div>
+            <div>
+                <div class="rating__num rating__num--boxed">
+                    {{ comment.rating }}
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <p class="review__date">{{ comment.created_at.toFormattedDateString() }}<</p>
+        </div>
+
+    </div>
+
+
+    <div class="user__reviewed">
+        <img src="{{ comment.commenter.avatar }}" class="user__avatar">
+
+        <div>
+            <h4 class="review__user-name">James Doe</h4>
+            <p class="review__content">
+                {{ comment.comment }}
+            </p>
+        </div>
+
+    </div>
+</div>
+{% endfor %}
+{% endif %}

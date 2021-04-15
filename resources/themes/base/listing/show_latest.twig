@@ -1,0 +1,307 @@
+{% extends "layouts.app_marketplace" %}
+{% block content %}
+<section class="breadcrumb">
+    <a href="{{route('home')}}" class="breadcrumb__link">{{ __("Home") }}</a>
+    <svg class="icon icon-separator">
+        <use xlink:href="#icon-separator"></use>
+    </svg>
+   {% for breadcrumb in breadcrumbs %}
+    <a href="{{ route(setting('afiaanyi_index'), {'category': breadcrumb.id}) }}" class="breadcrumb__link">{{ _l(breadcrumb.name) }}</a>
+    <svg class="icon icon-separator">
+        <use xlink:href="#icon-separator"></use>
+    </svg>
+   {% endfor %}
+
+    <span><a href="{{ route(setting('afiaanyi_index'), {'category': breadcrumb.id}) }}" class="text-muted">{{_l(listing.category.name)}}</a><span>
+   </section>
+   <section class="product-page__details">
+          <div class="quickview__modal-body d-flex">
+              <div class="quickview__modal-body-image w-50">
+                  <div class="gallery clearfix">
+                      <div class="pics clearfix d-flex">
+                          <div class="thumbs mr-3">
+
+                              {% for k,image in listing.carousel %}
+
+                               <div class="preview">
+                                  <a href="#" class="selected" data-full="{{image}}" data-title="{{listing.title}} photo {{k}}">
+                                      <img src="{{image}}" class="img-fluid">
+                                  </a>
+                               </div>
+                              {% endfor %}
+                          </div>
+                          {% if listing.carousel | length > 0 %}
+                          <a href="" class="full w-100">
+                              <!-- first image is viewable to start -->
+                              <img src="{{listing.carousel.0}}" class="" style="margin-left: -30%;">
+                          </a>
+                          {% endif %}
+                      </div>
+                  </div>
+              </div>
+              <div class="quickview__modal-body-details">
+                  <h2 class="quickview__modal-body-details-heading">{{listing.title}}</h2>
+                  <div class="quickview__modal-body-price-wrapper d-flex">
+                      <div class="quickview__modal-body-price">
+                          <p><span>₦</span>{{listing.price}}</p>
+                          <small><span>By:</span> {{ listing.store.name }}</small>
+                      </div>
+                      <div class="ml-auto quickview__modal-ratings">
+                          <svg class="icon icon-star">
+                              <use xlink:href="#icon-star"></use>
+                          </svg>
+                          <svg class="icon icon-star">
+                              <use xlink:href="#icon-star"></use>
+                          </svg>
+                          <svg class="icon icon-star">
+                              <use xlink:href="#icon-star"></use>
+                          </svg>
+                          <svg class="icon icon-star">
+                              <use xlink:href="#icon-star"></use>
+                          </svg>
+                          <svg class="icon icon-star">
+                              <use xlink:href="#icon-star"></use>
+                          </svg>
+                          <span class="quickview__modal-ratings-figure">
+                           {% if listing.ratings() %}
+                           {{ listing.ratings() }} <span> of </span>5</span>
+                           {% else %}
+
+                           {% endif %}
+                          <br>
+                          <a href="#">Write a reviews ></a>
+                      </div>
+                  </div>
+                  <div class="quickview__modal-body-description-wrapper d-flex">
+                      <div class="quickview__modal-body-description">
+                          <h4>Description</h4>
+                          <p> {{ listing.description | raw }}
+                            <!--
+                           <span>
+                             <a class="descrip-seemore" href="#">See more</a>
+                           </span>
+                           -->
+                          </p>
+                      </div>
+                      <div class="marketplace__topAd quickview__modal-security">
+                          <div class="marketplace__topAd-info">
+                              <svg class="icon icon-secure-payment quickview__modal-security-icons">
+                                  <use xlink:href="#icon-secure-payment"></use>
+                              </svg>
+                              <div>
+                                  <h3>secure & Reliable Payment</h3>
+                              </div>
+                          </div>
+                          <div class="marketplace__topAd-info">
+                              <svg class="icon icon-days-return quickview__modal-security-icons">
+                                  <use xlink:href="#icon-days-return"></use>
+                              </svg>
+                              <div>
+                                  <h3>Free 7-day return if Eligible</h3>
+                              </div>
+                          </div>
+                          <div class="marketplace__topAd-info">
+                              <svg class="icon icon-geniue-product quickview__modal-security-icons">
+                                  <use xlink:href="#icon-geniue-product"></use>
+                              </svg>
+                              <div>
+                                  <h3>Genuine Products</h3>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="quickview__modal-size-and-color">
+                     <!-- template
+                      <div class="quickview__modal-sizing">
+                          <a href="#">Size Guidelines</a>
+                          <h4>Size</h4>
+                          <div class="quickview__modal-size">
+                              <div class="quickview__modal-size-individual">S</div>
+                              <div class="quickview__modal-size-individual selected">M</div>
+                              <div class="quickview__modal-size-individual">L</div>
+                              <div class="quickview__modal-size-individual">XL</div>
+                              <div class="quickview__modal-size-individual">XXL</div>
+                          </div>
+                      </div>
+                      -->
+                      {% if listing.pricing_model  %}
+                        {% if listing.pricing_model.widget == 'buy'  %}
+                          {{ Widget.run('Order.'~(listing.pricing_model.widget)~'Widget', {}, listing, avail_quantity, selected_quantity) | raw }}
+                        {% else %}
+                          {{ Widget.run('Order.'~(listing.pricing_model.widget)~'Widget', {}, listing) | raw }}
+                        {% endif %}
+                      {% endif %}
+                      <div class="quickview__modal-share">
+                          <span>Share this product</span>
+                          <a href="#">
+                              <svg class="icon icon-whatsapp">
+                                  <use xlink:href="#icon-whatsapp"></use>
+                              </svg>
+                          </a>
+                          <a href="#">
+                              <svg class="icon icon-message">
+                                  <use xlink:href="#icon-message"></use>
+                              </svg>
+                          </a>
+                          <a href="#">
+                              <svg class="icon icon-link-share">
+                                  <use xlink:href="#icon-link-share"></use>
+                              </svg>
+                          </a>
+                          <div class="quickview__modal-save">
+                              <a href="#">Save</a>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </section>
+
+      <section class="product-page__customers-also-view">
+          <h3>Customers also Viewed</h3>
+          <div class="product-page__customers-also-view-product">
+            {% for item in best_sellers %}
+            <div class="marketplace__product">
+                <div class="marketplace__product-image">
+                    <img src="{{ item.cover_image }}" alt="" class="img-fluid">
+                    <div class="marketplace__product-new">New</div>
+                    <div class="marketplace__product-quickview">
+                         <a href="{{item.url}}" data-id={{item.id}} class="btn btn-primary marketplace__product-quickview-btn">Quick View</a>
+                    </div>
+                </div>
+                <div class="marketplace__product-details">
+                    <small class="marketplace__product-brand">{{ item.brand.name }}</small>
+                    <hr class="marketplace__product-line">
+                    <a href="#" class="marketplace__product-name">{{ item.title }}</a>
+                    <div class="marketplace__product-price-wrapper">
+                        <p class="marketplace__product-price"><span>₦</span>{{ item.price }}</p>
+                        <div class="marketplace__product-discount">
+                            -{{ item.discount }}%
+                        </div>
+                    </div>
+                    <div class="marketplace__product-rating">
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <p class="marketplace__product-rating-number">(899)</p>
+                    </div>
+                </div>
+            </div>
+
+            {% endfor %}
+
+          </div>
+      </section>
+      {%  if(module_enabled('ratings') and setting('rating_listing_page')) %}
+          {{ asyncWidget('Modules.Ratings.Widgets.listingReviews', {'listing': listing.id, 'limit': setting('rating_listing_limit')}) | raw }}
+      {% endif %}
+
+      <section class="product-page__customers-also-view">
+          <h3>You May Also Like</h3>
+          <div class="product-page__customers-also-view-product">
+
+            {% for item in best_sellers %}
+            <div class="marketplace__product">
+                <div class="marketplace__product-image">
+                    <img src="{{ item.cover_image }}" alt="" class="img-fluid">
+                    <div class="marketplace__product-new">New</div>
+                    <div class="marketplace__product-quickview">
+                        <a href="{{item.url}}" data-id={{item.id}} class="btn btn-primary marketplace__product-quickview-btn">Quick View</a>
+                    </div>
+                </div>
+                <div class="marketplace__product-details">
+                    <small class="marketplace__product-brand">{{ item.brand.name }}</small>
+                    <hr class="marketplace__product-line">
+                    <a href="#" class="marketplace__product-name">{{ item.title }}</a>
+                    <div class="marketplace__product-price-wrapper">
+                        <p class="marketplace__product-price"><span>₦</span>{{ item.price }}</p>
+                        <div class="marketplace__product-discount">
+                            -{{ item.discount }}%
+                        </div>
+                    </div>
+                    <div class="marketplace__product-rating">
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <p class="marketplace__product-rating-number">(899)</p>
+                    </div>
+                </div>
+            </div>
+
+            {% endfor %}
+
+          </div>
+      </section>
+
+
+      <section class="newsletter">
+          <div class="row m-0">
+              <div class="col-lg-5 col-md-5 col-sm-6 col-12 mb-4 pl-0">
+                  <div class="row m-0">
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                          <h4 class="newsletter__head">PHONE SUPPORT</h4>
+                          <svg class="icon icon-phone newsletter__icon">
+                              <use xlink:href="#icon-phone"></use>
+                          </svg>
+                          <span class=" newsletter__info">+234 905 300 0056-9</span>
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                          <h4 class="newsletter__head">EMAIL SUPPORT</h4>
+                          <svg class="icon icon-email newsletter__icon">
+                              <use xlink:href="#icon-email"></use>
+                          </svg>
+                          <span class=" newsletter__info">info@afiaanyi.com</span>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-lg-7 col-md-7 col-sm-6 col-12 newsletter__get-latest">
+                  <div class="row m-0">
+                      <div class="col-lg-6 col-md-12 mb-3">
+                          <h4 class="newsletter__head">GET LATEST DEALS & UPDATES</h4>
+                          <p class="newsletter__info newsletter__info-getupdate">Stay in the loop on all upcoming
+                              promotions, discounts and latest
+                              updates.</p>
+                      </div>
+                      <div class="col-lg-6 col-md-12 pr-0 newsletter-wrapper">
+                         <form id="subscribe-form" method="get" action="{{route('page.subscribe')}}">
+                          <div class="newsletter__input-wrapper">
+                              <input type="email" name="email" placeholder="Enter e-mail"  required class="newsletter__input">
+                              <button style="visibility: hidden;" type="submit" id="subscribe-btn"></button>
+                              <div onclick="document.getElementById('subscribe-btn').click();" class="newsletter__input-btn">
+                                  <svg class="icon icon-go">
+                                      <use xlink:href="#icon-go"></use>
+                                  </svg>
+                              </div>
+                          </div>
+                        </form>
+                      </div>
+                  </div>
+              </div>
+          </div>
+       </section>
+{% endblock %}

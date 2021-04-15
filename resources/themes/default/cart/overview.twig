@@ -1,0 +1,138 @@
+{% extends "layouts.app" %}
+
+{% block search_bar %}
+{% endblock %}
+
+{% block content %}
+
+<div class="bg-light">
+<div class="container-fluid" style="max-width: 970px">
+    <div class="col-12s">
+
+        <div class="row">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-9 pl-sm-5 ">
+                <div class="row">
+                    <div class="col-9">
+
+                    </div>
+                    <div class="col-3 pt-4">
+
+                        </div>
+                    </div>
+                </div>
+              <!--
+                <div class="col-sm-3 d-none d-sm-block">
+                    <div id="sidebar" class="p-0 mt-0">
+
+
+                  </div>
+               </div>
+              -->
+            <div class="col-sm-12 col-12 pl-sm-5 border-0" style="">
+
+            {% if cart_test|length > 0 %}
+              <table class="table">
+               <thead>
+                   <tr>
+                       <th class="table-image">Image</th>
+                       <th>Product</th>
+                       <th>Quantity</th>
+                       <th>Price</th>
+                       <th class="column-spacer"></th>
+                       <th></th>
+                   </tr>
+               </thead>
+
+               <tbody>
+                  {% for item in cart_test %}
+                   <tr>
+                       <td class="table-image"><a href=""><img width=100 src="{{ cart_content(item.attributes.listing_id)  }}" alt="product" class="img-responsive cart-image"></a></td>
+                       <td>
+                         <a href="">{{ item.name }}</a>
+                       </td>
+                       <td>
+                         {{ form_select('quantity', array_combine(range(1, 8), range(1, 8)), item.quantity, {'class' : 'form-control form-control-sm quantity', 'required':'required', 'data-id': item.rowId}) }}
+                       </td>
+                       <td>{{ item.price }}</td>
+                       <td class=""></td>
+                       <td>
+                           <form action="" method="POST" class="side-by-side">
+
+                               <input type="hidden" name="_method" value="DELETE">
+                               <input type="submit" class="btn btn-danger btn-sm" value="Remove">
+                           </form>
+                       </td>
+                   </tr>
+
+                   {% endfor %}
+                   <tr>
+                       <td class="table-image"></td>
+                       <td></td>
+                       <td class="small-caps table-bg" style="text-align: right">Subtotal</td>
+                       <td>{{ cart_test_cart.getSubTotal() }}</td>
+                       <td></td>
+                       <td></td>
+                   </tr>
+                   <tr>
+                       <td class="table-image"></td>
+                       <td></td>
+                       <td class="small-caps table-bg" style="text-align: right">Tax</td>
+                       <td></td>
+                       <td></td>
+                       <td></td>
+                   </tr>
+
+                   <tr class="border-bottom">
+                       <td class="table-image"></td>
+                       <td style="padding: 40px;"></td>
+                       <td class="small-caps table-bg" style="text-align: right">Your Total</td>
+                       <td class="table-bg">{{ cart_test_cart.getTotal() }}</td>
+                       <td class="column-spacer"></td>
+                       <td></td>
+                   </tr>
+
+               </tbody>
+             </table>
+             <a href="" class="btn btn-primary btn-lg">Continue Shopping</a> &nbsp;
+            <a href="#" class="btn btn-success btn-lg">Proceed to Checkout</a>
+
+           <div style="float:right">
+              <form action="" method="POST">
+                  {{ csrf_field() }}
+                  <input type="hidden" name="_method" value="DELETE">
+                  <input type="submit" class="btn btn-danger btn-lg" value="Empty Cart">
+              </form>
+             </div>
+             {% else %}
+             <h3>You have no items in your shopping cart</h3>
+             <a href="" class="btn btn-primary btn-lg">Continue Shopping</a>
+             {% endif %}
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <script>
+        (function(){
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $('.quantity').on('change', function() {
+                var id = $(this).attr('data-id')
+                $.ajax({
+                  type: "PUT",
+                  url: '{{ url("./api/shop") }}' + '/' + id,
+                  data: {
+                    'quantity': this.value,
+                  },
+                  success: function(data) {
+                    window.location.href = '{{ url('/cart') }}';
+                  }
+                });
+            });
+        })();
+    </script>
+    {% endblock %}

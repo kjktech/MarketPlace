@@ -1,0 +1,54 @@
+<div class="header__top-container">
+    <div class="row header__nav-content">
+        <div class="header__logo-container">
+          <a href="{{ route('home') }}">
+            <img src="{{ asset('themes/' ~  current_theme()  ~ '/images/market-logo.svg') }}" class="header__logo" alt="Afiaanyi logo">
+         </a>
+        </div>
+
+        <form action="{{ route('browsebrand') }}" method="get" class="header__form-input-container">
+            <input name="q" type="text" id="searcggh" list="search" class="header__form-input header__input-nav"
+                placeholder="Search for companies and services">
+            <!--<datalist id="search">
+                <option value="Internet Explorer">
+                <option value="Firefox">
+                <option value="Chrome">
+                <option value="Opera">
+                <option value="Safari">
+            </datalist>
+            -->
+            <input type="submit" class="header__submit">
+        </form>
+
+        <div>
+            <ul class="header__nav-list-container">
+              <li class="header__nav-list">
+                  <a style="font-weight: bold; color: #E6B712 !important;" href="{{ route('page.topbrands') }}" class="header__nav-link">Afiaanyi's Top Brands</a>
+              </li>
+                <li class="header__nav-list">
+                    <a href="{{ route('browsebrand') }}" class="header__nav-link">Directory</a>
+                </li>
+                <li class="header__nav-list">
+                    <a href="{{ route('browse') }}" class="header__nav-link">Shop</a>
+                </li>
+
+                <li class="header__nav-list">
+                    <a href="{{ route('page.comingsoon') }}" class="header__nav-link">Jobs</a>
+                </li>
+
+            </ul>
+        </div>
+
+
+        <div class="header__customized-items">
+            {% if auth_guest() == false %}
+            <p class="greeting">Welcome &nbsp;&nbsp;<span class="user__name">{{ auth_user.first_name() }}!</span></p>
+
+            <a href="">
+                <img src="{{ auth_user.avatar }}" class="header-nav-icon header__avatar" height="35px" width="35px">
+            </a>
+            {% endif %}
+
+        </div>
+    </div>
+</div>

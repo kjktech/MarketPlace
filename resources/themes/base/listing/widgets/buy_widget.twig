@@ -1,0 +1,390 @@
+<style>
+.input-stepper {
+background: white;
+border: 2px solid #dedede;
+display: inline-block;
+font-size: 20px;
+margin-bottom: 20px;
+padding: 5px;
+}
+
+.input-stepper button {
+-webkit-appearance: none;
+-moz-appearance: none;
+appearance: none;
+background-color: transparent;
+border: none;
+cursor: pointer;
+font-size: 20px;
+}
+
+.input-stepper button[disabled] {
+cursor: not-allowed;
+opacity: .4;
+}
+
+.input-stepper button i {
+color: #07c;
+}
+
+.input-stepper input {
+-webkit-appearance: none;
+-moz-appearance: none;
+appearance: none;
+border: none;
+font-size: 20px;
+text-align: center;
+width: 36px;
+}
+</style>
+
+<div class="card " id="form-selector" >
+
+    <form method="GET" id="form-widget" class="checkout-form" ic-get-from="{{ url_current() }}" ic-target="#form-selector" ic-select-from-response="#form-selector" ic-replace-target="false" ic-trigger-on="change" ic-push-url="true" ic-indicator=".widget-indicator">
+        {# Hidden input to track quantity #}
+        <input name="quantity-hidden" id="quantity-hidden" type="hidden" value="{{selected_quantity}}" />
+        <input name="quantity" id="quantity-request" type="hidden" value="{{selected_quantity}}" />
+        <div class="card-body">
+
+            <div class="row ">
+                <div class="col-sm-12">
+
+                    <div class="row ">
+                        <div class="col-6">
+                            <h4 class="mb-0">{{ format_money(total, listing.currency) }} <i class="widget-indicator fa fa-circle-o-notch p-1 fa-spin float-right" style="display:none"></i></h4>
+                        </div>
+                        <div class="col-6 text-right">
+                            {% if auth_check() %}
+                                <a href="#"  class="btn btn-sm btn-outline-info InboxDirectMessage" data-url="">{{ __("Ask question") }}</a>
+                            {% else %}
+                                <a href="#"  class="btn btn-sm btn-outline-info pop" data-width="300">{{ __("Ask question") }}</a>
+                                <div class="webui-popover-content">
+                                    <p class="h6">{{ __('Have a question?') }}</p>
+                                    <p>{{ __('Please sign in to contact the seller.') }}</p>
+                                    <hr />
+                                    <a href="{{ route('login') }}" class="btn btn-link text-danger font-weight-bold text-uppercase pl-0">{{ __("Sign in") }}</a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    {% if listing.variant_options %}
+                        {% for name,variation in listing.variant_options %}
+                            <div class="row mt-3">
+                                <div class="col-sm-12">
+                                    {{ _l(name) }}
+                                </div>
+                                <div class="col-sm-12">
+                                    {{  form_select('variant['~name~']', {'' : __(' - Select - ')} + array_combine(variation, variation), input_get('variant.'~name), {'class' : 'form-control form-control-sm variant-input', 'required':'required', 'data-variant': name}) }}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    {% if listing.stock > 1 %}
+                        <div class="row mt-3">
+                            <div class="col-sm-12">
+                                {{ __('Quantity') }}
+                            </div>
+                            <div class="col-sm-6">
+                              <!--{{ form_select('quantity', array_combine(range(1, listing.stock), range(1, listing.stock)), quantity, {'class' : 'form-control form-control-sm', 'required':'required'}) }}-->
+                              <div class="input-stepper">
+                               <button class="minus"><i class="fa fa-minus"></i></button>
+                                <input id="quantity-input" type="text" value="{{selected_quantity}}" />
+                               <button class="plus"><i class="fa fa-plus"></i></button>
+                              </div>
+                            </div>
+                        </div>
+                    {% else %}
+                        {{ form_hidden('quantity', 1) }}
+                    {% endif %}
+
+                    {% if listing.shipping_options|length > 0 %}
+                        <div class="row mt-3 mb-3">
+                            <div class="col-sm-12">
+                                <label class="small text-muted">{{ __('Shipping') }}</label>
+                                {% for k, shipping_option in listing.shipping_options  %}
+                                    <div class="form-check">
+
+                                        <input class="form-check-input" required id="shipping_option_{{ shipping_option.id }}" {{ (input_get('shipping_option') == shipping_option.id)?'checked=checked':'' }} name="shipping_option" type="radio" value="{{ shipping_option.id }}">
+                                        <label class="form-check-label" for="shipping_option_{{ shipping_option.id }}">
+                                            {{ shipping_option.name }} <span class="text-muted">({{ format_money(shipping_option.price, listing.currency) }})</span>
+                                        </label>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% if listing.additional_options|length > 0 %}
+                        <div class="row mt-3 mb-3">
+                            <div class="col-sm-12">
+                                <label class="small text-muted">{{ __('Additional options') }}</label>
+                                {% for k, additional_option in listing.additional_options  %}
+                                    <div class="form-check">
+
+                                        <input class="form-check-input" id="additional_option_{{ additional_option.id }}" {{ (input_has('additional_option.'~additional_option.id))?'checked=checked':'' }} name="additional_option[{{ additional_option.id }}]" type="checkbox" value="1">
+                                        <label class="form-check-label" for="additional_option_{{ additional_option.id }}">
+                                            {{ additional_option.name }} <span class="text-muted">({{ format_money(additional_option.price, listing.currency) }})</span>
+                                        </label>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% if error %}
+                        <p class="mb-1 mt-1 p-3 text-muted text-center">{{  error }}</p>
+                    {% endif %}
+
+                    <hr />
+                    {% for item in price_items %}
+                        <div class="row">
+                            <div class="col-sm-8 mt-1">
+                                <span>{{ item.label }}</span>
+                            </div>
+                            <div class="col-sm-4 mt-1 text-right">
+                                <span>{{format_money(item.price, listing.currency)}}</span>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="card-footer text-center">
+            {% if listing.user.can_accept_payments  %}
+
+                {% if auth_check() %}
+
+                    {% if listing.user.payment_gateway('stripe') %}
+                        <!--<button type="submit" {{ error?'disabled':'' }} class="btn btn-primary btn-block book"> {{ __("Buy now") }} <i class="fa fa-chevron-right" aria-hidden="true"></i></button>-->
+                    {% endif %}
+
+                    {% if listing.user.paypal_email and setting('paypal_enabled') %}
+                        <br />
+                        <a href="{{ route("paypal.start", {'listing': listing}) }}?{{ qs }}" class="btn btn-secondary btn-block paypal-btn {{ error?'disabled':'' }}" data-turbolinks="false"> <strong class="small font-weight-bold">{{ __("Check out with") }}</strong> <img class="img-fluid" style="height: 18px" src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_100x26.png" /></a>
+                    {% endif %}
+                    <a href="#" class="btn btn-primary btn-block addcart" data-width="300">{{ __("Add to Carts") }} <i class="mdi mdi-chevron-right" aria-hidden="true"></i> <i class="add-spinner fa fa-refresh fa-spin" aria-hidden="true"></i></a >
+
+                {% else %}
+                    <!--<a href="{{ route('login', {'action': 'checkout'}) }}" class="btn btn-primary btn-block pop" data-width="300" data-placement="top">{{ __("Buy now") }} <i class="mdi mdi-chevron-right" aria-hidden="true"></i></a >-->
+
+                    <a href="#" class="btn btn-primary btn-block addcart" data-width="300">{{ __("Add to Cart") }} <i class="mdi mdi-chevron-right" aria-hidden="true"></i></a >
+
+                    <div class="webui-popover-content">
+                        <p class="h6">{{ __('Want to checkout?') }}</p>
+                        <p>{{ __('Sign in to make a payment.') }}</p>
+                        <hr />
+                        <a href="{{ route('login') }}" class="btn btn-link text-danger font-weight-bold text-uppercase pl-0">{{ __("Sign in") }}</a>
+                    </div>
+                {% endif %}
+
+            {% else %}
+                {% if auth_check() %}
+                    <button type="submit" {{error?'disabled':''}} class="btn btn-primary btn-block InboxDirectMessage" data-url="{{ route('inbox.create', {'user_id': listing.user_id, 'direct':true, 'listing_id':listing.id}) }}"> {{ __("Ask about availability") }} <i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+                {% else %}
+                    <a href="{{route('login', {'action' : 'checkout'})}}" class="btn btn-primary btn-block pop"><i class="mdi mdi-share mr-1" ></i> {{ __("Buy now") }} <i class="mdi mdi-chevron-right" aria-hidden="true"></i></a >
+                    <div class="webui-popover-content">
+                        <p class="h6">{{ __('Want to checkout?') }}</p>
+                        <p>{{ __('Sign in to make a payment.') }}</p>
+                        <hr />
+                        <a href="{{ route('login') }}" class="btn btn-link text-danger font-weight-bold text-uppercase pl-0">{{ __("Sign in") }}</a>
+                    </div>
+                {% endif %}
+                <p class="small text-muted text-center mb-0">{{ __("This sends a message to the seller.") }}</p>
+            {% endif %}
+        </div>
+    </form>
+    <script>
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+        $('.pop').webuiPopover();
+        // Add to cart function
+        $(document).ready(function(){
+          $('.add-spinner').hide();
+          var listing_quantity = {{quantity_max}};
+          var total_cart = "{{ price }}";
+          var listing_id = "{{ listing.id }}";
+          var listing_name = "{{ listing.title }}";
+          var options = '';
+          var add_cart = false;
+          $(".addcart").on('click', function(e){
+            e.preventDefault();
+            var variant_count = 0;
+            var numItems = $('.variant-input').length
+            $('.variant-input').each(function() {
+             //test
+
+             if($(this).val() != ""){
+              variant_count = variant_count + 1;
+              if(options == ''){
+               options = $(this).data('variant') + "_" + $(this).val();
+              }else{
+               options = options + "," + $(this).data('variant') + "_" + $(this).val();
+              }
+             }
+            });
+
+            var post_var = {};
+            if(options != ""){
+              post_var['options'] = options;
+            }
+            var quantity = $('#quantity-input').val();
+            if(numItems != variant_count || quantity == 0){
+              alert("Please select all options including quantity");
+              return;
+            }
+            //var quantity = $('select[name=quantity]').val();
+
+            post_var['quantity'] = quantity
+            post_var['listing_name'] = listing_name;
+            post_var['total'] = total_cart;
+            post_var['listing_id'] = listing_id;
+            //alert("Pop cart " + quantity);
+            if(add_cart == false){
+            $('.add-spinner').show();
+            add_cart = true;
+            $.ajax({
+                url: '../../shop',
+                type: "POST",
+                data: post_var,
+                success: function(data) {
+                   add_cart = false;
+                   $('.add-spinner').hide();
+                },
+                complete: function(data) {
+                  add_cart = false;
+                  $('.add-spinner').hide();
+                }
+            });
+            }else{
+               alert('Please wait');
+            }
+          });
+          // stepper func
+          var stepper = function () {
+            var stepperNumber,
+                minusButton;
+
+            return {
+
+              allSteppers: $( '.input-stepper' ),
+
+              // check to see if the input is at '0'...
+              checkStepperNumber: function ( thisStepper ) {
+                stepperInput = $( thisStepper ).find( 'input' );
+                stepperNumber = stepperInput.val();
+                decrementButton = $( thisStepper ).find( 'button.minus' );
+                incrementButton = $( thisStepper ).find( 'button.plus' );
+                if ( stepperNumber === '0' || stepperNumber <= 0 ) {
+                  // if so, disable the minus button.
+                  decrementButton.prop( 'disabled', true );
+                  stepperInput.val( 0 );
+                  $('#quantity-hidden').val(0);
+                  $('#quantity-request').val(0);
+                } else {
+                  // if number is positive, enable the minus button
+                  decrementButton.prop( 'disabled', false );
+                }
+
+                if ( stepperNumber === listing_quantity || stepperNumber > listing_quantity ) {
+                  // if so, plus the minus button.
+                  incrementButton.prop( 'disabled', true );
+                  stepperInput.val( listing_quantity );
+                  $('#quantity-hidden').val(listing_quantity);
+                  $('#quantity-request').val(listing_quantity);
+                } else {
+                  // if number is positive, enable the minus button
+                  incrementButton.prop( 'disabled', false );
+                }
+
+              },
+
+              init: function () {
+                stepper.allSteppers.each( function ( index, element ) {
+                  var thisStepperInput = $( element ).find( 'input' );
+                  var thisMinusButton = $( element ).find( 'button.minus' );
+
+                  if ( thisStepperInput.val() === '0' || thisStepperInput.val() <= 0 ) {
+                    thisMinusButton.prop( 'disabled', true );
+                    thisStepperInput.val( 0 );
+                    $('#quantity-hidden').val(0);
+                    $('#quantity-request').val(0);
+                  } else {
+                    // if number is positive, enable the minus button
+                    thisMinusButton.prop( 'disabled', false );
+                  }
+                });
+              }
+
+            }
+          }();
+
+          // on button.plus click ...
+          $( '.input-stepper button.plus' ).on( 'click', function ( e ) {
+            e.preventDefault();
+            thisStepper = $( e.target ).closest( '.input-stepper' );
+            stepperInput = thisStepper.find( 'input' );
+
+            // check the input value
+            stepperNumber = stepperInput.val();
+
+            // increment the input value
+            stepperNumber++;
+            stepperInput.val( stepperNumber );
+            $('#quantity-hidden').val(stepperNumber);
+            $('#quantity-request').val(stepperNumber);
+            // then check the stepper number
+            stepper.checkStepperNumber( thisStepper );
+            Intercooler.triggerRequest('.checkout-form');
+          });
+
+          // on button.minus click ...
+          $( '.input-stepper button.minus' ).on( 'click', function ( e ) {
+            e.preventDefault();
+            thisStepper = $( e.target ).closest( '.input-stepper' );
+            stepperInput = thisStepper.find( 'input' );
+
+            // check the input value
+            stepperNumber = stepperInput.val();
+
+            // decrement the input value
+            stepperNumber--;
+            stepperInput.val( stepperNumber );
+            $('#quantity-hidden').val(stepperNumber);
+            $('#quantity-request').val(stepperNumber);
+            // then check the stepper number
+            stepper.checkStepperNumber( thisStepper );
+            Intercooler.triggerRequest('.checkout-form');
+          });
+
+          // on input field blur ...
+          $( '.input-stepper input' ).on( 'blur', function ( e ) {
+            thisStepper = $( e.target ).closest( '.input-stepper' );
+            // check the stepper number
+            stepper.checkStepperNumber( thisStepper );
+          });
+
+          // check the stepper number on load
+          if ( $( '.input-stepper' ).length ) {
+            stepper.init();
+           }
+          // end stepper
+        });
+    </script>
+    {% if listing.user.can_accept_payments  %}
+        <script>
+            var total = "{{ total }}";
+            var billingAddress =  Boolean({{ listing.pricing_model.requires_billing_address }});
+            var shippingAddress =  Boolean({{ listing.pricing_model.requires_shipping_address }});
+            setup_stripe();
+        </script>
+    {% endif %}
+</div>

@@ -1,0 +1,16 @@
+{% for category_res in categories_nested_res %}
+  <div>
+    <div class="resp-menu__mega-link-title-header">
+        {{ category_res.header.name}} &nbsp;
+        <img src="{{ asset('themes/' ~ current_theme() ~ '/images/down-arrow.svg')}}" height="14px" alt=""
+            class="header__mega_menu-arrow"><br>
+    </div>
+
+    <div class="resp-menu__mega-wrapper">
+      {% for item in category_res.new_array %}
+         {{ item|raw}}
+      {% endfor %}
+
+    </div>
+  </div>
+{% endfor %}

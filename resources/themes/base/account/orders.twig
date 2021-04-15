@@ -1,0 +1,43 @@
+{# extends "account.master" % #}
+{% extends "layouts.app_master_dashboard" %}
+
+{% block content %}
+<section class="user-profile">
+
+    <div class="card panel-default">
+        <h6 class="card-header bg-white"><i class="mdi mdi-account mr-2"></i> {{ __('Orders') }}</h6>
+        <div class="card-body">
+
+
+            <table class="table table-sm border-top-0">
+                <thead class="thead-light">
+                <tr>
+                    <th scope="col">{{ __('Reference') }}</th>
+                    <th scope="col" class="d-none d-sm-block">{{ __('Date Created') }}</th>
+                    <th scope="col">{{ __('Payment status') }}</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for i, item in orders %}
+                    <tr>
+                        <td><a href="#" class="text-dark">{{ item.reference }}</a></td>
+                        <td class="d-none d-sm-block">{{ item.created_at.toFormattedDateString() }}</td>
+                        <td>
+                          {% if item.status == "paid" %}
+                            Paid
+                          {% else %}
+                            Pending
+                          {% endif %}
+                        </td>
+                        <td class="text-right"><a href="{{ route('checkoutb')}}?id={{item.id}}&reference={{item.reference}}">{{ __('View') }}&nbsp;<i class="mdi mdi-chevron-double-right"></i></a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {{ orders.links() | raw }}
+        </div>
+    </div>
+
+</section>
+{% endblock %}

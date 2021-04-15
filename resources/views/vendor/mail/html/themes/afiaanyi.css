@@ -1,0 +1,26 @@
+.action {
+    margin: 30px auto;
+    padding: 0;
+    text-align: center;
+    width: 100%;
+    -premailer-cellpadding: 0;
+    -premailer-cellspacing: 0;
+    -premailer-width: 100%;
+}
+
+.button {
+    border-radius: 3px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16);
+    color: #FFF;
+    display: inline-block;
+    text-decoration: none;
+    -webkit-text-size-adjust: none;
+}
+
+.button-blue {
+    background-color: #E6B712;
+    border-top: 10px solid #E6B712;
+    border-right: 18px solid #E6B712;
+    border-bottom: 10px solid #E6B712;
+    border-left: 18px solid #E6B712;
+}

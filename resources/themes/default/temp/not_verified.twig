@@ -1,0 +1,36 @@
+{% extends "layouts.app" %}
+
+{% block search_bar %}
+    {% include 'layouts.search_bar.twig' %}
+{% endblock %}
+
+{% block content %}
+
+    <div class="container-fluid narrow">
+
+        <div class="row">
+
+            <div class="col-12">
+
+
+                <div class="page-header">
+                    <h1>{{ page.title }}</h1>
+                </div>
+                <br/>
+
+                <div class="row">
+                    <div class="col-12">
+                        <p>You do not have any created business that has been verified, to proceed create a
+                        business and request for its verification by an admin
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+{% endblock %}

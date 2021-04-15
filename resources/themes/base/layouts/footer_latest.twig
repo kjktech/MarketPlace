@@ -1,0 +1,214 @@
+<section class="contact__container">
+    <div class="contact row">
+        <div class="one">
+            <p>
+                <strong>PHONE SUPPORT</strong><br>
+
+                <img class="" src="{{ asset('themes/' ~ current_theme() ~ '/images/phone.svg') }}" alt=""> +234 905 300 0056-9
+            </p>
+        </div>
+        <div class="two">
+            <p>
+                <strong>EMAIL SUPPORT</strong>
+            </p>
+            <p>
+                <img class="" src="{{ asset('themes/' ~ current_theme() ~ '/images/mail.svg') }}" alt=""> info@afiaanyi.com
+            </p>
+        </div>
+        <div class="three">
+            <p>
+                <strong>GET LATEST DEALS & UPDATES</strong>
+                <br>
+                <i>Stay in the loop on all upcoming promotions,
+                    <br> discounts and latest updates.</i>
+            </p>
+        </div>
+        <form id="subscribe-form" method="get" action="{{route('page.subscribe')}}">
+        <div class="four newsletter-wrapper" style="display: flex;flex-flow: inherit;">
+            <input style="float: left;" type="email" id="mail" name="email" required placeholder="Enter e-mail">
+            <input id="send" type="submit" value="send">
+        </div>
+      </form>
+    </div>
+</section>
+<section class="footer hide-flow">
+    <footer class="row">
+        <div class="footer-inner">
+            <div class="space">
+                <ul>
+                    <li class="colored-list">GET TO KNOW US</li>
+                    <li>
+                        <a href="{{ route('page.aboutus') }}">About us</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('page.comingsoon') }}">Careers</a>
+                    </li>
+                    <li>
+                        {# <a href="{{ route('blogetc.index') }}">Blog</a> #}
+                    </li>
+                    <li>
+                        <a href="{{ route('page.faq') }}">FAQ</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('page.contactus') }}">Contact Us</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="space">
+                <ul>
+                    <li class="colored-list">SECURED BY</li>
+                    <img width="80px;" src="{{ asset('themes/' ~ current_theme() ~ '/images/commodo-seal.png') }}" /> <br>
+                    <img width="80px;" src="{{ asset('themes/' ~ current_theme() ~ '/images/site-lock.png') }}" /><br>
+                    <img width="80px;" src="{{ asset('themes/' ~ current_theme() ~ '/images/site-guard.png') }}" />
+                </ul>
+            </div>
+            <div class="space">
+                <ul>
+                    <li class="colored-list">EXPLORE</li>
+                    <li>
+                        <a href="{{ route('page.topbrands') }}">Top Brands</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('page.privacypolicy') }}">Privacy Policy</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('page.disclaimer')}}">Disclaimer</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('page.billingpolicy')}}">Billing Policy</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('page.termsuse')}}">Terms of Use</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('page.comingsoon') }}">Advertise with Us</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="space">
+                <ul>
+                    <li class="colored-list">SELL ON AFIAANYI</li>
+                    <li>
+                    {% if auth_guest() %}
+                      <a href="#registerbusiness" data-toggle="modal">Register your Business</a>
+                    {% else %}
+                      <a href="{{url('create')}}">Register your Business</a>
+                    {% endif %}
+                    </li>
+                    <li>
+                        <a href="{{ route('page.comingsoon') }}">Create a Store</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('page.comingsoon') }}">How it works</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('page.trustsafety') }}">Trust and Safety</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="space">
+                <ul>
+                    <li class="colored-list">DELIVERY</li>
+                    <li>
+                        <a href="javascript:void(0)">EMS Parcel</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="left-space">
+                <ul>
+                    <li class="colored-list big-para">DOWNLOAD AND CONNECT WITH US</li>
+                </ul>
+                <div class="mobile-app">
+
+                </div>
+
+                <a href="{{ route('page.comingsoon') }}"><img style="width: 122px;" src="{{ asset('themes/' ~  current_theme()  ~ '/images/ios.svg') }}">
+                </a>&nbsp;&nbsp;
+                <a href="{{ route('page.comingsoon') }}"><img style="width: 122px;" src="{{ asset('themes/' ~  current_theme()  ~ '/images/android.svg') }}"></a>
+
+                <p class="follow__p">Follow us:
+                    <span>
+                        <a href="https://www.facebook.com/afiaanyi/"><img class="icon-small" src="{{ asset('themes/' ~  current_theme()  ~ '/images/brands/facebook-white.svg') }}" width="22px"
+                                height="22px" alt="facebook"></a>
+                    </span>
+                    <span>
+                        <a href="https://www.instagram.com/afiaanyi/"><img class="icon-small" src="{{ asset('themes/' ~  current_theme()  ~ '/images/brands/instagram-white.svg') }}" width="22px"
+                                height="22px" alt="instagram"></a>
+                    </span>
+                    <span>
+                        <a href="https://www.linkedin.com/company/afiaanyi/"><img class="icon-small" src="{{ asset('themes/' ~  current_theme()  ~ '/images/brands/linkedin-white.svg') }}" width="22px"
+                                height="22px" alt="linkedin"></a>
+                    </span>
+                    <span>
+                        <a href="https://twitter.com/afiaanyi"><img class="icon-small" src="{{ asset('themes/' ~  current_theme()  ~ '/images/brands/twitter-circular-button-white.svg') }}"
+                                width="22px" height="22px" alt="twitter"></a>
+                    </span>
+                </p>
+                <p class="powered">Powered by
+                    <img class="logo-by" src="{{ asset('themes/' ~ current_theme() ~ '/images/logo-by.svg') }}">
+                </p>
+            </div>
+        </div>
+
+        <div class="footer__responsive_section">
+
+                <div>
+                    <p class="follow__p">Follow us:
+
+                        <a href="https://www.facebook.com/afiaanyi/">
+                            <img class="icon-small" src="{{ asset('themes/' ~  current_theme()  ~ '/images/brands/facebook-white.svg') }}" width="22px" height="22px" alt="facebook">
+                        </a>
+
+
+                        <a href="https://www.instagram.com/afiaanyi/">
+                            <img class="icon-small" src="{{ asset('themes/' ~  current_theme()  ~ '/images/brands/instagram-white.svg') }}" width="22px" height="22px" alt="instagram">
+                        </a>
+
+
+                        <a href="https://www.linkedin.com/company/afiaanyi/">
+                            <img class="icon-small" src="{{ asset('themes/' ~  current_theme()  ~ '/images/brands/linkedin-white.svg') }}" width="22px" height="22px" alt="linkedin">
+                        </a>
+
+
+                        <a href="https://twitter.com/afiaanyi">
+                            <img class="icon-small" src="{{ asset('themes/' ~  current_theme()  ~ '/images/brands/twitter-circular-button-white.svg') }}" width="22px" height="22px" alt="twitter">
+                        </a>
+
+                    </p>
+                </div>
+
+                <div class="mobile_link_responsive">
+                    <ul>
+                        <li class="colored-list big-para .big-para--download">DOWNLOAD & CONNECT WITH US</li>
+                    </ul>
+
+                    <div>
+                        <a href="{{ route('page.comingsoon') }}">
+                            <img src="{{ asset('themes/' ~  current_theme()  ~ '/images/ios__2.png') }}">
+                        </a>&nbsp;&nbsp;
+                        <a href="{{ route('page.comingsoon') }}">
+                            <img src="{{ asset('themes/' ~  current_theme()  ~ '/images/android.png') }}">
+                        </a>
+                    </div>
+
+                </div>
+
+            </div>
+
+        <img class="footer-last-img" src="{{ asset('themes/' ~  current_theme()  ~ '/images/awka.svg') }}">
+        <!--<img class="footer-last-img" src="{{ asset('themes/' ~  current_theme()  ~ '/images/ios.svg') }}resources/img/onitsha.svg">-->
+        <img class="footer-last-img" src="{{ asset('themes/' ~  current_theme()  ~ '/images/nccima.svg') }}">
+        <img class="footer-last-img" src="{{ asset('themes/' ~  current_theme()  ~ '/images/oni.svg') }}">
+
+        <p class="copy">Copyright © 2019 Afiaanyi Services Limited, All Rights Reserved.</p>
+        {% if not new_img and not new_res_img %}
+         <img class="yb" src="{{ asset('themes/' ~  current_theme()  ~ '/images/yb.svg') }}">
+         <img class="by" src="{{ asset('themes/' ~  current_theme()  ~ '/images/black-yellow.svg') }}">
+        {% elseif new_res_img %}
+         <img class="footer-mark footer__small" src="{{ asset('themes/' ~  current_theme()  ~ '/images/footer_png.png') }}">
+         <img class="footer-mark footer__big" src="{{ asset('themes/' ~  current_theme()  ~ '/images/footer_mark.png') }}">
+        {% else %}
+          <img class="footer-mark footer__big" src="{{ asset('themes/' ~  current_theme()  ~ '/images/footer_mark.png') }}">
+        {% endif %}
+        </footer>
+</section>

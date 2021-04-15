@@ -1,0 +1,331 @@
+{% extends "layouts.app" %}
+
+{% block search_bar %}
+{% endblock %}
+
+{% block content %}
+<style>
+.input-stepper {
+background: white;
+border: 2px solid #dedede;
+display: inline-block;
+font-size: 20px;
+margin-bottom: 20px;
+padding: 5px;
+}
+
+.input-stepper button {
+-webkit-appearance: none;
+-moz-appearance: none;
+appearance: none;
+background-color: transparent;
+border: none;
+cursor: pointer;
+font-size: 20px;
+}
+
+.input-stepper button[disabled] {
+cursor: not-allowed;
+opacity: .4;
+}
+
+.input-stepper button i {
+color: #07c;
+}
+
+.input-stepper input {
+-webkit-appearance: none;
+-moz-appearance: none;
+appearance: none;
+border: none;
+font-size: 20px;
+text-align: center;
+width: 36px;
+}
+</style>
+<div class="bg-light">
+<div class="container-fluid" style="max-width: 970px">
+
+    <div class="col-12s" id="create-content">
+      <div id="create-spinner" class="text-center" style="display: none">
+        <div class="fa fa-spinner fa-spin fa-2x text-muted"></div>
+
+      </div>
+        <div class="row">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-9 pl-sm-5 ">
+                <div class="row">
+                    <div class="col-9">
+
+                    </div>
+                    <div class="col-3 pt-4">
+
+                        </div>
+                    </div>
+                </div>
+              <!--
+                <div class="col-sm-3 d-none d-sm-block">
+                    <div id="sidebar" class="p-0 mt-0">
+
+
+                  </div>
+               </div>
+              -->
+            <div class="col-sm-12 col-12 pl-sm-5 border-0" style="">
+
+            {% if cart_test|length > 0 %}
+            <form method="POST" action="#" accept-charset="UTF-8" class="form create-form"
+                  ic-get-from="{{ route('cart') }}"
+                  ic-trigger-on="submit" ic-target="#create-content"
+                  ic-select-from-response="#create-content" ic-replace-target="false" ic-indicator="#create-spinner">
+                {{  csrf_field() }}
+              <table class="table">
+               <thead>
+                   <tr>
+                       <th class="table-image">Image</th>
+                       <th>Product</th>
+                       <th>Quantity</th>
+                       <th>Price</th>
+                       <th class="column-spacer"></th>
+                       <th></th>
+                   </tr>
+               </thead>
+
+               <tbody>
+                  {% for item in cart_test %}
+                   <tr>
+                       <td class="table-image">
+                       <a href=""><img width=100 src="{{ cart_content(item.attributes.listing_id)  }}" alt="product" class="img-responsive cart-image"></a></td>
+                       <td>
+                         <a href="{{item.url}}">{{ item.name }}</a>
+                       </td>
+                       <td>
+                         <!--{{ form_select('quantity', array_combine(range(1, 8), range(1, 8)), item.quantity, {'class' : 'form-control form-control-sm quantity', 'required':'required', 'data-id': item.rowId}) }}-->
+                         <div class="input-stepper">
+                          <button class="minus"><i class="fa fa-minus"></i></button>
+                           <input data-id={{ item.id }} data-quantity={{ cart_content_quantity(item.attributes.listing_id) }} data-listing={{item.attributes.listing_id}} id="quantity-input" type="text" value="{{item.quantity}}" />
+                          <button class="plus"><i class="fa fa-plus"></i></button>
+                         </div>
+                       </td>
+                       <td>{{ item.price }}</td>
+                       <td class=""></td>
+                       <td>
+                           <form action="" method="POST" class="side-by-side">
+
+                               <input type="hidden" name="_method" value="DELETE">
+                               <input type="submit" class="btn btn-danger btn-sm" value="Remove">
+                           </form>
+                       </td>
+                   </tr>
+
+                   {% endfor %}
+                   <tr>
+                       <td class="table-image"></td>
+                       <td></td>
+                       <td class="small-caps table-bg" style="text-align: right">Subtotal</td>
+                       <td>{{ cart_test_cart.getSubTotal() }}</td>
+                       <td></td>
+                       <td></td>
+                   </tr>
+                   <tr>
+                       <td class="table-image"></td>
+                       <td></td>
+                       <td class="small-caps table-bg" style="text-align: right">Tax</td>
+                       <td></td>
+                       <td></td>
+                       <td></td>
+                   </tr>
+
+                   <tr class="border-bottom">
+                       <td class="table-image"></td>
+                       <td style="padding: 40px;"></td>
+                       <td class="small-caps table-bg" style="text-align: right">Your Total</td>
+                       <td class="table-bg">{{ cart_test_cart.getTotal() }}</td>
+                       <td class="column-spacer"></td>
+                       <td></td>
+                   </tr>
+
+               </tbody>
+             </table>
+             </form>
+             <a href="" class="btn btn-primary btn-lg">Continue Shopping</a> &nbsp;
+            <a href="./checkout" class="btn btn-success btn-lg">Proceed to Checkout</a>
+
+           <div style="float:right">
+              <form action="" method="POST">
+                  {{ csrf_field() }}
+                  <input type="hidden" name="_method" value="DELETE">
+                  <input type="submit" class="btn btn-danger btn-lg" value="Empty Cart">
+              </form>
+             </div>
+             {% else %}
+             <h3>You have no items in your shopping cart</h3>
+             <a href="" class="btn btn-primary btn-lg">Continue Shopping</a>
+             {% endif %}
+            </div>
+            <script>
+                (function(){
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+
+                    $('.quantity').on('change', function() {
+                        var id = $(this).attr('data-id')
+                        $.ajax({
+                          type: "PUT",
+                          url: '{{ url("./api/shop") }}' + '/' + id,
+                          data: {
+                            'quantity': this.value,
+                          },
+                          success: function(data) {
+                            window.location.href = '{{ url('/cart') }}';
+                          }
+                        });
+                    });
+
+                })();
+
+                $(document).ready(function(){
+                // stepper func
+                var stepper = function () {
+                  var stepperNumber,
+                      minusButton;
+
+                  return {
+
+                    allSteppers: $( '.input-stepper' ),
+
+                    // check to see if the input is at '0'...
+                    checkStepperNumber: function ( thisStepper ) {
+                      stepperInput = $( thisStepper ).find( 'input' );
+                      max_quantity = $(stepperInput).data('quantity');
+                      stepperNumber = stepperInput.val();
+                      decrementButton = $( thisStepper ).find( 'button.minus' );
+                      incrementButton = $( thisStepper ).find( 'button.plus' );
+                      if ( stepperNumber === '0' || stepperNumber <= 0 ) {
+                        // if so, disable the minus button.
+                        decrementButton.prop( 'disabled', true );
+                        stepperInput.val( 0 );
+                      } else {
+                        // if number is positive, enable the minus button
+                        decrementButton.prop( 'disabled', false );
+                      }
+                      if ( stepperNumber === max_quantity || stepperNumber >= max_quantity ) {
+                        // if so, plus the minus button.
+                        incrementButton.prop( 'disabled', true );
+                        stepperInput.val( max_quantity );
+                      } else {
+                        // if number is positive, enable the minus button
+                        incrementButton.prop( 'disabled', false );
+                      }
+                    },
+
+                    init: function () {
+                      stepper.allSteppers.each( function ( index, element ) {
+                        var thisStepperInput = $( element ).find( 'input' );
+                        var thisMinusButton = $( element ).find( 'button.minus' );
+                        var thisPlusButton = $( element ).find( 'button.plus' );
+
+                        if ( thisStepperInput.val() === '0' || thisStepperInput.val() <= 0 ) {
+                          thisMinusButton.prop( 'disabled', true );
+                          thisStepperInput.val( 0 );
+                        } else {
+                          // if number is positive, enable the minus button
+                          thisMinusButton.prop( 'disabled', false );
+                        }
+
+                      });
+                    }
+
+                  }
+                }();
+
+                // on button.plus click ...
+                $( '.input-stepper button.plus' ).on( 'click', function ( e ) {
+                  e.preventDefault();
+                  thisStepper = $( e.target ).closest( '.input-stepper' );
+                  stepperInput = thisStepper.find( 'input' );
+                  id = $(stepperInput).data('id');
+                  listing = $(stepperInput).data('listing');
+                  // check the input value
+                  stepperNumber = stepperInput.val();
+
+                  // increment the input value
+                  stepperNumber++;
+                  stepperInput.val( stepperNumber );
+
+                  // then check the stepper number
+                  stepper.checkStepperNumber( thisStepper );
+                  if(stepperNumber != 0){
+                  var post_var = {};
+                  post_var['quantity'] = stepperNumber;
+                  post_var['listing_id'] = listing;
+                  $.ajax({
+                      url: '{{ url("/shop") }}' + '/' + id,
+                      type: "PUT",
+                      data: post_var,
+                      success: function(data) {
+                         Intercooler.triggerRequest('.create-form');
+                      },
+                      complete: function(data) {
+
+                      }
+                  });
+                  }
+                });
+
+                // on button.minus click ...
+                $( '.input-stepper button.minus' ).on( 'click', function ( e ) {
+                  e.preventDefault();
+                  thisStepper = $( e.target ).closest( '.input-stepper' );
+                  stepperInput = thisStepper.find( 'input' );
+                  id = $(stepperInput).data('id');
+                  listing = $(stepperInput).data('listing');
+
+                  // check the input value
+                  stepperNumber = stepperInput.val();
+
+                  // decrement the input value
+                  stepperNumber--;
+                  stepperInput.val( stepperNumber );
+
+                  // then check the stepper number
+                  stepper.checkStepperNumber( thisStepper );
+                  if(stepperNumber != 0){
+                  var post_var = {};
+                  post_var['quantity'] = stepperNumber;
+                  post_var['listing_id'] = listing;
+                  $.ajax({
+                      url: '{{ url("/shop") }}' + '/' + id,
+                      type: "PUT",
+                      data: post_var,
+                      success: function(data) {
+                         Intercooler.triggerRequest('.create-form');
+                      },
+                      complete: function(data) {
+
+                      }
+                  });
+                  }
+                });
+
+                // on input field blur ...
+                $( '.input-stepper input' ).on( 'blur', function ( e ) {
+                  thisStepper = $( e.target ).closest( '.input-stepper' );
+                  // check the stepper number
+                  stepper.checkStepperNumber( thisStepper );
+                });
+
+                // check the stepper number on load
+                if ( $( '.input-stepper' ).length ) {
+                  stepper.init();
+                 }
+                // end stepper
+                });
+            </script>
+        </div>
+    </div>
+    </div>
+    {% endblock %}

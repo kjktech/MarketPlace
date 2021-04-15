@@ -1,0 +1,330 @@
+{% extends "layouts.app_directory" %}
+{% block content %}
+<style>
+.hero__search-input::placehoder{
+  color: #000000;
+}
+.community__individual-image img {
+   height: 120px !important;
+}
+.community__individual {
+   width: 375px;
+   height: 300px;
+}
+.community__individual-message {
+   font-size: 16px;
+   margin-top: 16px;
+}
+.community__individual-image {
+   height: 120px;
+   width: 120px;
+}
+.seg_font{
+ font-family: Segoe UI, sans-serif; }
+}
+</style>
+<section class="business-directory__hero">
+    <div class="business-directory__hero-overlay">
+        <div class="business-directory__hero-content">
+            <h1>Hire Trusted Service Professionals For Your Business at,</h1>
+             <form id="search-form" method="get" action="./brands">
+            <div class="hero__search business-directory__hero-search">
+                <input name="q" type="text" class="hero__search-fields hero__search-companies hero__search-input" placeholder="Search Business Name" />
+                {{ form_select('category', categories, request('category'), {'class' : 'hero__search-fields hero__search-categories'}) }}
+                <select name="location" class="hero__search-fields hero__search-location">
+                    <!--<option disabled selected>Location</option>-->
+                     <option value="all">Location</option>
+                    {% for city in city_array %}
+
+                      <option value="{{city}}">{{city}}</option>
+                    {% endfor %}
+                </select>
+                <div class="hero__search-btn">
+                    <div class="hero__search-icon-wrapper">
+                        <img id="search-image" src="{{ asset('themes/' ~ current_theme() ~ '/icons/search-icon.svg') }}" alt="">
+                    </div>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<section class="business-directory__recommend">
+    <div class="business-directory__recommend-heading">
+        <p class="business-directory__recommend-heading-text">Recommended Services for you</p>
+        <img src="{{ asset('themes/' ~ current_theme() ~ '/images/afianni black icon.png') }}" alt="">
+        <a href="{{ route('page.services') }}" class="business-directory__recommend-heading-seeall">See All Services</a>
+    </div>
+    <div class="business-directory__recommend-slider">
+       {% for item in recommended %}
+        <div class="business-directory__recommend-individual">
+            <a href="{{ route('browsebrand') }}?category={{ item.id }}">
+                <div class="business-directory__recommend-individual-image">
+                    {% if item.category_image == "/images/no_image.png" %}
+                     <img src="{{ asset('themes/' ~ current_theme() ~ '/images/business-image.jpg') }}" alt="" class="img-fluid">
+                    {% else %}
+                    <div style="height: 80%; overflow: hidden;">
+                     <img src="{{ item.category_image }}" alt="" style="width: 100%; margin-bottom:-19.88%;">
+                    </div>
+                    {% endif %}
+                    <div class="business-directory__recommend-individual-image-overlay"></div>
+                    <img src="{{ asset('themes/' ~ current_theme() ~ '/icons/afiaanyi icon.svg') }}" alt="" class="interest__individual-cover-img">
+                </div>
+                <div class="business-directory__recommend-individual-name">
+                    <a href="#" class="business-directory__recommend-individual-name-text">{{ item.name }}</a>
+                </div>
+            </a>
+        </div>
+       {% endfor %}
+    </div>
+</section>
+
+<hr class="business-directory__line">
+
+<section class="business-directory__category mt-1">
+    <div class="business-directory__recommend-heading business-directory__category-heading">
+        <h3 class="business-directory__category-heading-text">{{ nested_categories.0.header.name }}</h3>
+        <img src="{{ asset('themes/' ~ current_theme() ~ '/images/afianni black icon.png') }}" alt="">
+        <a href="{{ route('page.services') }}?category={{ nested_categories.0.header.id}}" class="business-directory__recommend-heading-seeall">See All</a>
+    </div>
+    <div class="business-directory__wrapper-slider">
+
+      {% for item in nested_categories.0.child %}
+
+            <div class="business-directory__category-individual">
+                <a href="{{ route('browsebrand') }}?category={{ item.id }}">
+                    <div class="business-directory__recommend-individual-image">
+                    {% if item.category_image == "/images/no_image.png" %}
+                     <img src="{{ asset('themes/' ~ current_theme() ~ '/images/business-image.jpg') }}" alt="" class="img-fluid h-100">
+                    {% else %}
+                    <div style="height: 80%; overflow: hidden;">
+                     <img src="{{ item.category_image }}" alt="" style="width: 100%; margin-bottom:-19.88%;">
+                    </div>
+                    {% endif %}
+                        <div class="business-directory__recommend-individual-image-overlay"></div>
+                        <img src="{{ asset('themes/' ~ current_theme() ~ '/icons/afiaanyi icon.svg') }}" alt="" class="interest__individual-cover-img">
+                    </div>
+                    <div class="business-directory__recommend-individual-name">
+                        <a href="#" class="business-directory__recommend-individual-name-text">{{ item.name }}</a>
+                    </div>
+                </a>
+            </div>
+
+        {% endfor %}
+    </div>
+
+
+</section>
+
+<section class="business-directory__category mt-2">
+    <div class="business-directory__recommend-heading business-directory__category-heading">
+        <h3 class="business-directory__category-heading-text">{{ nested_categories.1.header.name }}</h3>
+        <img src="{{ asset('themes/' ~ current_theme() ~ '/images/afianni black icon.png') }}" alt="">
+        <a href="{{ route('page.services') }}?category={{ nested_categories.1.header.id}}" class="business-directory__recommend-heading-seeall">See All</a>
+    </div>
+    <div class="business-directory__wrapper-slider">
+      {% for item in nested_categories.1.child %}
+
+            <div class="business-directory__category-individual">
+                <a href="{{ route('browsebrand') }}?category={{ item.id }}">
+                    <div class="business-directory__recommend-individual-image">
+                    {% if item.category_image == "/images/no_image.png" %}
+                     <img src="{{ asset('themes/' ~ current_theme() ~ '/images/business-image.jpg') }}" alt="" class="img-fluid h-100">
+                    {% else %}
+                    <div style="height: 80%; overflow: hidden;">
+                     <img src="{{ item.category_image }}?time={{ date().timestamp}}" alt="" style="width: 100%; margin-bottom:-19.88%;">
+                    </div>
+                    {% endif %}
+                        <div class="business-directory__recommend-individual-image-overlay"></div>
+                        <img src="{{ asset('themes/' ~ current_theme() ~ '/icons/afiaanyi icon.svg') }}" alt="" class="interest__individual-cover-img">
+                    </div>
+                    <div class="business-directory__recommend-individual-name">
+                        <a href="#" class="business-directory__recommend-individual-name-text">{{ item.name }}</a>
+                    </div>
+                </a>
+
+        </div>
+        {% endfor %}
+
+    </div>
+
+
+</section>
+
+<section class="business-directory__category mt-2">
+    <div class="business-directory__recommend-heading business-directory__category-heading">
+        <h3 class="business-directory__category-heading-text">{{ nested_categories.2.header.name }}</h3>
+        <img src="{{ asset('themes/' ~ current_theme() ~ '/images/afianni black icon.png') }}" alt="">
+        <a href="{{ route('page.services') }}?category={{ nested_categories.2.header.id}}" class="business-directory__recommend-heading-seeall">See All</a>
+    </div>
+    <div class="business-directory__wrapper-slider">
+      {% for item in nested_categories.2.child %}
+
+            <div class="business-directory__category-individual">
+                <a href="{{ route('browsebrand') }}?category={{ item.id }}">
+                    <div class="business-directory__recommend-individual-image">
+                    {% if item.category_image == "/images/no_image.png" %}
+                     <img src="{{ asset('themes/' ~ current_theme() ~ '/images/business-image.jpg') }}" alt="" class="img-fluid h-100">
+                    {% else %}
+                    <div style="height: 80%; overflow: hidden;">
+                     <img src="{{ item.category_image }}" alt="" style="width: 100%; margin-bottom:-19.88%;">
+                    </div>
+                    {% endif %}
+                        <div class="business-directory__recommend-individual-image-overlay"></div>
+                        <img src="{{ asset('themes/' ~ current_theme() ~ '/icons/afiaanyi icon.svg') }}" alt="" class="interest__individual-cover-img">
+                    </div>
+                    <div class="business-directory__recommend-individual-name">
+                        <a href="#" class="business-directory__recommend-individual-name-text">{{ item.name }}</a>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+
+    </div>
+
+
+</section>
+
+<section class="business-directory__category mt-2">
+    <div class="business-directory__recommend-heading business-directory__category-heading">
+        <h3 class="business-directory__category-heading-text">{{ nested_categories.3.header.name }}</h3>
+        <img src="{{ asset('themes/' ~ current_theme() ~ '/images/afianni black icon.png') }}" alt="">
+        <a href="{{ route('page.services') }}?category={{ nested_categories.3.header.id}}" class="business-directory__recommend-heading-seeall">See All</a>
+    </div>
+    <div class="business-directory__wrapper-slider">
+      {% for item in nested_categories.3.child %}
+        
+            <div class="business-directory__category-individual">
+                <a href="{{ route('browsebrand') }}?category={{ item.id }}">
+                    <div class="business-directory__recommend-individual-image">
+                    {% if item.category_image == "/images/no_image.png" %}
+                     <img src="{{ asset('themes/' ~ current_theme() ~ '/images/business-image.jpg') }}" alt="" class="img-fluid h-100">
+                    {% else %}
+                    <div style="height: 80%; overflow: hidden;">
+                     <img src="{{ item.category_image }}" alt="" style="width: 100%; margin-bottom:-19.88%;">
+                    </div>
+                    {% endif %}
+                        <div class="business-directory__recommend-individual-image-overlay"></div>
+                        <img src="{{ asset('themes/' ~ current_theme() ~ '/icons/afiaanyi icon.svg') }}" alt="" class="interest__individual-cover-img">
+                    </div>
+                    <div class="business-directory__recommend-individual-name">
+                        <a href="#" class="business-directory__recommend-individual-name-text">{{ item.name }}</a>
+                    </div>
+                </a>
+            </div>
+
+        {% endfor %}
+    </div>
+</section>
+
+<section class="marketplace__banner">
+    <img src="{{ asset('themes/' ~ current_theme() ~ '/images/banner-one.png') }}" alt="Ad banner" class="img-fluid w-100" style="min-height: 73px;">
+</section>
+
+
+<section class="community business-directory__testimony">
+    <div class="interest__head">
+        <h3 class="interest__head-text business-directory__testimony-heading">BUSINESSES WHO FOUND RIGHT
+            PROFESSIONALS</h3>
+    </div>
+    <div class="community__speaks">
+      <div style="opacity: 1;" class="community__individual">
+          <div class="community__individual-image">
+              <img src="{{ asset('themes/' ~ current_theme() ~ '/images/kjk_pic_square.jpg') }}" alt="" class="img-fluid">
+          </div>
+          <div class="community__individual-message-wrap">
+              <p class="community__individual-message">Afiaanyi has taken my business to the next level. My
+                  dreams of expansion has been realized.</p>
+              <h5 class="community__individual-name">-CEO, KJK AFRICA</h5>
+              <svg class="icon icon-quote community__individual-quote">
+                  <use xlink:href="#icon-quote"></use>
+              </svg>
+
+          </div>
+      </div>
+        <!--
+        <div class="community__individual">
+            <div class="community__individual-image">
+                <img src="{{ asset('themes/' ~ current_theme() ~ '/images/man.png') }}" alt="" class="img-fluid">
+            </div>
+            <div class="community__individual-message-wrap">
+                <p class="community__individual-message">Afiaanyi has taken my business to the next level. My
+                    dreams of expansion has been realized.</p>
+                <h5 class="community__individual-name">-CEO, Don P Ltd</h5>
+                <svg class="icon icon-quote community__individual-quote">
+                    <use xlink:href="#icon-quote"></use>
+                </svg>
+
+            </div>
+        </div>
+        <div class="community__individual">
+            <div class="community__individual-image">
+                <img src="{{ asset('themes/' ~ current_theme() ~ '/images/man.png') }}" alt="" class="img-fluid">
+            </div>
+            <div class="community__individual-message-wrap">
+                <p class="community__individual-message">Afiaanyi has taken my business to the next level. My
+                    dreams of expansion has been realized.</p>
+                <h5 class="community__individual-name">-CEO, Don P Ltd</h5>
+                <svg class="icon icon-quote community__individual-quote">
+                    <use xlink:href="#icon-quote"></use>
+                </svg>
+            </div>
+        </div>
+        <div class="community__individual">
+            <div class="community__individual-image">
+                <img src="{{ asset('themes/' ~ current_theme() ~ '/images/man.png') }}" alt="" class="img-fluid">
+            </div>
+            <div class="community__individual-message-wrap">
+                <p class="community__individual-message">Afiaanyi has taken my business to the next level. My
+                    dreams of expansion has been realized.</p>
+                <h5 class="community__individual-name">-CEO, Don P Ltd</h5>
+                <svg class="icon icon-quote community__individual-quote">
+                    <use xlink:href="#icon-quote"></use>
+                </svg>
+            </div>
+        </div>
+        <div class="community__individual">
+            <div class="community__individual-image">
+                <img src="{{ asset('themes/' ~ current_theme() ~ '/images/man.png') }}" alt="" class="img-fluid">
+            </div>
+            <div class="community__individual-message-wrap">
+                <p class="community__individual-message">Afiaanyi has taken my business to the next level. My
+                    dreams of expansion has been realized.</p>
+                <h5 class="community__individual-name">-CEO, Donny P Ltd</h5>
+                <svg class="icon icon-quote community__individual-quote">
+                    <use xlink:href="#icon-quote"></use>
+                </svg>
+            </div>
+        </div>
+        -->
+    </div>
+</section>
+
+<section class="business-directory__promote">
+    <div class="business-directory__promote-info">
+        <h2>Promote your business today with Afiaanyi</h2>
+        <div>
+            <!--
+            <a href="#" class="btn btn-primary marketplace__product-quickview-btn business-directory__promote-button">
+              Sign up today
+            </a>
+            -->
+            {% if auth_guest() %}
+             <a href="#signup-one" data-toggle="modal" class="btn btn-primary marketplace__product-quickview-btn business-directory__promote-button">Sign up today</a>
+            {% else %}
+              {% if auth_user().hasRole('admin') %}
+               <a href="{{ route('panel.directories.create')}}" class="btn btn-primary marketplace__product-quickview-btn business-directory__promote-button">Create a Business</a>
+              {% else %}
+               <a href="{{url('create')}}" class="btn btn-primary marketplace__product-quickview-btn business-directory__promote-button">Create a Business</a>
+              {% endif %}
+            {% endif %}
+        </div>
+    </div>
+</section>
+<script>
+  $("#search-image").on('click', function(){
+    $("#search-form").submit();
+  })
+</script>
+{% endblock %}

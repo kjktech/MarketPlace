@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" type="text/css" href="vendor\css\grid.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel='shortcut icon' type='image/x-icon' href="{{ asset('images/favicon.ico') }}" />
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Lato:100,300,300i,400');
+        @import url({{ asset('themes/' ~  current_theme()  ~ '/css/brands.css') }});
+        @import url({{ asset('themes/' ~  current_theme()  ~ '/css/ionicons.min.css') }});
+    </style>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css" integrity="sha384-v2Tw72dyUXeU3y4aM2Y0tBJQkGfplr39mxZqlTBDUZAb9BGoC40+rdFCG0m10lXk"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/fontawesome.css" integrity="sha384-q3jl8XQu1OpdLgGFvNRnPdj5VIlCvgsDQTQB6owSOHWlAurxul7f+JpUOVdAiJ5P"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.css" />
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intercooler-js/1.2.1/intercooler.min.js"></script>
+    <title>{{ branding.name }}</title>
+
+</head>
+
+<body class="branded">
+  {% block content %}
+
+  {% endblock %}
+  <script src="{{ asset('themes/' ~  current_theme()  ~ '/js/brand.js') }}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+  <script>
+    $(document).ready(function(){
+      $('#brand-submit-btn').on('click', function(){
+
+      });
+      $('#brand-contact').submit(function (evt) {
+       evt.preventDefault();
+       $('#brand-submit-btn').prop("disabled",true);
+       $('.spinner').show();
+       $.ajax({
+         url: "{{route('create.message', branding)}}",
+         type: "POST",
+         data:  new FormData(this),
+         contentType: false,
+         cache: false,
+        processData:false,
+       beforeSend : function(request)
+       {
+        request.setRequestHeader("X-CSRF-TOKEN", $('meta[name="csrf-token"]').attr('content'));
+        //$("#preview").fadeOut();
+        //$("#err").fadeOut();
+      },
+       success: function(data)
+      {
+        $('#brand-submit-btn').prop("disabled",false);
+        $("#brand-mail").val("");
+        $("#brand-name").val("");
+        $("#brand-subject").val("");
+        $("#message").val("");
+        $('.spinner').hide();
+        alert("Message sent");
+      },
+      error: function(e)
+      {
+        $('#brand-submit-btn').prop("disabled",false);
+        $('.spinner').hide();
+        alert("Message send error, please try again");
+        //$("#err").html(e).fadeIn();
+        //$('#brand-submit-btn').prop("disabled",false);
+      },
+      done: function(e)
+      {
+        $('#brand-submit-btn').prop("disabled",false);
+        $('.spinner').hide();
+
+        //$("#err").html(e).fadeIn();
+        //$('#brand-submit-btn').prop("disabled",false);
+      }
+       });
+      });
+      });
+  </script>
+</body>
+</html>

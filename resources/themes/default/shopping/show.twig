@@ -1,0 +1,68 @@
+{% extends "layouts.app" %}
+
+{% block content %}
+<div class="container-fluid inner mt-3">
+    <div class="row">
+			<div class="col-sm-12">
+
+				<nav aria-label="breadcrumb" role="navigation">
+				  <ol class="breadcrumb bg-transparent pt-3 pl-0 mb-0">
+					<li class="breadcrumb-item small">
+						<a href="{{route('home')}}" class="text-muted">{{ __("Home") }}</a>
+					</li>
+					{% for breadcrumb in breadcrumbs %}
+					<li class="breadcrumb-item small">
+						<a href="{{ route(setting('afiaanyi_index'), {'category': breadcrumb.id}) }}" class="text-muted">{{ _l(breadcrumb.name) }}</a>
+					</li>
+					{% endfor %}
+					<li class="breadcrumb-item active small" aria-current="page">
+						<a href="{{ route(setting('afiaanyi_index'), {'category': breadcrumb.id}) }}" class="text-muted">{{_l(shopping.store_category.name)}}</a>
+					</li>
+				  </ol>
+				</nav>
+		</div>
+	</div>
+
+
+	<div class="row" id="shopping-panel">
+		<div class="col-sm-12 mx-auto">
+
+            {% include 'notifications' %}
+
+            <h1 class="h3 mt-0 pb-2">{{shopping.name}}</h1>
+
+            {% if auth_check() and (shopping.user_id == auth_user().id or auth_user().can('edit shopping')) %}
+                <div class="mb-3">
+                <strong class="badge badge-info">{{ (shopping.is_published)?__('Published'):__('Unpublished') }}</strong>
+                <a class="badge badge-secondary" href="{{shopping.edit_url}}">{{ __("Edit shopping") }}</a>
+
+                {% if auth_user().can('disable shopping') %}
+                    <a data-turbolinks="false" ic-indicator="#shopping-panel-indicator" class="badge badge-secondary" id="spotlight-shopping" ic-get-from="{{ route('shopping.spotlight', [shopping, shopping.slug]) }}" ic-target="#spotlight-shopping" ic-select-from-response="#spotlight-shopping" href="#">{{ (shopping.spotlight)?__('Remove from spotlight'):__('Add to spotlight')}}</a>
+                    <a data-turbolinks="false" ic-indicator="#shopping-panel-indicator" class="badge badge-{{ (shopping.is_verified)?'secondary':'danger'}}" id="verify-shopping" ic-get-from="{{ route('shopping.verify', [shopping, shopping.slug]) }}" ic-target="#shopping-panel" ic-select-from-response="#shopping-panel" href="#">{{ (shopping.is_verified)?__('Disable shopping'):__('Approve shopping')}}</a>
+                {% endif %}
+
+
+                <i id="shopping-panel-indicator" class="fa fa-spinner fa-spin" style="display: none"></i>
+                </div>
+            {% endif %}
+
+		</div>
+    </div>
+
+	<div class="row mb-5">
+		<div class="col-sm-8">
+            {% include 'shopping.partials.overview' %}
+		</div>
+		<div class="col-sm-4">
+            {% include 'shopping.partials.sidebar' %}
+		</div>
+	</div>
+
+
+</div>
+
+
+<script>
+$('.carousel').carousel()
+</script>
+{% endblock %}

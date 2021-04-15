@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta id="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='shortcut icon' type='image/x-icon' href="{{ asset('images/favicon.ico') }}" />
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    {{  MetaTag.tag('description') | raw }}
+    {{  MetaTag.tag('image') | raw }}
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+    <!--<link href="vendor/css/animate.css" rel="stylesheet">-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" />
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Lato:100,300,300i,400');
+        @import url({{ asset('themes/' ~ current_theme() ~ '/css/directory.css') }});
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <!--<script src="vendor/js/jquery.ui.js"></script>-->
+    <script
+			  src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+			  integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+			  crossorigin="anonymous"></script>
+    <title>Directory</title>
+</head>
+
+<body>
+
+    <header>
+        <nav>
+            <div class="header__top-container">
+                <div class="row header__nav-content">
+
+                    <div class="header__logo-container">
+                      <a href="{{ route('home')}}">  <img src="{{ asset('themes/' ~ current_theme() ~ '/images/market-logo.svg') }}" class="header__logo" alt="Afiaanyi logo"></a>
+                    </div>
+                   <form method="get">
+                    <div class="header__form-input-container">
+                        <div type="search" class="header__form-select header__input-nav">
+                          <select>
+                            <option value="0">Category</option>
+
+
+                          </select>
+                        </div>
+                        <div type="search" class="header__form-select header__input-nav">
+                            <select value="{{request('category')}}" name="category">
+
+                              {% if 0 == request('category') or request('category') == "" %}
+                               <option selected value="0">All Categories</option>
+                              {% else %}
+                               <option value="0">All Categories</option>
+                              {% endif %}
+                              {% for key, category in all_categories %}
+                               {% if key == request('category') %}
+                                <option selected value="{{key}}">{{category | raw }}</option>
+                               {% else %}
+                                <option value="{{key}}">{{category | raw}}</option>
+                               {% endif %}
+                              {% endfor %}
+                            </select>
+                        </div>
+                        <div type="search" class="header__form-select header__input-nav">
+                            <select value="{{request('city')}}" name="city">
+                              {% for key, city in city_array %}
+                                {% if key == request('city') %}
+                                 <option selected value="{{key}}">{{city}}</option>
+                                {% else %}
+                                  <option value="{{key}}">{{city}}</option>
+                                {% endif %}
+                              {% endfor %}
+                            </select>
+                        </div>
+                        <input type="submit" class="header__submit">
+                    </div>
+                  </form>
+                    <div>
+                        <ul class="header__nav-list-container">
+                            <li class="header__nav-list header__nav-list--divider">
+                                <a href="" class="header__nav-link">Directory</a>
+                            </li>
+                            <li class="header__nav-list header__nav-list--divider">
+                                <a href="" class="header__nav-link">Shop</a>
+                            </li>
+                            <li class="header__nav-list header__nav-list--divider">
+                                <a href="" class="header__nav-link">Jobs</a>
+                            </li>
+                            {% if auth_guest() %}
+                            <li class="header__nav-list header__nav-list--divider">
+                                <a href="" class="header__nav-link header--outlined">Login</a>
+                            </li>
+                            <li class="header__nav-list">
+                                <a href="" class="header__nav-link header--outlined">Create an account</a>
+                            </li>
+                            {% else %}
+                            <li class="header__nav-list">
+                              <a class="header__nav-link header--outlined" href="{{ route('logout') }}"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="dropdown-item" href="#">Logout</a>
+                            </li>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                {{ csrf_field() }}
+                            </form>
+                            {% endif %}
+                        </ul>
+                    </div>
+
+                </div>
+
+
+
+
+            </div>
+        </nav>
+        <div class="hero">
+
+            <p class="hero__where">Home » Automotive » Car electronics</p>
+
+        </div>
+    </header>
+
+
+    <!-- block content -->
+    {% block content %}
+    <!-- Intrest -->
+
+    {% endblock %}
+
+    <section class="footer hide-flow">
+        <footer class="row">
+            <div class="footer-inner">
+                <div class="space">
+                    <ul>
+                        <li class="colored-list">GET TO KNOW US</li>
+                        <li>
+                            <a href="">About us</a>
+                        </li>
+                        <li>
+                            <a href="">Careers</a>
+                        </li>
+                        <li>
+                            <a href="">Blog</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('page.faq') }}">FAQ</a>
+                        </li>
+                        <li>
+                            <a href="">Contact Us</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="space">
+                    <ul>
+                        <li class="colored-list">PAYMENTS</li>
+                        <li>
+                            <a href="">Mastercard</a>
+                        </li>
+                        <li>
+                            <a href="">Verve</a>
+                        </li>
+                        <li>
+                            <a href="">Visa</a>
+                        </li>
+                        <li>
+                            <a href="">Wallet</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="space">
+                    <ul>
+                        <li class="colored-list">EXPLORE</li>
+                        <li>
+                            <a href="">Top Brands</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('page.privacypolicy')}}">Privacy Policy</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('page.disclaimer')}}">Disclaimer</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('page.billingpolicy')}}">Billing Policy</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('page.termsuse')}}">Terms of Use</a>
+                        </li>
+                        <li>
+                            <a href="">Advertise with Us</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="space">
+                    <ul>
+                        <li class="colored-list">SELL ON AFIANANYI</li>
+                        <li>
+                            <a href="">Register your Business</a>
+                        </li>
+                        <li>
+                            <a href="">Create a Store</a>
+                        </li>
+                        <li>
+                            <a href="">How it works</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('page.trustsafety') }}">Trust and Safety</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="space">
+                    <ul>
+                        <li class="colored-list">DELIVERY</li>
+                        <li>
+                            <a href="">Chisco Express</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="left-space">
+                    <ul>
+                        <li class="colored-list big-para">DOWNLOAD AND CONNECT WITH US</li>
+                    </ul>
+                    <div class="mobile-app">
+
+                    </div>
+
+                    <a href=""><img src="{{ asset('themes/' ~  current_theme()  ~ '/images/states/ios.svg') }}resources/img/">
+                    </a>&nbsp;&nbsp;
+                    <a href=""><img src="{{ asset('themes/' ~  current_theme()  ~ '/images/states/android.svg') }}"></a>
+
+                    <p class="follow__p">Follow us:
+                        <span>
+                            <a href=""><img class="icon-small" src="resources/img/brands/facebook-white.svg" width="22px"
+                                    height="22px" alt="facebook"></a>
+                        </span>
+                        <span>
+                            <a href=""><img class="icon-small" src="resources/img/brands/instagram-white.svg" width="22px"
+                                    height="22px" alt="instagram"></a>
+                        </span>
+                        <span>
+                            <a href=""><img class="icon-small" src="resources/img/brands/linkedin-white.svg" width="22px"
+                                    height="22px" alt="linkedin"></a>
+                        </span>
+                        <span>
+                            <a href=""><img class="icon-small" src="resources/img/brands/twitter-circular-button-white.svg"
+                                    width="22px" height="22px" alt="twitter"></a>
+                        </span>
+                    </p>
+                    <p class="powered">Powered by
+                        <img class="logo-by" src="resources/img/logo-by.svg">
+                    </p>
+                </div>
+            </div>
+
+
+            <img class="footer-last-img" src="resources/img/awka.svg">
+            <img class="footer-last-img" src="resources/img/onitsha.svg">
+            <img class="footer-last-img" src="resources/img/nccima.svg">
+            <img class="footer-last-img" src="resources/img/oni.svg">
+
+            <p class="copy">Copyright (c) 2018 Afiaanyi. All rights reserved</p>
+
+    </section>
+
+    <script src="{{ asset('themes/' ~ current_theme() ~ '/js/directory.js') }}"></script>
+
+</body>
+
+
+
+</html>

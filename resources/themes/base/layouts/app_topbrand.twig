@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" type="text/css" href="vendor\css\grid.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel='shortcut icon' type='image/x-icon' href="{{ asset('images/favicon.ico') }}" />
+     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Lato:100,300,300i,400');
+        @import url({{ asset('themes/' ~  current_theme()  ~ '/css/brands.css') }});
+        @import url({{ asset('themes/' ~  current_theme()  ~ '/css/ionicons.min.css') }});
+    </style>
+
+    <title>Brands</title>
+
+</head>
+
+<body class="branded">
+{% block content %}
+
+
+{% endblock %}
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" type="text/javascript"></script>
+<script>
+  $(document).ready(function(){
+    $('#brand-submit-btn').on('click', function(){
+
+    });
+    $('#brand-contact').submit(function (evt) {
+     evt.preventDefault();
+     $('#brand-submit-btn').prop("disabled",true);
+     $.ajax({
+       url: "{{route('create.message', branding)}}",
+       type: "POST",
+       data:  new FormData(this),
+       contentType: false,
+       cache: false,
+      processData:false,
+     beforeSend : function(request)
+     {
+      request.setRequestHeader("X-CSRF-TOKEN", $('meta[name="csrf-token"]').attr('content'));
+      //$("#preview").fadeOut();
+      //$("#err").fadeOut();
+    },
+     success: function(data)
+    {
+      //$('#brand-submit-btn').prop("disabled",false);
+      $("#brand-mail").val("");
+      $("#brand-mail").val("");
+      $("#message").val("");
+    },
+    error: function(e)
+    {
+      //$("#err").html(e).fadeIn();
+      //$('#brand-submit-btn').prop("disabled",false);
+    },
+    done: function(e)
+    {
+      //$("#err").html(e).fadeIn();
+      //$('#brand-submit-btn').prop("disabled",false);
+    }
+     });
+    });
+    });
+</script>
+</body>
+
+
+</html>

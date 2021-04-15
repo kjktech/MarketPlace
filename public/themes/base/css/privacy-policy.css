@@ -1,0 +1,13 @@
+.hero{
+
+    height: 160px;
+}
+
+.hero__content-title{
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+.notify{
+    margin-bottom: 6px;
+}

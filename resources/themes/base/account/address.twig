@@ -1,0 +1,54 @@
+{# extends "account.master" % #}
+{% extends "layouts.app_master_dashboard" %}
+
+{% block content %}
+<section class="user-profile">
+
+ <h6 class="card-header bg-white"><i class="mdi mdi-account mr-2"></i> {{ __('Addresses') }}</h6>
+    <a href="{{route('account.edit_profile.createaddress')}}" class="btn btn-link btn-xs"><i class="mdi mdi-plus"></i> Add new</a>
+    <div class="row">
+    {% for item in addresses %}
+    <div class="col-md-6">
+     <div class="card mb-4">
+        <h6 class="card-header bg-white">Address</h6>
+        <div class="card-body">
+           <table>
+             <thead>
+             </thead>
+             <tbody>
+                <tr>
+                  <td>
+                    Name
+                  </td>
+
+                  <td>
+                   {{ item.first_name }} {{ item.last_name}}
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Address
+                  </td>
+                  <td>
+                   {{ item.address }}, {{ item.city }}
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Phone
+                  </td>
+                  <td>
+                    {{ item.phone }}
+                  </td>
+                </tr>
+             </tbody>
+           </table>
+        </div>
+          <a href="{{route('account.edit_profile.editaddress', {'id' : item.id})}}" class="card-footer"><i class="mdi mdi-plus"></i> Edit</a>
+     </div>
+     </div>
+    {% endfor %}
+    </div>
+   {{ addresses.links() | raw }}
+</section>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends "layouts.app_pricing" %}
+
+{% block content %}
+<section class="payment__confirmation">
+        <div class="payment__confirmation-header">
+            <p class="payment__confirmation-header-text">Confirmation</p>
+        </div>
+
+        <div class="payment__confirmation-wrapper">
+           {% if check  %}
+             {% if status == "success"  %}
+             <img src="{{ asset('themes/' ~ current_theme() ~ '/icon2/confirmation.svg')}}" alt="">
+             <h3 class="payment__confirmation-info-header">
+              Payment Confirmation
+              </h3>
+              <p class="payment__confirmation-info-receipt">A receipt for your transaction has been set to your mail</p>
+             <p class="payment__confirmation-info-receipt-number">Receipt Number: #00000000</p>
+             {% if payment_type == 1 %}
+              <a href="{{ route('account.brands.index') }}" style="padding-top: 10px; text-align: center;" class="payment__confirmation-info-button">Create Business</a>
+             {% endif %}
+             {% if payment_type == 2 %}
+              <a href="{{ route('createstore.store')}}?directory_id={{ directory }}" style="padding-top: 10px; text-align: center;" class="payment__confirmation-info-button">Create Store</a>
+             {% endif %}
+             {% else  %}
+             <img src="{{ asset('themes/' ~ current_theme() ~ '/icon2/confirmation.svg')}}" alt="">
+             <h3 class="payment__confirmation-info-header">
+              Payment Not Successful
+              </h3>
+              <p class="payment__confirmation-info-receipt">Payment Was Not Successful</p>
+             <p class="payment__confirmation-info-receipt-number"></p>
+             <a style="padding-top: 10px; text-align: center;" class="payment__confirmation-info-button" href="{{ route('paycallback', {'trxref': trxref, 'reference': trxref}) }}">Retry<a/>
+             {% endif  %}
+            {% else %}
+            <img src="{{ asset('themes/' ~ current_theme() ~ '/icon2/confirmation.svg')}}" alt="">
+            <h3 class="payment__confirmation-info-header">
+             Could Not Confirm Payment
+             </h3>
+             <p class="payment__confirmation-info-receipt">Retry or contact admin for further enquiries</p>
+            <p class="payment__confirmation-info-receipt-number"></p>
+            <a style="padding-top: 10px; text-align: center;" class="payment__confirmation-info-button" href="{{ route('paycallback', {'trxref': trxref, 'reference': trxref}) }}">Verify</a>
+            {% endif %}
+        </div>
+
+    </section>
+{% endblock %}

@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta id="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel='shortcut icon' type='image/x-icon' href="{{ asset('images/favicon.ico') }}" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" />
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Lato:100,300,300i,400');
+        @import url({{ asset('themes/' ~  current_theme()  ~ '/css/menu.css') }});
+    </style>
+    <link href="{{ asset('themes/' ~  current_theme()  ~ '/css/other.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css" integrity="sha384-v2Tw72dyUXeU3y4aM2Y0tBJQkGfplr39mxZqlTBDUZAb9BGoC40+rdFCG0m10lXk"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/fontawesome.css" integrity="sha384-q3jl8XQu1OpdLgGFvNRnPdj5VIlCvgsDQTQB6owSOHWlAurxul7f+JpUOVdAiJ5P"
+        crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="{{ asset('themes/' ~  current_theme()  ~ '/js/jquery.ui.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intercooler-js/1.2.1/intercooler.min.js"></script>
+
+    <title>{{ branding.name }}</title>
+
+    <style>
+    @import url({{ asset('themes/' ~  current_theme()  ~ '/css/overload.css')}});
+    @import url({{ asset('themes/' ~  current_theme()  ~ '/css/footer.css')}});
+    .intl-tel-input {
+      width: 100% !important;
+     }
+    .modal {
+      overflow-y: auto;
+      background-color: rgba(0, 0, 0, 0.2); }
+      @media screen and (max-width: 575px) {
+        .signup {
+          padding: 20px 20px; }
+        .modal-dialog {
+          margin: 30px; }
+        }
+    .signup__background {
+       position: absolute;
+       left: 0;
+       top: 0;
+       width: 100%;
+       height: 100%;
+    }
+
+    .interest__individual-cover-img {
+     width: 100px;
+     height: 100px !important;
+     position: absolute;
+     top: -6px;
+     right: 0;
+   }
+   .signup__form-input:focus {
+     border: 1px solid #E6B712;
+     box-shadow: none;
+   }
+   input::placeholder {
+    font-size: 14px;
+    color: #B5B5B5;
+    font-family: inherit;
+   }
+   input::placeholder {
+    font-size: 14px;
+    color: #B5B5B5;
+    font-family: inherit;
+   }
+   .signup__heading-text {
+    font-weight: 500;
+    line-height: normal;
+    font-size: 18px;
+    color: #000000;
+    margin-bottom: 2px;
+    text-transform: uppercase;
+  }
+  .signup__logo {
+   width: 60px;
+   height: 54px;
+   margin: 7px auto;
+ }
+ .signup__heading {
+  text-align: center;
+ }
+ .signup__form-input::placeholder {
+  color: #C4C4C4;
+  font-weight: 300;
+ }
+ .signup__form-input {
+  height: 50px;
+  width: 100%;
+  background: #FFFFFF;
+  border-radius: 4px;
+  border: 1px solid rgba(65, 64, 64, 0.5);
+  margin-bottom: 27px;
+  color: #000000;
+  font-size: 14px;
+  padding: 16px 20px !important;
+}
+.signup__heading-subtext {
+
+  color: #E6B712;
+  font-weight: 500;
+  line-height: normal;
+  font-size: 12px;
+  margin-bottom: 30px;
+}
+.signup__form-button {
+
+  background: linear-gradient(90deg, #E6B712 31.25%, #CAAA3B 88.19%);
+  border-radius: 4px;
+  border: none;
+  width: 100%;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  font-weight: 600;
+  line-height: normal;
+  font-size: 20px;
+  color: #FFFFFF;
+  margin-bottom: 10px;
+}
+.signup__form-subscribe {
+
+font-size: 10px;
+color: #000000;
+margin-left: 37px;
+}
+.login__forgot-password a {
+
+color: #E6B712;
+font-size: 10px;
+float: right;
+}
+.img-fluid {
+
+max-width: 100%;
+height: auto;
+}
+.signup__form-already-in {
+
+font-size: 12px;
+text-align: center;
+
+}
+.loader-account-msg {
+    font-size: 18px;
+}
+.modal-dialog {
+width: 360px !important;
+
+}
+     .dropdown-menu {
+       padding: 11px;
+     }
+     .dropdown-item {
+      display: block;
+      width: 100%;
+      clear: both;
+      font-weight: 400;
+      color: #212529;
+      text-align: inherit;
+      white-space: nowrap;
+      background-color: transparent;
+      border: 0;
+      text-decoration: none;
+      padding: 7px 25px;
+      font-size: 16px;
+     }
+     .dropdown-divider {
+       height: 0;
+       margin: 0.5rem 0;
+       overflow: hidden;
+       border-top: 1px solid #e9ecef;
+     }
+     .header__menu_icon {
+       margin-left: -88px;
+       cursor: pointer;
+     }
+     .where__text{
+       padding-top: 10px;
+     }
+    </style>
+    <link rel="stylesheet" href="{{ asset('themes/' ~  current_theme()  ~ '/css/modal/bootstrap.css') }}">
+    <style>
+     .modal-dialog {
+
+        width: 39% !important;
+
+     }
+     .signup {
+      padding: 20px 50px;
+      position: relative;
+
+     }
+     .dropdown-menu {
+       padding: 11px;
+     }
+     .dropdown-menu a {
+       font-size: 16px !important;
+       text-decoration: none !important;
+       font-weight: 400 !important;
+     }
+    </style>
+    <link rel="stylesheet" href="{{ asset('themes/' ~  current_theme()  ~ '/css/overload.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/14.0.8/css/intlTelInput.css">
+</head>
+
+<body>
+
+    <header>
+        <nav>
+          <div class="header__top-container">
+              <div class="row header__nav-content">
+                  <div class="header__logo-container">
+                    <a href="{{ route('home') }}">
+                      <img src="{{ asset('themes/' ~  current_theme()  ~ '/images/market-logo.svg') }}" class="header__logo" alt="Afiaanyi logo">
+                   </a>
+                  </div>
+
+                  <form action="{{ route('browsebrand') }}" method="get" class="header__form-input-container">
+                      <input name="q" type="text" id="searcggh" list="search" class="header__form-input header__input-nav"
+                          placeholder="Search for companies and services">
+                      <!--<datalist id="search">
+                          <option value="Internet Explorer">
+                          <option value="Firefox">
+                          <option value="Chrome">
+                          <option value="Opera">
+                          <option value="Safari">
+                      </datalist>
+                      -->
+                      <input type="submit" class="header__submit">
+                  </form>
+
+                  <form action="{{ route('browsebrand') }}" method="get" class="header__form-input-container--tab">
+                        <input name="q" type="text" class="header__form-input header__form-input--tab header__input-nav header__form-input--trans" placeholder="Search for companies and services">
+                        <input type="submit" value="" class="header__submit--tab ">
+                  </form>
+
+                  <div class="header__nav-list_outer_container">
+                      <ul class="header__nav-list-container">
+                        <li class="header__nav-list">
+                            <a style="font-weight: bold; color: #E6B712 !important;" href="{{ route('page.topbrands') }}" class="header__nav-link">Afiaanyi's Top Brands</a>
+                        </li>
+                          <li class="header__nav-list">
+                              <a href="{{ route('page.directory') }}" class="header__nav-link">Directory</a>
+                          </li>
+                          <li class="header__nav-list">
+                              <a href="{{ route('browse') }}" class="header__nav-link">Shop</a>
+                          </li>
+
+                          <li class="header__nav-list">
+                              <a href="{{ route('page.comingsoon') }}" class="header__nav-link">Jobs</a>
+                          </li>
+
+                          {% if auth_guest() %}
+                           <li class="header__nav-list">
+                              <a href="#login" data-toggle="modal" class="header__nav-link">Login</a>
+                           </li>
+                           <li class="header__nav-list">
+                              <a href="#signup-one" data-toggle="modal" class="header__nav-link">Create an account</a>
+                           </li>
+                          {% endif %}
+
+                      </ul>
+                  </div>
+
+                 {% if auth_user() %}
+                  <div class="header__right-nav">
+                    <p class="greeting">
+                    <ul style="float: left; padding-top: 12px; font-size: 12px; font-weight: 500;" class="header__nav-list-container">
+                      <li style="padding-right: 0px;" class="header__nav-list header__nav-list--divider">
+                         <span class="user__generic">Welcome, &nbsp;</span><span class="user__name">{{ auth_user().first_name() }}!</span>
+                      </li>
+                     </ul>
+                     <ul style="float: left;" class="header__nav-list-container">
+                       <li style="padding-left: 0px;" class="header__nav-list header__nav-list--divider">
+                         <span class="dropdown">
+                         <a data-toggle="dropdown" href="#" class="dropdown-toggle">
+                             <img src="{{ auth_user().avatar }}" class="header-nav-icon header__avatar" height="35px"
+                                 width="35px">
+                         </a>
+                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                             <a class="dropdown-item" href="{{ route('account.') }}">User Dashboard</a>
+                             {% if auth_user().hasRole('admin') or auth_user().hasRole('super-admin') %}
+                               <div class="dropdown-divider"></div>
+                                <a href="./panel" class="dropdown-item">Manage Site</a>
+                             {% endif %}
+                             <div class="dropdown-divider"></div>
+                             <a href="{{ route('logout') }}"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="dropdown-item" href="#">Logout</a>
+                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                 {{ csrf_field() }}
+                             </form>
+                         </div>
+                        </span>
+                       </li>
+                     </ul>
+                   </p>
+                  </div>
+                  {% endif %}
+                  <div class="header__menu_icon">
+                       <img src="{{ asset('themes/' ~ current_theme() ~ '/images/resp_menu.svg')}}" alt="">
+                   </div>
+              </div>
+          </div>
+
+        </nav>
+
+        <div class="hero">
+          <div class="hero__box">
+               <h1 class="hero__title">{{ branding.directory_category.name | upper }}</h1>
+           </div>
+        </div>
+
+
+    </header>
+
+
+    {% block content %}
+
+
+    {% endblock %}
+    {% block footer %}
+        {% set new_res_img = {'foo': 'bar'} %}
+        {% include 'layouts.footer_latest.twig' with new_res_img %}
+    {% endblock %}
+    {% include "layouts.partials.auth_modals.twig" %}
+    <script src="{{ asset('themes/' ~  current_theme()  ~ '/js/nav.js') }}"></script>
+    <script src="{{ asset('themes/' ~  current_theme()  ~ '/js/other-business.js') }}"></script>
+    <script src="{{ asset('themes/' ~  current_theme()  ~ '/js/modal/bootstrap.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/14.0.8/js/intlTelInput-jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/14.0.8/js/intlTelInput.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/14.0.8/js/utils.js"></script>
+    {% include "layouts.partials.auth_js.twig" %}
+</body>
+
+</html>

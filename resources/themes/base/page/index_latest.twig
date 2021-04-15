@@ -1,0 +1,838 @@
+{% extends "layouts.app_latest" %}
+
+{% block content %}
+<!-- Intrest -->
+<style>
+ .community__individual-image img {
+    height: 120px !important;
+ }
+ .community__individual {
+    width: 375px;
+    height: 300px;
+ }
+ .community__individual-message {
+    font-size: 16px;
+    margin-top: 16px;
+ }
+ .community__individual-image {
+    height: 120px;
+    width: 120px;
+ }
+ .seg_font{
+  font-family: Segoe UI, sans-serif; }
+ }
+</style>
+<section class="interest">
+    <div class="interest__head">
+        <h3 class="interest__head-text">What Are You Interested In?</h3>
+        <p class="interest__head-sub">See What Other People Are Searching For!</p>
+    </div>
+    <div class="interest__container">
+
+       {% if child_categories|length > 7 %}
+        <div class="interest__individual interest__individual-restauarant individual_1">
+            <div class="interest__individual-cover">
+
+                <img src="{{ asset('themes/' ~ current_theme() ~ '/icons/afiaanyi icon.svg') }}" alt="" class="interest__individual-cover-img">
+
+                <div class="interest__info">
+                   <!--
+                    <div class="interest__info-rating">
+                        <svg class="icon icon-star">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                    </div>
+                    -->
+                    <p class="interest__info-name">{{ child_categories.0.name }}</p>
+                </div>
+                <div class="interest__button-wrapper">
+                    <a href="{{ route('browsebrand') }}?category={{ child_categories.0.id }}" class="interest__button">Browse</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="interest__individual interest__individual-salons individual_2">
+            <div class="interest__individual-cover">
+                <img src="{{ asset('themes/' ~ current_theme() ~ '/icons/afiaanyi icon.svg') }}" alt="" class="interest__individual-cover-img">
+                <div class="interest__info">
+                   <!--
+                    <div>
+                        <svg class="icon icon-star interest__info-rating-salon">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star interest__info-rating-salon">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star interest__info-rating-salon">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star interest__info-rating-salon">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star interest__info-rating-salon">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                    </div>
+                    -->
+                    <p class="interest__info-name">{{ child_categories.1.name }}</p>
+                </div>
+                <div class="interest__button-wrapper">
+                    <a href="{{ route('browsebrand') }}?category={{ child_categories.1.id }}" class="interest__button">Browse</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="interest__third">
+            <div class="interest__individual-third interest__individual-cinema individual_3">
+                <div class="interest__individual-cover">
+                    <img src="{{ asset('themes/' ~ current_theme() ~ '/icons/afiaanyi icon.svg') }}" alt="" class="interest__individual-cover-img">
+                    <div class="interest__info-third">
+                         <!--
+                        <div>
+                            <svg class="icon icon-star interest__info-rating-salon">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star interest__info-rating-salon">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star interest__info-rating-salon">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star interest__info-rating-salon">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star interest__info-rating-salon">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                        </div>
+                        -->
+                        <p class="interest__info-name">{{ child_categories.2.name }}</p>
+                    </div>
+                    <div class="interest__button-wrapper-third">
+                        <a href="{{ route('browsebrand') }}?category={{ child_categories.2.id }}" class="interest__button">Browse</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="interest__individual-third interest__individual-housing individual_4">
+                <div class="interest__individual-cover">
+                    <img src="{{ asset('themes/' ~ current_theme() ~ '/icons/afiaanyi icon.svg') }}" alt="" class="interest__individual-cover-img">
+                    <div class="interest__info-third">
+                      <!--
+                        <div>
+                            <svg class="icon icon-star interest__info-rating-salon">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star interest__info-rating-salon">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star interest__info-rating-salon">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star interest__info-rating-salon">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star interest__info-rating-salon">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                        </div>
+                        -->
+                        <p class="interest__info-name">{{ child_categories.3.name }}</p>
+                    </div>
+                    <div class="interest__button-wrapper-third">
+                        <a href="{{ route('browsebrand') }}?category={{ child_categories.3.id }}" class="interest__button">Browse</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="interest__individual interest__individual-restauarant individual_5">
+            <div class="interest__individual-cover">
+
+                <img src="{{ asset('themes/' ~ current_theme() ~ '/icons/afiaanyi icon.svg') }}" alt="" class="interest__individual-cover-img">
+
+                <div class="interest__info">
+                   <!--
+                    <div class="interest__info-rating">
+                        <svg class="icon icon-star">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                    </div>
+
+                    -->
+                    <p class="interest__info-name">{{ child_categories.4.name }}</p>
+                </div>
+                <div class="interest__button-wrapper">
+                    <a href="{{ route('browsebrand') }}?category={{ child_categories.4.id }}" class="interest__button">Browse</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="interest__individual interest__individual-salons individual_6">
+            <div class="interest__individual-cover">
+                <img src="{{ asset('themes/' ~ current_theme() ~ '/icons/afiaanyi icon.svg') }}" alt="" class="interest__individual-cover-img">
+                <div class="interest__info">
+                  <!--
+                    <div>
+                        <svg class="icon icon-star interest__info-rating-salon">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star interest__info-rating-salon">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star interest__info-rating-salon">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star interest__info-rating-salon">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star interest__info-rating-salon">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                    </div>
+                    -->
+                    <p class="interest__info-name">{{ child_categories.5.name }}</p>
+                </div>
+                <div class="interest__button-wrapper">
+                    <a href="{{ route('browsebrand') }}?category={{ child_categories.5.id }}" class="interest__button">Browse</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="interest__third">
+            <div class="interest__individual-third interest__individual-cinema individual_7">
+                <div class="interest__individual-cover">
+                    <img src="{{ asset('themes/' ~ current_theme() ~ '/icons/afiaanyi icon.svg') }}" alt="" class="interest__individual-cover-img">
+                    <div class="interest__info-third">
+                      <!--
+                        <div>
+                            <svg class="icon icon-star interest__info-rating-salon">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star interest__info-rating-salon">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star interest__info-rating-salon">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star interest__info-rating-salon">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star interest__info-rating-salon">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                        </div>
+                        -->
+                        <p class="interest__info-name">{{ child_categories.6.name }}</p>
+                    </div>
+                    <div class="interest__button-wrapper-third">
+                        <a href="{{ route('browsebrand') }}?category={{ child_categories.6.id }}" class="interest__button">Browse</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="interest__individual-third interest__individual-housing individual_8">
+                <div class="interest__individual-cover">
+                    <img src="{{ asset('themes/' ~ current_theme() ~ '/icons/afiaanyi icon.svg') }}" alt="" class="interest__individual-cover-img">
+                    <div class="interest__info-third">
+                       <!--
+                        <div>
+                            <svg class="icon icon-star interest__info-rating-salon">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star interest__info-rating-salon">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star interest__info-rating-salon">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star interest__info-rating-salon">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star interest__info-rating-salon">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                        </div>
+                        -->
+                        <p class="interest__info-name">{{ child_categories.7.name }}</p>
+                    </div>
+                    <div class="interest__button-wrapper-third">
+                        <a href="{{ route('browsebrand') }}?category={{ child_categories.7.id }}" class="interest__button">Browse</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="interest__individual interest__individual-restauarant">
+            <div class="interest__individual-cover">
+
+                <img src="{{ asset('themes/' ~ current_theme() ~ '/icons/afiaanyi icon.svg') }}" alt="" class="interest__individual-cover-img">
+
+                <div class="interest__info">
+                   <!--
+                    <div class="interest__info-rating">
+                        <svg class="icon icon-star">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                    </div>
+
+                    -->
+                    <p class="interest__info-name">Restaurants</p>
+                </div>
+                <div class="interest__button-wrapper">
+                    <button href="#" class="interest__button">Browse</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="interest__individual interest__individual-salons">
+            <div class="interest__individual-cover">
+                <img src="{{ asset('themes/' ~ current_theme() ~ '/icons/afiaanyi icon.svg') }}" alt="" class="interest__individual-cover-img">
+                <div class="interest__info">
+                   <!--
+                    <div>
+                        <svg class="icon icon-star interest__info-rating-salon">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star interest__info-rating-salon">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star interest__info-rating-salon">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star interest__info-rating-salon">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star interest__info-rating-salon">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                    </div>
+                    -->
+                    <p class="interest__info-name">Salons</p>
+                </div>
+                <div class="interest__button-wrapper">
+                    <button class="interest__button">Browse</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="interest__third">
+            <div class="interest__individual-third interest__individual-cinema">
+                <div class="interest__individual-cover">
+                    <img src="{{ asset('themes/' ~ current_theme() ~ '/icons/afiaanyi icon.svg') }}" alt="" class="interest__individual-cover-img">
+                    <div class="interest__info-third">
+                      <!--
+                        <div>
+                            <svg class="icon icon-star interest__info-rating-salon">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star interest__info-rating-salon">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star interest__info-rating-salon">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star interest__info-rating-salon">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star interest__info-rating-salon">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                        </div>
+                        -->
+                        <p class="interest__info-name">Cinemas</p>
+                    </div>
+                    <div class="interest__button-wrapper-third">
+                        <button class="interest__button">Browse</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="interest__individual-third interest__individual-housing">
+                <div class="interest__individual-cover">
+                    <img src="{{ asset('themes/' ~ current_theme() ~ '/icons/afiaanyi icon.svg') }}" alt="" class="interest__individual-cover-img">
+                    <div class="interest__info-third">
+                       <!--
+                        <div>
+                            <svg class="icon icon-star interest__info-rating-salon">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star interest__info-rating-salon">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star interest__info-rating-salon">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star interest__info-rating-salon">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star interest__info-rating-salon">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                        </div>
+                        -->
+                        <p class="interest__info-name">Cinemas</p>
+                    </div>
+                    <div class="interest__button-wrapper-third">
+                        <button class="interest__button">Browse</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="interest__individual interest__individual-restauarant">
+            <div class="interest__individual-cover">
+
+                <img src="{{ asset('themes/' ~ current_theme() ~ '/icons/afiaanyi icon.svg') }}" alt="" class="interest__individual-cover-img">
+
+                <div class="interest__info">
+                  <!--
+                    <div class="interest__info-rating">
+                        <svg class="icon icon-star">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                    </div>
+                    -->
+                    <p class="interest__info-name">Restaurants</p>
+                </div>
+                <div class="interest__button-wrapper">
+                    <button class="interest__button">Browse</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="interest__individual interest__individual-salons">
+            <div class="interest__individual-cover">
+                <img src="{{ asset('themes/' ~ current_theme() ~ '/icons/afiaanyi icon.svg') }}" alt="" class="interest__individual-cover-img">
+                <div class="interest__info">
+                   <!--
+                    <div>
+                        <svg class="icon icon-star interest__info-rating-salon">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star interest__info-rating-salon">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star interest__info-rating-salon">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star interest__info-rating-salon">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star interest__info-rating-salon">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                    </div>
+                    -->
+                    <p class="interest__info-name">Salons</p>
+                </div>
+                <div class="interest__button-wrapper">
+                    <button class="interest__button">Browse</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="interest__third">
+            <div class="interest__individual-third interest__individual-cinema">
+                <div class="interest__individual-cover">
+                    <img src="{{ asset('themes/' ~ current_theme() ~ '/icons/afiaanyi icon.svg') }}" alt="" class="interest__individual-cover-img">
+                    <div class="interest__info-third">
+                       <!--
+                        <div>
+                            <svg class="icon icon-star interest__info-rating-salon">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star interest__info-rating-salon">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star interest__info-rating-salon">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star interest__info-rating-salon">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star interest__info-rating-salon">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                        </div>
+                        -->
+                        <p class="interest__info-name">Cinemas</p>
+                    </div>
+                    <div class="interest__button-wrapper-third">
+                        <button class="interest__button">Browse</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="interest__individual-third interest__individual-housing">
+                <div class="interest__individual-cover">
+                    <img src="{{ asset('themes/' ~ current_theme() ~ '/icons/afiaanyi icon.svg') }}" alt="" class="interest__individual-cover-img">
+                    <div class="interest__info-third">
+                      <!--
+                        <div>
+                            <svg class="icon icon-star interest__info-rating-salon">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star interest__info-rating-salon">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star interest__info-rating-salon">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star interest__info-rating-salon">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star interest__info-rating-salon">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                        </div>
+                        -->
+                        <p class="interest__info-name">Cinemas</p>
+                    </div>
+                    <div class="interest__button-wrapper-third">
+                        <button class="interest__button">Browse</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% endif %}
+        <!---->
+
+    </div>
+
+</section>
+
+<section class="place-ad">
+    <!--<p>Place Advert Here!</p>-->
+    <img src="{{ asset('themes/' ~ current_theme() ~ '/images/tiger_ad.jpg') }}" class="active" />
+    <img src="{{ asset('themes/' ~ current_theme() ~ '/images/place_advert_ph.png') }}" />
+</section>
+
+<section class="best-rated">
+    <div class="interest__head">
+        <h3 class="interest__head-text">Best Rated Services & Offers!</h3>
+        <p class="interest__head-sub">Explore Some Of The Best Place Around You And Leave A Review!</p>
+    </div>
+
+    <div class="best-rated__container">
+    {% for directory in directories %}
+        <a href="{{ directory.is_topbrand ? route('branding.showtopbrands', {'id' : directory, 'slug' : str_slug(directory.name)}) : route('branding', {'id' : directory, 'slug' : str_slug(directory.name)}) }}">
+        <div class="best-rated__individual">
+            <div class="best-rated__individual-image-wrapper">
+                <div class="interest__individual-cover">
+                    <img src="{{ asset('themes/' ~ current_theme() ~ '/icons/afiaanyi icon.svg') }}" alt="" class="best-rated__floating-icon">
+                    {% if directory.thumbnail != "/images/no_image.png" %}
+                      <img src="{{ directory.thumbnail }}" alt="" class="best-rated__individual-image">
+                    {% else %}
+                      <img src="{{ directory.category_image }}" alt="" class="best-rated__individual-image">
+                    {% endif%}
+                </div>
+            </div>
+            <div style="height: 185px;" class="best-rated__individual-info-wrapper">
+                <div class="best-rated__info-wrapper">
+                    <div class="best-rated__individual-info">
+                        <span style="float: left; display: block;">
+                         <svg  style="fill: #E6B712 !important;" class="icon icon-profile">
+                            <use xlink:href="#icon-profile"></use>
+                         </svg>
+                        </span>
+                        <span style="float: left; display: block; max-width: 85%; margin-left: 7px;" class="best-rated__individual-info-name">
+                          {{ directory.name }}
+                        </span>
+                    </div>
+                    <div class="seg_font" style="clear: both;"></div>
+                    {% if directory.address %}
+                    <br>
+
+                    <div class="best-rated__individual-info seg_font">
+                      <span style="float: left; display: block;">
+                        <svg style="fill: #E6B712 !important;" class="icon icon-location">
+                            <use xlink:href="#icon-location"></use>
+                        </svg>
+                        </span>
+                        <span style="line-height: 1.5em; float: left; display: block; max-width: 85%; margin-left: 7px;" class="best-rated__individual-info-location seg_font">
+                        {{ directory.address }}
+                        </span>
+                    </div>
+                    <div style="clear: both;"></div>
+                    <br>
+                    {% else %}
+                     <br>
+                    {% endif %}
+                    {% if directory.phone %}
+
+                    <div class="best-rated__individual-info">
+                        <svg class="icon icon-phone">
+                            <use xlink:href="#icon-phone"></use>
+                        </svg>
+                        <span class="seg_font">{{ directory.phone }}</span>
+                    </div>
+                    {% else %}
+                     <br>
+                    {% endif %}
+                    {% if directory.email %}
+                    <div class="best-rated__individual-info">
+                        <svg class="icon icon-email">
+                            <use xlink:href="#icon-email"></use>
+                        </svg>
+                        <span class="seg_font">{{ directory.email }}</span>
+                    </div>
+                    {% else %}
+                     <br>
+                    {% endif %}
+
+
+                </div>
+                {% if directory.ratings %}
+                <div class="best-rated__rate seg_font">
+                    <p>{{ directory.ratings }}</p>
+                </div>
+                {% endif %}
+            </div>
+
+        </div>
+        </a>
+      {% endfor %}
+
+    </div>
+</section>
+
+<section class="promote">
+    <div class="promote__container m-auto">
+        <div class="promote__image-wrapper">
+            <img src="{{ asset('themes/' ~ current_theme() ~ '/images/afiayan png.png') }}" alt="" class="img-fluid">
+        </div>
+        <div class="promote__info">
+            <h3 class="promote__info-text"><span style="display: block;">Promote Your Business</span><span style="display: block; margin-top: 16px;">Today With Afiaanyi!</span></h3>
+            {% if auth_guest() %}
+             <a href="#signup-one" data-toggle="modal" class="promote__info-btn">Sign up for an Account</a>
+            {% else %}
+              {% if auth_user().hasRole('admin') %}
+               <a href="{{ route('panel.directories.create')}}" class="promote__info-btn">Create a Business</a>
+              {% else %}
+               <a href="{{url('create')}}" class="promote__info-btn">Create a Business</a>
+              {% endif %}
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<section class="community">
+    <div class="interest__head">
+        <h3 class="interest__head-text">What Our Community Is Saying!</h3>
+    </div>
+    <div class="community__speaks">
+      <div style="opacity: 1;" class="community__individual">
+          <div class="community__individual-image">
+              <img src="{{ asset('themes/' ~ current_theme() ~ '/images/kjk_pic_square.jpg') }}" alt="" class="img-fluid">
+          </div>
+          <div class="community__individual-message-wrap">
+              <p class="community__individual-message">Afiaanyi has taken my business to the next level. My
+                  dreams of expansion has been realized.</p>
+              <h5 class="community__individual-name">-CEO, KJK AFRICA</h5>
+              <svg class="icon icon-quote community__individual-quote">
+                  <use xlink:href="#icon-quote"></use>
+              </svg>
+
+          </div>
+      </div>
+        <!--
+        <div class="community__individual">
+            <div class="community__individual-image">
+                <img src="{{ asset('themes/' ~ current_theme() ~ '/images/man.png') }}" alt="" class="img-fluid">
+            </div>
+            <div class="community__individual-message-wrap">
+                <p class="community__individual-message">Afiaanyi has taken my business to the next level. My
+                    dreams of expansion has been realized.</p>
+                <h5 class="community__individual-name">-CEO, Don P Ltd</h5>
+                <svg class="icon icon-quote community__individual-quote">
+                    <use xlink:href="#icon-quote"></use>
+                </svg>
+
+            </div>
+        </div>
+        <div class="community__individual">
+            <div class="community__individual-image">
+                <img src="{{ asset('themes/' ~ current_theme() ~ '/images/man.png') }}" alt="" class="img-fluid">
+            </div>
+            <div class="community__individual-message-wrap">
+                <p class="community__individual-message">Afiaanyi has taken my business to the next level. My
+                    dreams of expansion has been realized.</p>
+                <h5 class="community__individual-name">-CEO, Don P Ltd</h5>
+                <svg class="icon icon-quote community__individual-quote">
+                    <use xlink:href="#icon-quote"></use>
+                </svg>
+            </div>
+        </div>
+        <div class="community__individual">
+            <div class="community__individual-image">
+                <img src="{{ asset('themes/' ~ current_theme() ~ '/images/man.png') }}" alt="" class="img-fluid">
+            </div>
+            <div class="community__individual-message-wrap">
+                <p class="community__individual-message">Afiaanyi has taken my business to the next level. My
+                    dreams of expansion has been realized.</p>
+                <h5 class="community__individual-name">-CEO, Don P Ltd</h5>
+                <svg class="icon icon-quote community__individual-quote">
+                    <use xlink:href="#icon-quote"></use>
+                </svg>
+            </div>
+        </div>
+        <div class="community__individual">
+            <div class="community__individual-image">
+                <img src="{{ asset('themes/' ~ current_theme() ~ '/images/man.png') }}" alt="" class="img-fluid">
+            </div>
+            <div class="community__individual-message-wrap">
+                <p class="community__individual-message">Afiaanyi has taken my business to the next level. My
+                    dreams of expansion has been realized.</p>
+                <h5 class="community__individual-name">-CEO, Donny P Ltd</h5>
+                <svg class="icon icon-quote community__individual-quote">
+                    <use xlink:href="#icon-quote"></use>
+                </svg>
+            </div>
+        </div>
+        -->
+    </div>
+</section>
+
+<section class="news-update">
+    <div class="interest__head">
+        <h3 class="interest__head-text">News & Update!</h3>
+    </div>
+    <div class="news-update__wrapper">
+        {% for post in posts %}
+        <div class="news-update__individual">
+            <div class="best-rated__individual-image-wrapper">
+                <div class="interest__individual-cover">
+                    <img src="{{ post.image_url()}}" alt="" class="img-fluid h-100 w-100">
+                </div>
+            </div>
+            <div class="news-update__individual-info">
+                <p class="news-update__individual-info-date">{{ post.posted_at|date("F d, Y") }}</p>
+                <h3 class="news-update__individual-info-title">{{ post.title }}</h3>
+                <p class="news-update__individual-info-text">
+                  {# {{ post.short_description }} #}
+                  {% set post_body = post.post_body_output()|striptags %}
+                  {{ post_body|length > 100 ? post_body|slice(0, 100) ~ '...' : post_body  }}
+                  <a style="font-style: italic;" href="{{ post.url() }}">see more</a>
+                </p>
+               <!--
+                <div class="news-update__individual-info-reaction">
+                    <svg class="icon icon-like">
+                        <use xlink:href="#icon-like"></use>
+                    </svg>
+                    <span class="mr-5">400</span>
+                    <svg class="icon icon-view">
+                        <use xlink:href="#icon-view"></use>
+                    </svg>
+                    <span>800</span>
+                </div>
+                -->
+            </div>
+
+        </div>
+
+        {% endfor %}
+    </div>
+    {% if child_categories|length > 7 %}
+    <style>
+    .individual_1 {
+      background: url("{{ child_categories.0.banner }}?time={{date().timestamp}}") no-repeat;
+
+      background-size: cover; }
+    .individual_2 {
+      background: url("{{ child_categories.1.banner }}?time={{date().timestamp}}") no-repeat;
+
+      background-size: cover; }
+    .individual_3 {
+      background: url("{{ child_categories.2.banner }}?time={{date().timestamp}}") no-repeat;
+      background-size: cover;
+      margin-bottom: 55px; }
+    .individual_4 {
+      background: url("{{ child_categories.3.banner }}?time={{date().timestamp}}") no-repeat;
+      background-size: cover; }
+    .individual_5 {
+      background: url("{{ child_categories.4.banner }}?time={{date().timestamp}}") no-repeat;
+      background-size: cover; }
+    .individual_6 {
+      background: url("{{ child_categories.5.banner }}?time={{date().timestamp}}") no-repeat;
+      background-size: cover; }
+    .individual_7 {
+       background: url("{{ child_categories.6.banner }}?time={{date().timestamp}}") no-repeat;
+      background-size: cover; }
+    .individual_8 {
+      background: url("{{ child_categories.7.banner }}?time={{date().timestamp}}") no-repeat;
+      background-size: cover; }
+
+    </style>
+    {% else %}
+    <style>
+    .interest__individual-restauarant {
+      background: url("{{ asset('themes/' ~ current_theme() ~ '/images/restaurants.png') }}") no-repeat;
+      background-position-x: -364px;
+      background-size: cover; }
+    .interest__individual-salons {
+      background: url("{{ asset('themes/' ~ current_theme() ~ '/images/salon.png') }}") no-repeat;
+      background-position-x: -102px;
+      background-size: cover; }
+    .interest__individual-cinema {
+      background: url("{{ asset('themes/' ~ current_theme() ~ '/images/cinema.png') }}") no-repeat;
+      background-size: cover;
+      margin-bottom: 55px; }
+    .interest__individual-housing {
+      background: url("{{ asset('themes/' ~ current_theme() ~ '/images/housing.png') }}") no-repeat;
+      background-size: cover; }
+      </style>
+    {% endif %}
+</section>
+{% endblock %}

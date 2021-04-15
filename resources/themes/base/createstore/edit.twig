@@ -1,0 +1,146 @@
+{# extends "layouts.app" % #}
+{% extends "layouts.app_master_dashboard" %}
+
+{% block content %}
+
+<div class="bg-light">
+<div class="container-fluid" style="max-width: 970px">
+    <div class="col-12s">
+
+        <div style="margin-left: 30px;" class="row">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-9 pl-sm-5 ">
+                <div class="row">
+                    <div class="col-6">
+                        <h5 class="text-dark pt-4">{{ __("Edit Store") }}</h5>
+                        <p class="text-muted pt-0 mb-2">{{ store.name }} <a href="{{ store.url }}/page" class="small">(view)</a>
+                          <br>
+                          <a href="{{ url('post') }}?store={{ store.id }}" class="small">(Add product)</a>
+                          <a href="{{ route('account.listings.index') }}?store={{ store.id }}" class="small">(Manage products)</a>
+                        </p>
+                        <div class="mb-3">
+                            <span class="badge badge-pill badge-secondary mr-2">{{ __("Category") }}: {{ store.store_category.name }}</span>
+                        </div>
+                    </div>
+                    <div class="col-6 pt-4">
+                      {{  form_model(store, {'route' : ['createstore.update', store], 'class' : 'form', 'method' : 'PUT' }) }}
+                        {% if store.is_verified %}
+                            {% if not module_enabled('listingfee') %}
+                            <input type="submit" name="draft" value="{{ __('Unpublish') }}" class="btn btn-danger float-right">
+                            {% else %}
+                                <div class="float-right text-center">
+                                <small class="text-muted ">{{ __("Expires") }} {{ store.expires_at |date("jS M 'y") }}</small><br />
+                                {% if store.is_draft %}
+                                    <input type="submit" name="undraft" value="{{ __('Re-enable') }}" class="btn  btn-outline-danger btn-sm">
+                                {% else %}
+                                    <input type="submit" name="draft" value="{{ __('Disable') }}" class="btn  btn-outline-danger btn-sm">
+                                    <input type="submit" name="renew" value="{{ __('Renew') }}" class="btn  btn-outline-success btn-sm">
+                                {% endif %}
+                                </div>
+                            {% endif %}
+                        {% else %}
+                            <input type="button" name="draft" value="{{ __('Pending Verification') }}" class="btn  btn-lg btn-danger float-right" style="cursor: default">
+                        {% endif %}
+                        {{ form_close() }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3 d-none d-sm-block">
+                    <div id="sidebar" class="p-0 mt-0">
+
+                        <div class="card w-100">
+                            <a data-scroll="details_section" class="card-body clickable {{ active(['createstore.edit']) }}" href="#details_section">
+                        <h6 class="card-title mb-1">{{ __("Store Details") }}</h6>
+                        <p class="card-text small">{{ __("Enter the tile and description of your store.") }}</p>
+                        </a>
+                        <a data-scroll="images_section" class="card-body clickable" href="#images">
+                            <h6 class="card-title mb-1">{{ __("Images") }}</h6>
+                            <p class="card-text  small">{{ __("Upload at least one image to make your store stand out.") }}</p>
+                        </a>
+                        {%  if stores_form | length > 0 %}
+                        <a data-scroll="additional_section" class="card-body clickable" href="#additional_information">
+                            <h6 class="card-title mb-1">{{ __("Additional Information") }}</h6>
+                            <p class="card-text small">{{ __("Enter any relevant characteristics and/or specifications.") }}</p>
+                        </a>
+                        {% endif %}
+                        <!--
+                        <a data-scroll="pricing_section" class="card-body clickable" href="#pricing_section">
+                            <h6 class="card-title mb-1">{{ __("Pricing") }}</h6>
+                            <p class="card-text small">{{ __("Set-up pricing and availability for your listing.") }}</p>
+                        </a>
+                        -->
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-sm-9 col-12 pl-sm-5 border-0" style="">
+                {% include 'notifications' %}
+
+                {{ form_model(store, {'route' : ['createstore.update', store], 'class' : 'form', 'method' : 'PUT'}) }}
+                    <a id="details_section"></a>
+                {% include 'createstore.partials.details' %}
+                <a id="images_section"></a>
+                {% include 'createstore.partials.images' %}
+
+                <div class="card mb-4">
+
+                    <div class="card-body">
+
+                        <input type="submit" value="{{ __('Save store')  }}" class="btn  btn-primary float-right">
+
+                    </div>
+
+                    {{ form_close() }}
+
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+    <script>
+
+        function show_tags() {
+            $('.tags').each(function (i, obj) {
+                if ($(obj)[0].selectize !== undefined) {
+                    $(obj)[0].selectize.destroy();
+                }
+            });
+
+            $('.tags').selectize({
+                delimiter: ',',
+                persist: false,
+                create: function (input) {
+                    return {
+                        value: input,
+                        text: input
+                    }
+                }
+            });
+        }
+
+        $('.repeater-default').repeater({});
+        $('.repeater-variation-option').repeater({
+            show: function () {
+                show_tags();
+                $(this).slideDown();
+            }
+        })
+        show_tags();
+
+
+        $("#sidebar").stick_in_parent({offset_top: 20});
+
+        $('#sidebar').activescroll({
+            active: "active",
+            offset: 20,
+            animate: 1000
+        });
+    </script>
+
+    {% endblock %}

@@ -1,0 +1,75 @@
+<nav>
+    <div class="header__top-container">
+        <div class="row header__nav-content">
+
+            <div class="header__logo-container">
+              <a href="{{ route('home') }}">
+                <img src="{{ asset('themes/' ~ current_theme() ~ '/images/market-logo.svg')}}" class="header__logo" alt="Afiaanyi logo">
+             </a>
+            </div>
+            <div>
+                <input type="search" class="header__form-input header__input-nav" placeholder="Search for products, brands and categories">
+                <input type="submit" class="header__submit">
+            </div>
+            <div class="header__nav-list-container-outer">
+              <ul class="header__nav-list-container">
+                <li class="header__nav-list">
+                    <a style="font-weight: bold; color: #E6B712 !important;" href="{{ route('page.topbrands') }}" class="header__nav-link">Afiaanyi's Top Brands</a>
+                </li>
+                  <li class="header__nav-list">
+                      <a href="{{ route('browsebrand') }}" class="header__nav-link">Directory</a>
+                  </li>
+                  <li class="header__nav-list">
+                      <a href="{{ route('browse') }}" class="header__nav-link">Shop</a>
+                  </li>
+
+                  <li class="header__nav-list">
+                      <a href="{{ route('page.comingsoon') }}" class="header__nav-link">Jobs</a>
+                  </li>
+
+              </ul>
+            </div>
+
+            <div class="header__right-nav">
+
+            {% if auth_guest() == false %}
+             <div class="header__customized-items">
+              <p class="greeting header__greeting">
+                  Welcome, &nbsp;<span class="user__name header__username">{{ auth_user().first_name() }}!</span>
+              </p>
+                  <a href="">
+                      <img src="{{ auth_user().avatar }}" class="header-nav-icon header__avatar" height="35px"
+                          width="35px">
+                  </a>
+                  <a href="{{ route('cart')}}">
+                      <img src="{{ asset('themes/' ~ current_theme() ~ '/images/gold-shop-cart.svg')}}" class="header-nav-icon">
+                      <sup class="cart__label">{{ cart_count }}</sup>
+                  </a>
+                 <!--
+                  <a href="">
+                      <img src="{{ asset('themes/' ~ current_theme() ~ '/images/gold-favorite.svg')}}" class="header-nav-icon">
+                  </a>
+                  <a href="{{ route('cart')}}">
+                      <img src="{{ asset('themes/' ~ current_theme() ~ '/images/gold-shop-cart.svg')}}" class="header-nav-icon">
+                      <sup class="cart__label">{{ cart_count }}</sup>
+                  </a>
+                  <a href="">
+                        <img src="{{ asset('themes/' ~ current_theme() ~ '/images/notify.svg')}}" class="header-nav-icon">
+                  </a>
+                  -->
+              </div>
+              {% else %}
+              <a href="{{ route('cart')}}">
+                  <img src="{{ asset('themes/' ~ current_theme() ~ '/images/gold-shop-cart.svg')}}" class="header-nav-icon">
+                  <sup class="cart__label">{{ cart_count }}</sup>
+              </a>
+              {% endif %}
+            </div>
+
+        </div>
+
+
+
+
+    </div>
+</nav>

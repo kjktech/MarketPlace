@@ -1,0 +1,173 @@
+{% extends "layouts.app_login" %}
+
+{% block content %}
+<style>
+ .social-auth-btns span {
+
+  font-size: 11px;
+
+ }
+</style>
+<div id="login">
+  <section class="get-started text-center mt-5">
+    <h2>Password recovery</h2>
+  </section>
+
+  <section class="login-account mt-5 container">
+    <div class="container-fluid mt-5">
+        {% include 'notifications' %}
+      <div class="row justify-content-center no-gutters">
+        <div class="col-12 col-md-5">
+        <div class="container">
+            <div>
+                            {% if session_has('status') %}
+                                <div class="alert alert-success">
+                                    {{ session('status') }}
+                                </div>
+                            {% endif %}
+                            <form method="POST" action="{{ route('password.email') }}">
+                                {{ csrf_field() }}
+                                <div class="form-group">
+                                    <label class="form-control-label" for="email">{{ __("Email address") }}</label>
+                                    <input class="form-control{{errors.has('email') ? ' is-invalid' : '' }}" type="email" id="email" name="email" value="{{ old('email') }}"
+                                           placeholder="Enter your email" required autofocus>
+                                    {% if errors.has('email') %}
+                                        <small class="form-control-feedback invalid-feedback">{{errors.first('email') }}</small>
+                                    {% endif %}
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-md btn-primary btn-block">{{ __("Send Password Reset Link") }}</button>
+
+                                </div>
+                            </form>
+                        </div>
+        </div>
+
+          <div class="container-fluid">
+            <p class="mt-5 mb-0">Social media login:</p>
+            <div class="row ">
+              <div class="col-6 social-auth-btns">
+              {% if(setting('facebook_key')) %}
+                <a href="./login/facebook" class="btn btn-block btn-lg mt-3 facebook-btn">
+                  <i class="fab fa-facebook-f d-inline-block mr-1"></i>
+                  <span>Connect with Facebook</span>
+                </a>
+              {% endif %}
+              </div>
+
+              <div class="col-6 social-auth-btns">
+
+                <button class="btn btn-block btn-lg mt-3 google-plus-btn">
+                  <i class="fab fa-google-plus-g d-inline-block mr-1"></i>
+                  <span>Connect with google</span>
+                </button>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section>
+
+    <p class="text-center pt-4 pb-4 mt-5 mb-5">
+    <!--
+      Already Registered? <a href="" class="active">Sign in</a>
+    -->
+    </p>
+
+  </section>
+
+  <footer class="border-top footer__login">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="row">
+            <div class="col-12 col-md-3">
+              <h5 class="active mb-3">Get to know us</h5>
+              <ul class="list-unstyled text-small">
+                <li class="mb-2"><a class="" href="#">About Us</a></li>
+                <li class="mb-2"><a class="" href="#">Careers</a></li>
+                <li class="mb-2"><a class="" href="#">Blog</a></li>
+                <li class="mb-2"><a class="" href="#">FAQ</a></li>
+              </ul>
+            </div>
+            <div class="col-12 col-md-3">
+              <h5 class="active mb-3">Payments</h5>
+              <ul class="list-unstyled text-small">
+                <li class="mb-2"><a class="" href="#">Mastercard</a></li>
+                <li class="mb-2"><a class="" href="#">Verve</a></li>
+                <li class="mb-2"><a class="" href="#">Visa</a></li>
+                <li class="mb-2"><a class="" href="#">Wallet</a></li>
+              </ul>
+            </div>
+            <div class="col-12 col-md-3">
+              <h5 class="active mb-3">Explore</h5>
+              <ul class="list-unstyled text-small">
+                <li class="mb-2"><a class="" href="#">Contact Us</a></li>
+                <li class="mb-2">
+                  <a class="" href="#">Private Policy</a>
+                </li>
+                <li class="mb-2"><a class="" href="#">Disclaimer</a></li>
+                <li class="mb-2"><a class="" href="#">Biling Policy</a></li>
+                <li class="mb-2"><a class="" href="#">Term of Use</a></li>
+                <li class="mb-2">
+                  <a class="" href="#">Advertise with Us</a>
+                </li>
+              </ul>
+            </div>
+            <div class="col-12 col-md-3">
+              <h5 class="active mb-3">Sell on Afiaanyi</h5>
+              <ul class="list-unstyled text-small">
+                <li class="mb-2">
+                  <a class="" href="#">Register your business</a>
+                </li>
+                <li class="mb-2">
+                  <a class="" href="#">Trust & Safety</a>
+                </li>
+                <li class="mb-2"><a class="" href="#">How it works</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <h5 class="mb-3 active">Download & connect with us</h5>
+          <div class="row">
+            <div class="col-6">
+              <img
+                src="./assets/images/ios.png"
+                class="d-block"
+                alt="IOS APP STORE"
+              />
+            </div>
+            <div class="col-6">
+              <img
+                src="./assets/images/play.png"
+                class="d-block"
+                alt="ANDRIOD APP STORE"
+              />
+            </div>
+          </div>
+          <div class="row mt-5">
+            <div class="col-12">
+              <p class="follow-links">
+                Follow: <a href=""><i class="fab fa-facebook-f"></i> </a
+                ><a href=""><i class="fab fa-instagram"></i></a>
+                <a href=""><i class="fab fa-linkedin-in"></i></a>
+                <a href=""><i class="fab fa-twitter"></i></a>
+              </p>
+              <p class="text-center mt-4">Power by:</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-5">
+        <p class="col-12">
+          Copyright (c) 2018 Afiaanyi. All rights reserved
+        </p>
+      </div>
+    </div>
+  </footer>
+</div>
+{% endblock %}

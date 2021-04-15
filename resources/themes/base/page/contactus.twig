@@ -1,0 +1,173 @@
+{% extends "layouts.app_contact" %}
+{% block content %}
+<div class="contact-us__hero">
+<header class="navbar__home fixed-top" id="topnav">
+<nav class="navbar navbar-expand-lg navbar-light">
+    <a class="navbar-brand p-0 navbar__brand" href="{{ route('home') }}">
+        <img src="{{ asset('themes/' ~ current_theme() ~ '/images/logo.png') }}" width="76" height="71" alt="">
+    </a>
+
+    <ul class="d-sm-block d-lg-none ml-auto">
+        <li class="nav-item navbar__create-account navbar__create-account-resp ">
+            <a class="nav-link" href="#signup-one" data-toggle="modal">Create an account</a>
+        </li>
+    </ul>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse responsive__nav-menu" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item navbar__item">
+                <a style="font-weight: bold; color: #E6B712 !important;" class="nav-link navbar__link" href="{{ route('page.topbrands') }}">Afiaanyi's Top Brands</a>
+            </li>
+            <li class="nav-item navbar__item">
+                <a class="nav-link navbar__link" href="{{ route('page.directory') }}">Directory</a>
+            </li>
+            <li class="nav-item navbar__item">
+                <a class="nav-link navbar__link" href="{{ route('page.comingsoon') }}">Shop</a>
+            </li>
+            <li class="nav-item navbar__item">
+                <a class="nav-link navbar__link" href="{{ route('page.comingsoon') }}">Jobs</a>
+            </li>
+            {% if auth_guest() %}
+            <li class="nav-item navbar__item">
+                <a class="nav-link navbar__link" href="#login" data-toggle="modal">Login</a>
+            </li>
+            {% endif %}
+         </ul>
+        {% if auth_user() %}
+        <ul class="nav navbar-nav navbar-right">
+            <li class="nav-item navbar__item p-0" style="line-height: 48px;">
+                <span class="logged-navbar__welcome" style="color: #FFFFFF;">Welcome, <span style="color: white !important"> {{ auth_user().first_name() }}!</span></span>
+            </li>
+            <li class="nav-item navbar__item dropdown">
+                <a href="#" class="inset dropdown-toggle navbar__link" href="#" id="navbarDropdown" role="button"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                    <img src="{{ auth_user().avatar }}">
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{ route('account.') }}">User Dashboard</a>
+                    {% if auth_user().hasRole('admin') %}
+                      <div class="dropdown-divider"></div>
+                       <a href="./panel" class="dropdown-item">Manage Site</a>
+                    {% endif %}
+                    <div class="dropdown-divider"></div>
+                    <a href="{{ route('logout') }}"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="dropdown-item" href="#">Logout</a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        {{ csrf_field() }}
+                    </form>
+                </div>
+            </li>
+
+        </ul>
+        {% endif %}
+    </div>
+    {% if auth_guest() %}
+     <ul class="d-lg-block d-none">
+        <li class="nav-item navbar__create-account">
+            <a class="nav-link" href="#signup-one" data-toggle="modal">Create an account</a>
+        </li>
+     </ul>
+    {% endif %}
+</nav>
+</header>
+
+    <div class="contact-us__hero-text">
+        <h3>Get In Touch</h3>
+        <p>Have a comment or a question? Reach out to us.</p>
+    </div>
+    </div>
+    <section class="contact-us__form-wrapper">
+      <div class="row mx-0">
+      <div class="col-lg-6 col-md-12 col-sm-12 p-0">
+        <div class="contact-us__form">
+            <form id="contact-form">
+                <div class="d-flex contact-us__form-input-top">
+                    <div class="form-group contact-us__form-input-wrapper">
+                        <label for="Contact Name" class="contact-us__form-label">*Contact Name</label>
+                        <input id="contact-name" name="contact-name" required type="text" class="form-control contact-us__form-input">
+                    </div>
+                    <div class="form-group contact-us__form-input-wrapper">
+                        <label for="Contact Name" class="contact-us__form-label">*Email</label>
+                        <input id="contact-email" name="contact-email" required type="email" class="form-control contact-us__form-input">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="Contact Name" class="contact-us__form-label">*Message</label>
+                    <textarea id="contact-message" name="contact-message" required class="form-control contact-us__form-textarea"></textarea>
+                </div>
+                 <div class="contact-us__form-button-wrapper">
+                    <div class="contact-us__form-button">
+                        <svg class="icon icon-go">
+                            <use xlink:href="#icon-go"></use>
+                        </svg>
+                        <span class="spinner" style="display: none; color: white; padding-left: 4px;"><i class="fas fa-spin fa-spinner fa-1x" aria-hidden="true"></i></span>
+                    </div>
+                 </div>
+                 <button style="visibility: hidden;" id="form-submit" type="submit"></button>
+            </form>
+        </div>
+        </div>
+         <div class="col-lg-6 col-md-12 col-sm-12 p-0">
+        <div class="contact-us__map-wrapper">
+            <div class="contact-us__map">
+                <div class="contact-us__map-overlay">
+                    <div style="width: 240px;" class="contact-us__map-address">
+                        <h3 style="color: red;">Afiaanyi Office: </h3>
+                        <p style="font-weight: 600;">
+                          Afiaanyi Services Limited.
+                        </p>
+                        <p>
+                          5, Ridge Road, GRA, Onitsha, Anambra State
+                        </p>
+                        <p>
+                         Contact Number: +234 905 300 0056-9
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+    </section>
+
+<section class="contact-us__details">
+    <div class="contact-us__details-wrapper">
+        <div class="contact-us__details-one">
+            <svg class="icon icon-contact-experience">
+                <use xlink:href="#icon-contact-experience"></use>
+            </svg>
+            <div class="contact-us__details-one-experience">
+                <h3>Visit our Experience center</h3>
+                <!--<p>20, Commercial Avenue, Onitsha, Anambra State</p>-->
+                <p>5, Ridge Road, GRA, Onitsha, Anambra State</p>
+            </div>
+        </div>
+        <div class="contact-us__details-two">
+            <svg class="icon icon-contact-customer">
+                <use xlink:href="#icon-contact-customer"></use>
+            </svg>
+            <div class="contact-us__details-one-experience">
+                <h3>Customer Care</h3>
+                <p>Please call us to speak with our customer service personnel</p>
+                <p>+234 905 300 0056-9</p>
+            </div>
+        </div>
+        <div class="contact-us__details-three">
+            <svg class="icon icon-operation-hour">
+                <use xlink:href="#icon-operation-hour"></use>
+            </svg>
+            <div class="contact-us__details-one-experience">
+                <h3>Customer Care</h3>
+                <p>Mon-Fri, 8am-8pm;</p>
+                <p>Saturday, 9am-5pm;</p>
+                <p>Public Holidays, 9am-5pm.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

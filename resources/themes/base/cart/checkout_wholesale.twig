@@ -1,0 +1,445 @@
+{% extends "layouts.app_browse_b" %}
+
+{% block styles %}
+   @import url({{ asset('themes/' ~ current_theme() ~ '/css/checkout.css') }});
+{% endblock %}
+{% block hero %}{% endblock %}
+{% block content %}
+<style>
+  .form-group {
+    margin-bottom: 1rem;
+  }
+  label {
+    display: inline-block;
+    margin-bottom: .5rem;
+  }
+  .form-control {
+     display: block;
+     width: 100%;
+     padding: .375rem .75rem;
+     font-size: 1rem;
+     line-height: 1.5;
+     color: #495057;
+     background-color: #fff;
+     background-clip: padding-box;
+     border: 1px solid #ced4da;
+     border-radius: .25rem;
+     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+ }
+ .flag-container {
+    margin-top: 0px !important;
+ }
+</style>
+<section>
+
+  <div class="row">
+
+      <div class="row checkkout-container" style="padding-top: 23px">
+
+          <div class="address-details">
+              <h2 class="details__title">WHOLESALE CHECKOUT</h2>
+
+              <div class="details-box">
+                  <div class="details-box__header">
+                      <h3 class="details-box__header-title">
+                          <svg width="17" height="17" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M11 0C4.92514 0 0 4.92494 0 11C0 17.075 4.92514 22 11 22C17.0755 22 22 17.075 22 11C22 4.92494 17.0753 0 11 0ZM8.98213 16.6504L4.13861 11.8071L5.75298 10.1928L8.98213 13.4217L16.247 6.15666L17.8613 7.77103L8.98213 16.6504Z" fill="#43B840" />
+                          </svg>
+                          <span class="details-box__numbering">1.</span>ADDRESS DETAILS
+                      </h3>
+                      {% if items.contact %}
+                       <button data-toggle="modal" data-target="#address-modal" class="chkout-btn">EDIT</button>
+                      {% else %}
+                       <button data-toggle="modal" data-target="#address-modal" class="chkout-btn">ADD</button>
+                      {% endif %}
+                  </div>
+
+                  <div class="details-content details-content--row">
+                     {% if items.contact %}
+                      <h4 id="add-name" class="details-content__title">{{ items.contact.first_name }} {{ items.contact.last_name }}</h4>
+                      <p id="add-address" class="details-content__text">{{ items.contact.address }}, {{ items.contact.city }}, Nigeria</p>
+                      <p id="add-phone" class="details-content__text">{{ items.contact.phone }}</p>
+                     {% else %}
+                     <h4 id="add-name" class="details-content__title"></h4>
+                     <p id="add-address" class="details-content__text"></p>
+                     <p id="add-phone" class="details-content__text"></p>
+                     {% endif %}
+                  </div>
+
+              </div>
+
+              <div class="details-box">
+                  <div class="details-box__header">
+                      <h3 class="details-box__header-title">
+                          <svg id="second_process_svg" width="17" height="17" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M11 0C4.92514 0 0 4.92494 0 11C0 17.075 4.92514 22 11 22C17.0755 22 22 17.075 22 11C22 4.92494 17.0753 0 11 0ZM8.98213 16.6504L4.13861 11.8071L5.75298 10.1928L8.98213 13.4217L16.247 6.15666L17.8613 7.77103L8.98213 16.6504Z" fill="#AAAAAA" />
+                          </svg>
+                          <span class="details-box__numbering">2.</span>DELIVERY METHOD
+                      </h3>
+
+                  </div>
+
+                  <div class="details-content details-content--row">
+                      <h4 class="details-content__title details-content__title--spaced">
+                          How do you want your order delivered?
+                      </h4>
+
+                      <div>
+
+                          <label class="container details-content__title">Standard Shipping
+                              <input type="radio" class="js_handle_first_radio" checked="checked" name="shipping" value="standard shipping">
+                              <span class="checkmark"></span>
+                          </label>
+                          <p class="details-content__text details-content__text--spaced">
+                              Get it in (Location) by (Date), allow up to 4 additional business days for other
+                              cities
+                              for (Amount)
+                          </p>
+
+                          <div class="shipping-warning">
+                              <p class="details-content__text">
+                                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                      <path d="M5.99975 0C2.68648 0 0 2.68648 0 5.99975C0 9.31302 2.68648 12 5.99975 12C9.31302 12 12 9.31302 12 5.99975C12 2.68648 9.31302 0 5.99975 0ZM7.24876 9.29879C6.93994 9.4207 6.6941 9.51314 6.50971 9.57714C6.32584 9.64114 6.112 9.67314 5.8687 9.67314C5.49486 9.67314 5.20381 9.58171 4.99657 9.39937C4.78933 9.21702 4.68622 8.98591 4.68622 8.70502C4.68622 8.59581 4.69384 8.48406 4.70908 8.37029C4.72483 8.25651 4.74971 8.12851 4.78375 7.98476L5.17029 6.61943C5.20432 6.48838 5.23378 6.36394 5.25714 6.24813C5.28051 6.1313 5.29168 6.02413 5.29168 5.9266C5.29168 5.75289 5.25562 5.63098 5.184 5.56241C5.11137 5.49384 4.97473 5.46032 4.77105 5.46032C4.67149 5.46032 4.56889 5.47505 4.46375 5.50603C4.35962 5.53803 4.26921 5.56698 4.19505 5.59543L4.29714 5.17486C4.5501 5.07175 4.79238 4.98337 5.02349 4.91022C5.2546 4.83606 5.47302 4.79949 5.67873 4.79949C6.05003 4.79949 6.33651 4.8899 6.53816 5.0687C6.73879 5.248 6.83987 5.48114 6.83987 5.76762C6.83987 5.82705 6.83276 5.93168 6.81905 6.08102C6.80533 6.23086 6.77943 6.36749 6.74184 6.49295L6.35733 7.85422C6.32584 7.96343 6.2979 8.08838 6.27251 8.22806C6.24762 8.36775 6.23543 8.47441 6.23543 8.54603C6.23543 8.72686 6.27556 8.85029 6.35683 8.91581C6.43708 8.98133 6.57778 9.01435 6.77689 9.01435C6.87086 9.01435 6.976 8.99759 7.09486 8.96508C7.2127 8.93257 7.29803 8.90362 7.35187 8.87873L7.24876 9.29879ZM7.1807 3.77346C7.0014 3.94006 6.78552 4.02337 6.53308 4.02337C6.28114 4.02337 6.06375 3.94006 5.88292 3.77346C5.70311 3.60686 5.61219 3.40419 5.61219 3.16749C5.61219 2.9313 5.70362 2.72813 5.88292 2.56C6.06375 2.39137 6.28114 2.30756 6.53308 2.30756C6.78552 2.30756 7.00191 2.39137 7.1807 2.56C7.36 2.72813 7.4499 2.9313 7.4499 3.16749C7.4499 3.4047 7.36 3.60686 7.1807 3.77346Z" fill="#F30000" />
+                                  </svg>
+                                  * Large items may arrive 2 business days later than others
+                              </p>
+                          </div>
+
+                      </div>
+
+                      <div>
+
+                          <label class="container details-content__title">Pickup Station
+                              <input type="radio" class="js_handle_sec_radio" name="shipping" value="pick staion">
+                              <span class="checkmark"></span>
+                          </label>
+                          <p class="details-content__text details-content__text--spaced">
+                              Expect delivery in (Location) between (Date) and (Date) . Allow 3 additional
+                              business days on standard shipping and 12 days for items shipped from overseas. For
+                              other cities, please allow 4 business days in addition to the (Location) delivery
+                              time.
+                          </p>
+
+                          <div class="js_handle_pick_container"></div>
+
+
+
+                          <button class="js_modal_handle hide chkout-btn inner-space">
+                              <span>SELECT PICKUP STATION</span>
+                          </button>
+
+                          <div class="upper_calc">
+                              <div class="checkout-calc">
+
+                                  <p class="checkout-calc__p">Subtotal</p>
+                                  <p class="checkout-calc__p">&#x20A6;&nbsp;{{ cart_test_cart.getTotal() }}</p>
+
+                              </div>
+                              <div class="checkout-calc">
+
+                                  <p class="checkout-calc__p">Shipping Amount</p>
+                                  <p class="checkout-calc__p">&#x20A6;&nbsp;500</p>
+
+                              </div>
+                          </div>
+                          <div class="checkout-calc">
+
+                              <p class="checkout-calc__p checkout-calc__p--total">Total</p>
+                              <p class="checkout-calc__p checkout-calc__p--currency">&#x20A6;&nbsp;{{ items.amount + 500 }}</p>
+
+                          </div>
+
+                          <p class="details-content__text details-content__text--small">
+                              You will be able to add a voucher on the next step
+                          </p>
+
+                          <button class="chkout-btn chkout-btn--color js_handle_sec_proceed">
+                              <span>PROCEED TO NEXT STEP</span>
+                          </button>
+
+                      </div>
+
+                  </div>
+
+              </div>
+
+              <div class="details-box">
+                  <div class="details-box__header">
+                      <h3 class="details-box__header-title">
+                          <svg id="third_process_svg" width="19" height="19" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M11 0C4.92514 0 0 4.92494 0 11C0 17.075 4.92514 22 11 22C17.0755 22 22 17.075 22 11C22 4.92494 17.0753 0 11 0ZM8.98213 16.6504L4.13861 11.8071L5.75298 10.1928L8.98213 13.4217L16.247 6.15666L17.8613 7.77103L8.98213 16.6504Z" fill="#AAAAAA" />
+                          </svg>
+                          <span class="details-box__numbering">3.</span>PAYMENT METHOD
+                      </h3>
+
+                  </div>
+
+                  <div class="hide js_handle_third_section details-content details-content--row">
+                      <h4 class="details-content__title details-content__title--spaced">
+                          How do you want to pay for your order?
+                      </h4>
+
+                      <div class="payment-sec">
+
+                          <label class="container details-content__title">Paystack
+                              <input type="radio" class="js_handle_payment_radio" name="payment" value="paystack">
+                              <span class="checkmark"></span>
+                          </label>
+                          <p class="details-content__text details-content__text--spaced">
+                              Fast, easy and safe payment directly from your bank account
+                          </p>
+
+                      </div>
+
+                      <div>
+
+                          <div class="payment-sec">
+
+                              <label class="container details-content__title">
+                                  <svg width="16" height="11" viewBox="0 0 16 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                      <path d="M15.6879 1.05837H13.8299C13.6573 1.05837 13.5174 1.19827 13.5174 1.37087V1.64068H12.646C12.4734 1.64068 12.3335 1.78059 12.3335 1.95318V2.04312C11.8256 1.99877 11.6585 1.90246 11.192 1.63346C10.8333 1.42659 10.2911 1.11393 9.3146 0.674899C9.31007 0.672836 9.30551 0.67093 9.30085 0.669117C8.98301 0.544055 8.14998 0.297992 7.26026 0.701211L6.00276 1.15146L4.94279 0.0915234C4.82076 -0.0305078 4.62289 -0.0305078 4.50086 0.0915234L1.02092 3.57143C0.908356 3.68402 0.886762 3.87924 1.02092 4.0134L6.96739 9.95987C7.06254 10.0551 7.28536 10.0838 7.40936 9.95987L10.5864 6.78287C10.669 6.78999 10.7547 6.79384 10.8435 6.79384C11.66 6.79384 12.3822 6.23377 12.7953 5.62334H15.6879C15.8605 5.62334 16.0004 5.48343 16.0004 5.31084V1.37087C16.0004 1.19827 15.8605 1.05837 15.6879 1.05837ZM4.72179 0.75443L5.43404 1.46668C5.22232 1.59762 4.97754 1.66768 4.72179 1.66768C4.46601 1.66768 4.22126 1.59765 4.00954 1.46668L4.72179 0.75443ZM2.39611 4.50468L1.68386 3.7924L2.39611 3.08015C2.52704 3.29187 2.59711 3.53665 2.59711 3.7924C2.59711 4.04815 2.52707 4.29293 2.39611 4.50468ZM7.18839 9.29693L6.47626 8.58481C6.91104 8.31649 7.46567 8.31649 7.90048 8.58481L7.18839 9.29693ZM8.35073 8.13462C7.66017 7.63368 6.71661 7.63368 6.02604 8.13462L2.84632 4.95487C3.09036 4.61924 3.22211 4.21609 3.22211 3.7924C3.22211 3.36868 3.09039 2.96555 2.84632 2.62993L3.55936 1.91693C3.89498 2.16096 4.29811 2.29271 4.72182 2.29271C5.14554 2.29271 5.54867 2.16096 5.88429 1.91693L6.5602 2.59284C6.41436 2.61437 6.27214 2.66243 6.13951 2.73634C5.91551 2.86115 5.73976 3.04806 5.63032 3.27418C5.27782 3.33946 4.95148 3.51012 4.69548 3.76609C4.00095 4.46065 4.00095 5.59074 4.69551 6.28531C5.04276 6.63256 5.49892 6.80621 5.95511 6.80621C6.41126 6.80621 6.86745 6.63259 7.21473 6.28531C7.44067 6.05937 7.59895 5.78168 7.67823 5.47905L8.73336 5.83715C8.61457 6.3874 8.73623 6.96627 9.06439 7.42096L8.35073 8.13462ZM6.45079 5.06234C6.45354 5.06334 6.45629 5.06434 6.45907 5.06527L7.08395 5.27737C7.03676 5.49034 6.92998 5.68615 6.77279 5.84337C6.32192 6.29418 5.58829 6.29424 5.13748 5.84337C4.68661 5.39252 4.68661 4.65893 5.13748 4.20806C5.24623 4.09924 5.37457 4.01421 5.51442 3.95656C5.57211 4.43662 5.91776 4.86452 6.45079 5.06234ZM9.51467 6.97065C9.39404 6.77409 9.32579 6.54974 9.31501 6.32077C9.4647 6.42899 9.64764 6.53502 9.86614 6.61918L9.51467 6.97065ZM12.3335 5.18624C12.0373 5.67181 11.4629 6.16877 10.8435 6.16877C10.7277 6.16877 10.6191 6.16052 10.5175 6.14584C10.5171 6.14577 10.5167 6.14571 10.5163 6.14565C9.84145 6.04762 9.47842 5.66405 9.35876 5.51218C9.35239 5.5028 9.32523 5.46727 9.3212 5.46137C9.28479 5.39631 9.22511 5.34399 9.14898 5.31815L6.66436 4.47487C6.26786 4.32606 6.05826 3.98652 6.15432 3.6479C6.15426 3.64812 6.15439 3.64768 6.15432 3.6479C6.15442 3.64765 6.15467 3.64671 6.15473 3.64646C6.19939 3.49052 6.30195 3.36118 6.4437 3.28221C6.58451 3.20374 6.74729 3.18427 6.90254 3.22731L9.70232 4.11452C9.86689 4.16674 10.0425 4.07556 10.0946 3.91102C10.1468 3.74649 10.0557 3.57087 9.89114 3.51871L7.66442 2.81309L7.64498 2.79365C7.6452 2.79384 7.64479 2.79346 7.64498 2.79365L6.49157 1.64024L7.48245 1.28543C7.48579 1.28421 7.48992 1.28268 7.49323 1.28134C7.49407 1.28099 7.4957 1.28037 7.49651 1.28002C7.50076 1.2783 7.50495 1.27649 7.50911 1.27459C8.17898 0.966711 8.81573 1.15099 9.06532 1.24805C10.0085 1.67246 10.512 1.96274 10.8798 2.17484C11.3912 2.46974 11.6376 2.61184 12.3335 2.66931V5.18624ZM13.5174 4.99827H12.9585V2.26568H13.5174V4.99827ZM15.3754 4.99827H14.1424V1.68337H15.3754V4.99827Z" fill="black" />
+                                      <path d="M12.3335 5.18624C12.0373 5.67181 11.4629 6.16877 10.8435 6.16877C10.7277 6.16877 10.6191 6.16052 10.5175 6.14584C10.5171 6.14577 10.5167 6.14571 10.5163 6.14565C9.84145 6.04762 9.47842 5.66405 9.35876 5.51218C9.35239 5.5028 9.32523 5.46727 9.3212 5.46137C9.28479 5.39631 9.22511 5.34399 9.14898 5.31815L6.66436 4.47487C6.26786 4.32606 6.05826 3.98652 6.15432 3.6479C6.19898 3.49196 6.30195 3.36118 6.4437 3.28221C6.58451 3.20374 6.74729 3.18427 6.90254 3.22731L9.70232 4.11452C9.86689 4.16674 10.0425 4.07556 10.0946 3.91102C10.1468 3.74649 10.0557 3.57087 9.89114 3.51871L7.66442 2.81309L7.64498 2.79365L6.49157 1.64024L7.48245 1.28543L7.49323 1.28134C7.49407 1.28099 7.4957 1.28037 7.49651 1.28002C7.50076 1.2783 7.50495 1.27649 7.50911 1.27459C8.17898 0.966711 8.81573 1.15099 9.06532 1.24805C10.0085 1.67246 10.512 1.96274 10.8798 2.17484C11.3912 2.46974 11.6376 2.61184 12.3335 2.66931V5.18624Z" fill="black" />
+                                      <path d="M15.3754 4.99827H14.1424V1.68337H15.3754V4.99827Z" fill="black" />
+                                  </svg>
+                                  Pay On Delivery
+                                  <input type="radio" class="js_handle_payment_radio_two" name="payment" value="pay on delivery">
+                                  <span class="checkmark"></span>
+                              </label>
+
+                          </div>
+
+                          <h4 class="details-content__title" style="padding-bottom: 12px;">
+                              Got an Afiaanyi voucher? Use it below...
+                          </h4>
+
+                          <form class="voucher__form">
+                              <input type="text" class="voucher__input" placeholder="Enter your voucher code here">
+                              <input type="submit" class="voucher__submit" value="Add Voucher">
+                          </form>
+
+                          <div class="upper_calc">
+                              <div class="checkout-calc">
+
+                                  <p class="checkout-calc__p">Subtotal</p>
+                                  <p class="checkout-calc__p">&#x20A6;&nbsp;{{ items.amount }}</p>
+
+                              </div>
+                              <div class="checkout-calc">
+
+                                  <p class="checkout-calc__p">Shipping Amount</p>
+                                  <p class="checkout-calc__p">&#x20A6;&nbsp;500</p>
+
+                              </div>
+                          </div>
+                          <div class="checkout-calc">
+
+                              <p class="checkout-calc__p checkout-calc__p--total">Total</p>
+                              <p class="checkout-calc__p checkout-calc__p--currency">&#x20A6;&nbsp;{{ items.amount + 500 }}</p>
+
+                          </div>
+
+                      </div>
+
+                      <p class="details-content__text details-content__text--small">
+                          You will be able to add a voucher on the next step
+                      </p>
+                      {% if items.status != "paid" %}
+                      <button class="chkout-btn js_confirm_order chkout-btn--color">
+                          <a href="checkout_thanks.html"></a>
+                          <span>CONFIRM ORDER</span>
+                      </button>
+                      {% else%}
+                      <button class="chkout-btn chkout-btn--color">
+                          <a href="checkout_thanks.html"></a>
+                          <span>PAYMENT SUCCESSFUL</span>
+                      </button>
+                      {% endif %}
+                  </div>
+
+              </div>
+          </div>
+
+          <div class="order-summary">
+              <h2 class="details__title">ORDER SUMMARY</h2>
+              <div class="details-box">
+                  <div class="details-box__header details-box__header--order">
+                      <h3 class="details-box__header-title">
+                        {% set item_count = items.items|length %}
+                         YOUR ORDER ({{ item_count }} Item)
+                      </h3>
+
+                  </div>
+
+                  <div class="details-content details-content--row">
+
+                      <div class="product_container_side">
+                          {% for item in items.items %}
+                          <div class="product_summary_list">
+                              <div class="summary_product_container">
+
+                                  <div class="summary_product__img-container">
+
+                                      <img src="{{ cart_content(item.listing_id)  }}" class="item__img" alt="item picture">
+
+                                  </div>
+
+                                  <div class="summary_product_details">
+
+
+                                      <p class="details-content__text details-content__text--black">
+                                          {{ item.listing.title }}
+                                      </p>
+
+                                      <p class="checkout-calc__p checkout-calc__p--currency checkout-calc__p--no-space">
+                                          &#x20A6;&nbsp;{{ item.price }}
+                                      </p>
+
+                                      <p class="checkout-calc__p checkout-calc__p--no-space">Qty: {{ item.quantity }}</p>
+                                  </div>
+
+                              </div>
+                          </div>
+
+                          {% endfor %}
+
+                      </div>
+
+
+
+                      <div>
+
+                          <div>
+
+
+                              <div class="upper_calc">
+                                  <div class="checkout-calc">
+
+                                      <p class="checkout-calc__p checkout-calc__p--no-space">Subtotal</p>
+                                      <p class="checkout-calc__p">&#x20A6;&nbsp;{{ items.amount }}</p>
+
+                                  </div>
+                                  <div class="checkout-calc">
+
+                                      <p class="checkout-calc__p checkout-calc__p--no-space">Shipping Amount</p>
+                                      <p class="checkout-calc__p">&#x20A6;&nbsp;500</p>
+
+                                  </div>
+                              </div>
+                              <div class="checkout-calc">
+
+                                  <p class="checkout-calc__p checkout-calc__p--total" style="padding-left: 0">Total</p>
+                                  <p class="checkout-calc__p checkout-calc__p--currency">₦&nbsp;{{ items.amount + 500 }}</p>
+                              </div>
+
+
+
+                          </div>
+
+
+                      </div>
+
+
+                  </div>
+
+              </div>
+
+          </div>
+
+      </div>
+      <form id="pay-form" method="POST" action="{{ route('pay') }}" accept-charset="UTF-8" class="form-horizontal" role="form">
+              <div class="row" style="margin-bottom:40px;">
+                <div class="col-md-8 col-md-offset-2">
+                  <input type="hidden" name="email" value="olabayo96@yahoo.com">
+                  <input id="orderId" type="hidden" name="orderID" value="{{items.id}}">
+                  <input id="amount" type="hidden" name="amount" value="{{ (items.amount + 500) * 100 }}">
+                  <input type="hidden" name="metadata" value="{{ identity|json_encode() }}" >
+                  <input id="reference" type="hidden" name="reference" value="{{ items.reference }}">
+                  {{ csrf_field() }}
+              </div>
+      </form>
+</section>
+<div id="address-modal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Checkout Address</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+   <form id="address-form">
+    <div class="form-group">
+     <label for="firstname">Firstname</label>
+     <input required type="text" class="form-control" id="firstname" aria-describedby="firstnameHelp" placeholder="Enter firstname">
+    </div>
+    <div class="form-group">
+     <label for="lastname">Lastname</label>
+     <input required type="text" class="form-control" id="lastname" aria-describedby="lastnameHelp" placeholder="Enter lastname">
+    </div>
+    <div class="form-group">
+     <label for="phone">Phone</label>
+     <input required type="text" class="form-control" id="phone" aria-describedby="phoneHelp" placeholder="Enter phone">
+    </div>
+    <div class="form-group">
+     <label for="address">Address</label>
+     <input required type="text" class="form-control" id="address" aria-describedby="addressHelp" placeholder="Enter address">
+    </div>
+    <div class="form-group">
+     <label for="city">City</label>
+     <input required type="text" class="form-control" id="city" aria-describedby="cityHelp" placeholder="Enter city">
+    </div>
+  {% if items.contact %}
+   <button id="edit-btn" type="submit" class="btn btn-primary">Edit</button>
+  {% else %}
+   <button id="add-btn" type="submit" class="btn btn-primary">Add</button>
+  {% endif %}
+ </form>
+ </div>
+ <div class="modal-footer">
+
+ </div>
+ </div>
+ </div>
+</div>
+<script>
+ $(document).ready(function(){
+   $(".js_handle_sec_proceed").on('click', function(){
+     $('.js_handle_third_section').toggle();
+   });
+
+   $(".js_confirm_order").on('click', function(){
+     $("#pay-form").submit();
+   });
+   $("#address-form").submit(function(e){
+     e.preventDefault();
+     alert("Me");
+     let fname = $("#firstname").val();
+     let lname = $("#lastname").val();
+     let phone = $("#phone").val();
+     let address = $("#address").val();
+     let city = $("#city").val();
+     $("#add-name").html(fname + " " + lname);
+     $("#add-address").html(address + ", " + city + ", Nigeria");
+     $("#add-phone").html(phone);
+   });
+   /*
+   $("#add-btn").on('click',function(e){
+     e.preventDefault();
+     alert("You");
+     let fname = $("#firstname").val();
+     let lname = $("#lastname").val();
+     let phone = $("#phone").val();
+     let address = $("#address").val();
+     let city = $("#city").val();
+     $("#add-name").html(fname + " " + lname);
+     $("#add-address").html(address + ", " + city + ", Nigeria");
+     $("#add-phone").html(phone);
+   });
+   */
+ });
+</script>
+{% block scripts %}
+
+{% endblock %}
+{% endblock %}

@@ -1,0 +1,1950 @@
+{% extends "scan.app_marketplace_responsive" %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel='shortcut icon' type='image/x-icon' href="{{ asset('images/favicon.ico') }}" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css?family=Montserrat:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" />
+    <link rel="stylesheet" href="{{ asset('themes/' ~  current_theme()  ~ '/css/modal.css') }}">
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Lato:100,300,300i,400');
+        @import url({{ asset('themes/' ~  current_theme()  ~ '/css/menu-market.css') }});
+        @import url({{ asset('themes/' ~  current_theme()  ~ '/css/vendor-res.css') }});
+        @import url({{ asset('themes/' ~  current_theme()  ~ '/css/footer.css') }});
+    </style>
+    <style>
+      .quick-view_a {
+        text-decoration: none;
+        padding: 7px 13px;
+        box-shadow: none;
+        cursor: pointer;
+        color: #fff;
+        font-size: 12px;
+        border-radius: 2px;
+        border: none;
+        background: linear-gradient(90deg, #E6B712 31.25%, #CAAA3B 88.19%);
+        -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+        -ms-border-radius: 2px;
+       -o-border-radius: 2px;
+      }
+      .product__card:hover .product-modal {
+        top: 35%;
+     }
+     .hero {
+       height: 250px;
+     }
+     .hero__image-part {
+       height: 100%;
+       width: 40%;
+       background: #CD97CB;
+     }
+     .hero__first-image {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+     }
+     @media only screen and (max-width: 700px) {
+      .hero__image-part {
+        height: 100%;
+        width: 100%;
+      }
+      .hero__text-part {
+        display: none;
+      }
+     }
+     .tt-menu{
+       position: absolute;
+      top: 102%;
+      left: -46px !important;
+      z-index: 100;
+      display: block;
+      width: 200%;
+      }
+     .tt-dataset-productsList{
+       font-size: 16px;
+     }
+     .list-group {
+       display: -webkit-box;
+       display: -ms-flexbox;
+       display: flex;
+       -webkit-box-orient: vertical;
+       -webkit-box-direction: normal;
+       -ms-flex-direction: column;
+       flex-direction: column;
+       padding-left: 0;
+       margin-bottom: 0;
+     }
+     .list-group-item {
+       position: relative;
+       display: flex;
+       align-items: center;
+       padding: 1rem 1.25rem;
+       margin-bottom: -1px;
+       background-color: #fff;
+       border: 1px solid rgba(0,0,0,0.125);
+     }
+     .product-image{
+        display: inline-block;
+        margin-right: 10px;
+     }
+     .tt-suggestion {
+       text-decoration: none;
+       color: black;
+      }
+    </style>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
+    <script>
+        function includeHTML() {
+            var z, i, elmnt, file, xhttp;
+            /*loop through a collection of all HTML elements:*/
+            z = document.getElementsByTagName("*");
+            for (i = 0; i < z.length; i++) {
+                elmnt = z[i];
+                /*search for elements with a certain atrribute:*/
+                file = elmnt.getAttribute("w3-include-html");
+                if (file) {
+                    /*make an HTTP request using the attribute value as the file name:*/
+                    xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function () {
+                        if (this.readyState == 4) {
+                            if (this.status == 200) { elmnt.innerHTML = this.responseText; }
+                            if (this.status == 404) { elmnt.innerHTML = "Page not found."; }
+                            /*remove the attribute, and call this function once more:*/
+                            elmnt.removeAttribute("w3-include-html");
+                            includeHTML();
+                        }
+                    }
+                    xhttp.open("GET", file, true);
+                    xhttp.send();
+                    /*exit the function:*/
+                    return;
+                }
+            }
+        };
+    </script>
+    <title>{{ store.name }}</title>
+</head>
+
+<body>
+
+    <header>
+      <nav>
+          <div class="header__top-container">
+              <div class="row header__nav-content">
+                  <div>
+                    <a href="{{ route('home') }}">
+                      <img src="{{ asset('themes/' ~ current_theme() ~ '/images/market-logo.svg')}}" class="header__logo" alt="Afiaanyi logo">
+                   </a>
+                  </div>
+                  <div class="header__input-container">
+                      <input type="search" class="header__form-input header__input-nav"
+                          placeholder="Search for products, brands and categories">
+                      <input type="submit" class="header__submit">
+                  </div>
+
+                  <div class="header__main-menu-items">
+                      <ul class="header__nav-list-container">
+                          <li class="header__nav-list">
+                              <a href="{{ route('page.directory') }}" class="header__nav-link">Directory</a>
+                          </li>
+                          <li class="header__nav-list">
+                              <a style="font-weight: bold; color: #E6B712 !important;" href="{{ route('page.topbrands') }}" class="header__nav-link">Afiaanyi's Top Brands</a>
+                          </li>
+                          <li class="header__nav-list">
+                              <a href="{{ route('browse') }}" class="header__nav-link">Shop</a>
+                          </li>
+                          <li class="header__nav-list">
+                              <a href="{{ route('page.comingsoon') }}" class="header__nav-link">Jobs</a>
+                          </li>
+                          <li class="header__nav-list">
+                              <a href="#" class="header__nav-link header--outlined">Create A Store</a>
+                          </li>
+                      </ul>
+                  </div>
+
+
+                  <div class="header__customized-items">
+                      {% if auth_guest() == false %}
+                      <p class="header__greeting">Welcome <span class="header__username">&nbsp;{{ auth_user().first_name() }}!</span></p>
+
+                      <a href="">
+                          <img src="{{ auth_user().avatar }}" class="header-nav-icon header__avatar" height="35px"
+                              width="35px">
+                      </a>
+                      {% endif %}
+
+                      <a href="">
+                          <img src="{{ asset('themes/' ~ current_theme() ~ '/images/gold-favorite.svg')}}" class="header-nav-icon">
+                      </a>
+                      <a href="">
+                          <img src="{{ asset('themes/' ~ current_theme() ~ '/images/gold-shop-cart.svg')}}" class="header-nav-icon">
+                          <sup class="cart__label">{{ cart_count }}</sup>
+                      </a>
+
+                      <a href="">
+                          <img src="{{ asset('themes/' ~ current_theme() ~ '/images/notify.svg')}}" class="header-nav-icon">
+                      </a>
+
+                      <div class="header__menu_icon">
+                          <img width="28px" src="{{ asset('themes/' ~ current_theme() ~ '/images/resp_menu.svg')}}" alt="">
+                      </div>
+
+                      <p></p>
+                  </div>
+              </div>
+
+              <div class="header__resp-menu-search-bar-container row">
+
+                  <div class="header__resp_menu-button-container">
+                      <img src="{{ asset('themes/' ~ current_theme() ~ '/images/menu.svg')}}" width="28px" alt="" class="header__resp_menu-btn">
+                  </div>
+
+                  <div class="header__resp_menu-search-container">
+                      <input type="submit" value="" class="header__resp_menu-btn-submit">
+                      <input placeholder="Search here..." type="text" name="" id="" class="search-product header__resp_menu-search">
+                  </div>
+              </div>
+
+          </div>
+
+      </nav>
+
+      {% include 'layouts.base_mega_menu.twig' %}
+
+      <div class="hero">
+          <div class="hero__content-container">
+              <div class="hero__image-part">
+                {% if store.carousel | length > 0 %}
+                  <img class="hero__first-image" height="190" src="{{ store.carousel.0 }}">
+                  <!--
+                  <img class="hero__second-image" src="{{ store.carousel.0 }}">
+                  <img class="hero__third-image" src="{{ store.carousel.0 }}">
+                  -->
+                {% else %}
+                <img class="hero__first-image" height="190" src="{{ asset('themes/' ~ current_theme() ~ '/images/vendor/hero-pics.svg')}}">
+                <!--
+                <img class="hero__second-image" src="{{ asset('themes/' ~ current_theme() ~ '/images/vendor/hero-pics.svg')}}">
+                <img class="hero__third-image" src="{{ asset('themes/' ~ current_theme() ~ '/images/vendor/hero-pics.svg')}}">
+                -->
+                {% endif %}
+              </div>
+              <div class="hero__text-part">
+                <div class="hero__text-container">
+                    <h1 class="hero__text-title">
+                        {{ store.name }}
+                    </h1>
+                    <p class="hero__text-content"></p>
+                </div>
+              </div>
+          </div>
+
+      </div>
+
+
+        <div class="lower-nav">
+            <div class="row lower-nav__container">
+                <div class="lower-nav__left-nav">
+                    <ul class="lower-nav-list__container">
+                        <li class="lower-nav__list lower-nav__list--crumbs">
+                            <a href="{{ route('home') }}" class="lower-nav__link">Home&nbsp;&nbsp;</a>
+                        </li>
+                        <!--
+                        <li class="lower-nav__list lower-nav__list--crumbs">
+                            <a href="" class="lower-nav__link">Fashion&nbsp;&nbsp;</a>
+                        </li>
+                        <li class="lower-nav__list lower-nav__list--crumbs">
+                            <a href="" class="lower-nav__link">Women's Fashion&nbsp;&nbsp;</a>
+                        </li>
+                        <li class="lower-nav__list">
+                            <a href="" class="lower-nav__link">Clothings&nbsp;&nbsp;</a>
+                        </li>
+                        -->
+                    </ul>
+                </div>
+               <!--
+                <div class="lower-nav__sort-container">
+                    <span for="" class="sort">Sort By</span>
+                    <div class="custom-select" style="width:200px;">
+                        <select>
+                            <option value="0">Select car:</option>
+                            <option value="1">Audi</option>
+                            <option value="2">BMW</option>
+                            <option value="3">Citroen</option>
+                            <option value="4">Ford</option>
+                            <option value="5">Honda</option>
+                            <option value="6">Jaguar</option>
+                            <option value="7">Land Rover</option>
+                            <option value="8">Mercedes</option>
+                            <option value="9">Mini</option>
+                            <option value="10">Nissan</option>
+                            <option value="11">Toyota</option>
+                            <option value="12">Volvo</option>
+                        </select>
+                    </div>
+                </div>
+               -->
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="filter_button_container">
+               <!--
+                <button class="filter_button filter_button--sort" tabindex="0">
+                    <img src="{{ asset('themes/' ~ current_theme() ~ '/images/sort.svg') }}" alt="">&nbsp;&nbsp;Sort By
+                </button>
+                <div class="filter__drop-down">
+                    <div class="filter__drop_item" tabindex="0">
+                        Audi
+                    </div>
+                    <div class="filter__drop_item" tabindex="0">
+                        BMW
+                    </div>
+                    <div class="filter__drop_item" tabindex="0">
+                        FORD
+                    </div>
+                    <div class="filter__drop_item" tabindex="0">
+                        BENZ
+                    </div>
+                </div>
+                -->
+                <button class="filter_button filter_button--two" tabindex="0">
+                    <img src="{{ asset('themes/' ~ current_theme() ~ '/images/filter.svg')}}" alt="">&nbsp;&nbsp;Filter
+                </button>
+
+            </div>
+
+        </div>
+
+    </header>
+
+    <section>
+        <div class="product__section-container row">
+
+
+            <div class="scroll__relative">
+                <aside class="product__navigations">
+                    <div class="filters">
+                        <h6 class="filter__title">Filters</h6>
+                        <h6><a href="" class="filter__reset-btn">Reset</a></h6>
+                    </div>
+                    <div class="filters__first-nav">
+                        <h6 class="filter__category-title">Categories</h6>
+                        <ul class="filter__category-list-container">
+                           <!--
+                            <li class="filter__category-list"><a href="" class="filter__category-link"
+                                    :active>Dresses</a><span class="right increased-font">(988)</span></li>
+                            <li class="filter__category-list"><a href="" class="filter__category-link">Crossbody
+                                    Bags</a><span class="right  increased-font">(988)</span></li>
+                            <li class="filter__category-list"><a href="" class="filter__category-link">Clutches</a><span
+                                    class="right increased-font">(988)</span></li>
+                            <li class="filter__category-list"><a href=""
+                                    class="filter__category-link">Backpacks</a><span
+                                    class="right increased-font">(988)</span></li>
+                            <li class="filter__category-list"><a href="" class="filter__category-link">Evening
+                                    Bags</a><span class="right increased-font">(988)</span></li>
+                            <li class="filter__category-list"><a href="" class="filter__category-link">Shoulder
+                                    Bags</a><span class="right increased-font">(988)</span></li>
+                            <li class="filter__category-list"><a href="" class="filter__category-link">Top-Handle
+                                    Bags</a><span class="right increased-font">(988)</span></li>
+                            <li class="filter__category-list"><a href=""
+                                    class="filter__category-link">Wristlets</a><span
+                                    class="right increased-font">(988)</span></li>
+                            <li class="filter__category-list"><a href="" class="filter__category-link">Wallets</a><span
+                                    class="right increased-font">(988)</span></li>
+                            <li class="filter__category-list"><a href="" class="filter__category-link">Cosmetic Bags &
+                                    Cases</a><span class="right increased-font">(988)</span></li>
+                            <li class="filter__category-list"><a href="" class="filter__category-link">Buckets</a><span
+                                    class="right increased-font">(988)</span></li>
+                            <li class="filter__category-list"><a href="" class="filter__category-link">Hobos</a><span
+                                    class="right increased-font">(988)</span></li>
+                            <li class="filter__category-list"><a href="" class="filter__category-link">Waist
+                                    Packs</a><span class="right increased-font">(988)</span></li>
+                            -->
+
+                            {#
+                            {% for item in category_present %}
+                             <li class="filter__category-list"><a href="" class="filter__category-link" :active>{{item.category.name}}</a><span
+                                   class="right increased-font">({{ item.total }})</span></li>
+                            {% endfor %}
+                            #}
+                              {% for parent_category in parent_categories %}
+                               <li class="filter__category-list"><a class="filter__category-link" data-category="{{ parent_category.parent_id }}" href="{{ request().fullUrlWithQuery({'category' : parent_category.parent_id}) }}" class="category-link text-capitalize"><i class="fa fa-caret-left" aria-hidden="true"></i>
+                               {{ _l(parent_category.name)}}</a></li>
+                              {% endfor %}
+
+
+                               {% for level_category in level_categories %}
+                                {% if filter %}
+                                 {% if level_category.id in filter_value %}
+                                  <li class="filter__category-list categories__clear"><a class="filter__category-link" data-category="{{ level_category.id }}" href="{{ request().fullUrlWithQuery({'category' : level_category.id}) }}" class="category-link text-capitalize text-{{ (category and level_category.id == category.id)?'primary':'muted' }}">{{ _l(level_category.name) }}</a></li>
+                                 {% endif %}
+                                {% else %}
+                                 <li class="filter__category-list categories__clear"><a class="filter__category-link" data-category="{{ level_category.id }}" href="{{ request().fullUrlWithQuery({'category' : level_category.id}) }}" class="category-link text-capitalize text-{{ (category and level_category.id == category.id)?'primary':'muted' }}">{{ _l(level_category.name) }}</a></li>
+                                {% endif %}
+                               {% endfor %}
+                        </ul>
+                    </div>
+
+                    <form>
+                      <!--
+                        <div class="form__sections">
+                            <div>
+                                <span class="--title">Shipped from</span><span class="minus__ship right">&#8212;</span>
+                                <span class="right plus__ship">&#43;</span><br /><br />
+                                <div class="inset ship--toggle">
+                                    <input type="checkbox" id="Nigeria">
+                                    <label for="Nigeria" class="input__text">Nigeria</label>
+                                    <span class="right">(100000)</span>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form__sections">
+
+
+                            <div class="">
+                                <span class="--title">Size</span><span class="right minus__size">&#8212;</span>
+                                <span class="right plus__size">&#43;</span><br /><br />
+                                <div class="search__container  size--toggle">
+                                    <input type="search" id="form__size-search" placeholder="Search size">
+                                    <img src="{{ asset('themes/' ~ current_theme() ~ '/images/search__gold.svg')}}">
+                                </div>
+                                <div class="inset form__sections--scroll animated fadeIn size--toggle">
+                                    <div class="spacer">
+                                        <input type="checkbox" id="large">
+                                        <label for="large" class="input__text">L</label>
+                                        <span class="right">(100000)</span>
+                                    </div>
+                                    <div class="spacer">
+                                        <input type="checkbox" id="medium">
+                                        <label for="medium" class="input__text">M</label>
+                                        <span class="right">(100000)</span>
+                                    </div>
+                                    <div class="spacer">
+                                        <input type="checkbox" id="x-large">
+                                        <label for="x-large" class="input__text">XL</label>
+                                        <span class="right">(100000)</span>
+                                    </div>
+                                    <div class="spacer">
+                                        <input type="checkbox" id="small">
+                                        <label for="small" class="input__text">S</label>
+                                        <span class="right">(100000)</span>
+                                    </div>
+                                    <div class="spacer">
+                                        <input type="checkbox" id="xx-large">
+                                        <label for="xx-large" class="input__text">XXL</label>
+                                        <span class="right">(100000)</span>
+                                    </div>
+                                    <div class="spacer">
+                                        <input type="checkbox" id="Large">
+                                        <label for="Large" class="input__text">L</label>
+                                        <span class="right">(100000)</span>
+                                    </div>
+                                    <div class="spacer">
+                                        <input type="checkbox" id="medium">
+                                        <label for="medium" class="input__text">M</label>
+                                        <span class="right">(100000)</span>
+                                    </div>
+                                    <div class="spacer">
+                                        <input type="checkbox" id="x-large">
+                                        <label for="" class="input__text">XL</label>
+                                        <span class="right">(100000)</span>
+                                    </div>
+                                    <div class="spacer">
+                                        <input type="checkbox" id="small">
+                                        <label class="input__text" for="small">S</label>
+                                        <span class="right">(100000)</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form__sections">
+
+                            <div class="">
+                                <span class="--title">Colour</span><span class="right minus__colour">&#8212;</span>
+                                <span class="right plus__colour">&#43;</span>
+                                <br /><br />
+
+                                <div class="inset form__sections--scroll animated fadeIn colour--toggle">
+                                    <div class="spacer">
+                                        <input type="checkbox" id="multi">
+                                        <label for="multi" class="input__text">Multi</label>
+                                        <span class="right">(100000)</span>
+                                    </div>
+                                    <div class="spacer">
+                                        <input type="checkbox" id="black">
+                                        <label for="black" class="input__text">Black</label>
+                                        <span class="right">(100000)</span>
+                                    </div>
+                                    <div class="spacer">
+                                        <input type="checkbox" id="blue">
+                                        <label for="blue" class="input__text">Blue</label>
+                                        <span class="right">(100000)</span>
+                                    </div>
+                                    <div class="spacer">
+                                        <input type="checkbox" id="white">
+                                        <label for="white" class="input__text">White</label>
+                                        <span class="right">(100000)</span>
+                                    </div>
+                                    <div class="spacer">
+                                        <input type="checkbox" id="brown">
+                                        <label for="brown" class="input__text">Brown</label>
+                                        <span class="right">(100000)</span>
+                                    </div>
+                                    <div class="spacer">
+                                        <input type="checkbox" id="white">
+                                        <label for="white" class="input__text">White</label>
+                                        <span class="right">(100000)</span>
+                                    </div>
+                                    <div class="spacer">
+                                        <input type="checkbox" id="grey">
+                                        <label for="grey" class="input__text">Grey</label>
+                                        <span class="right">(100000)</span>
+                                    </div>
+                                    <div class="spacer">
+                                        <input type="checkbox" id="yellow">
+                                        <label for="yellow" class="input__text">Yellow</label>
+                                        <span class="right">(100000)</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form__sections">
+
+                            <div class="">
+                                <span class="--title">Brand</span><span class="right minus__brand">&#8212;</span>
+                                <span class="right plus__brand">&#43;</span><br /><br />
+
+                                <div class="inset form__sections--scroll animated fadeIn brand--toggle">
+                                    <div class="spacer">
+                                        <input type="checkbox" id="Generic">
+                                        <label for="Generic" class="input__text">Generic</label>
+                                        <span class="right">(100000)</span>
+                                    </div>
+                                    <div class="spacer">
+                                        <input type="checkbox" id="dandg">
+                                        <label for="dandg" class="input__text">D&G</label>
+                                        <span class="right">(100000)</span>
+                                    </div>
+                                    <div class="spacer">
+                                        <input type="checkbox" id="chanel">
+                                        <label for="chanel" class="input__text">Chanel</label>
+                                        <span class="right">(100000)</span>
+                                    </div>
+                                    <div class="spacer">
+                                        <input type="checkbox" id="luisvuitton">
+                                        <label for="luisvuitton" class="input__text">Luis Vuitton</label>
+                                        <span class="right">(100000)</span>
+                                    </div>
+                                    <div class="spacer">
+                                        <input type="checkbox" id="gucci">
+                                        <label for="gucci" class="input__text">Gucci</label>
+                                        <span class="right">(100000)</span>
+                                    </div>
+                                    <div class="spacer">
+                                        <input type="checkbox" id="prada">
+                                        <label for="prada" class="input__text">Prada</label>
+                                        <span class="right">(100000)</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form__sections">
+
+                            <div class="">
+                                <span class="--title">Price</span><span class="right minus__price">&#8212;</span>
+                                <span class="right plus__price">&#43;</span><br />
+                                <div class="price__centering price--toggle animated fadeIn">
+                                    <div style="padding: 15px">
+                                        <div id="slider-range"></div>
+                                    </div>
+                                    <div class="range__input">
+                                        <span>₦</span><input type="text" id="amount1">
+
+
+                                        <span>₦</span><input type="text" id="amount2">
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="form__sections">
+
+                            <div class="">
+                                <span class="--title">Seller Score</span><span class="right minus__score">&#8212;</span>
+                                <span class="right  plus__score">&#43;</span><br /><br />
+
+                                <div class=" form__sections--scroll  animated fadeIn score--toggle inset">
+                                    <div class="seller__score-container">
+                                        <div class="seller__progress">
+                                            <div class="seller__progression seller__progression--four">
+                                                <p class="seller__rate">4.0</p>
+                                            </div>
+                                        </div>
+                                        <div class="right--adjusted">
+                                            (1000000)
+                                        </div>
+                                    </div>
+                                    <div class="seller__score-container inset">
+                                        <div class="seller__progress">
+                                            <div class="seller__progression seller__progression--three">
+                                                <p class="seller__rate">3.0</p>
+                                            </div>
+                                        </div>
+                                        <div class="right--adjusted">
+                                            (1000000)
+                                        </div>
+                                    </div>
+
+                                    <div class="seller__score-container inset">
+                                        <div class="seller__progress">
+                                            <div class="seller__progression seller__progression--two">
+                                                <p class="seller__rate">2.0</p>
+                                            </div>
+                                        </div>
+                                        <div class="right--adjusted">
+                                            (1000000)
+                                        </div>
+                                    </div>
+
+                                    <div class="seller__score-container inset">
+                                        <div class="seller__progress">
+                                            <div class="seller__progression seller__progression--one">
+                                                <p class="seller__rate">1.0</p>
+                                            </div>
+                                        </div>
+                                        <div class="right--adjusted">
+                                            (1000000)
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form__sections">
+
+                            <div class="">
+                                <span class="--title">Ratings</span><span class="right minus__ratings">&#8212;</span>
+                                <span class="right plus__ratings">&#43;</span>
+                                <br /><br />
+
+                                <div class=" form__sections--scroll  animated fadeIn ratings--toggle">
+                                    <div class="spacer">
+                                        <span class="input__text inset">
+                                            <img src="resources/img/ratings.svg" height="13px" width="13px"
+                                                alt="rating">
+                                            <img src="resources/img/ratings.svg" height="13px" width="13px"
+                                                alt="rating">
+                                            <img src="resources/img/ratings.svg" height="13px" width="13px"
+                                                alt="rating">
+                                            <img src="resources/img/ratings.svg" height="13px" width="13px"
+                                                alt="rating">
+                                            <img src="resources/img/ratings.svg" height="13px" width="13px"
+                                                alt="rating">
+                                        </span>
+                                        <span class="right">5 Star</span>
+                                    </div>
+                                    <div class="spacer">
+                                        <span class="input__text inset">
+                                            <img src="resources/img/ratings.svg" height="13px" width="13px"
+                                                alt="rating">
+                                            <img src="resources/img/ratings.svg" height="13px" width="13px"
+                                                alt="rating">
+                                            <img src="resources/img/ratings.svg" height="13px" width="13px"
+                                                alt="rating">
+                                            <img src="resources/img/ratings.svg" height="13px" width="13px"
+                                                alt="rating">
+                                            <img src="resources/img/ratins-none.svg" height="13px" width="13px"
+                                                alt="rating">
+                                        </span>
+                                        <span class="right">4 Star</span>
+                                    </div>
+                                    <div class="spacer">
+                                        <span class="input__text inset">
+                                            <img src="resources/img/ratings.svg" height="13px" width="13px"
+                                                alt="rating">
+                                            <img src="resources/img/ratings.svg" height="13px" width="13px"
+                                                alt="rating">
+                                            <img src="resources/img/ratings.svg" height="13px" width="13px"
+                                                alt="rating">
+                                            <img src="resources/img/ratins-none.svg" height="13px" width="13px"
+                                                alt="rating">
+                                            <img src="resources/img/ratins-none.svg" height="13px" width="13px"
+                                                alt="rating">
+                                            <span class="right">3 Star</span>
+                                    </div>
+                                    <div class="spacer">
+                                        <span class="input__text inset">
+                                            <img src="resources/img/ratings.svg" height="13px" width="13px"
+                                                alt="rating">
+                                            <img src="resources/img/ratings.svg" height="13px" width="13px"
+                                                alt="rating">
+                                            <img src="resources/img/ratins-none.svg" height="13px" width="13px"
+                                                alt="rating">
+                                            <img src="resources/img/ratins-none.svg" height="13px" width="13px"
+                                                alt="rating">
+                                            <img src="resources/img/ratins-none.svg" height="13px" width="13px"
+                                                alt="rating">
+                                        </span>
+                                        <span class="right">2 Star</span>
+                                    </div>
+                                    <div class="spacer">
+                                        <span class="input__text inset">
+                                            <img src="resources/img/ratings.svg" height="13px" width="13px"
+                                                alt="rating">
+                                            <img src="resources/img/ratins-none.svg" height="13px" width="13px"
+                                                alt="rating">
+                                            <img src="resources/img/ratins-none.svg" height="13px" width="13px"
+                                                alt="rating">
+                                            <img src="resources/img/ratins-none.svg" height="13px" width="13px"
+                                                alt="rating">
+                                            <img src="resources/img/ratins-none.svg" height="13px" width="13px"
+                                                alt="rating">
+                                        </span>
+                                        <span class="right">1 Star</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form__sections">
+
+                            <div class="">
+                                <span class="--title">Material Family</span><span
+                                    class="minus__material right">&#8212;</span>
+                                <span class="plus__material right">&#43;</span>
+                                <br /><br />
+
+                                <div class="inset form__sections--scroll  animated fadeIn material--toggle">
+                                    <div class="spacer">
+                                        <input type="checkbox" id="textile">
+                                        <label for="textile" class="input__text">Textile</label>
+                                        <span class="right">(100000)</span>
+                                    </div>
+                                    <div class="spacer">
+                                        <input type="checkbox" id="leather">
+                                        <label for="leather" class="input__text">Leather</label>
+                                        <span class="right">(100000)</span>
+                                    </div>
+                                    <div class="spacer">
+                                        <input type="checkbox" id="fibre">
+                                        <label for="fibre" class="input__text">Fibre</label>
+                                        <span class="right">(100000)</span>
+                                    </div>
+                                    <div class="spacer">
+                                        <input type="checkbox" id="synthetic">
+                                        <label for="synthetic" class="input__text">Synthetic</label>
+                                        <span class="right">(100000)</span>
+                                    </div>
+                                    <div class="spacer">
+                                        <input type="checkbox" id="linen">
+                                        <label for="linen" class="input__text">Linen</label>
+                                        <span class="right">(100000)</span>
+                                    </div>
+                                    <div class="spacer">
+                                        <input type="checkbox" id="silk">
+                                        <label for="silk" class="input__text">Silk</label>
+                                        <span class="right">(100000)</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form__sections">
+
+                            <div class="">
+                                <span class="--title">Discount</span><span class="right minus__discount">&#8212;</span>
+                                <span class="right plus__discount">&#43;</span>
+                                <br /><br />
+
+                                <div class="inset form__sections--scroll  animated fadeIn discount--toggle">
+                                    <div class="spacer">
+                                        <input type="checkbox" id="90">
+                                        <label for="90" class="input__text">80% - 99%</label>
+                                        <span class="right">(100000)</span>
+                                    </div>
+                                    <div class="spacer">
+                                        <input type="checkbox" id="70">
+                                        <label for="70" class="input__text">60% - 79%</label>
+                                        <span class="right">(100000)</span>
+                                    </div>
+                                    <div class="spacer">
+                                        <input type="checkbox" id="30">
+                                        <label for="30" class="input__text">20% - 39%</label>
+                                        <span class="right">(100000)</span>
+                                    </div>
+                                    <div class="spacer">
+                                        <input type="checkbox" id="10">
+                                        <label for="10" class="input__text">1% - 19%</label>
+                                        <span class="right">(100000)</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                       -->
+                    </form>
+
+                </aside>
+            </div>
+
+
+            <div class="outer__product-container">
+                <div class="product__container">
+                    <div class="title-page__nav">
+                        <div class="product__title-container">
+                            <h2 class="product__title"></h2>
+                            <p class="product__count">Products</p>
+                        </div>
+                       <!--
+                        <div class="product__pagination-container">
+                            <div class="product__pages product__pages--active">
+                                <a>1</a>
+                            </div>
+                            <div class="product__pages">
+                                <a>2</a>
+                            </div>
+                            <div class="product__pages ellipses">
+                                ...
+                            </div>
+                            <div class="product__pages">
+                                <a>22</a>
+                            </div>
+                            <div class="product__pages">
+                                <a>></a>
+                            </div>
+                        </div>
+                        -->
+                    </div>
+
+                    <div class="product-list__container">
+                      {% for item in listing %}
+                        <div class="product__card">
+                                          <div class="product-modal">
+                                              <div class="product-modal__content">
+                                              <a href="{{ item.url }}" class="quick-view_a">View</a>
+                                              </div>
+                                          </div>
+                                          <div class="paper">
+                                          <div class="product-image">
+                                          <div class="badge__new-container">
+                                          <div class="badge__new">NEW</div>
+                                          </div>
+                                          <a href="{{ item.url }}">
+                                          <div class="img__overlay">
+                                              <img src="{{ item.cover_image}}" class="product__img" alt="product">
+                                          </div>
+                                          </a>
+                                              <span class="product__badge"></span>
+                                          </div>
+
+                                              <div>
+                                              <span class="brand__name">{{ ( item.brand )? item.brand.name :'Generic'}}</span>
+                                              <hr>
+                                              <span class="full__brand-name">
+                                                  {{ item.title}}
+                                              </span>
+
+                                                  <div class="price-details">
+                                                  <p class="price">
+                                                  &#x20A6;{{ item.price}}
+                                                  </p>
+                                                  <p class="percentage__off">
+                                                      {{ item.discount }}%
+                                                  </p>
+                                              </div>
+                                                  <div class="ratings-numbers">
+                                                    <div class="ratings">
+                                                      {% if item.ratings %}
+                                                      {{ item.ratings }}
+                                                      {% endif %}
+
+                                                    </div>
+                                                    <div class="numbers">
+                                                      {% if item.quantity > 0 %}
+                                                      {{ item.quantity }}
+                                                      {% endif %}
+                                                    </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                        </div>
+                      {% endfor %}
+                    </div>
+
+                </div>
+               <!--
+                <div class="product__pagination-container">
+                    <div class="product__pages product__pages--active">
+                        <a>1</a>
+                    </div>
+                    <div class="product__pages">
+                        <a>2</a>
+                    </div>
+                    <div class="product__pages ellipses">
+                        ...
+                    </div>
+                    <div class="product__pages">
+                        <a>22</a>
+                    </div>
+                    <div class="product__pages">
+                        <a>></a>
+                    </div>
+                </div>
+                -->
+               <!--
+                <div class="search__history">
+                    <h3 class="search__title">Search history</h3>
+                    <div class="search__product-container">
+
+                    </div>
+                </div>
+                -->
+            </div>
+
+
+
+        </div>
+
+
+
+    </section>
+
+    {% set new_res_img = {'foo': 'bar'} %}
+    {% include 'layouts.footer_latest'  %}
+
+    <script>
+        includeHTML();
+    </script>
+
+    <div class="modal_container">
+        <div class="modal_content animated fadeIn">
+            <div class="modal_header">
+                <h3 class="modal_header__title">
+                    The Sideswept Dhoti
+                </h3>
+                <span class="close_button">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M20 1.1569L18.8406 0L10 8.82369L1.15941 0L0 1.1569L8.84059 9.98065L0 18.8037L1.15941 19.9606L10 11.1375L18.8406 19.9606L20 18.8037L11.1588 9.98065L20 1.1569Z"
+                            fill="black" />
+                    </svg>
+                </span>
+            </div>
+
+            <div class="modal_body">
+
+                <div class="modal_body__first_column">
+                    <div class="modal_product__thumbnail">
+                        <img src="resources/img/product-page.png">
+                    </div>
+                    <div class="modal_product__thumbnail">
+                        <img src="resources/img/Bitmap.png">
+                    </div>
+                    <div class="modal_product__thumbnail">
+                        <img src="resources/img/Bitmap1.png">
+                    </div>
+                    <div class="modal_product__thumbnail">
+                        <img src="resources/img/Bitmap3.png">
+                    </div>
+                </div>
+                <div class="modal_body__second_column">
+                    <img src="resources/img/product-page.png" alt="product image" class="animated fadeIn">
+                </div>
+                <div class="modal_body__third_column">
+                    <h2 class="modal_body__title">
+                        The Sideswept Dhoti + Bottom Line Grey (Silk)
+                    </h2>
+
+                    <div class="modal_body__details">
+
+                        <div class="modal_body_flex">
+                            <div>
+                                <p class="modal-body__details_amount">65,000.00</p>
+                                <p class="modal_body__details_seller_name">By: KJK.com.ng</p>
+
+                                <div class="modal_description__box">
+                                    <h3 class="modal_description_title">
+                                        Description
+                                    </h3>
+                                    <p style="width:250px;" class="modal_description_text">
+                                        Inspired by the continuous length of the lunghi or sarong seen in hot climates
+                                        everywhere from South Asia to the Horn of Africa and southern Arabian pen…
+                                        <a href="" class="modal__btn-odd">See more</a>
+                                    </p>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="modal_body_flex" style="padding-bottom:7px">
+                                    <div class="modal_body_second-row-rateBox">
+                                    </div>
+                                    <div>
+                                        <p class="modal_body__details__rating_value">
+                                            4.8 of 5
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <p><a href="" class="modal__btn">Write a Review</a></p>
+
+                                <div class="modal_inner_container">
+                                    <div class="modal_body_flex--center">
+                                        <svg width="20" height="12" viewBox="0 0 20 12" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M1.60513 10.2718H10.672V8.99029V7.5534C10.672 6.71845 11.1925 5.94175 11.9951 5.5534C12.1036 5.32039 12.2554 5.10679 12.4072 4.8932H1.58344V2.27184H15.3355V3.20388C15.3572 3.20388 15.3789 3.20388 15.4006 3.18447C15.6392 3.14563 15.8778 3.12621 16.1164 3.12621C16.355 3.12621 16.5936 3.14563 16.8322 3.18447V1.41748C16.8322 0.640776 16.1164 0 15.2488 0H1.58344C0.715803 0 0 0.640776 0 1.41748V8.85437C0.021691 9.65048 0.737494 10.2718 1.60513 10.2718Z"
+                                                fill="#464646" />
+                                            <path
+                                                d="M19.1521 6.66052C18.8918 5.37896 17.6337 4.38867 16.1153 4.38867C14.5969 4.38867 13.3389 5.35955 13.0786 6.66052C12.6014 6.71877 12.2109 7.0877 12.2109 7.55372V11.1071C12.2109 11.5926 12.6664 12.0003 13.2087 12.0003H19.0002C19.5425 12.0003 19.998 11.5926 19.998 11.1071V7.5343C20.0197 7.0877 19.651 6.71877 19.1521 6.66052ZM16.1153 5.67022C16.8311 5.67022 17.4385 6.07799 17.6771 6.6411H14.5536C14.7922 6.07799 15.3995 5.67022 16.1153 5.67022Z"
+                                                fill="#464646" />
+                                        </svg>
+                                        <span>
+                                            Secure & Reliable Payment
+                                        </span>
+                                    </div>
+                                    <div class="modal_body_flex--center">
+                                        <svg width="17" height="20" viewBox="0 0 17 20" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M8.48402 2.29154C8.16317 2.29154 7.84543 2.3104 7.53121 2.34649L7.56991 0.469799C7.57323 0.305649 7.49186 0.151844 7.35697 0.06678C7.22187 -0.0185138 7.05337 -0.022422 6.91473 0.0568942L1.08801 3.38335C0.949588 3.46244 0.862246 3.61233 0.858708 3.77648C0.855391 3.94063 0.936763 4.09444 1.07165 4.1795L6.75597 7.76253C6.82629 7.8069 6.90589 7.8292 6.98527 7.8292C7.05846 7.8292 7.13165 7.81035 7.19821 7.77242C7.33663 7.69333 7.42397 7.54343 7.42751 7.37928L7.46399 5.6111C7.79722 5.54535 8.13752 5.51018 8.48402 5.51018C11.4729 5.51018 13.9043 8.03818 13.9043 11.146C13.9043 14.2534 11.4729 16.7814 8.48402 16.7814C5.67558 16.7814 3.35625 14.5934 3.0887 11.692C3.00733 10.8074 2.25353 10.1593 1.40023 10.2434C0.549141 10.3282 -0.074417 11.1143 0.00717619 11.9992C0.427525 16.5604 4.0718 20 8.48402 20C13.1799 20 17 16.028 17 11.146C17 6.26357 13.1799 2.29154 8.48402 2.29154Z"
+                                                fill="#464646" />
+                                        </svg>
+                                        <span>
+                                            Free 7-day return if Eligible
+                                        </span>
+                                    </div>
+                                    <div class="modal_body_flex--center">
+                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <g clip-path="url(#clip0)">
+                                                <path
+                                                    d="M19.9802 9.51761C19.9268 9.34985 19.7779 9.237 19.5717 9.20794L19.1294 9.14522L18.933 8.75566C18.841 8.57455 18.6888 8.4707 18.5151 8.4707C18.3409 8.4707 18.1886 8.575 18.0974 8.75627L17.9008 9.14514L17.4583 9.20786C17.2524 9.237 17.1036 9.34985 17.05 9.51746C16.9969 9.68416 17.052 9.86087 17.2006 10.0016L17.5165 10.3025L17.4426 10.7244C17.4144 10.8835 17.4475 11.0292 17.5359 11.1346C17.668 11.2924 17.8982 11.3292 18.1173 11.2168L18.5151 11.0127L18.9126 11.2167C18.9985 11.2608 19.0845 11.2831 19.1686 11.2831C19.2982 11.2831 19.4137 11.2304 19.4941 11.1347C19.5826 11.0294 19.6158 10.8839 19.5879 10.725L19.5136 10.3024L19.8285 10.0025C19.9781 9.86116 20.0333 9.6844 19.9802 9.51761Z"
+                                                    fill="#464646" />
+                                                <path
+                                                    d="M16.9351 15.0596L16.4807 15.0705L16.2347 14.7198C16.0974 14.5234 15.93 14.4941 15.8424 14.4941C15.6883 14.4941 15.4938 14.5873 15.4096 14.8488L15.2724 15.2745L14.8471 15.4113C14.6508 15.4745 14.5232 15.6099 14.497 15.7831C14.471 15.9548 14.5513 16.1201 14.7173 16.2366L15.0687 16.4828L15.058 16.9178C15.0527 17.1088 15.1259 17.2252 15.1882 17.2893C15.266 17.3694 15.3713 17.4135 15.4845 17.4135C15.5913 17.4135 15.701 17.3734 15.8012 17.2978L16.1584 17.0294L16.573 17.166C16.7893 17.2362 16.9996 17.1779 17.1125 17.0216C17.1635 16.9512 17.2376 16.7994 17.1633 16.5747L17.0272 16.1606L17.2956 15.8035C17.4192 15.6393 17.4456 15.4561 17.3682 15.3007C17.2918 15.1475 17.1339 15.0596 16.9351 15.0596Z"
+                                                    fill="#464646" />
+                                                <path
+                                                    d="M17.6545 3.62899C17.6284 3.45586 17.5008 3.3203 17.3043 3.25697L16.8786 3.11994L16.7419 2.69475C16.658 2.43306 16.4631 2.33984 16.3087 2.33984C16.2213 2.33984 16.0539 2.36906 15.9168 2.56483L15.6705 2.91616L15.2358 2.90564L15.216 2.90533C15.0171 2.90533 14.8594 2.99322 14.7829 3.14643C14.7054 3.30175 14.732 3.48494 14.8554 3.64882L15.124 4.0061L14.9874 4.42023C14.9137 4.64598 14.9882 4.79751 15.0391 4.86778C15.1523 5.0241 15.3643 5.08209 15.5786 5.01082L15.9926 4.87487L16.3499 5.14357C16.4505 5.21911 16.56 5.25901 16.6667 5.25901C16.7799 5.25901 16.885 5.21492 16.963 5.13487C17.0253 5.07095 17.0985 4.95459 17.0933 4.76446L17.0826 4.32829L17.4334 4.08216C17.5997 3.96598 17.6803 3.8008 17.6545 3.62899Z"
+                                                    fill="#464646" />
+                                                <path
+                                                    d="M11.4646 1.04691C11.4112 0.879144 11.2622 0.7663 11.0561 0.737237L10.6138 0.674518L10.4174 0.284954C10.3254 0.103844 10.1731 0 9.99949 0C9.82539 0 9.67312 0.104219 9.58173 0.285564L9.38521 0.674518L8.94288 0.737159C8.73689 0.7663 8.58797 0.879144 8.53442 1.04675C8.48132 1.21346 8.5364 1.39016 8.68501 1.53093L9.00086 1.83182L8.92686 2.25404C8.89878 2.41304 8.93205 2.55868 9.02039 2.66404C9.15252 2.82182 9.38291 2.85776 9.60171 2.74606L9.99949 2.54198L10.397 2.74598C10.4829 2.79007 10.5689 2.81243 10.653 2.81243C10.7825 2.81243 10.898 2.75971 10.9784 2.66404C11.0669 2.55868 11.1002 2.41318 11.0723 2.25426L10.998 1.83168L11.3129 1.53176C11.4624 1.39046 11.5177 1.21369 11.4646 1.04691Z"
+                                                    fill="#464646" />
+                                                <path
+                                                    d="M1.08707 11.2168L1.48485 11.0127L1.88231 11.2167C1.96822 11.2608 2.05427 11.2831 2.13834 11.2831C2.26788 11.2831 2.38339 11.2304 2.46379 11.1347C2.55229 11.0294 2.58555 10.8839 2.55763 10.725L2.48332 10.3024L2.79826 10.0025C2.94778 9.86116 3.00301 9.6844 2.94992 9.51761C2.89652 9.34985 2.74759 9.237 2.54146 9.20794L2.09912 9.14522L1.90276 8.75566C1.81075 8.57455 1.65848 8.4707 1.48485 8.4707C1.31074 8.4707 1.15847 8.57492 1.06708 8.75627L0.870564 9.14522L0.428227 9.20786C0.222238 9.237 0.0733243 9.34985 0.019767 9.51746C-0.0333263 9.68416 0.0217489 9.86087 0.170366 10.0016L0.486209 10.3025L0.412213 10.7247C0.384136 10.8837 0.417402 11.0294 0.505739 11.1347C0.637873 11.2926 0.868267 11.3285 1.08707 11.2168Z"
+                                                    fill="#464646" />
+                                                <path
+                                                    d="M11.4646 18.2344C11.4112 18.0666 11.2622 17.9538 11.0561 17.9247L10.6138 17.862L10.4174 17.4725C10.3254 17.2913 10.1731 17.1875 9.99949 17.1875C9.82539 17.1875 9.67312 17.2917 9.58173 17.4731L9.38521 17.862L8.94288 17.9247C8.73689 17.9538 8.58797 18.0666 8.53442 18.2343C8.48132 18.401 8.5364 18.5777 8.68501 18.7184L9.00086 19.0193L8.92686 19.4415C8.89878 19.6005 8.93205 19.7462 9.02039 19.8515C9.15252 20.0092 9.38291 20.0454 9.60171 19.9336L9.99949 19.7295L10.397 19.9335C10.4829 19.9776 10.5689 19.9999 10.653 19.9999C10.7825 19.9999 10.898 19.9472 10.9784 19.8515C11.0669 19.7462 11.1002 19.6007 11.0723 19.4418L10.998 19.0192L11.3129 18.7193C11.4624 18.578 11.5177 18.4012 11.4646 18.2344Z"
+                                                    fill="#464646" />
+                                                <path
+                                                    d="M3.03655 5.13496C3.11451 5.21515 3.2198 5.25925 3.33301 5.25925C3.43982 5.25925 3.54952 5.21918 3.64992 5.14357L4.0071 4.87503L4.42121 5.01151C4.63802 5.08254 4.84812 5.02365 4.96119 4.8674C5.012 4.79698 5.08631 4.64523 5.012 4.42017L4.8759 4.00634L5.14443 3.64913C5.26788 3.48494 5.29427 3.30169 5.21676 3.14643C5.14033 2.99316 4.98224 2.90527 4.78328 2.90527L4.3292 2.91617L4.08324 2.56544C3.94608 2.36914 3.77869 2.33984 3.69112 2.33984C3.53716 2.33984 3.34262 2.43292 3.2581 2.69461L3.12107 3.12025L2.69583 3.25697C2.49962 3.31999 2.37191 3.45541 2.34566 3.62846C2.31957 3.80027 2.39983 3.96568 2.56584 4.08218L2.91723 4.32845L2.90671 4.7631C2.90121 4.95437 2.9743 5.07087 3.03655 5.13496Z"
+                                                    fill="#464646" />
+                                                <path
+                                                    d="M2.63059 15.3006C2.55308 15.456 2.57964 15.6392 2.70307 15.8031L2.97146 16.1603L2.83491 16.5748C2.76136 16.8005 2.83581 16.952 2.88678 17.0222C3.00029 17.1784 3.21178 17.2361 3.42614 17.1651L3.84025 17.0291L4.19729 17.2975C4.29783 17.3733 4.40755 17.4133 4.51435 17.4133C4.62756 17.4133 4.73284 17.3691 4.81081 17.289C4.87307 17.225 4.94616 17.1087 4.94081 16.9189L4.93028 16.4826L5.2809 16.2365C5.44722 16.1203 5.52778 15.955 5.502 15.7832C5.47606 15.6102 5.34849 15.4746 5.15197 15.4113L4.72628 15.2742L4.58957 14.8488C4.50535 14.5873 4.3105 14.4941 4.15624 14.4941C4.06881 14.4941 3.90159 14.5233 3.76426 14.719L3.518 15.0704L3.08314 15.0598L3.06393 15.0595C2.86495 15.0595 2.70704 15.1474 2.63059 15.3006Z"
+                                                    fill="#464646" />
+                                                <path
+                                                    d="M8.0854 4.69171C8.08494 4.69269 8.08464 4.69375 8.08418 4.69475C8.08235 4.69369 8.08036 4.69261 8.07853 4.69163C7.82891 4.55399 7.57075 4.41171 7.27459 4.41171C7.12552 4.41171 6.98164 4.45008 6.85851 4.52271C6.41878 4.7831 6.41359 5.29793 6.40976 5.67384C6.40976 5.67674 6.40976 5.67963 6.40976 5.68268C6.40825 5.68238 6.40672 5.68215 6.40519 5.68193C6.25246 5.65857 6.09439 5.63432 5.9354 5.63432C5.6159 5.63432 5.36826 5.73846 5.1995 5.9437C4.8768 6.33531 5.0454 6.81962 5.16838 7.17325C5.16991 7.1773 5.17128 7.18148 5.1728 7.18576C5.17113 7.18614 5.16946 7.18645 5.16777 7.18675C4.79899 7.26045 4.2938 7.36139 4.12107 7.84533C3.9511 8.32261 4.27228 8.71889 4.50694 9.00819C4.51015 9.01232 4.51366 9.01652 4.51718 9.02086C4.51594 9.02155 4.51488 9.02224 4.51382 9.02293C4.19141 9.21832 3.75 9.48596 3.75 10C3.75 10.5141 4.19141 10.7817 4.51382 10.9771C4.51488 10.9778 4.5161 10.9785 4.51718 10.9793C4.51366 10.9836 4.51015 10.988 4.5068 10.9922C4.27228 11.2815 3.95094 11.6779 4.12107 12.1547C4.2938 12.6388 4.79899 12.7398 5.16777 12.8135C5.16946 12.8138 5.17113 12.8141 5.1728 12.8144C5.17128 12.8186 5.16975 12.8228 5.16838 12.8269C5.04524 13.1804 4.87664 13.6647 5.19966 14.0569C5.36826 14.2618 5.6159 14.3658 5.93524 14.3658C6.09439 14.3658 6.25246 14.3415 6.40519 14.3181C6.40672 14.3179 6.40825 14.3177 6.40962 14.3174C6.40976 14.3206 6.40976 14.3236 6.40976 14.3266C6.41359 14.7027 6.41878 15.2176 6.85805 15.4772C6.98164 15.5501 7.12568 15.5886 7.27475 15.5886C7.5709 15.5886 7.82906 15.4462 8.07869 15.3085C8.08052 15.3075 8.08235 15.3065 8.08418 15.3055C8.08464 15.3065 8.08494 15.3075 8.0854 15.3085C8.2189 15.6624 8.40185 16.1473 8.90841 16.2378C8.95374 16.2459 9.00027 16.25 9.0465 16.25C9.47662 16.25 9.76043 15.9215 9.98853 15.6575C9.99204 15.6534 9.99586 15.6492 9.99951 15.6447C10.0033 15.6492 10.0072 15.6535 10.0108 15.6577C10.2388 15.9216 10.5227 16.25 10.9527 16.25C10.9989 16.25 11.0455 16.2459 11.0909 16.2378C11.5973 16.1473 11.7804 15.6624 11.9141 15.3083C11.9144 15.3074 11.9147 15.3064 11.9152 15.3055C11.917 15.3066 11.9188 15.3076 11.9206 15.3087C12.1703 15.4463 12.4284 15.5886 12.7244 15.5886C12.8737 15.5886 13.0177 15.55 13.141 15.4772C13.5803 15.2177 13.5856 14.7026 13.5894 14.3264C13.5896 14.3235 13.5896 14.3205 13.5896 14.3174C13.5911 14.3177 13.5925 14.3179 13.594 14.3181C13.7469 14.3416 13.9048 14.3658 14.0639 14.3658C14.3833 14.3658 14.6309 14.2618 14.7997 14.0567C15.1225 13.6648 14.9539 13.1805 14.8308 12.8269C14.8294 12.8228 14.8281 12.8186 14.8265 12.8144C14.8282 12.8141 14.8297 12.8138 14.8314 12.8135C15.2002 12.7398 15.7052 12.6388 15.8781 12.1552C16.0484 11.6779 15.7271 11.2815 15.4925 10.992C15.4892 10.9879 15.4857 10.9836 15.4822 10.9793C15.4832 10.9786 15.4843 10.9779 15.4855 10.9772C15.8078 10.7817 16.2493 10.5141 16.2493 10C16.2493 9.48596 15.8078 9.21832 15.4855 9.02285C15.4843 9.02216 15.4832 9.02155 15.4822 9.02086C15.4857 9.0166 15.489 9.0124 15.4924 9.00827C15.7269 8.71897 16.0482 8.32269 15.8783 7.84563C15.7052 7.36139 15.2002 7.26045 14.8314 7.18675C14.8299 7.18645 14.8282 7.18614 14.8265 7.18584C14.8281 7.18156 14.8294 7.17744 14.831 7.1734C14.9541 6.81962 15.1228 6.33507 14.7991 5.94285C14.6306 5.73831 14.3831 5.63432 14.0638 5.63432C13.9048 5.6344 13.7467 5.65857 13.594 5.68199C13.5925 5.68223 13.5911 5.68238 13.5896 5.68262C13.5896 5.67963 13.5896 5.67659 13.5896 5.67368C13.5856 5.29787 13.5804 4.78318 13.1419 4.52332C13.0177 4.45008 12.8738 4.41171 12.7247 4.41171C12.4286 4.41171 12.1704 4.55399 11.9208 4.69163C11.9188 4.69261 11.917 4.69369 11.9152 4.69468C11.9147 4.69375 11.9144 4.69285 11.9141 4.69193C11.7804 4.33777 11.5973 3.85277 11.0908 3.7622C11.0453 3.75412 10.9989 3.75 10.9527 3.75C10.5227 3.75 10.2389 4.07852 10.0108 4.3425C10.0072 4.34669 10.0033 4.35097 9.99951 4.35539C9.99586 4.35105 9.99204 4.34677 9.98853 4.34258C9.76043 4.07852 9.47648 3.75 9.0465 3.75C9.00027 3.75 8.95388 3.75405 8.90873 3.76213C8.40185 3.85277 8.2189 4.33769 8.0854 4.69171ZM8.80161 9.73712C8.92474 9.66013 9.06405 9.57049 9.13042 9.52418C9.16018 9.47207 9.92673 8.20452 9.97389 8.00516V7.74972C9.97389 7.70395 9.97143 7.65703 9.96915 7.60987C9.95695 7.35475 9.94001 7.00525 10.2404 6.75164C10.3762 6.63682 10.5326 6.57175 10.6924 6.56343C10.817 6.55709 10.9464 6.58387 11.0728 6.64315C11.614 6.89676 11.6954 7.68861 11.7302 8.02675C11.7452 8.16842 11.6483 8.66189 11.5455 9.05252L12.8537 9.0539C13.2699 9.0539 13.5737 9.32521 13.592 9.7137C13.6047 9.98729 13.5101 10.1603 13.4213 10.261C13.4785 10.3542 13.5127 10.4612 13.5127 10.5794C13.5127 10.804 13.4126 11.0055 13.2548 11.1415C13.2934 11.2316 13.3148 11.3308 13.3148 11.4351C13.3148 11.6827 13.1932 11.9023 13.0067 12.0369C13.0354 12.1161 13.051 12.2016 13.051 12.2907C13.051 12.6993 12.7196 13.0317 12.3122 13.0317L9.72701 13.0307C9.69832 13.0307 9.66964 13.0268 9.64201 13.0189C9.51308 12.9824 9.41361 12.9149 9.33366 12.8607C9.29505 12.8344 9.25829 12.8095 9.22929 12.7959C9.20152 12.796 9.18001 12.7983 9.15865 12.8003C9.05581 12.8093 8.96258 12.8073 8.88065 12.7861C8.79581 12.8633 8.69099 12.9183 8.57624 12.9341C8.57624 12.9341 7.17572 13.125 7.15344 13.125C6.90871 13.125 6.71859 12.9392 6.71859 12.6848V9.85163C6.71859 9.60109 6.9026 9.42118 7.1414 9.42118C7.16686 9.42118 7.8132 9.52243 7.81366 9.52243C7.84523 9.52243 8.57777 9.64541 8.57777 9.64541C8.65849 9.6583 8.73386 9.69173 8.80161 9.73712Z"
+                                                    fill="#464646" />
+                                                <path
+                                                    d="M9.68507 12.3435C9.72108 12.3679 9.75571 12.3914 9.7841 12.4057L9.91409 12.4058C9.92203 12.4058 9.93012 12.4061 9.9379 12.4067L11.484 12.4076C11.4919 12.407 11.4998 12.4067 11.5078 12.4067H12.3126C12.3753 12.4067 12.4265 12.3547 12.4265 12.2907C12.4265 12.2289 12.3789 12.1784 12.3181 12.1758C12.2968 12.1748 12.2762 12.1717 12.2562 12.1668H11.993C11.8204 12.1668 11.6805 12.0268 11.6805 11.8543C11.6805 11.6817 11.8204 11.5418 11.993 11.5418H12.5002C12.5252 11.5418 12.5493 11.5455 12.5726 11.5511H12.5768C12.6393 11.5511 12.6903 11.499 12.6903 11.4351C12.6903 11.3732 12.6425 11.3228 12.5817 11.3201C12.5494 11.3188 12.5192 11.3112 12.4903 11.3008H12.0476C11.8751 11.3008 11.7351 11.1609 11.7351 10.9883C11.7351 10.8157 11.8751 10.6758 12.0476 10.6758H12.8339C12.8657 10.6552 12.8882 10.6207 12.8882 10.5794C12.8784 10.563 12.7985 10.5039 12.7061 10.4888H12.0476C11.8751 10.4888 11.7351 10.3489 11.7351 10.1763C11.7351 10.0037 11.8751 9.86382 12.0476 9.86382H12.9176C12.9364 9.85879 12.9483 9.8526 12.9529 9.84789C12.9582 9.84223 12.9713 9.81248 12.9681 9.74298C12.9669 9.71596 12.9651 9.67888 12.8538 9.67888L11.1228 9.67706C11.0052 9.6769 10.8976 9.61076 10.8444 9.50577C10.7974 9.41301 10.8 9.30382 10.8493 9.21418C10.9109 9.05809 11.1102 8.24333 11.1085 8.08213C11.0429 7.44759 10.9088 7.25623 10.8079 7.20902C10.7783 7.19513 10.7505 7.1875 10.7296 7.1875C10.7036 7.18872 10.6741 7.20383 10.6442 7.22908C10.5861 7.27822 10.5842 7.37847 10.594 7.57974C10.5967 7.63703 10.5993 7.6941 10.5993 7.74971V8.02041C10.5993 8.23533 10.4171 8.60215 9.8195 9.59017C9.75144 9.70278 9.67424 9.83042 9.65943 9.85971C9.62693 9.93271 9.61306 9.96392 9.25586 10.1903V12.1711C9.32223 12.1736 9.38175 12.1848 9.43682 12.2054C9.53753 12.2433 9.61595 12.2966 9.68507 12.3435Z"
+                                                    fill="#464646" />
+                                                <path
+                                                    d="M7.50136 10.5285V10.1054L7.34375 10.0801V12.4725L8.45438 12.3198V10.2584L8.12633 10.2057V10.5285C8.12633 10.7011 7.98642 10.841 7.81385 10.841C7.64128 10.841 7.50136 10.7011 7.50136 10.5285Z"
+                                                    fill="#464646" />
+                                            </g>
+                                            <defs>
+                                                <clipPath id="clip0">
+                                                    <rect width="20" height="20" fill="white" />
+                                                </clipPath>
+                                            </defs>
+                                        </svg>
+
+                                        </svg>
+                                        <span>
+                                            Genuine Products
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal_body_flex modal_body_flex--top-space">
+                            <div>
+                                <h3 class="modal_description_title">
+                                    Size
+                                </h3>
+
+                                <div>
+                                    <form class="modal_size_container" action="">
+
+                                        <input type="radio" name="radSize" value="small" checked id="size__small"><label
+                                            class="modal__label" for="size__small">S</label>
+
+                                        <input type="radio" name="radSize" value="medium" id="size__medium"><label
+                                            class="modal__label" for="size__medium">M</label>
+
+                                        <input type="radio" name="radSize" value="large" id="size__large"><label
+                                            class="modal__label" for="size__large">L</label>
+
+                                        <input type="radio" name="radSize" value="x large" id="size__x-large"><label
+                                            class="modal__label" for="size__x-large">XL</label>
+
+                                        <input type="radio" name="radSize" value="xx large" id="size__xx-large"><label
+                                            class="modal__label" for="size__xx-large">xxl</label>
+                                    </form>
+
+                                    <h3 class="modal_color__title">
+                                        Colour
+                                    </h3>
+
+                                    <form class="modal_color_container" action="">
+                                        <div>
+                                            <input type="radio" name="color" value="blue" checked id="blueFill"
+                                                class="modal_color__input">
+                                            <label for="blueFill" class="modal_color__label">BLUE</label>
+                                        </div>
+                                        <div>
+                                            <input type="radio" name="color" value="blue" id="blackFill"
+                                                class="modal_color__input">
+                                            <label class="modal_color__label" for="blackFill">BLACK</label>
+                                        </div>
+                                        <div>
+                                            <input type="radio" name="color" value="blue" id="greyFill"
+                                                class="modal_color__input">
+                                            <label class="modal_color__label" for="greyFill">GREY</label>
+                                        </div>
+
+
+
+                                    </form>
+
+                                </div>
+
+
+                            </div>
+
+                            <div>
+                                <p><a href="" class="modal__btn">Size Guidelines</a></p>
+
+                                <div class="modal_seller-details__wrapper">
+                                    <p class="modal__seller-details"><b>Sold By</b>: KJK.com.ng</p>
+                                    <p class="modal__seller-details"><b>100+</b> Successful Sales</p>
+                                    <p class="modal__seller-details">Seller Score: <span
+                                            class="modal_seller__score">4.7/5</span></p>
+                                    <p class="modal__seller-details modal__seller-details--sized"><b>Delivery</b>: Get
+                                        it in Lagos by Friday. Allow up to 2 aditional days for other cities.</p>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                        <div>
+
+                            <h3 class="modal_color__title">Quantity</h3>
+
+                            <div class="modal_quantity__flex">
+                                <div class="modal_quantity__box modal_quantity__outer_wrapper">
+                                    <div class="modal_quantity__reduce">-</div>
+                                    <div class="modal_quantity__input-container">
+                                        <input class="modal_quantity__input" type="number" value="1" min="1">
+                                    </div>
+                                    <div class="modal_quantity__increase">+</div>
+                                </div>
+
+                                <div class="modal_quantity__box">
+                                    <a href="" class="modal_btn__outlined">BUY NOW</a>
+                                </div>
+                                <div class="modal_quantity__box">
+                                    <a href="" class="modal_btn__outlined modal_btn__outlined--gold">ADD TO CART</a>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="modal_body_flex modal_body_flex--top-spaced">
+                            <div class="modal_share__container">
+                                <p class="modal-p">Share this product</p>
+                                <a href=""><img src="{{ asset('themes/' ~ current_theme() ~ '/images/whatsapp__gold.svg') }}" alt=""></a>
+                                <a href=""><img src="{{ asset('themes/' ~ current_theme() ~ '/images/mail__gold.svg') }}" alt=""></a>
+                                <a href=""><img src="{{ asset('themes/' ~ current_theme() ~ '/images/pin.svg') }}" alt=""></a>
+                            </div>
+                            <div>
+                                <a href="" class="modal__btn modal__btn--underlined" mo>Save for Later</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <a href="" class="modal_btn__outlined modal_btn__outlined--gold modal_btn__outlined--large">
+                VIEW FULL PRODUCT DETAILS
+            </a>
+        </div>
+
+
+
+    </div>
+
+    <div class="nav_menu__resp">
+        <nav class="resp_menu">
+            <div class="resp_menu__logo">
+              <a href="{{ route('home') }}">
+                <img src="{{ asset('themes/' ~ current_theme() ~ '/images/logo-white.png') }}" width="100px" alt="">
+             </a>
+            </div>
+            <img src="{{ asset('themes/' ~ current_theme() ~ '/images/close_btn.svg') }}" class="menu__close" width="18px" alt="">
+            <a href="{{ route('page.directory') }} class="resp_menu__link resp_menu__link--active">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+                    id="Capa_1" x="0px" y="0px" width="16px" height="16px" viewBox="0 0 32 32"
+                    style="enable-background:new 0 0 32 32;" xml:space="preserve">
+                    <g>
+                        <g>
+                            <g>
+                                <path
+                                    d="M29,0H3C1.346,0,0,1.346,0,3v26c0,1.654,1.346,3,3,3h26c1.654,0,3-1.346,3-3V3C32,1.346,30.654,0,29,0z M30,29    c0,0.551-0.449,1-1,1H3c-0.551,0-1-0.449-1-1V3c0-0.552,0.449-1,1-1h26c0.551,0,1,0.448,1,1V29z"
+                                    data-original="#000000" class="active-path" data-old_color="#FCF7F7"
+                                    fill="#FFFFFF" />
+                                <path
+                                    d="M9.401,7H6.676C6.325,7,6.038,7.287,6.038,7.639v2.723c0,0.354,0.287,0.641,0.638,0.641h2.725    c0.351,0,0.638-0.287,0.638-0.641V7.639C10.039,7.287,9.752,7,9.401,7z"
+                                    data-original="#000000" class="active-path" data-old_color="#FCF7F7"
+                                    fill="#FFFFFF" />
+                                <rect x="11.539" y="8.062" width="14.422" height="1.875" data-original="#000000"
+                                    class="active-path" data-old_color="#FCF7F7" fill="#FFFFFF" />
+                                <path
+                                    d="M9.401,14H6.676c-0.351,0-0.638,0.287-0.638,0.639v2.726c0,0.351,0.287,0.638,0.638,0.638h2.725    c0.351,0,0.638-0.287,0.638-0.638v-2.726C10.039,14.287,9.752,14,9.401,14z"
+                                    data-original="#000000" class="active-path" data-old_color="#FCF7F7"
+                                    fill="#FFFFFF" />
+                                <rect x="11.539" y="15.062" width="14.422" height="1.875" data-original="#000000"
+                                    class="active-path" data-old_color="#FCF7F7" fill="#FFFFFF" />
+                                <path
+                                    d="M9.401,21H6.676c-0.351,0-0.638,0.287-0.638,0.639v2.727c0,0.351,0.287,0.638,0.638,0.638h2.725    c0.351,0,0.638-0.287,0.638-0.638v-2.727C10.039,21.287,9.752,21,9.401,21z M9.539,24.361c0,0.074-0.063,0.139-0.138,0.139H6.676    c-0.075,0-0.138-0.062-0.138-0.139v-2.727c0-0.072,0.063-0.138,0.138-0.138h2.725c0.075,0,0.138,0.062,0.138,0.138V24.361z"
+                                    data-original="#000000" class="active-path" data-old_color="#FCF7F7"
+                                    fill="#FFFFFF" />
+                                <rect x="11.539" y="22.062" width="14.422" height="1.875" data-original="#000000"
+                                    class="active-path" data-old_color="#FCF7F7" fill="#FFFFFF" />
+                            </g>
+                        </g>
+                    </g>
+                </svg>
+                Directory</a>
+            <a href="{{ route('page.topbrands') }}" class="resp_menu__link">
+                <svg width="16px" height="16px" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M13.5973 5.10784L13.2411 5.0319C13.1959 4.97181 13.1475 4.91423 13.0924 4.86155C13.0653 4.83569 13.0359 4.81228 13.0066 4.78869C12.7141 4.55357 12.3137 4.43319 11.8118 4.43319H11.339H10.4327L9.63284 4.2627L7.42042 0.602067C7.30434 0.409966 7.15215 0.313965 7.00001 0.313965C6.84787 0.313965 6.69566 0.410015 6.57958 0.602067L4.36718 4.26265L3.56729 4.43314H2.66107H1.7549H0.829617C0.657077 4.43314 0.513186 4.54945 0.46789 4.70749C0.458456 4.74058 0.451713 4.77481 0.451713 4.81102V4.90413V5.0973L0.402663 5.10772C-0.0363437 5.20127 -0.13106 5.5305 0.191273 5.843L1.73006 7.33508V7.59831V7.86149V8.86742C1.73006 9.07604 1.89929 9.24527 2.10793 9.24527H2.70755H2.89832H3.08906L2.54341 13.1623C2.49767 13.4907 2.63667 13.6859 2.87488 13.6859C2.95915 13.6859 3.05589 13.6615 3.16123 13.6099L6.99996 11.7303L10.8386 13.6099C10.944 13.6615 11.0407 13.686 11.125 13.686C11.3633 13.686 11.5022 13.4908 11.4565 13.1624L10.9108 9.24537H10.9871C11.0263 9.24537 11.0634 9.23774 11.099 9.2266C11.168 9.20514 11.2279 9.16495 11.2737 9.11126C11.3298 9.04532 11.3651 8.9609 11.3651 8.86747V8.73886V8.47578V8.21257L11.8584 7.7342C11.9658 7.72822 12.0675 7.71639 12.1652 7.69994C12.2978 7.67767 12.4212 7.64558 12.5354 7.60404C12.7394 7.5299 12.9154 7.42686 13.0593 7.29218C13.2263 7.13574 13.3501 6.94915 13.4318 6.73492C13.4735 6.62519 13.5036 6.50782 13.5227 6.38357C13.5368 6.29199 13.5448 6.19653 13.5466 6.09729L13.8088 5.84305C14.131 5.5306 14.0364 5.2014 13.5973 5.10784ZM13.1027 6.52775C13.0425 6.71995 12.9429 6.8835 12.8011 7.01635C12.6771 7.13251 12.5199 7.2193 12.3302 7.27684C12.1432 7.33372 11.9244 7.36217 11.6736 7.36217H10.9873V8.5789V8.86747H10.8584H9.7283V4.81107H11.8118C12.2656 4.81107 12.6055 4.919 12.8314 5.13484C13.0574 5.3507 13.1704 5.65782 13.1704 6.05627C13.1704 6.22982 13.1469 6.38636 13.1027 6.52775ZM2.10798 8.22801V7.96483V7.70157V5.81272H0.829617V5.01683V4.82367V4.81112H0.888472H1.79462H4.63975V5.8128H3.36138V8.86759H3.14167H2.95093H2.76016H2.10798V8.22801ZM7.00001 8.93667C6.54256 8.93667 6.16391 8.86379 5.86418 8.71809C5.56444 8.57238 5.32139 8.3418 5.13509 8.02635C4.94882 7.71089 4.85563 7.31614 4.85563 6.84206C4.85563 6.17981 5.0401 5.66421 5.40899 5.29532C5.77796 4.92636 6.29162 4.74197 6.9502 4.74197C7.62531 4.74197 8.1455 4.9232 8.51076 5.28567C8.87602 5.64813 9.05864 6.15593 9.05864 6.80889C9.05864 7.28297 8.97884 7.67176 8.81929 7.97518C8.65974 8.27859 8.42916 8.51473 8.12755 8.68357C7.82589 8.8524 7.45013 8.93667 7.00001 8.93667Z"
+                        fill="white" />
+                </svg>
+                Top Brands</a>
+            <a href="{{route('browse')}}" class="resp_menu__link">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+                    id="Capa_1" x="0px" y="0px" viewBox="0 0 201.387 201.387"
+                    style="enable-background:new 0 0 201.387 201.387;" xml:space="preserve" width="16px" height="16px">
+                    <g>
+                        <g>
+                            <g>
+                                <path
+                                    d="M129.413,24.885C127.389,10.699,115.041,0,100.692,0C91.464,0,82.7,4.453,77.251,11.916    c-1.113,1.522-0.78,3.657,0.742,4.77c1.517,1.109,3.657,0.78,4.768-0.744c4.171-5.707,10.873-9.115,17.93-9.115    c10.974,0,20.415,8.178,21.963,19.021c0.244,1.703,1.705,2.932,3.376,2.932c0.159,0,0.323-0.012,0.486-0.034    C128.382,28.479,129.679,26.75,129.413,24.885z"
+                                    data-original="#000000" class="active-path" data-old_color="#ffffff"
+                                    fill="#ffffff" />
+                            </g>
+                        </g>
+                        <g>
+                            <g>
+                                <path
+                                    d="M178.712,63.096l-10.24-17.067c-0.616-1.029-1.727-1.657-2.927-1.657h-9.813c-1.884,0-3.413,1.529-3.413,3.413    s1.529,3.413,3.413,3.413h7.881l6.144,10.24H31.626l6.144-10.24h3.615c1.884,0,3.413-1.529,3.413-3.413s-1.529-3.413-3.413-3.413    h-5.547c-1.2,0-2.311,0.628-2.927,1.657l-10.24,17.067c-0.633,1.056-0.648,2.369-0.043,3.439s1.739,1.732,2.97,1.732h150.187    c1.231,0,2.364-0.662,2.97-1.732S179.345,64.15,178.712,63.096z"
+                                    data-original="#000000" class="active-path" data-old_color="#ffffff"
+                                    fill="#ffffff" />
+                            </g>
+                        </g>
+                        <g>
+                            <g>
+                                <path
+                                    d="M161.698,31.623c-0.478-0.771-1.241-1.318-2.123-1.524l-46.531-10.883c-0.881-0.207-1.809-0.053-2.579,0.423    c-0.768,0.478-1.316,1.241-1.522,2.123l-3.509,15c-0.43,1.835,0.71,3.671,2.546,4.099c1.835,0.43,3.673-0.71,4.101-2.546    l2.732-11.675l39.883,9.329l-6.267,26.795c-0.43,1.835,0.71,3.671,2.546,4.099c0.263,0.061,0.524,0.09,0.782,0.09    c1.55,0,2.953-1.062,3.318-2.635l7.045-30.118C162.328,33.319,162.176,32.391,161.698,31.623z"
+                                    data-original="#000000" class="active-path" data-old_color="#ffffff"
+                                    fill="#ffffff" />
+                            </g>
+                        </g>
+                        <g>
+                            <g>
+                                <path
+                                    d="M102.497,39.692l-3.11-26.305c-0.106-0.899-0.565-1.72-1.277-2.28c-0.712-0.56-1.611-0.816-2.514-0.71l-57.09,6.748    c-1.871,0.222-3.209,1.918-2.988,3.791l5.185,43.873c0.206,1.737,1.679,3.014,3.386,3.014c0.133,0,0.27-0.009,0.406-0.024    c1.87-0.222,3.208-1.918,2.988-3.791l-4.785-40.486l50.311-5.946l2.708,22.915c0.222,1.872,1.91,3.202,3.791,2.99    C101.379,43.261,102.717,41.564,102.497,39.692z"
+                                    data-original="#000000" class="active-path" data-old_color="#ffffff"
+                                    fill="#ffffff" />
+                            </g>
+                        </g>
+                        <g>
+                            <g>
+                                <path
+                                    d="M129.492,63.556l-6.775-28.174c-0.212-0.879-0.765-1.64-1.536-2.113c-0.771-0.469-1.696-0.616-2.581-0.406L63.613,46.087    c-1.833,0.44-2.961,2.284-2.521,4.117l3.386,14.082c0.44,1.835,2.284,2.964,4.116,2.521c1.833-0.44,2.961-2.284,2.521-4.117    l-2.589-10.764l48.35-11.626l5.977,24.854c0.375,1.565,1.775,2.615,3.316,2.615c0.265,0,0.533-0.031,0.802-0.096    C128.804,67.232,129.932,65.389,129.492,63.556z"
+                                    data-original="#000000" class="active-path" data-old_color="#ffffff"
+                                    fill="#ffffff" />
+                            </g>
+                        </g>
+                        <g>
+                            <g>
+                                <path
+                                    d="M179.197,64.679c-0.094-1.814-1.592-3.238-3.41-3.238H25.6c-1.818,0-3.316,1.423-3.41,3.238l-6.827,133.12    c-0.048,0.934,0.29,1.848,0.934,2.526c0.645,0.677,1.539,1.062,2.475,1.062h163.84c0.935,0,1.83-0.384,2.478-1.062    c0.643-0.678,0.981-1.591,0.934-2.526L179.197,64.679z M22.364,194.56l6.477-126.293h143.701l6.477,126.293H22.364z"
+                                    data-original="#000000" class="active-path" data-old_color="#ffffff"
+                                    fill="#ffffff" />
+                            </g>
+                        </g>
+                        <g>
+                            <g>
+                                <path
+                                    d="M126.292,75.093c-5.647,0-10.24,4.593-10.24,10.24c0,5.647,4.593,10.24,10.24,10.24c5.647,0,10.24-4.593,10.24-10.24    C136.532,79.686,131.939,75.093,126.292,75.093z M126.292,88.747c-1.883,0-3.413-1.531-3.413-3.413s1.531-3.413,3.413-3.413    c1.882,0,3.413,1.531,3.413,3.413S128.174,88.747,126.292,88.747z"
+                                    data-original="#000000" class="active-path" data-old_color="#ffffff"
+                                    fill="#ffffff" />
+                            </g>
+                        </g>
+                        <g>
+                            <g>
+                                <path
+                                    d="M75.092,75.093c-5.647,0-10.24,4.593-10.24,10.24c0,5.647,4.593,10.24,10.24,10.24c5.647,0,10.24-4.593,10.24-10.24    C85.332,79.686,80.739,75.093,75.092,75.093z M75.092,88.747c-1.882,0-3.413-1.531-3.413-3.413s1.531-3.413,3.413-3.413    s3.413,1.531,3.413,3.413S76.974,88.747,75.092,88.747z"
+                                    data-original="#000000" class="active-path" data-old_color="#ffffff"
+                                    fill="#ffffff" />
+                            </g>
+                        </g>
+                        <g>
+                            <g>
+                                <path
+                                    d="M126.292,85.333h-0.263c-1.884,0-3.413,1.529-3.413,3.413c0,0.466,0.092,0.911,0.263,1.316v17.457    c0,12.233-9.953,22.187-22.187,22.187s-22.187-9.953-22.187-22.187V88.747c0-1.884-1.529-3.413-3.413-3.413    s-3.413,1.529-3.413,3.413v18.773c0,15.998,13.015,29.013,29.013,29.013s29.013-13.015,29.013-29.013V88.747    C129.705,86.863,128.176,85.333,126.292,85.333z"
+                                    data-original="#000000" class="active-path" data-old_color="#ffffff"
+                                    fill="#ffffff" />
+                            </g>
+                        </g>
+                    </g>
+                </svg>
+                Shops
+            </a>
+            <a href="{{route('page.comingsoon')}}" class="resp_menu__link">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+                    id="Capa_1" x="0px" y="0px" viewBox="0 0 512.001 512.001"
+                    style="enable-background:new 0 0 512.001 512.001;" xml:space="preserve" width="16px" height="16px">
+                    <g>
+                        <g>
+                            <g>
+                                <path
+                                    d="M504.501,421.9c-4.143,0-7.5,3.358-7.5,7.5v50.113c0,0.696-0.566,1.263-1.263,1.263H467.24V371.199    c0-4.142-3.357-7.5-7.5-7.5s-7.5,3.358-7.5,7.5v109.578H397.17l14.905-16.397c2.302-2.533,3.387-6.13,2.904-9.623    c-0.011-0.075-0.022-0.149-0.035-0.224l-16.755-98.996l3.083-4.641l0.803,0.57c2.749,1.953,6.255,2.665,9.647,1.818    c3.331-0.833,6.122-3.074,7.656-6.146v-0.001l17.049-34.171l38.945,15.083c1.537,0.668,21.625,9.879,21.625,33.845v32.504    c0.001,4.143,3.358,7.501,7.501,7.501c4.143,0,7.5-3.358,7.5-7.5v-32.504c0-34.61-29.685-47.211-30.948-47.731    c-0.048-0.02-0.095-0.039-0.143-0.057l-66.317-25.684v-13.66c10.352-8.328,17.622-20.331,19.805-34.014    c5.163-0.648,9.953-2.715,13.928-6.134c5.7-4.902,8.971-12.035,8.971-19.568c0-6.013-2.087-11.767-5.824-16.337v-20.238    c0-39.606-32.222-71.827-71.826-71.827c-17.781,0-34.061,6.508-46.618,17.25c-0.162-5.747-2.219-11.223-5.804-15.607V88.051    c0-39.606-32.222-71.827-71.826-71.827c-39.606,0-71.827,32.222-71.827,71.827v20.765c-3.605,4.308-5.622,9.502-5.8,15.015    c-8.012-6.847-17.601-12.002-28.288-14.816c-4.012-1.056-8.109,1.337-9.164,5.343s1.337,8.109,5.343,9.164    c24.913,6.56,42.313,29.157,42.313,54.949v11.217c-0.324-0.067-1.364-0.246-1.404-0.252c-0.102-2.117-0.638-3.41-1.792-5.07    c-1.92-2.759-5.368-6.196-16.458-18.116c-3.952-4.245-10.344-5.024-15.196-1.852c-18.995,12.408-42.072,18.732-63.488,17.475    c-6.976-0.409-11.333,2.656-13.19,7.679c-0.166,0.027-2.021,0.401-2.124,0.426v-11.507c0-24.869,16.618-47.242,40.411-54.409    c3.966-1.194,6.213-5.378,5.019-9.345c-1.195-3.967-5.385-6.214-9.346-5.018c-14.47,4.358-27.477,13.432-36.622,25.548    c-9.463,12.534-14.464,27.481-14.464,43.225v20.766c-3.778,4.514-5.821,10-5.821,15.809c0,12.84,9.46,24.038,22.938,25.708    c2.208,13.363,9.458,26.178,20.9,34.891v12.781l-66.243,25.682c-0.047,0.018-0.094,0.037-0.141,0.056    C29.686,314.684,0,327.284,0,361.894v117.619c0,8.969,7.296,16.264,16.265,16.264h230.971c3.228,0,6.231-0.957,8.765-2.585    c2.532,1.628,5.536,2.585,8.765,2.585h230.972c8.968,0,16.264-7.295,16.264-16.264v-50.113    C512.001,425.258,508.644,421.9,504.501,421.9z M75.702,225.258c-4.397-1.596-7.206-5.663-7.206-10.213    c0-4.413,3.2-8.039,7.206-9.76V225.258z M422.379,307.525l-14.722,29.506c-0.002-0.002-16.353-11.615-16.585-11.78    c7.054-8.708,3.74-4.617,18.408-22.721L422.379,307.525z M380.23,314.803l-19.397-23.943v-7.195    c6.305,2.18,13.097,3.186,19.49,3.188c0.001,0,0.003,0,0.004,0h0.001c6.61-0.001,13.302-1.256,19.262-3.499v7.552L380.23,314.803z     M389.036,342.206l-2.759,4.153h-12.091l-2.759-4.153l8.805-6.253L389.036,342.206z M255.981,224.381l-19.397-23.943v-7.195    c6.28,2.171,13.065,3.186,19.49,3.188c0.001,0,0.003,0,0.004,0h0.001c6.598,0,13.289-1.251,19.262-3.498v7.551L255.981,224.381z     M264.786,251.786l-2.759,4.153h-12.091l-2.759-4.153l8.805-6.253L264.786,251.786z M196.918,149.614    c1.226,0.334,2.486,0.561,3.765,0.719c2.208,13.363,9.458,26.178,20.9,34.891v12.781l-15.301,5.931    c-0.887-1.863-1.996-3.618-3.312-5.227v-20.237C202.97,168.294,200.826,158.51,196.918,149.614z M295.836,141.672    c0,21.953-17.908,39.756-39.757,39.756c-24.651,0-41.125-19.105-41.125-39.756V106.54c23.683,0.948,48.286-6.071,68.401-18.591    c6.763,7.252,10.787,11.465,12.482,13.421C295.836,120.043,295.836,127.253,295.836,141.672z M310.147,150.328    c1.272-0.16,2.526-0.388,3.745-0.721c-3.896,8.84-6.076,18.6-6.076,28.865v20.765c-1.153,1.377-2.145,2.844-2.966,4.383    l-14.508-5.618v-13.66C300.693,176.013,307.964,164.01,310.147,150.328z M226.705,212.12l18.412,22.726l-12.556,8.918    c-0.007,0.005-0.012,0.01-0.019,0.015l-3.985,2.831l-14.723-29.505L226.705,212.12z M273.243,226.904l11.987-14.796l12.899,4.995    l-14.721,29.507l-3.994-2.836c-0.004-0.003-0.008-0.007-0.012-0.01l-12.579-8.935L273.243,226.904z M277.023,260.475l0.803,0.57    c2.804,1.992,6.323,2.65,9.647,1.818c3.331-0.833,6.122-3.074,7.656-6.146v-0.001l12.658-25.369    c4.349,5.36,10.639,8.62,17.117,9.429c2.288,14.34,10.039,26.578,20.929,34.87v12.78l-63.764,24.721l-8.13-48.03L277.023,260.475z     M350.954,302.541l18.412,22.726c-8.05,5.719-16.143,11.468-16.56,11.764l-14.723-29.505L350.954,302.541z M420.084,232.094    c0.002,21.417-17.391,39.756-39.756,39.756c-25.492,0-41.125-19.966-41.125-39.756v-35.132c23.514,0.939,48.149-5.987,68.4-18.591    c6.763,7.252,10.787,11.465,12.482,13.421C420.084,210.464,420.084,217.675,420.084,232.094z M442.294,215.046    c0,4.558-2.818,8.617-7.206,10.212v-20.403C439.624,206.507,442.294,210.652,442.294,215.046z M322.817,178.471    c0-31.334,25.493-56.826,56.826-56.826c31.334,0,56.825,25.493,56.825,56.826v11.217c-0.341-0.071-1.279-0.233-1.404-0.252    c-0.102-2.119-0.641-3.415-1.792-5.07c-1.971-2.831-5.381-6.209-16.458-18.116c-3.868-4.152-10.246-5.087-15.196-1.852    c-18.48,12.072-41.828,18.891-64.045,17.448c-6.241-0.409-10.762,2.647-12.633,7.707c-0.167,0.027-2.019,0.401-2.124,0.426    V178.471z M324.202,205.286v19.962c-4.41-1.59-7.206-5.668-7.206-10.203C316.995,210.632,320.193,207.008,324.202,205.286z     M318.043,124.625c0,3.158-1.367,6.145-3.75,8.194c-1.023,0.88-2.189,1.556-3.456,2.017v-20.403    C315.322,116.061,318.043,120.184,318.043,124.625z M255.393,31.224c31.334,0,56.826,25.492,56.826,56.826v11.217    c-0.339-0.07-1.279-0.233-1.404-0.252c-0.111-2.297-0.773-3.709-2.124-5.536c-2.008-2.718-5.71-6.455-16.126-17.651    c-3.933-4.223-10.321-5.038-15.196-1.852c-19.516,12.75-43.191,18.955-64.65,17.418c-5.25-0.397-10.193,2.775-12.027,7.736    c-0.167,0.027-2.02,0.401-2.124,0.426V88.051h-0.001C198.567,56.716,224.06,31.224,255.393,31.224z M199.951,114.864v19.973    c-4.397-1.596-7.206-5.663-7.206-10.213C192.745,120.236,195.92,116.597,199.951,114.864z M186.587,204.855    c4.196,1.527,6.891,5.188,7.158,9.539c0.336,4.838-2.637,9.213-7.158,10.855V204.855z M185.892,240.774    c7.074-0.885,13.567-4.613,17.825-10.348l13.118,26.29c0,0,0,0,0.001,0.001c1.533,3.073,4.324,5.313,7.655,6.146    c3.293,0.823,6.816,0.193,9.647-1.818l0.803-0.57l3.083,4.641l-8.127,48.017l-63.804-24.711v-13.654h-0.001    C176.715,266.203,183.76,254.101,185.892,240.774z M131.73,314.803l-19.397-23.943v-7.195c6.28,2.171,13.066,3.186,19.491,3.187    c0.001,0,0.003,0,0.004,0c6.706,0,13.386-1.288,19.262-3.498v7.552L131.73,314.803z M140.536,342.206l-2.759,4.153h-12.091    l-2.759-4.153l8.805-6.253L140.536,342.206z M160.979,302.53l12.9,4.996l-14.722,29.505l-3.994-2.836    c-0.004-0.003-0.008-0.007-0.012-0.01l-12.579-8.934L160.979,302.53z M90.703,232.094v-35.132    c23.809,0.951,48.428-6.161,68.4-18.591c6.699,7.184,10.785,11.463,12.482,13.421c0,18.673,0,25.884,0,40.302    c0,21.813-17.785,39.756-39.757,39.756C107.365,271.85,90.703,252.963,90.703,232.094z M102.455,302.541l18.412,22.726    l-12.556,8.918c-0.007,0.005-0.012,0.01-0.019,0.015l-3.985,2.831l-14.723-29.505L102.455,302.541z M59.763,480.778V371.199    c0-4.142-3.357-7.5-7.5-7.5s-7.5,3.358-7.5,7.5v109.578H16.265c-0.698,0-1.264-0.567-1.264-1.263V361.894    c0-24.089,20.297-33.271,21.611-33.839l38.921-15.089l17.051,34.171c0,0,0,0,0.001,0.001c1.533,3.073,4.324,5.313,7.656,6.146    c3.293,0.823,6.816,0.193,9.647-1.818l0.803-0.57l3.083,4.641l-16.755,98.996c-0.013,0.074-0.024,0.149-0.035,0.224    c-0.482,3.491,0.603,7.088,2.906,9.625l14.903,16.395H59.763z M112.073,455.481l15.929-94.121h7.459l15.93,94.121l-19.659,21.627    L112.073,455.481z M248.499,479.513c0,0.697-0.566,1.264-1.263,1.264H218.74V371.199c0-4.142-3.357-7.5-7.5-7.5    c-4.143,0-7.5,3.358-7.5,7.5v109.578H148.67l14.905-16.397c2.302-2.533,3.387-6.13,2.904-9.623    c-0.011-0.075-0.022-0.149-0.035-0.224l-16.755-98.996l3.083-4.641l0.803,0.57c2.007,1.426,4.383,2.17,6.794,2.17    c4.399,0,8.496-2.465,10.51-6.498v-0.001l17.049-34.17l38.945,15.083c11.352,4.938,21.625,17.673,21.625,33.844V479.513z     M256,334.64c-3.107-5.006-7.243-9.638-12.229-13.591l8.481-50.109h7.459l8.485,50.135C263.077,325.14,258.995,329.814,256,334.64    z M308.262,480.778L308.262,480.778V371.199c0-4.142-3.357-7.5-7.5-7.5s-7.5,3.358-7.5,7.5v109.578h-28.497    c-0.697,0-1.264-0.567-1.264-1.263V361.894c0-8.916,2.796-17.128,8.752-24.027c3.971-4.555,9.238-8.243,12.86-9.812l38.921-15.09    l17.051,34.172c0,0,0,0,0.001,0.001c1.533,3.073,4.324,5.313,7.655,6.146c3.293,0.823,6.816,0.193,9.647-1.818l0.803-0.57    l3.083,4.641l-16.755,98.996c-0.013,0.074-0.024,0.149-0.035,0.224c-0.482,3.491,0.603,7.088,2.906,9.625l14.903,16.395H308.262z     M360.572,455.482l15.93-94.121h7.459l15.93,94.121l-19.66,21.627L360.572,455.482z"
+                                    data-original="#000000" class="active-path" data-old_color="#FCFAFA"
+                                    fill="#FFFFFF" />
+                            </g>
+                        </g>
+                    </g>
+                </svg>
+                Jobs
+            </a>
+            <a href="#" class="resp_menu__link">
+                <svg width="16px" height="16px" viewBox="0 0 15 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M0 8.09375C0 8.96624 0.59877 9.69318 1.40625 9.90283V16.0625H0.46875C0.210557 16.0625 0 16.2721 0 16.5312C0 16.7904 0.210586 17 0.46875 17H14.5312C14.7913 17 15 16.7904 15 16.5312C15 16.2721 14.7913 16.0625 14.5312 16.0625H13.5938V9.90283C14.4012 9.69318 15 8.96624 15 8.09375V7.625H0V8.09375ZM9.375 9.96875C10.4114 9.96875 11.25 9.12922 11.25 8.09375C11.25 8.96624 11.8488 9.69318 12.6562 9.90283V16.0625H5.625V9.96875C6.66138 9.96875 7.5 9.12922 7.5 8.09375C7.5 9.12922 8.34047 9.96875 9.375 9.96875ZM5.15625 9.90283V16.0625H2.34375V9.90283C3.15126 9.69318 3.75 8.96624 3.75 8.09375C3.75 8.96624 4.34877 9.69318 5.15625 9.90283ZM13.125 3.40625C13.1799 4.72835 13.3297 5.22158 12.5 5.22158C11.6703 5.22158 11.9224 4.66268 11.826 3.40625H1.875L0 7.15625H15L14.0625 5.28125L13.125 3.40625ZM3.96059 4.44813L3.02309 6.32313C2.98096 6.40555 2.89857 6.45315 2.8125 6.45315C2.7777 6.45315 2.74201 6.44583 2.70811 6.42843C2.59274 6.37074 2.54514 6.22977 2.60373 6.11439L3.54123 4.23939C3.59982 4.12402 3.73989 4.07735 3.85526 4.1341C3.97157 4.19179 4.01733 4.33276 3.96059 4.44813ZM5.83559 4.44813L4.89809 6.32313C4.85596 6.40555 4.77357 6.45315 4.6875 6.45315C4.6527 6.45315 4.61701 6.44583 4.58312 6.42843C4.46774 6.37074 4.42014 6.22977 4.47873 6.11439L5.41623 4.23939C5.47482 4.12402 5.61583 4.07735 5.73026 4.1341C5.84657 4.19179 5.89233 4.33276 5.83559 4.44813ZM7.73437 6.21875C7.73437 6.34877 7.63002 6.45312 7.5 6.45312C7.37092 6.45312 7.26562 6.34874 7.26562 6.21875V4.34375C7.26562 4.21373 7.37092 4.10938 7.5 4.10938C7.63002 4.10938 7.73437 4.21376 7.73437 4.34375V6.21875ZM10.426 6.42383C10.3894 6.44398 10.351 6.45312 10.3125 6.45312C10.2301 6.45312 10.1496 6.40918 10.1074 6.33137L9.08203 4.45637C9.01978 4.34284 9.06187 4.20002 9.17543 4.13867C9.28714 4.07642 9.43178 4.1167 9.49403 4.23113L10.5194 6.10613C10.5798 6.21966 10.5396 6.36248 10.426 6.42383ZM12.2919 6.4284C12.2589 6.4458 12.2241 6.45312 12.1875 6.45312C12.1014 6.45312 12.019 6.40552 11.9788 6.32311L11.0413 4.44811C10.9827 4.33273 11.0303 4.19176 11.1456 4.13407C11.2591 4.07639 11.402 4.12309 11.4606 4.23937L12.3981 6.11437C12.4548 6.22974 12.409 6.37074 12.2919 6.4284ZM3.98437 13.3214V12.2411C3.84703 12.1587 3.75 12.0159 3.75 11.8438C3.75 11.5847 3.96059 11.375 4.21875 11.375C4.47876 11.375 4.6875 11.5847 4.6875 11.8438C4.6875 12.0159 4.59138 12.1587 4.45312 12.2411V13.3214C4.59138 13.4038 4.6875 13.5467 4.6875 13.7188C4.6875 13.9779 4.47876 14.1875 4.21875 14.1875C3.96056 14.1875 3.75 13.9779 3.75 13.7188C3.75 13.5466 3.84706 13.4038 3.98437 13.3214ZM8.21596 12.4782L7.88455 12.1468L9.21023 10.8211L9.54164 11.1525L8.21596 12.4782ZM8.21596 13.8039L7.88455 13.4725L10.5359 10.8211L10.8673 11.1525L9.54164 12.4782L8.21596 13.8039ZM10.5359 12.1468L10.8673 12.4782L9.54161 13.8039L9.21021 13.4725L10.5359 12.1468Z"
+                        fill="#FFFFFF" />
+                    <path
+                        d="M1.875 2.46875C1.875 2.20965 2.08559 2 2.34375 2H9.72145C9.4009 2.37104 9.40406 2.5704 9.72145 2.9375H2.34375C2.08559 2.9375 1.875 2.72785 1.875 2.46875Z"
+                        fill="#FFFFFF" />
+                    <path
+                        d="M14.7287 2.15115H12.8488V0.271317C12.8488 0.185683 12.7325 0 12.5 0C12.2674 0 12.1512 0.185693 12.1512 0.271317V2.15116H10.2713C10.1857 2.15115 10 2.26743 10 2.49998C10 2.73253 10.1857 2.84882 10.2713 2.84882H12.1512V4.72866C12.1512 4.81428 12.2674 4.99998 12.5 4.99998C12.7326 4.99998 12.8488 4.81428 12.8488 4.72866V2.84882H14.7287C14.8143 2.84882 15 2.73255 15 2.49998C15 2.26741 14.8143 2.15115 14.7287 2.15115Z"
+                        fill="#FFFFFF" />
+                </svg>
+                Create Store
+            </a>
+            {% if auth_user() %}
+            <a onclick="event.preventDefault(); document.getElementById('logout-form').submit();" href="#" class="resp_menu__link">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+                    id="Capa_1" x="0px" y="0px" viewBox="0 0 490.3 490.3" style="enable-background:new 0 0 490.3 490.3;"
+                    xml:space="preserve" width="16px" height="16px">
+                    <g>
+                        <g>
+                            <g>
+                                <path
+                                    d="M0,121.05v248.2c0,34.2,27.9,62.1,62.1,62.1h200.6c34.2,0,62.1-27.9,62.1-62.1v-40.2c0-6.8-5.5-12.3-12.3-12.3    s-12.3,5.5-12.3,12.3v40.2c0,20.7-16.9,37.6-37.6,37.6H62.1c-20.7,0-37.6-16.9-37.6-37.6v-248.2c0-20.7,16.9-37.6,37.6-37.6h200.6    c20.7,0,37.6,16.9,37.6,37.6v40.2c0,6.8,5.5,12.3,12.3,12.3s12.3-5.5,12.3-12.3v-40.2c0-34.2-27.9-62.1-62.1-62.1H62.1    C27.9,58.95,0,86.75,0,121.05z"
+                                    data-original="#000000" class="active-path" data-old_color="#ffffff"
+                                    fill="#ffffff" />
+                                <path
+                                    d="M385.4,337.65c2.4,2.4,5.5,3.6,8.7,3.6s6.3-1.2,8.7-3.6l83.9-83.9c4.8-4.8,4.8-12.5,0-17.3l-83.9-83.9    c-4.8-4.8-12.5-4.8-17.3,0s-4.8,12.5,0,17.3l63,63H218.6c-6.8,0-12.3,5.5-12.3,12.3c0,6.8,5.5,12.3,12.3,12.3h229.8l-63,63    C380.6,325.15,380.6,332.95,385.4,337.65z"
+                                    data-original="#000000" class="active-path" data-old_color="#ffffff"
+                                    fill="#ffffff" />
+                            </g>
+                        </g>
+                    </g>
+                </svg>
+
+
+                Log Out
+            </a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                {{ csrf_field() }}
+            </form>
+          {% endif %}
+        </nav>
+    </div>
+
+    <div class="nav_menu__resp-mega-menu">
+        <nav class="resp_menu resp_menu--mega">
+
+            <div class="resp_menu__logo">
+              <a href="{{ route('home')}}">
+                <img src="{{ asset('themes/' ~ current_theme() ~ '/images/market-logo.svg')}}" width="100px" alt="">
+              </a>
+            </div>
+
+            <img src="{{ asset('themes/' ~ current_theme() ~ '/images/close_btn-black.svg')}}" class="close_mega_menu menu__close">
+
+            <div class="resp_menu__mega-container">
+              {% include 'layouts.base_mega_menu_res' %}
+            </div>
+
+        </nav>
+    </div>
+
+    <div class="nav_menu__resp-filter-menu">
+        <nav class="resp_menu resp_menu--filter">
+
+            <div class="resp_menu-filter-header">
+                <h2 class="resp_menu-filter-header-title">
+                    <span><img src="{{ asset('themes/' ~ current_theme() ~ '/images/filter.svg')}}"></span> &nbsp;FILTER
+                </h2>
+                <img src="{{ asset('themes/' ~ current_theme() ~ '/images/close_btn-black.svg')}}" class="close_filter_menu menu__close">
+            </div>
+
+            <div class="resp_menu-filter-item">
+                <h1 class="resp_menu-filter-item-title">
+                    Category &nbsp; <img class="filter__down-arrow" src="{{ asset('themes/' ~ current_theme() ~ '/images/down-arrow.svg')}}" alt="">
+                </h1>
+
+                <ul class="filter__category-list-container">
+                   <!--
+                    <li class="filter__category-list"><a href="" class="filter__category-link"
+                            :active="">Dresses</a><span class="right increased-font">(988)</span></li>
+                    <li class="filter__category-list"><a href="" class="filter__category-link">Crossbody
+                            Bags</a><span class="right  increased-font">(988)</span></li>
+                    <li class="filter__category-list"><a href="" class="filter__category-link">Clutches</a><span
+                            class="right increased-font">(988)</span></li>
+                    <li class="filter__category-list"><a href="" class="filter__category-link">Backpacks</a><span
+                            class="right increased-font">(988)</span></li>
+                    <li class="filter__category-list"><a href="" class="filter__category-link">Evening
+                            Bags</a><span class="right increased-font">(988)</span></li>
+                    <li class="filter__category-list"><a href="" class="filter__category-link">Shoulder
+                            Bags</a><span class="right increased-font">(988)</span></li>
+                    <li class="filter__category-list"><a href="" class="filter__category-link">Top-Handle
+                            Bags</a><span class="right increased-font">(988)</span></li>
+                    <li class="filter__category-list"><a href="" class="filter__category-link">Wristlets</a><span
+                            class="right increased-font">(988)</span></li>
+                    <li class="filter__category-list"><a href="" class="filter__category-link">Wallets</a><span
+                            class="right increased-font">(988)</span></li>
+                    <li class="filter__category-list"><a href="" class="filter__category-link">Cosmetic Bags &amp;
+                            Cases</a><span class="right increased-font">(988)</span></li>
+                    <li class="filter__category-list"><a href="" class="filter__category-link">Buckets</a><span
+                            class="right increased-font">(988)</span></li>
+                    <li class="filter__category-list"><a href="" class="filter__category-link">Hobos</a><span
+                            class="right increased-font">(988)</span></li>
+                    <li class="filter__category-list"><a href="" class="filter__category-link">Waist
+                            Packs</a><span class="right increased-font">(988)</span></li>
+                    -->
+                    {#
+                    {% for item in category_present %}
+                     <li class="filter__category-list"><a href="" class="filter__category-link" :active>{{item.category.name}}</a><span
+                           class="right increased-font">({{ item.total }})</span></li>
+                    {% endfor %}
+                    #}
+                      {% for parent_category in parent_categories %}
+                       <li class="filter__category-list"><a class="filter__category-link" data-category="{{ parent_category.parent_id }}" href="{{ request().fullUrlWithQuery({'category' : parent_category.parent_id}) }}" class="category-link text-capitalize"><i class="fa fa-caret-left" aria-hidden="true"></i>
+                       {{ _l(parent_category.name)}}</a></li>
+                      {% endfor %}
+
+
+                       {% for level_category in level_categories %}
+                        {% if filter %}
+                         {% if level_category.id in filter_value %}
+                          <li class="filter__category-list categories__clear"><a class="filter__category-link" data-category="{{ level_category.id }}" href="{{ request().fullUrlWithQuery({'category' : level_category.id}) }}" class="category-link text-capitalize text-{{ (category and level_category.id == category.id)?'primary':'muted' }}">{{ _l(level_category.name) }}</a></li>
+                         {% endif %}
+                        {% else %}
+                         <li class="filter__category-list categories__clear"><a class="filter__category-link" data-category="{{ level_category.id }}" href="{{ request().fullUrlWithQuery({'category' : level_category.id}) }}" class="category-link text-capitalize text-{{ (category and level_category.id == category.id)?'primary':'muted' }}">{{ _l(level_category.name) }}</a></li>
+                        {% endif %}
+                       {% endfor %}
+                </ul>
+
+            </div>
+
+           <!--
+            <div class="resp_menu-filter-item">
+
+                <h1 class="resp_menu-filter-item-title">
+                    Shipped From &nbsp; <img class="filter__down-arrow" src="resources/img/down-arrow.svg" alt="">
+                </h1>
+
+                <div class="inset">
+                    <input type="checkbox" id="Nigeria--menu">
+                    <label for="Nigeria--menu" class="input__text">Nigeria</label>
+                    <span class="right">(100000)</span>
+                </div>
+
+            </div>
+
+            <div class="resp_menu-filter-item">
+
+                <h1 class="resp_menu-filter-item-title">
+                    Size &nbsp; <img class="filter__down-arrow" src="resources/img/down-arrow.svg" alt="">
+                </h1>
+
+                <div>
+                    <div class="search__container">
+                        <input type="search" id="form__size-search" placeholder="Search size">
+                        <img src="resources/img/vendor/search__gold.svg">
+                    </div>
+                    <div class="inset form__sections--scroll size--toggle">
+                        <div class="spacer">
+                            <input type="checkbox" id="large--menu">
+                            <label for="large--menu" class="input__text">L</label>
+                            <span class="right">(100000)</span>
+                        </div>
+                        <div class="spacer">
+                            <input type="checkbox" id="medium--menu">
+                            <label for="medium--menu" class="input__text">M</label>
+                            <span class="right">(100000)</span>
+                        </div>
+                        <div class="spacer">
+                            <input type="checkbox" id="x-large--menu">
+                            <label for="x-large--menu" class="input__text">XL</label>
+                            <span class="right">(100000)</span>
+                        </div>
+                        <div class="spacer">
+                            <input type="checkbox" id="small--menu">
+                            <label for="small--menu" class="input__text">S</label>
+                            <span class="right">(100000)</span>
+                        </div>
+                        <div class="spacer">
+                            <input type="checkbox" id="xx-large--menu">
+                            <label for="xx-large--menu" class="input__text">XXL</label>
+                            <span class="right">(100000)</span>
+                        </div>
+                        <div class="spacer">
+                            <input type="checkbox" id="Large--menu">
+                            <label for="Large--menu" class="input__text">L</label>
+                            <span class="right">(100000)</span>
+                        </div>
+                        <div class="spacer">
+                            <input type="checkbox" id="medium--menu">
+                            <label for="medium--menu" class="input__text">M</label>
+                            <span class="right">(100000)</span>
+                        </div>
+                        <div class="spacer">
+                            <input type="checkbox" id="x-large--menu">
+                            <label for="x-large--menu" class="input__text">XL</label>
+                            <span class="right">(100000)</span>
+                        </div>
+                        <div class="spacer">
+                            <input type="checkbox" id="small--menu">
+                            <label class="input__text" for="small--menu">S</label>
+                            <span class="right">(100000)</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="resp_menu-filter-item">
+
+                <h1 class="resp_menu-filter-item-title">
+                    Color &nbsp; <img class="filter__down-arrow" src="resources/img/down-arrow.svg" alt="">
+                </h1>
+
+                <div>
+                    <div class="inset form__sections--scroll">
+                        <div class="spacer">
+                            <input type="checkbox" id="multi--menu">
+                            <label for="multi--menu" class="input__text">Multi</label>
+                            <span class="right">(100000)</span>
+                        </div>
+                        <div class="spacer">
+                            <input type="checkbox" id="black--menu">
+                            <label for="black--menu" class="input__text">Black</label>
+                            <span class="right">(100000)</span>
+                        </div>
+                        <div class="spacer">
+                            <input type="checkbox" id="blue--menu">
+                            <label for="blue--menu" class="input__text">Blue</label>
+                            <span class="right">(100000)</span>
+                        </div>
+                        <div class="spacer">
+                            <input type="checkbox" id="white--menu">
+                            <label for="white--menu" class="input__text">White</label>
+                            <span class="right">(100000)</span>
+                        </div>
+                        <div class="spacer">
+                            <input type="checkbox" id="brown--menu">
+                            <label for="brown--menu" class="input__text">Brown</label>
+                            <span class="right">(100000)</span>
+                        </div>
+                        <div class="spacer">
+                            <input type="checkbox" id="white--menu">
+                            <label for="white--menu" class="input__text">White</label>
+                            <span class="right">(100000)</span>
+                        </div>
+                        <div class="spacer">
+                            <input type="checkbox" id="grey--menu">
+                            <label for="grey--menu" class="input__text">Grey</label>
+                            <span class="right">(100000)</span>
+                        </div>
+                        <div class="spacer">
+                            <input type="checkbox" id="yellow--menu">
+                            <label for="yellow--menu" class="input__text">Yellow</label>
+                            <span class="right">(100000)</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="resp_menu-filter-item">
+
+                <h1 class="resp_menu-filter-item-title">
+                    Brand &nbsp; <img class="filter__down-arrow" src="resources/img/down-arrow.svg" alt="">
+                </h1>
+
+                <div>
+                    <div class="inset form__sections--scroll">
+                        <div class="spacer">
+                            <input type="checkbox" id="Generic--menu">
+                            <label for="Generic--menu" class="input__text">Generic</label>
+                            <span class="right">(100000)</span>
+                        </div>
+                        <div class="spacer">
+                            <input type="checkbox" id="dandg--menu">
+                            <label for="dandg--menu" class="input__text">D&amp;G</label>
+                            <span class="right">(100000)</span>
+                        </div>
+                        <div class="spacer">
+                            <input type="checkbox" id="chanel--menu">
+                            <label for="chanel--menu" class="input__text">Chanel</label>
+                            <span class="right">(100000)</span>
+                        </div>
+                        <div class="spacer">
+                            <input type="checkbox" id="luisvuitton--menu">
+                            <label for="luisvuitton--menu" class="input__text">Luis Vuitton</label>
+                            <span class="right">(100000)</span>
+                        </div>
+                        <div class="spacer">
+                            <input type="checkbox" id="gucci--menu">
+                            <label for="gucci--menu" class="input__text">Gucci</label>
+                            <span class="right">(100000)</span>
+                        </div>
+                        <div class="spacer">
+                            <input type="checkbox" id="prada--menu">
+                            <label for="prada--menu" class="input__text">Prada</label>
+                            <span class="right">(100000)</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="resp_menu-filter-item">
+
+                <h1 class="resp_menu-filter-item-title">
+                    Price &nbsp; <img class="filter__down-arrow" src="resources/img/down-arrow.svg" alt="">
+                </h1>
+
+                <div>
+                    <div class="">
+                        <div class="price__centering">
+                            <div style="padding: 15px">
+                                <div id="slider-range--menu"
+                                    class="ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content">
+                                    <div class="ui-slider-range ui-corner-all ui-widget-header"
+                                        style="left: 0%; width: 100%;"></div><span tabindex="0"
+                                        class="ui-slider-handle ui-corner-all ui-state-default"
+                                        style="left: 0%;"></span><span tabindex="0"
+                                        class="ui-slider-handle ui-corner-all ui-state-default"
+                                        style="left: 100%;"></span>
+                                </div>
+                            </div>
+                            <div class="range__input">
+                                <span>₦</span><input type="text" id="amount1--menu">
+
+
+                                <span>₦</span><input type="text" id="amount2--menu">
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="resp_menu-filter-item">
+
+                <h1 class="resp_menu-filter-item-title">
+                    Seller Score &nbsp; <img class="filter__down-arrow" src="resources/img/down-arrow.svg" alt="">
+                </h1>
+
+                <div>
+                    <div class=" form__sections--scroll inset">
+                        <div class="seller__score-container">
+                            <div class="seller__progress">
+                                <div class="seller__progression seller__progression--four">
+                                    <p class="seller__rate">4.0</p>
+                                </div>
+                            </div>
+                            <div class="right--adjusted">
+                                (1000000)
+                            </div>
+                        </div>
+                        <div class="seller__score-container inset">
+                            <div class="seller__progress">
+                                <div class="seller__progression seller__progression--three">
+                                    <p class="seller__rate">3.0</p>
+                                </div>
+                            </div>
+                            <div class="right--adjusted">
+                                (1000000)
+                            </div>
+                        </div>
+
+                        <div class="seller__score-container inset">
+                            <div class="seller__progress">
+                                <div class="seller__progression seller__progression--two">
+                                    <p class="seller__rate">2.0</p>
+                                </div>
+                            </div>
+                            <div class="right--adjusted">
+                                (1000000)
+                            </div>
+                        </div>
+
+                        <div class="seller__score-container inset">
+                            <div class="seller__progress">
+                                <div class="seller__progression seller__progression--one">
+                                    <p class="seller__rate">1.0</p>
+                                </div>
+                            </div>
+                            <div class="right--adjusted">
+                                (1000000)
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="resp_menu-filter-item">
+
+                <h1 class="resp_menu-filter-item-title">
+                    Ratings &nbsp; <img class="filter__down-arrow" src="resources/img/down-arrow.svg" alt="">
+                </h1>
+
+                <div>
+                    <div class=" form__sections--scroll">
+                        <div class="spacer">
+                            <span class="input__text inset">
+                                <img src="resources/img/ratings.svg" height="13px" width="13px" alt="rating">
+                                <img src="resources/img/ratings.svg" height="13px" width="13px" alt="rating">
+                                <img src="resources/img/ratings.svg" height="13px" width="13px" alt="rating">
+                                <img src="resources/img/ratings.svg" height="13px" width="13px" alt="rating">
+                                <img src="resources/img/ratings.svg" height="13px" width="13px" alt="rating">
+                            </span>
+                            <span class="right">5 Star</span>
+                        </div>
+                        <div class="spacer">
+                            <span class="input__text inset">
+                                <img src="resources/img/ratings.svg" height="13px" width="13px" alt="rating">
+                                <img src="resources/img/ratings.svg" height="13px" width="13px" alt="rating">
+                                <img src="resources/img/ratings.svg" height="13px" width="13px" alt="rating">
+                                <img src="resources/img/ratings.svg" height="13px" width="13px" alt="rating">
+                                <img src="resources/img/ratins-none.svg" height="13px" width="13px" alt="rating">
+                            </span>
+                            <span class="right">4 Star</span>
+                        </div>
+                        <div class="spacer">
+                            <span class="input__text inset">
+                                <img src="resources/img/ratings.svg" height="13px" width="13px" alt="rating">
+                                <img src="resources/img/ratings.svg" height="13px" width="13px" alt="rating">
+                                <img src="resources/img/ratings.svg" height="13px" width="13px" alt="rating">
+                                <img src="resources/img/ratins-none.svg" height="13px" width="13px" alt="rating">
+                                <img src="resources/img/ratins-none.svg" height="13px" width="13px" alt="rating">
+                                <span class="right">3 Star</span>
+                            </span></div>
+                        <div class="spacer">
+                            <span class="input__text inset">
+                                <img src="resources/img/ratings.svg" height="13px" width="13px" alt="rating">
+                                <img src="resources/img/ratings.svg" height="13px" width="13px" alt="rating">
+                                <img src="resources/img/ratins-none.svg" height="13px" width="13px" alt="rating">
+                                <img src="resources/img/ratins-none.svg" height="13px" width="13px" alt="rating">
+                                <img src="resources/img/ratins-none.svg" height="13px" width="13px" alt="rating">
+                            </span>
+                            <span class="right">2 Star</span>
+                        </div>
+                        <div class="spacer">
+                            <span class="input__text inset">
+                                <img src="resources/img/ratings.svg" height="13px" width="13px" alt="rating">
+                                <img src="resources/img/ratins-none.svg" height="13px" width="13px" alt="rating">
+                                <img src="resources/img/ratins-none.svg" height="13px" width="13px" alt="rating">
+                                <img src="resources/img/ratins-none.svg" height="13px" width="13px" alt="rating">
+                                <img src="resources/img/ratins-none.svg" height="13px" width="13px" alt="rating">
+                            </span>
+                            <span class="right">1 Star</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="resp_menu-filter-item">
+
+                <h1 class="resp_menu-filter-item-title">
+                    Material &nbsp; <img class="filter__down-arrow" src="resources/img/down-arrow.svg" alt="">
+                </h1>
+
+                <div>
+                    <div class="inset form__sections--scroll">
+                        <div class="spacer">
+                            <input type="checkbox" id="textile--menu">
+                            <label for="textile--menu" class="input__text">Textile</label>
+                            <span class="right">(100000)</span>
+                        </div>
+                        <div class="spacer">
+                            <input type="checkbox" id="leather--menu">
+                            <label for="leather--menu" class="input__text">Leather</label>
+                            <span class="right">(100000)</span>
+                        </div>
+                        <div class="spacer">
+                            <input type="checkbox" id="fibre--menu">
+                            <label for="fibre--menu" class="input__text">Fibre</label>
+                            <span class="right">(100000)</span>
+                        </div>
+                        <div class="spacer">
+                            <input type="checkbox" id="synthetic--menu">
+                            <label for="synthetic--menu" class="input__text">Synthetic</label>
+                            <span class="right">(100000)</span>
+                        </div>
+                        <div class="spacer">
+                            <input type="checkbox" id="linen--menu">
+                            <label for="linen--menu" class="input__text">Linen</label>
+                            <span class="right">(100000)</span>
+                        </div>
+                        <div class="spacer">
+                            <input type="checkbox" id="silk--menu">
+                            <label for="silk--menu" class="input__text">Silk</label>
+                            <span class="right">(100000)</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="resp_menu-filter-item">
+
+                <h1 class="resp_menu-filter-item-title">
+                    Discount &nbsp; <img class="filter__down-arrow" src="resources/img/down-arrow.svg" alt="">
+                </h1>
+
+                <div>
+                    <div class="inset form__sections--scroll">
+                        <div class="spacer">
+                            <input type="checkbox" id="90--menu">
+                            <label for="90--menu" class="input__text">80% - 99%</label>
+                            <span class="right">(100000)</span>
+                        </div>
+                        <div class="spacer">
+                            <input type="checkbox" id="70--menu">
+                            <label for="70--menu" class="input__text">60% - 79%</label>
+                            <span class="right">(100000)</span>
+                        </div>
+                        <div class="spacer">
+                            <input type="checkbox" id="30--menu">
+                            <label for="30--menu" class="input__text">20% - 39%</label>
+                            <span class="right">(100000)</span>
+                        </div>
+                        <div class="spacer">
+                            <input type="checkbox" id="10--menu">
+                            <label for="10--menu" class="input__text">1% - 19%</label>
+                            <span class="right">(100000)</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            -->
+        </nav>
+    </div>
+
+    <div class="scroll_to_top">
+        <img src="{{ asset('themes/' ~ current_theme() ~ '/images/to_top.svg') }}" width="18px" alt="">
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/corejs-typeahead/1.2.1/bloodhound.min.js" integrity="sha256-WJlyUMyJDhWTumC7/oaAtXFRBh0rZGc7qT80egxJafw=" crossorigin="anonymous"></script>
+    {% block scripts %}
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.js"></script>
+      <script src="{{ asset('themes/' ~ current_theme() ~ '/js/scroll.js') }}"></script>
+      <script src="{{ asset('themes/' ~ current_theme() ~ '/js/filter.js') }}"></script>
+      <script src="{{ asset('themes/' ~ current_theme() ~ '/js/nav_res.js') }}"></script>
+      <script src="{{ asset('themes/' ~ current_theme() ~ '/js/modal.js') }}"></script>
+      <script src="{{ asset('themes/' ~ current_theme() ~ '/js/vendor_res.js') }}"></script>
+    {% endblock %}
+    <script>
+     $(document).ready(function(){
+       var engine2 = new Bloodhound({
+        remote: {
+            url: "{{ route('listings.search')}}?q=%QUERY%",
+            wildcard: '%QUERY%'
+        },
+        datumTokenizer: Bloodhound.tokenizers.whitespace('q'),
+        queryTokenizer: Bloodhound.tokenizers.whitespace
+       });
+
+      var typeobject2 = $(".search-product").typeahead({
+               hint: true,
+               highlight: true,
+               minLength: 1,
+           }, {
+               source: engine2.ttAdapter(),
+               displayKey: 'title',
+
+               // This will be appended to "tt-dataset-" to form the class name of the suggestion menu.
+               name: 'productsList',
+               // the key from the array we want to display (name,id,email,etc...)
+               templates: {
+                   empty: [
+                       '<div class="list-group search-results-dropdown"><div class="list-group-item">Nothing found.</div></div>'
+                   ],
+                   header: [
+                       '<div class="list-group search-results-dropdown">'
+                   ],
+                   suggestion: function (data) {
+                       return '<a href=' + data.url +'><span class="list-group-item"><img class="product-image" width="50px" src=' + data.thumbnail + '/><span>'+ data.title + '<br>₦' + data.price + '</span></span></a>'
+                   }
+               }
+           });
+           typeobject2.bind('typeahead:select', function(ev, suggestion) {
+            //console.log('Selection: ' + suggestion.name);
+
+           });
+    });
+    </script>
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,2774 @@
+{% extends "layouts.app_marketplace" %}
+{% block content %}
+<section class="marketplace d-flex">
+    <div class="marketplace__top-slider">
+        <div class="marketplace__top-slider-individual">
+            <img src="{{ asset('themes/' ~ current_theme() ~ '/images/perfume.png') }}" alt="" class="img-fluid">
+            <div class="marketplace__top-slider-individual-overlay">
+                <div class="marketplace__top-slider-individual-content">
+                    <h2>Perfume Tips & Tricks</h3>
+                        <button class="btn btn-primary marketplace__product-quickview-btn">Shop Now</button>
+                </div>
+            </div>
+        </div>
+        <div class="marketplace__top-slider-individual">
+            <img src="{{ asset('themes/' ~ current_theme() ~ '/images/perfume.png') }}" alt="" class="img-fluid">
+            <div class="marketplace__top-slider-individual-overlay">
+                <div class="marketplace__top-slider-individual-content">
+                    <h2>Perfume Tips & Tricks</h3>
+                        <button class="btn btn-primary marketplace__product-quickview-btn">Shop Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section class="ml-auto">
+        <div class="marketplace__topAd">
+            <div class="marketplace__topAd-info">
+                <svg class="icon icon-sell-on">
+                    <use xlink:href="#icon-sell-on"></use>
+                </svg>
+                <div>
+                    <h3>Sell on Afiaanyi</h3>
+                    <a href="#">Become a Vendor!</a>
+                </div>
+            </div>
+            <div class="marketplace__topAd-info">
+                <svg class="icon icon-delivery">
+                    <use xlink:href="#icon-delivery"></use>
+                </svg>
+                <div>
+                    <h3>Free returns</h3>
+                    <a href="#">Within 7 days</a>
+                </div>
+            </div>
+            <div class="marketplace__topAd-info">
+                <svg class="icon icon-offers">
+                    <use xlink:href="#icon-offers"></use>
+                </svg>
+                <div>
+                    <h3>exclusive offers</h3>
+                    <a href="#">Download Afiaanyi App</a>
+                </div>
+            </div>
+        </div>
+        <div class="marketplace__topAd-banner">
+            <img src="{{ asset('themes/' ~ current_theme() ~ '/images/top-banner.png') }}" alt="" class="img-fluid">
+        </div>
+    </section>
+</section>
+
+<section class="marketplace__featured-brand">
+    <h3 class="marketplace__section-heading">Featured Brands</h3>
+    <div class="marketplace__featured-brand-wrapper">
+        <div class="marketplace__featured-individual-brand marketplace__featured-individual-brand-one">
+            <div class="marketplace__featured-individual-brand-overlay">
+                <div class="marketplace__featured-individual-brand-info">
+                    <h3>FurniShop</h3>
+                    <p>A better way to shop online for furnitures, home decor & a lot more...</p>
+                    <button class="marketplace__featured-individual-brand-info-button btn btn-primary">Explore our
+                        Catalogue</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="marketplace__featured-individual-brand marketplace__featured-individual-brand-two">
+            <div class="marketplace__featured-individual-brand-overlay">
+                <div class="marketplace__featured-individual-brand-info">
+                    <h3>Clairevoy</h3>
+                    <p>Think Better.. Be Better</p>
+                    <button class="marketplace__featured-individual-brand-info-button btn btn-primary">CONTACT US</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="marketplace__featured-individual-brand marketplace__featured-individual-brand-three">
+            <div class="marketplace__featured-individual-brand-overlay">
+                <div class="marketplace__featured-individual-brand-info">
+                    <h3>Chisco Transport Co.</h3>
+                    <p>Car dealership and repair shop</p>
+                    <button class="marketplace__featured-individual-brand-info-button btn btn-primary">VISIT OUR
+                        SHOWROOM </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="marketplace__featured-individual-brand marketplace__featured-individual-brand-four">
+            <div class="marketplace__featured-individual-brand-overlay four">
+                <div class="marketplace__featured-individual-brand-info">
+                    <h3>Techmall</h3>
+                    <p>Your one-stop-shop for Tech related materials</p>
+                    <button class="marketplace__featured-individual-brand-info-button btn btn-primary">Shop Now</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="marketplace__featured-individual-brand marketplace__featured-individual-brand-five">
+            <div class="marketplace__featured-individual-brand-overlay five">
+                <div class="marketplace__featured-individual-brand-info">
+                    <h3>Afiaanyi.com</h3>
+                    <p>Business Directory & Online Marketplace</p>
+                    <button class="marketplace__featured-individual-brand-info-button btn btn-primary">SHOP NOW</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="marketplace__banner">
+    <img src="{{ asset('themes/' ~ current_theme() ~ '/images/banner-one.png') }}" alt="Ad banner" class="img-fluid w-100" style="min-height: 73px;">
+</section>
+
+<section class="marketplace__top-deal">
+    <div class="marketplace__top-deal-banner">
+        <img src="{{ asset('themes/' ~ current_theme() ~ '/images/top-deal-banner.png') }}" alt="Top Deal banner" class="img-fluid">
+    </div>
+    <div class="marketplace__product-wrapper">
+      {% for item in discount %}
+        <div class="marketplace__product">
+            <div class="marketplace__product-image">
+                <img height="200" src="{{ item.cover_image }}" alt="" class="img-fluid">
+                <div class="marketplace__product-new">New</div>
+                <div class="marketplace__product-quickview">
+                    <button class="btn btn-primary marketplace__product-quickview-btn" data-toggle="modal"
+                        data-target="#exampleModal">Quick View</button>
+                </div>
+            </div>
+            <div class="marketplace__product-details">
+                <small class="marketplace__product-brand">{{ item.brand.name }}</small>
+                <hr class="marketplace__product-line">
+                <a href="#" class="marketplace__product-name">{{ item.title }}</a>
+                <div class="marketplace__product-price-wrapper">
+                    <p class="marketplace__product-price"><span>₦</span>55,990.00</p>
+                    <div class="marketplace__product-discount">
+                        -{{ item.discount }}%
+                    </div>
+                </div>
+                <div class="marketplace__product-rating">
+                    <svg class="icon icon-star marketplace__product-rating-stars">
+                        <use xlink:href="#icon-star"></use>
+                    </svg>
+                    <svg class="icon icon-star marketplace__product-rating-stars">
+                        <use xlink:href="#icon-star"></use>
+                    </svg>
+                    <svg class="icon icon-star marketplace__product-rating-stars">
+                        <use xlink:href="#icon-star"></use>
+                    </svg>
+                    <svg class="icon icon-star marketplace__product-rating-stars">
+                        <use xlink:href="#icon-star"></use>
+                    </svg>
+                    <svg class="icon icon-star marketplace__product-rating-stars">
+                        <use xlink:href="#icon-star"></use>
+                    </svg>
+                    <p class="marketplace__product-rating-number">(899)</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="marketplace__recommended">
+    <div class="marketplace__recommended-wrapper">
+        <div class="marketplace__recommended-top">
+            <svg class="icon icon-recommended">
+                <use xlink:href="#icon-recommended"></use>
+            </svg>
+            <span class="marketplace__recommended-heading">Recommended for you</span>
+        </div>
+        <div class="marketplace__recommended-options-wrapper nav flex-column nav-pills" id="v-pills-tab" role="tablist"
+            aria-orientation="vertical">
+            <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab"
+                aria-controls="v-pills-home" aria-selected="true">your recommendations
+                <svg class="icon icon-arrow-next">
+                    <use xlink:href="#icon-arrow-next"></use>
+                </svg>
+            </a>
+            <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab"
+                aria-controls="v-pills-profile" aria-selected="false">Most Popular
+                <svg class="icon icon-arrow-next">
+                    <use xlink:href="#icon-arrow-next"></use>
+                </svg>
+            </a>
+            <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab"
+                aria-controls="v-pills-messages" aria-selected="false">Best of phones
+                <svg class="icon icon-arrow-next">
+                    <use xlink:href="#icon-arrow-next"></use>
+                </svg>
+            </a>
+            <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab"
+                aria-controls="v-pills-settings" aria-selected="false">Top picks in Appliances
+                <svg class="icon icon-arrow-next">
+                    <use xlink:href="#icon-arrow-next"></use>
+                </svg>
+            </a>
+            <a class="nav-link" id="v-pills-fashion-tab" data-toggle="pill" href="#v-pills-fashion" role="tab"
+                aria-controls="v-pills-fashion" aria-selected="false">Top picks in fashion
+                <svg class="icon icon-arrow-next">
+                    <use xlink:href="#icon-arrow-next"></use>
+                </svg>
+            </a>
+        </div>
+    </div>
+    <div class="tab-content" id="v-pills-tabContent" style="min-width: 0;
+    min-height: 0;">
+        <div class="marketplace__product-wrapper marketplace__tab tab-pane fade show active" id="v-pills-home" role="tabpanel"
+            aria-labelledby="v-pills-home-tab">
+            {% for item in discount %}
+            <div class="marketplace__product">
+                <div class="marketplace__product-image">
+                    <img src="{{ item.cover_image }}" alt="" class="img-fluid">
+                    <div class="marketplace__product-new">New</div>
+                    <div class="marketplace__product-quickview">
+                        <button class="btn btn-primary marketplace__product-quickview-btn" data-toggle="modal"
+                            data-target="#exampleModal">Quick View</button>
+                    </div>
+                </div>
+                <div class="marketplace__product-details">
+                    <small class="marketplace__product-brand">{{ item.brand.name }}</small>
+                    <hr class="marketplace__product-line">
+                    <a href="#" class="marketplace__product-name">{{ item.title }}</a>
+                    <div class="marketplace__product-price-wrapper">
+                        <p class="marketplace__product-price"><span>₦</span>{{ item.price }}</p>
+                        <div class="marketplace__product-discount">
+                            -{{ item.discount }}%
+                        </div>
+                    </div>
+                    <div class="marketplace__product-rating">
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <p class="marketplace__product-rating-number">(899)</p>
+                    </div>
+                </div>
+            </div>
+
+            {% endfor %}
+        </div>
+        <div class="marketplace__product-wrapper marketplace__tab tab-pane fade" id="v-pills-profile" role="tabpanel"
+            aria-labelledby="v-pills-profile-tab">
+            <div class="marketplace__product">
+                <div class="marketplace__product-image">
+                    <img src="images/pixel2.png" alt="" class="img-fluid">
+                    <div class="marketplace__product-new">New</div>
+                    <div class="marketplace__product-quickview">
+                        <button class="btn btn-primary marketplace__product-quickview-btn" data-toggle="modal"
+                            data-target="#exampleModal">Quick View</button>
+                    </div>
+                </div>
+                <div class="marketplace__product-details">
+                    <small class="marketplace__product-brand">Google</small>
+                    <hr class="marketplace__product-line">
+                    <a href="#" class="marketplace__product-name">Google Pixel 3 XL, Android 9, 4GB RAM, 64GB
+                        ROM...</a>
+                    <div class="marketplace__product-price-wrapper">
+                        <p class="marketplace__product-price"><span>₦</span>55,990.00</p>
+                        <div class="marketplace__product-discount">
+                            -25%
+                        </div>
+                    </div>
+                    <div class="marketplace__product-rating">
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <p class="marketplace__product-rating-number">(899)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="marketplace__product">
+                <div class="marketplace__product-image">
+                    <img src="images/shoes.png" alt="" class="img-fluid">
+                    <div class="marketplace__product-new">New</div>
+                    <div class="marketplace__product-quickview">
+                        <button class="btn btn-primary marketplace__product-quickview-btn" data-toggle="modal"
+                            data-target="#exampleModal">Quick View</button>
+                    </div>
+                </div>
+                <div class="marketplace__product-details">
+                    <small class="marketplace__product-brand">Nike</small>
+                    <hr class="marketplace__product-line">
+                    <a href="#" class="marketplace__product-name">Nike Free TR 8 Training Shoes</a>
+                    <div class="marketplace__product-price-wrapper">
+                        <p class="marketplace__product-price"><span>₦</span>55,990.00</p>
+                        <div class="marketplace__product-discount">
+                            -25%
+                        </div>
+                    </div>
+                    <div class="marketplace__product-rating">
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <p class="marketplace__product-rating-number">(899)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="marketplace__product">
+                <div class="marketplace__product-image">
+                    <img src="images/suite.png" alt="" class="img-fluid">
+                    <div class="marketplace__product-new">New</div>
+                    <div class="marketplace__product-quickview">
+                        <button class="btn btn-primary marketplace__product-quickview-btn" data-toggle="modal"
+                            data-target="#exampleModal">Quick View</button>
+                    </div>
+                </div>
+                <div class="marketplace__product-details">
+                    <small class="marketplace__product-brand">Versace</small>
+                    <hr class="marketplace__product-line">
+                    <a href="#" class="marketplace__product-name">Red Tuxedo with bow-tie and waist coat</a>
+                    <div class="marketplace__product-price-wrapper">
+                        <p class="marketplace__product-price"><span>₦</span>55,990.00</p>
+                        <div class="marketplace__product-discount">
+                            -25%
+                        </div>
+                    </div>
+                    <div class="marketplace__product-rating">
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <p class="marketplace__product-rating-number">(899)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="marketplace__product">
+                <div class="marketplace__product-image">
+                    <img src="images/pixel2.png" alt="" class="img-fluid">
+                    <div class="marketplace__product-new">New</div>
+                    <div class="marketplace__product-quickview">
+                        <button class="btn btn-primary marketplace__product-quickview-btn" data-toggle="modal"
+                            data-target="#exampleModal">Quick View</button>
+                    </div>
+                </div>
+                <div class="marketplace__product-details">
+                    <small class="marketplace__product-brand">Google</small>
+                    <hr class="marketplace__product-line">
+                    <a href="#" class="marketplace__product-name">Google Pixel 3 XL, Android 9, 4GB RAM, 64GB
+                        ROM...</a>
+                    <div class="marketplace__product-price-wrapper">
+                        <p class="marketplace__product-price"><span>₦</span>55,990.00</p>
+                        <div class="marketplace__product-discount">
+                            -25%
+                        </div>
+                    </div>
+                    <div class="marketplace__product-rating">
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <p class="marketplace__product-rating-number">(899)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="marketplace__product">
+                <div class="marketplace__product-image">
+                    <img src="images/pixel2.png" alt="" class="img-fluid">
+                    <div class="marketplace__product-new">New</div>
+                    <div class="marketplace__product-quickview">
+                        <button class="btn btn-primary marketplace__product-quickview-btn" data-toggle="modal"
+                            data-target="#exampleModal">Quick View</button>
+                    </div>
+                </div>
+                <div class="marketplace__product-details">
+                    <small class="marketplace__product-brand">Google</small>
+                    <hr class="marketplace__product-line">
+                    <a href="#" class="marketplace__product-name">Google Pixel 3 XL, Android 9, 4GB RAM, 64GB
+                        ROM...</a>
+                    <div class="marketplace__product-price-wrapper">
+                        <p class="marketplace__product-price"><span>₦</span>55,990.00</p>
+                        <div class="marketplace__product-discount">
+                            -25%
+                        </div>
+                    </div>
+                    <div class="marketplace__product-rating">
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <p class="marketplace__product-rating-number">(899)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="marketplace__product">
+                <div class="marketplace__product-image">
+                    <img src="images/shoes.png" alt="" class="img-fluid">
+                    <div class="marketplace__product-new">New</div>
+                    <div class="marketplace__product-quickview">
+                        <button class="btn btn-primary marketplace__product-quickview-btn" data-toggle="modal"
+                            data-target="#exampleModal">Quick View</button>
+                    </div>
+                </div>
+                <div class="marketplace__product-details">
+                    <small class="marketplace__product-brand">Nike</small>
+                    <hr class="marketplace__product-line">
+                    <a href="#" class="marketplace__product-name">Nike Free TR 8 Training Shoes</a>
+                    <div class="marketplace__product-price-wrapper">
+                        <p class="marketplace__product-price"><span>₦</span>55,990.00</p>
+                        <div class="marketplace__product-discount">
+                            -25%
+                        </div>
+                    </div>
+                    <div class="marketplace__product-rating">
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <p class="marketplace__product-rating-number">(899)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="marketplace__product">
+                <div class="marketplace__product-image">
+                    <img src="images/suite.png" alt="" class="img-fluid">
+                    <div class="marketplace__product-new">New</div>
+                    <div class="marketplace__product-quickview">
+                        <button class="btn btn-primary marketplace__product-quickview-btn" data-toggle="modal"
+                            data-target="#exampleModal">Quick View</button>
+                    </div>
+                </div>
+                <div class="marketplace__product-details">
+                    <small class="marketplace__product-brand">Versace</small>
+                    <hr class="marketplace__product-line">
+                    <a href="#" class="marketplace__product-name">Red Tuxedo with bow-tie and waist coat</a>
+                    <div class="marketplace__product-price-wrapper">
+                        <p class="marketplace__product-price"><span>₦</span>55,990.00</p>
+                        <div class="marketplace__product-discount">
+                            -25%
+                        </div>
+                    </div>
+                    <div class="marketplace__product-rating">
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <p class="marketplace__product-rating-number">(899)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="marketplace__product">
+                <div class="marketplace__product-image">
+                    <img src="images/pixel2.png" alt="" class="img-fluid">
+                    <div class="marketplace__product-new">New</div>
+                    <div class="marketplace__product-quickview">
+                        <button class="btn btn-primary marketplace__product-quickview-btn" data-toggle="modal"
+                            data-target="#exampleModal">Quick View</button>
+                    </div>
+                </div>
+                <div class="marketplace__product-details">
+                    <small class="marketplace__product-brand">Google</small>
+                    <hr class="marketplace__product-line">
+                    <a href="#" class="marketplace__product-name">Google Pixel 3 XL, Android 9, 4GB RAM, 64GB
+                        ROM...</a>
+                    <div class="marketplace__product-price-wrapper">
+                        <p class="marketplace__product-price"><span>₦</span>55,990.00</p>
+                        <div class="marketplace__product-discount">
+                            -25%
+                        </div>
+                    </div>
+                    <div class="marketplace__product-rating">
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <p class="marketplace__product-rating-number">(899)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="marketplace__product-wrapper marketplace__tab tab-pane fade" id="v-pills-messages" role="tabpanel"
+            aria-labelledby="v-pills-messages-tab">
+            <div class="marketplace__product">
+                <div class="marketplace__product-image">
+                    <img src="images/pixel2.png" alt="" class="img-fluid">
+                    <div class="marketplace__product-new">New</div>
+                    <div class="marketplace__product-quickview">
+                        <button class="btn btn-primary marketplace__product-quickview-btn" data-toggle="modal"
+                            data-target="#exampleModal">Quick View</button>
+                    </div>
+                </div>
+                <div class="marketplace__product-details">
+                    <small class="marketplace__product-brand">Google</small>
+                    <hr class="marketplace__product-line">
+                    <a href="#" class="marketplace__product-name">Google Pixel 3 XL, Android 9, 4GB RAM, 64GB
+                        ROM...</a>
+                    <div class="marketplace__product-price-wrapper">
+                        <p class="marketplace__product-price"><span>₦</span>55,990.00</p>
+                        <div class="marketplace__product-discount">
+                            -25%
+                        </div>
+                    </div>
+                    <div class="marketplace__product-rating">
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <p class="marketplace__product-rating-number">(899)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="marketplace__product">
+                <div class="marketplace__product-image">
+                    <img src="images/shoes.png" alt="" class="img-fluid">
+                    <div class="marketplace__product-new">New</div>
+                    <div class="marketplace__product-quickview">
+                        <button class="btn btn-primary marketplace__product-quickview-btn" data-toggle="modal"
+                            data-target="#exampleModal">Quick View</button>
+                    </div>
+                </div>
+                <div class="marketplace__product-details">
+                    <small class="marketplace__product-brand">Nike</small>
+                    <hr class="marketplace__product-line">
+                    <a href="#" class="marketplace__product-name">Nike Free TR 8 Training Shoes</a>
+                    <div class="marketplace__product-price-wrapper">
+                        <p class="marketplace__product-price"><span>₦</span>55,990.00</p>
+                        <div class="marketplace__product-discount">
+                            -25%
+                        </div>
+                    </div>
+                    <div class="marketplace__product-rating">
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <p class="marketplace__product-rating-number">(899)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="marketplace__product">
+                <div class="marketplace__product-image">
+                    <img src="images/pixel2.png" alt="" class="img-fluid">
+                    <div class="marketplace__product-new">New</div>
+                    <div class="marketplace__product-quickview">
+                        <button class="btn btn-primary marketplace__product-quickview-btn" data-toggle="modal"
+                            data-target="#exampleModal">Quick View</button>
+                    </div>
+                </div>
+                <div class="marketplace__product-details">
+                    <small class="marketplace__product-brand">Google</small>
+                    <hr class="marketplace__product-line">
+                    <a href="#" class="marketplace__product-name">Google Pixel 3 XL, Android 9, 4GB RAM, 64GB
+                        ROM...</a>
+                    <div class="marketplace__product-price-wrapper">
+                        <p class="marketplace__product-price"><span>₦</span>55,990.00</p>
+                        <div class="marketplace__product-discount">
+                            -25%
+                        </div>
+                    </div>
+                    <div class="marketplace__product-rating">
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <p class="marketplace__product-rating-number">(899)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="marketplace__product">
+                <div class="marketplace__product-image">
+                    <img src="images/shoes.png" alt="" class="img-fluid">
+                    <div class="marketplace__product-new">New</div>
+                    <div class="marketplace__product-quickview">
+                        <button class="btn btn-primary marketplace__product-quickview-btn" data-toggle="modal"
+                            data-target="#exampleModal">Quick View</button>
+                    </div>
+                </div>
+                <div class="marketplace__product-details">
+                    <small class="marketplace__product-brand">Nike</small>
+                    <hr class="marketplace__product-line">
+                    <a href="#" class="marketplace__product-name">Nike Free TR 8 Training Shoes</a>
+                    <div class="marketplace__product-price-wrapper">
+                        <p class="marketplace__product-price"><span>₦</span>55,990.00</p>
+                        <div class="marketplace__product-discount">
+                            -25%
+                        </div>
+                    </div>
+                    <div class="marketplace__product-rating">
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <p class="marketplace__product-rating-number">(899)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="marketplace__product-wrapper marketplace__tab tab-pane fade" id="v-pills-settings" role="tabpanel"
+            aria-labelledby="v-pills-settings-tab">
+            <div class="marketplace__product">
+                <div class="marketplace__product-image">
+                    <img src="images/pixel2.png" alt="" class="img-fluid">
+                    <div class="marketplace__product-new">New</div>
+                    <div class="marketplace__product-quickview">
+                        <button class="btn btn-primary marketplace__product-quickview-btn" data-toggle="modal"
+                            data-target="#exampleModal">Quick View</button>
+                    </div>
+                </div>
+                <div class="marketplace__product-details">
+                    <small class="marketplace__product-brand">Google</small>
+                    <hr class="marketplace__product-line">
+                    <a href="#" class="marketplace__product-name">Google Pixel 3 XL, Android 9, 4GB RAM, 64GB
+                        ROM...</a>
+                    <div class="marketplace__product-price-wrapper">
+                        <p class="marketplace__product-price"><span>₦</span>55,990.00</p>
+                        <div class="marketplace__product-discount">
+                            -25%
+                        </div>
+                    </div>
+                    <div class="marketplace__product-rating">
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <p class="marketplace__product-rating-number">(899)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="marketplace__product">
+                <div class="marketplace__product-image">
+                    <img src="images/shoes.png" alt="" class="img-fluid">
+                    <div class="marketplace__product-new">New</div>
+                    <div class="marketplace__product-quickview">
+                        <button class="btn btn-primary marketplace__product-quickview-btn" data-toggle="modal"
+                            data-target="#exampleModal">Quick View</button>
+                    </div>
+                </div>
+                <div class="marketplace__product-details">
+                    <small class="marketplace__product-brand">Nike</small>
+                    <hr class="marketplace__product-line">
+                    <a href="#" class="marketplace__product-name">Nike Free TR 8 Training Shoes</a>
+                    <div class="marketplace__product-price-wrapper">
+                        <p class="marketplace__product-price"><span>₦</span>55,990.00</p>
+                        <div class="marketplace__product-discount">
+                            -25%
+                        </div>
+                    </div>
+                    <div class="marketplace__product-rating">
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <p class="marketplace__product-rating-number">(899)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="marketplace__product">
+                <div class="marketplace__product-image">
+                    <img src="images/suite.png" alt="" class="img-fluid">
+                    <div class="marketplace__product-new">New</div>
+                    <div class="marketplace__product-quickview">
+                        <button class="btn btn-primary marketplace__product-quickview-btn" data-toggle="modal"
+                            data-target="#exampleModal">Quick View</button>
+                    </div>
+                </div>
+                <div class="marketplace__product-details">
+                    <small class="marketplace__product-brand">Versace</small>
+                    <hr class="marketplace__product-line">
+                    <a href="#" class="marketplace__product-name">Red Tuxedo with bow-tie and waist coat</a>
+                    <div class="marketplace__product-price-wrapper">
+                        <p class="marketplace__product-price"><span>₦</span>55,990.00</p>
+                        <div class="marketplace__product-discount">
+                            -25%
+                        </div>
+                    </div>
+                    <div class="marketplace__product-rating">
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <p class="marketplace__product-rating-number">(899)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="marketplace__product">
+                <div class="marketplace__product-image">
+                    <img src="images/pixel2.png" alt="" class="img-fluid">
+                    <div class="marketplace__product-new">New</div>
+                    <div class="marketplace__product-quickview">
+                        <button class="btn btn-primary marketplace__product-quickview-btn" data-toggle="modal"
+                            data-target="#exampleModal">Quick View</button>
+                    </div>
+                </div>
+                <div class="marketplace__product-details">
+                    <small class="marketplace__product-brand">Google</small>
+                    <hr class="marketplace__product-line">
+                    <a href="#" class="marketplace__product-name">Google Pixel 3 XL, Android 9, 4GB RAM, 64GB
+                        ROM...</a>
+                    <div class="marketplace__product-price-wrapper">
+                        <p class="marketplace__product-price"><span>₦</span>55,990.00</p>
+                        <div class="marketplace__product-discount">
+                            -25%
+                        </div>
+                    </div>
+                    <div class="marketplace__product-rating">
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <p class="marketplace__product-rating-number">(899)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="marketplace__product">
+                <div class="marketplace__product-image">
+                    <img src="images/pixel2.png" alt="" class="img-fluid">
+                    <div class="marketplace__product-new">New</div>
+                    <div class="marketplace__product-quickview">
+                        <button class="btn btn-primary marketplace__product-quickview-btn" data-toggle="modal"
+                            data-target="#exampleModal">Quick View</button>
+                    </div>
+                </div>
+                <div class="marketplace__product-details">
+                    <small class="marketplace__product-brand">Google</small>
+                    <hr class="marketplace__product-line">
+                    <a href="#" class="marketplace__product-name">Google Pixel 3 XL, Android 9, 4GB RAM, 64GB
+                        ROM...</a>
+                    <div class="marketplace__product-price-wrapper">
+                        <p class="marketplace__product-price"><span>₦</span>55,990.00</p>
+                        <div class="marketplace__product-discount">
+                            -25%
+                        </div>
+                    </div>
+                    <div class="marketplace__product-rating">
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <p class="marketplace__product-rating-number">(899)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="marketplace__product">
+                <div class="marketplace__product-image">
+                    <img src="images/shoes.png" alt="" class="img-fluid">
+                    <div class="marketplace__product-new">New</div>
+                    <div class="marketplace__product-quickview">
+                        <button class="btn btn-primary marketplace__product-quickview-btn" data-toggle="modal"
+                            data-target="#exampleModal">Quick View</button>
+                    </div>
+                </div>
+                <div class="marketplace__product-details">
+                    <small class="marketplace__product-brand">Nike</small>
+                    <hr class="marketplace__product-line">
+                    <a href="#" class="marketplace__product-name">Nike Free TR 8 Training Shoes</a>
+                    <div class="marketplace__product-price-wrapper">
+                        <p class="marketplace__product-price"><span>₦</span>55,990.00</p>
+                        <div class="marketplace__product-discount">
+                            -25%
+                        </div>
+                    </div>
+                    <div class="marketplace__product-rating">
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <p class="marketplace__product-rating-number">(899)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="marketplace__product">
+                <div class="marketplace__product-image">
+                    <img src="images/suite.png" alt="" class="img-fluid">
+                    <div class="marketplace__product-new">New</div>
+                    <div class="marketplace__product-quickview">
+                        <button class="btn btn-primary marketplace__product-quickview-btn" data-toggle="modal"
+                            data-target="#exampleModal">Quick View</button>
+                    </div>
+                </div>
+                <div class="marketplace__product-details">
+                    <small class="marketplace__product-brand">Versace</small>
+                    <hr class="marketplace__product-line">
+                    <a href="#" class="marketplace__product-name">Red Tuxedo with bow-tie and waist coat</a>
+                    <div class="marketplace__product-price-wrapper">
+                        <p class="marketplace__product-price"><span>₦</span>55,990.00</p>
+                        <div class="marketplace__product-discount">
+                            -25%
+                        </div>
+                    </div>
+                    <div class="marketplace__product-rating">
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <p class="marketplace__product-rating-number">(899)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="marketplace__product">
+                <div class="marketplace__product-image">
+                    <img src="images/pixel2.png" alt="" class="img-fluid">
+                    <div class="marketplace__product-new">New</div>
+                    <div class="marketplace__product-quickview">
+                        <button class="btn btn-primary marketplace__product-quickview-btn" data-toggle="modal"
+                            data-target="#exampleModal">Quick View</button>
+                    </div>
+                </div>
+                <div class="marketplace__product-details">
+                    <small class="marketplace__product-brand">Google</small>
+                    <hr class="marketplace__product-line">
+                    <a href="#" class="marketplace__product-name">Google Pixel 3 XL, Android 9, 4GB RAM, 64GB
+                        ROM...</a>
+                    <div class="marketplace__product-price-wrapper">
+                        <p class="marketplace__product-price"><span>₦</span>55,990.00</p>
+                        <div class="marketplace__product-discount">
+                            -25%
+                        </div>
+                    </div>
+                    <div class="marketplace__product-rating">
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <p class="marketplace__product-rating-number">(899)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="marketplace__product-wrapper marketplace__tab tab-pane fade" id="v-pills-fashion" role="tabpanel"
+            aria-labelledby="v-pills-fashion-tab">
+            <div class="marketplace__product">
+                <div class="marketplace__product-image">
+                    <img src="images/pixel2.png" alt="" class="img-fluid">
+                    <div class="marketplace__product-new">New</div>
+                    <div class="marketplace__product-quickview">
+                        <button class="btn btn-primary marketplace__product-quickview-btn" data-toggle="modal"
+                            data-target="#exampleModal">Quick View</button>
+                    </div>
+                </div>
+                <div class="marketplace__product-details">
+                    <small class="marketplace__product-brand">Google</small>
+                    <hr class="marketplace__product-line">
+                    <a href="#" class="marketplace__product-name">Google Pixel 3 XL, Android 9, 4GB RAM, 64GB
+                        ROM...</a>
+                    <div class="marketplace__product-price-wrapper">
+                        <p class="marketplace__product-price"><span>₦</span>55,990.00</p>
+                        <div class="marketplace__product-discount">
+                            -25%
+                        </div>
+                    </div>
+                    <div class="marketplace__product-rating">
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <p class="marketplace__product-rating-number">(899)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="marketplace__product">
+                <div class="marketplace__product-image">
+                    <img src="images/shoes.png" alt="" class="img-fluid">
+                    <div class="marketplace__product-new">New</div>
+                    <div class="marketplace__product-quickview">
+                        <button class="btn btn-primary marketplace__product-quickview-btn" data-toggle="modal"
+                            data-target="#exampleModal">Quick View</button>
+                    </div>
+                </div>
+                <div class="marketplace__product-details">
+                    <small class="marketplace__product-brand">Nike</small>
+                    <hr class="marketplace__product-line">
+                    <a href="#" class="marketplace__product-name">Nike Free TR 8 Training Shoes</a>
+                    <div class="marketplace__product-price-wrapper">
+                        <p class="marketplace__product-price"><span>₦</span>55,990.00</p>
+                        <div class="marketplace__product-discount">
+                            -25%
+                        </div>
+                    </div>
+                    <div class="marketplace__product-rating">
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <p class="marketplace__product-rating-number">(899)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="marketplace__product">
+                <div class="marketplace__product-image">
+                    <img src="images/suite.png" alt="" class="img-fluid">
+                    <div class="marketplace__product-new">New</div>
+                    <div class="marketplace__product-quickview">
+                        <button class="btn btn-primary marketplace__product-quickview-btn" data-toggle="modal"
+                            data-target="#exampleModal">Quick View</button>
+                    </div>
+                </div>
+                <div class="marketplace__product-details">
+                    <small class="marketplace__product-brand">Versace</small>
+                    <hr class="marketplace__product-line">
+                    <a href="#" class="marketplace__product-name">Red Tuxedo with bow-tie and waist coat</a>
+                    <div class="marketplace__product-price-wrapper">
+                        <p class="marketplace__product-price"><span>₦</span>55,990.00</p>
+                        <div class="marketplace__product-discount">
+                            -25%
+                        </div>
+                    </div>
+                    <div class="marketplace__product-rating">
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <p class="marketplace__product-rating-number">(899)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="marketplace__product">
+                <div class="marketplace__product-image">
+                    <img src="images/pixel2.png" alt="" class="img-fluid">
+                    <div class="marketplace__product-new">New</div>
+                    <div class="marketplace__product-quickview">
+                        <button class="btn btn-primary marketplace__product-quickview-btn" data-toggle="modal"
+                            data-target="#exampleModal">Quick View</button>
+                    </div>
+                </div>
+                <div class="marketplace__product-details">
+                    <small class="marketplace__product-brand">Google</small>
+                    <hr class="marketplace__product-line">
+                    <a href="#" class="marketplace__product-name">Google Pixel 3 XL, Android 9, 4GB RAM, 64GB
+                        ROM...</a>
+                    <div class="marketplace__product-price-wrapper">
+                        <p class="marketplace__product-price"><span>₦</span>55,990.00</p>
+                        <div class="marketplace__product-discount">
+                            -25%
+                        </div>
+                    </div>
+                    <div class="marketplace__product-rating">
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <p class="marketplace__product-rating-number">(899)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="marketplace__product">
+                <div class="marketplace__product-image">
+                    <img src="images/pixel2.png" alt="" class="img-fluid">
+                    <div class="marketplace__product-new">New</div>
+                    <div class="marketplace__product-quickview">
+                        <button class="btn btn-primary marketplace__product-quickview-btn" data-toggle="modal"
+                            data-target="#exampleModal">Quick View</button>
+                    </div>
+                </div>
+                <div class="marketplace__product-details">
+                    <small class="marketplace__product-brand">Google</small>
+                    <hr class="marketplace__product-line">
+                    <a href="#" class="marketplace__product-name">Google Pixel 3 XL, Android 9, 4GB RAM, 64GB
+                        ROM...</a>
+                    <div class="marketplace__product-price-wrapper">
+                        <p class="marketplace__product-price"><span>₦</span>55,990.00</p>
+                        <div class="marketplace__product-discount">
+                            -25%
+                        </div>
+                    </div>
+                    <div class="marketplace__product-rating">
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <p class="marketplace__product-rating-number">(899)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="marketplace__product">
+                <div class="marketplace__product-image">
+                    <img src="images/shoes.png" alt="" class="img-fluid">
+                    <div class="marketplace__product-new">New</div>
+                    <div class="marketplace__product-quickview">
+                        <button class="btn btn-primary marketplace__product-quickview-btn" data-toggle="modal"
+                            data-target="#exampleModal">Quick View</button>
+                    </div>
+                </div>
+                <div class="marketplace__product-details">
+                    <small class="marketplace__product-brand">Nike</small>
+                    <hr class="marketplace__product-line">
+                    <a href="#" class="marketplace__product-name">Nike Free TR 8 Training Shoes</a>
+                    <div class="marketplace__product-price-wrapper">
+                        <p class="marketplace__product-price"><span>₦</span>55,990.00</p>
+                        <div class="marketplace__product-discount">
+                            -25%
+                        </div>
+                    </div>
+                    <div class="marketplace__product-rating">
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <p class="marketplace__product-rating-number">(899)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="marketplace__product">
+                <div class="marketplace__product-image">
+                    <img src="images/suite.png" alt="" class="img-fluid">
+                    <div class="marketplace__product-new">New</div>
+                    <div class="marketplace__product-quickview">
+                        <button class="btn btn-primary marketplace__product-quickview-btn" data-toggle="modal"
+                            data-target="#exampleModal">Quick View</button>
+                    </div>
+                </div>
+                <div class="marketplace__product-details">
+                    <small class="marketplace__product-brand">Versace</small>
+                    <hr class="marketplace__product-line">
+                    <a href="#" class="marketplace__product-name">Red Tuxedo with bow-tie and waist coat</a>
+                    <div class="marketplace__product-price-wrapper">
+                        <p class="marketplace__product-price"><span>₦</span>55,990.00</p>
+                        <div class="marketplace__product-discount">
+                            -25%
+                        </div>
+                    </div>
+                    <div class="marketplace__product-rating">
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <p class="marketplace__product-rating-number">(899)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="marketplace__product">
+                <div class="marketplace__product-image">
+                    <img src="images/pixel2.png" alt="" class="img-fluid">
+                    <div class="marketplace__product-new">New</div>
+                    <div class="marketplace__product-quickview">
+                        <button class="btn btn-primary marketplace__product-quickview-btn" data-toggle="modal"
+                            data-target="#exampleModal">Quick View</button>
+                    </div>
+                </div>
+                <div class="marketplace__product-details">
+                    <small class="marketplace__product-brand">Google</small>
+                    <hr class="marketplace__product-line">
+                    <a href="#" class="marketplace__product-name">Google Pixel 3 XL, Android 9, 4GB RAM, 64GB
+                        ROM...</a>
+                    <div class="marketplace__product-price-wrapper">
+                        <p class="marketplace__product-price"><span>₦</span>55,990.00</p>
+                        <div class="marketplace__product-discount">
+                            -25%
+                        </div>
+                    </div>
+                    <div class="marketplace__product-rating">
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <svg class="icon icon-star marketplace__product-rating-stars">
+                            <use xlink:href="#icon-star"></use>
+                        </svg>
+                        <p class="marketplace__product-rating-number">(899)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</section>
+
+
+<section class="marketplace__stores">
+    <div class="marketplace__recommended-wrapper marketplace__stores-wrapper">
+        <div class="marketplace__recommended-top">
+            <svg class="icon icon-phones-tablet">
+                <use xlink:href="#icon-phones-tablet"></use>
+            </svg>
+            <span class="marketplace__recommended-heading marketplace__stores-heading">Phones and tablets</span>
+        </div>
+        <div class="marketplace__recommended-options-wrapper marketplace__stores-options-wrapper">
+            <div class="marketplace__stores-brand text-center">
+                <a href="#">
+                    <img src="{{ asset('themes/' ~  current_theme()  ~ '/images/sony.png') }}" alt="sony brand logo" class="img-fluid">
+                </a>
+            </div>
+            <div class="marketplace__stores-brand text-center">
+                <a href="#">
+                    <img src="{{ asset('themes/' ~  current_theme()  ~ '/images/htc.jpg') }}" alt="sony brand logo" class="img-fluid">
+                </a>
+            </div>
+            <div class="marketplace__stores-brand text-center">
+                <a href="#">
+                    <img src="{{ asset('themes/' ~  current_theme()  ~ '/images/samsung.jpg') }}" alt="sony brand logo" class="img-fluid">
+                </a>
+            </div>
+            <div class="marketplace__stores-brand text-center">
+                <a href="#">
+                    <img src="{{ asset('themes/' ~  current_theme()  ~ '/images/blackberry.jpg') }}" alt="sony brand logo" class="img-fluid">
+                </a>
+            </div>
+            <div class="marketplace__stores-brand text-center">
+                <a href="#">
+                    <img src="{{ asset('themes/' ~  current_theme()  ~ '/images/Lenovo.jpg') }}" alt="sony brand logo" class="img-fluid">
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="marketplace__stores-explore">
+        <div class="marketplace__stores-explore-top">
+            <p>Explore Our stores</p>
+        </div>
+        <div class="marketplace__stores-explore-products">
+            <!-- smart phones -->
+            <a href="#">
+                <h3 class="marketplace__stores-explore-products-heading">Smart Phones</h3>
+            </a>
+            <a href="#">
+                <p class="marketplace__stores-explore-products-name">Androids</p>
+            </a>
+            <a href="#">
+                <p class="marketplace__stores-explore-products-name">iOS Phones</p>
+            </a>
+            <a href="#">
+                <p class="marketplace__stores-explore-products-name">Windows Phones</p>
+            </a>
+
+            <!-- mobile phones -->
+            <a href="#">
+                <h3 class="marketplace__stores-explore-products-heading">Mobile Phones</h3>
+            </a>
+
+            <!-- Accessories -->
+            <a href="#">
+                <h3 class="marketplace__stores-explore-products-heading">Accessories</h3>
+            </a>
+            <a href="#">
+                <p class="marketplace__stores-explore-products-name">Power Banks</p>
+            </a>
+            <a href="#">
+                <p class="marketplace__stores-explore-products-name">Phone Cases</p>
+            </a>
+            <a href="#">
+                <p class="marketplace__stores-explore-products-name">Headsets & Earphones</p>
+            </a>
+
+            <!-- Tablets -->
+            <a href="#">
+                <h3 class="marketplace__stores-explore-products-heading">Tablets</h3>
+            </a>
+            <a href="#">
+                <p class="marketplace__stores-explore-products-name">iPads</p>
+            </a>
+            <a href="#">
+                <p class="marketplace__stores-explore-products-name">Tabs</p>
+            </a>
+
+            <!-- Tablet Accessories -->
+            <a href="#">
+                <h3 class="marketplace__stores-explore-products-heading">Tablet Accessories</h3>
+            </a>
+            <a href="#">
+                <p class="marketplace__stores-explore-products-name">Headset & Earphones</p>
+            </a>
+            <a href="#">
+                <p class="marketplace__stores-explore-products-name">Bags, Phone cases & Sleeves</p>
+            </a>
+        </div>
+    </div>
+    <div class="marketplace__stores-banner">
+        <img src="{{ asset('themes/' ~  current_theme()  ~ '/images/phone-banner.jpg') }}" alt="phone banner" class="img-fluid h-100">
+    </div>
+    <div class="marketplace__stores-product-slider">
+        <div class="marketplace__stores-product-slider-wrapper">
+            <div class="marketplace__stores-product-slider-top d-flex">
+                <div class="marketplace__product">
+                    <div class="marketplace__product-image">
+                        <img src="images/pixel2.png" alt="" class="img-fluid">
+                        <div class="marketplace__product-new">New</div>
+                        <div class="marketplace__product-quickview">
+                            <button class="btn btn-primary marketplace__product-quickview-btn" data-toggle="modal"
+                                data-target="#exampleModal">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="marketplace__product-details">
+                        <small class="marketplace__product-brand">Google</small>
+                        <hr class="marketplace__product-line">
+                        <a href="#" class="marketplace__product-name">Google Pixel 3 XL, Android 9, 4GB RAM, 64GB
+                            ROM...</a>
+                        <div class="marketplace__product-price-wrapper">
+                            <p class="marketplace__product-price"><span>₦</span>55,990.00</p>
+                            <div class="marketplace__product-discount">
+                                -25%
+                            </div>
+                        </div>
+                        <div class="marketplace__product-rating">
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <p class="marketplace__product-rating-number">(899)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="marketplace__stores-product-slider-bottom d-flex">
+                <div class="marketplace__product">
+                    <div class="marketplace__product-image">
+                        <img src="images/pixel2.png" alt="" class="img-fluid">
+                        <div class="marketplace__product-new">New</div>
+                        <div class="marketplace__product-quickview">
+                            <button class="btn btn-primary marketplace__product-quickview-btn" data-toggle="modal"
+                                data-target="#exampleModal">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="marketplace__product-details">
+                        <small class="marketplace__product-brand">Google</small>
+                        <hr class="marketplace__product-line">
+                        <a href="#" class="marketplace__product-name">Google Pixel 3 XL, Android 9, 4GB RAM, 64GB
+                            ROM...</a>
+                        <div class="marketplace__product-price-wrapper">
+                            <p class="marketplace__product-price"><span>₦</span>55,990.00</p>
+                            <div class="marketplace__product-discount">
+                                -25%
+                            </div>
+                        </div>
+                        <div class="marketplace__product-rating">
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <p class="marketplace__product-rating-number">(899)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="marketplace__stores-product-slider-wrapper">
+            <div class="marketplace__stores-product-slider-top d-flex">
+                <div class="marketplace__product">
+                    <div class="marketplace__product-image">
+                        <img src="images/pixel2.png" alt="" class="img-fluid">
+                        <div class="marketplace__product-new">New</div>
+                        <div class="marketplace__product-quickview">
+                            <button class="btn btn-primary marketplace__product-quickview-btn" data-toggle="modal"
+                                data-target="#exampleModal">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="marketplace__product-details">
+                        <small class="marketplace__product-brand">Google</small>
+                        <hr class="marketplace__product-line">
+                        <a href="#" class="marketplace__product-name">Google Pixel 3 XL, Android 9, 4GB RAM, 64GB
+                            ROM...</a>
+                        <div class="marketplace__product-price-wrapper">
+                            <p class="marketplace__product-price"><span>₦</span>55,990.00</p>
+                            <div class="marketplace__product-discount">
+                                -25%
+                            </div>
+                        </div>
+                        <div class="marketplace__product-rating">
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <p class="marketplace__product-rating-number">(899)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="marketplace__stores-product-slider-bottom d-flex">
+                <div class="marketplace__product">
+                    <div class="marketplace__product-image">
+                        <img src="images/pixel2.png" alt="" class="img-fluid">
+                        <div class="marketplace__product-new">New</div>
+                        <div class="marketplace__product-quickview">
+                            <button class="btn btn-primary marketplace__product-quickview-btn" data-toggle="modal"
+                                data-target="#exampleModal">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="marketplace__product-details">
+                        <small class="marketplace__product-brand">Google</small>
+                        <hr class="marketplace__product-line">
+                        <a href="#" class="marketplace__product-name">Google Pixel 3 XL, Android 9, 4GB RAM, 64GB
+                            ROM...</a>
+                        <div class="marketplace__product-price-wrapper">
+                            <p class="marketplace__product-price"><span>₦</span>55,990.00</p>
+                            <div class="marketplace__product-discount">
+                                -25%
+                            </div>
+                        </div>
+                        <div class="marketplace__product-rating">
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <p class="marketplace__product-rating-number">(899)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="marketplace__stores-product-slider-wrapper">
+            <div class="marketplace__stores-product-slider-top d-flex">
+                <div class="marketplace__product">
+                    <div class="marketplace__product-image">
+                        <img src="images/pixel2.png" alt="" class="img-fluid">
+                        <div class="marketplace__product-new">New</div>
+                        <div class="marketplace__product-quickview">
+                            <button class="btn btn-primary marketplace__product-quickview-btn" data-toggle="modal"
+                                data-target="#exampleModal">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="marketplace__product-details">
+                        <small class="marketplace__product-brand">Google</small>
+                        <hr class="marketplace__product-line">
+                        <a href="#" class="marketplace__product-name">Google Pixel 3 XL, Android 9, 4GB RAM, 64GB
+                            ROM...</a>
+                        <div class="marketplace__product-price-wrapper">
+                            <p class="marketplace__product-price"><span>₦</span>55,990.00</p>
+                            <div class="marketplace__product-discount">
+                                -25%
+                            </div>
+                        </div>
+                        <div class="marketplace__product-rating">
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <p class="marketplace__product-rating-number">(899)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="marketplace__stores-product-slider-bottom d-flex">
+                <div class="marketplace__product">
+                    <div class="marketplace__product-image">
+                        <img src="images/pixel2.png" alt="" class="img-fluid">
+                        <div class="marketplace__product-new">New</div>
+                        <div class="marketplace__product-quickview">
+                            <button class="btn btn-primary marketplace__product-quickview-btn" data-toggle="modal"
+                                data-target="#exampleModal">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="marketplace__product-details">
+                        <small class="marketplace__product-brand">Google</small>
+                        <hr class="marketplace__product-line">
+                        <a href="#" class="marketplace__product-name">Google Pixel 3 XL, Android 9, 4GB RAM, 64GB
+                            ROM...</a>
+                        <div class="marketplace__product-price-wrapper">
+                            <p class="marketplace__product-price"><span>₦</span>55,990.00</p>
+                            <div class="marketplace__product-discount">
+                                -25%
+                            </div>
+                        </div>
+                        <div class="marketplace__product-rating">
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <p class="marketplace__product-rating-number">(899)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="marketplace__stores-product-slider-wrapper">
+            <div class="marketplace__stores-product-slider-top d-flex">
+                <div class="marketplace__product">
+                    <div class="marketplace__product-image">
+                        <img src="images/pixel2.png" alt="" class="img-fluid">
+                        <div class="marketplace__product-new">New</div>
+                        <div class="marketplace__product-quickview">
+                            <button class="btn btn-primary marketplace__product-quickview-btn" data-toggle="modal"
+                                data-target="#exampleModal">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="marketplace__product-details">
+                        <small class="marketplace__product-brand">Google</small>
+                        <hr class="marketplace__product-line">
+                        <a href="#" class="marketplace__product-name">Google Pixel 3 XL, Android 9, 4GB RAM, 64GB
+                            ROM...</a>
+                        <div class="marketplace__product-price-wrapper">
+                            <p class="marketplace__product-price"><span>₦</span>55,990.00</p>
+                            <div class="marketplace__product-discount">
+                                -25%
+                            </div>
+                        </div>
+                        <div class="marketplace__product-rating">
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <p class="marketplace__product-rating-number">(899)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="marketplace__stores-product-slider-bottom d-flex">
+                <div class="marketplace__product">
+                    <div class="marketplace__product-image">
+                        <img src="images/pixel2.png" alt="" class="img-fluid">
+                        <div class="marketplace__product-new">New</div>
+                        <div class="marketplace__product-quickview">
+                            <button class="btn btn-primary marketplace__product-quickview-btn" data-toggle="modal"
+                                data-target="#exampleModal">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="marketplace__product-details">
+                        <small class="marketplace__product-brand">Google</small>
+                        <hr class="marketplace__product-line">
+                        <a href="#" class="marketplace__product-name">Google Pixel 3 XL, Android 9, 4GB RAM, 64GB
+                            ROM...</a>
+                        <div class="marketplace__product-price-wrapper">
+                            <p class="marketplace__product-price"><span>₦</span>55,990.00</p>
+                            <div class="marketplace__product-discount">
+                                -25%
+                            </div>
+                        </div>
+                        <div class="marketplace__product-rating">
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <p class="marketplace__product-rating-number">(899)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="marketplace__stores">
+    <div class="marketplace__recommended-wrapper marketplace__stores-wrapper marketplace__home-office">
+        <div class="marketplace__recommended-top">
+            <svg class="icon icon-home-office">
+                <use xlink:href="#icon-home-office"></use>
+            </svg>
+            <span class="marketplace__recommended-heading">home & office</span>
+        </div>
+        <div class="marketplace__recommended-options-wrapper marketplace__stores-options-wrapper marketplace__home-office-options">
+            <div class="marketplace__home-office-brand text-center">
+                <a href="#">
+                    <img src="{{ asset('themes/' ~  current_theme()  ~ '/images/henkel.jpg') }}" alt="henkel brand logo" class="img-fluid">
+                </a>
+            </div>
+            <div class="marketplace__home-office-brand text-center">
+                <a href="#">
+                    <img src="{{ asset('themes/' ~  current_theme()  ~ '/images/origins.jpg') }}" alt="Origins brand logo" class="img-fluid">
+                </a>
+            </div>
+            <div class="marketplace__home-office-brand text-center">
+                <a href="#">
+                    <img src="{{ asset('themes/' ~  current_theme()  ~ '/images/Gresham.jpg') }}" alt="Gresham brand logo" class="img-fluid">
+                </a>
+            </div>
+            <div class="marketplace__home-office-brand text-center">
+                <a href="#">
+                    <img src="{{ asset('themes/' ~  current_theme()  ~ '/images/av-pro.jpg') }}" alt="sony brand logo" class="img-fluid">
+                </a>
+            </div>
+            <div class="marketplace__home-office-brand text-center">
+                <a href="#">
+                    <img src="{{ asset('themes/' ~  current_theme()  ~ '/images/home-office.jpg') }}" alt="sony brand logo" class="img-fluid">
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="marketplace__stores-explore">
+        <div class="marketplace__stores-explore-top">
+            <p>Explore Our stores</p>
+        </div>
+        <div class="marketplace__stores-explore-products">
+            <!-- Appliances -->
+            <a href="#">
+                <h3 class="marketplace__stores-explore-products-heading">Appliances</h3>
+            </a>
+            <a href="#">
+                <p class="marketplace__stores-explore-products-name">Small Appliances</p>
+            </a>
+            <a href="#">
+                <p class="marketplace__stores-explore-products-name">Heating, Cooling & Air Quality</p>
+            </a>
+            <a href="#">
+                <p class="marketplace__stores-explore-products-name">Refrigeration</p>
+            </a>
+            <a href="#">
+                <p class="marketplace__stores-explore-products-name">Washers & Dryers</p>
+            </a>
+            <a href="#">
+                <p class="marketplace__stores-explore-products-name">Cooking Appliances</p>
+            </a>
+
+            <!-- Home & Office -->
+            <a href="#">
+                <h3 class="marketplace__stores-explore-products-heading">Home & Office</h3>
+            </a>
+            <a href="#">
+                <p class="marketplace__stores-explore-products-name">Kitchen & Dining</p>
+            </a>
+            <a href="#">
+                <p class="marketplace__stores-explore-products-name">Home Decoration</p>
+            </a>
+            <a href="#">
+                <p class="marketplace__stores-explore-products-name">Bedding</p>
+            </a>
+            <a href="#">
+                <p class="marketplace__stores-explore-products-name">Bath</p>
+            </a>
+            <a href="#">
+                <p class="marketplace__stores-explore-products-name">Stationary</p>
+            </a>
+
+            <!-- Lighting-->
+            <a href="#">
+                <h3 class="marketplace__stores-explore-products-heading">Lighting</h3>
+            </a>
+            <!-- Storage Organization -->
+            <a href="#">
+                <h3 class="marketplace__stores-explore-products-heading">Storage Organization</h3>
+            </a>
+        </div>
+    </div>
+    <div class="marketplace__stores-banner">
+        <img src="{{ asset('themes/' ~  current_theme()  ~ '/images/home-office-banner.jpg') }}" alt="phone banner" class="img-fluid h-100">
+    </div>
+    <div class="marketplace__stores-product-slider">
+        <div class="marketplace__stores-product-slider-wrapper">
+            <div class="marketplace__stores-product-slider-top d-flex">
+                <div class="marketplace__product">
+                    <div class="marketplace__product-image">
+                        <img src="images/pixel2.png" alt="" class="img-fluid">
+                        <div class="marketplace__product-new">New</div>
+                        <div class="marketplace__product-quickview">
+                            <button class="btn btn-primary marketplace__product-quickview-btn" data-toggle="modal"
+                                data-target="#exampleModal">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="marketplace__product-details">
+                        <small class="marketplace__product-brand">Google</small>
+                        <hr class="marketplace__product-line">
+                        <a href="#" class="marketplace__product-name">Google Pixel 3 XL, Android 9, 4GB RAM, 64GB
+                            ROM...</a>
+                        <div class="marketplace__product-price-wrapper">
+                            <p class="marketplace__product-price"><span>₦</span>55,990.00</p>
+                            <div class="marketplace__product-discount">
+                                -25%
+                            </div>
+                        </div>
+                        <div class="marketplace__product-rating">
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <p class="marketplace__product-rating-number">(899)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="marketplace__stores-product-slider-bottom d-flex">
+                <div class="marketplace__product">
+                    <div class="marketplace__product-image">
+                        <img src="images/pixel2.png" alt="" class="img-fluid">
+                        <div class="marketplace__product-new">New</div>
+                        <div class="marketplace__product-quickview">
+                            <button class="btn btn-primary marketplace__product-quickview-btn" data-toggle="modal"
+                                data-target="#exampleModal">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="marketplace__product-details">
+                        <small class="marketplace__product-brand">Google</small>
+                        <hr class="marketplace__product-line">
+                        <a href="#" class="marketplace__product-name">Google Pixel 3 XL, Android 9, 4GB RAM, 64GB
+                            ROM...</a>
+                        <div class="marketplace__product-price-wrapper">
+                            <p class="marketplace__product-price"><span>₦</span>55,990.00</p>
+                            <div class="marketplace__product-discount">
+                                -25%
+                            </div>
+                        </div>
+                        <div class="marketplace__product-rating">
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <p class="marketplace__product-rating-number">(899)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="marketplace__stores-product-slider-wrapper">
+            <div class="marketplace__stores-product-slider-top d-flex">
+                <div class="marketplace__product">
+                    <div class="marketplace__product-image">
+                        <img src="images/pixel2.png" alt="" class="img-fluid">
+                        <div class="marketplace__product-new">New</div>
+                        <div class="marketplace__product-quickview">
+                            <button class="btn btn-primary marketplace__product-quickview-btn" data-toggle="modal"
+                                data-target="#exampleModal">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="marketplace__product-details">
+                        <small class="marketplace__product-brand">Google</small>
+                        <hr class="marketplace__product-line">
+                        <a href="#" class="marketplace__product-name">Google Pixel 3 XL, Android 9, 4GB RAM, 64GB
+                            ROM...</a>
+                        <div class="marketplace__product-price-wrapper">
+                            <p class="marketplace__product-price"><span>₦</span>55,990.00</p>
+                            <div class="marketplace__product-discount">
+                                -25%
+                            </div>
+                        </div>
+                        <div class="marketplace__product-rating">
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <p class="marketplace__product-rating-number">(899)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="marketplace__stores-product-slider-bottom d-flex">
+                <div class="marketplace__product">
+                    <div class="marketplace__product-image">
+                        <img src="images/pixel2.png" alt="" class="img-fluid">
+                        <div class="marketplace__product-new">New</div>
+                        <div class="marketplace__product-quickview">
+                            <button class="btn btn-primary marketplace__product-quickview-btn" data-toggle="modal"
+                                data-target="#exampleModal">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="marketplace__product-details">
+                        <small class="marketplace__product-brand">Google</small>
+                        <hr class="marketplace__product-line">
+                        <a href="#" class="marketplace__product-name">Google Pixel 3 XL, Android 9, 4GB RAM, 64GB
+                            ROM...</a>
+                        <div class="marketplace__product-price-wrapper">
+                            <p class="marketplace__product-price"><span>₦</span>55,990.00</p>
+                            <div class="marketplace__product-discount">
+                                -25%
+                            </div>
+                        </div>
+                        <div class="marketplace__product-rating">
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <p class="marketplace__product-rating-number">(899)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="marketplace__stores-product-slider-wrapper">
+            <div class="marketplace__stores-product-slider-top d-flex">
+                <div class="marketplace__product">
+                    <div class="marketplace__product-image">
+                        <img src="images/pixel2.png" alt="" class="img-fluid">
+                        <div class="marketplace__product-new">New</div>
+                        <div class="marketplace__product-quickview">
+                            <button class="btn btn-primary marketplace__product-quickview-btn" data-toggle="modal"
+                                data-target="#exampleModal">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="marketplace__product-details">
+                        <small class="marketplace__product-brand">Google</small>
+                        <hr class="marketplace__product-line">
+                        <a href="#" class="marketplace__product-name">Google Pixel 3 XL, Android 9, 4GB RAM, 64GB
+                            ROM...</a>
+                        <div class="marketplace__product-price-wrapper">
+                            <p class="marketplace__product-price"><span>₦</span>55,990.00</p>
+                            <div class="marketplace__product-discount">
+                                -25%
+                            </div>
+                        </div>
+                        <div class="marketplace__product-rating">
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <p class="marketplace__product-rating-number">(899)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="marketplace__stores-product-slider-bottom d-flex">
+                <div class="marketplace__product">
+                    <div class="marketplace__product-image">
+                        <img src="images/pixel2.png" alt="" class="img-fluid">
+                        <div class="marketplace__product-new">New</div>
+                        <div class="marketplace__product-quickview">
+                            <button class="btn btn-primary marketplace__product-quickview-btn" data-toggle="modal"
+                                data-target="#exampleModal">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="marketplace__product-details">
+                        <small class="marketplace__product-brand">Google</small>
+                        <hr class="marketplace__product-line">
+                        <a href="#" class="marketplace__product-name">Google Pixel 3 XL, Android 9, 4GB RAM, 64GB
+                            ROM...</a>
+                        <div class="marketplace__product-price-wrapper">
+                            <p class="marketplace__product-price"><span>₦</span>55,990.00</p>
+                            <div class="marketplace__product-discount">
+                                -25%
+                            </div>
+                        </div>
+                        <div class="marketplace__product-rating">
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <p class="marketplace__product-rating-number">(899)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="marketplace__stores-product-slider-wrapper">
+            <div class="marketplace__stores-product-slider-top d-flex">
+                <div class="marketplace__product">
+                    <div class="marketplace__product-image">
+                        <img src="images/pixel2.png" alt="" class="img-fluid">
+                        <div class="marketplace__product-new">New</div>
+                        <div class="marketplace__product-quickview">
+                            <button class="btn btn-primary marketplace__product-quickview-btn" data-toggle="modal"
+                                data-target="#exampleModal">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="marketplace__product-details">
+                        <small class="marketplace__product-brand">Google</small>
+                        <hr class="marketplace__product-line">
+                        <a href="#" class="marketplace__product-name">Google Pixel 3 XL, Android 9, 4GB RAM, 64GB
+                            ROM...</a>
+                        <div class="marketplace__product-price-wrapper">
+                            <p class="marketplace__product-price"><span>₦</span>55,990.00</p>
+                            <div class="marketplace__product-discount">
+                                -25%
+                            </div>
+                        </div>
+                        <div class="marketplace__product-rating">
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <p class="marketplace__product-rating-number">(899)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="marketplace__stores-product-slider-bottom d-flex">
+                <div class="marketplace__product">
+                    <div class="marketplace__product-image">
+                        <img src="images/pixel2.png" alt="" class="img-fluid">
+                        <div class="marketplace__product-new">New</div>
+                        <div class="marketplace__product-quickview">
+                            <button class="btn btn-primary marketplace__product-quickview-btn" data-toggle="modal"
+                                data-target="#exampleModal">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="marketplace__product-details">
+                        <small class="marketplace__product-brand">Google</small>
+                        <hr class="marketplace__product-line">
+                        <a href="#" class="marketplace__product-name">Google Pixel 3 XL, Android 9, 4GB RAM, 64GB
+                            ROM...</a>
+                        <div class="marketplace__product-price-wrapper">
+                            <p class="marketplace__product-price"><span>₦</span>55,990.00</p>
+                            <div class="marketplace__product-discount">
+                                -25%
+                            </div>
+                        </div>
+                        <div class="marketplace__product-rating">
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <p class="marketplace__product-rating-number">(899)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="marketplace__banner">
+    <img src="{{ asset('themes/' ~ current_theme() ~ '/images/banner-two.jpg') }}" alt="Ad banner" class="img-fluid w-100" style="min-height: 73px;">
+</section>
+
+<section class="marketplace__stores">
+    <div class="marketplace__recommended-wrapper marketplace__stores-wrapper marketplace__health-beauty">
+        <div class="marketplace__recommended-top">
+            <svg class="icon icon-health-beauty">
+                <use xlink:href="#icon-health-beauty"></use>
+            </svg>
+            <span class="marketplace__recommended-heading">health & beauty</span>
+        </div>
+        <div class="marketplace__recommended-options-wrapper marketplace__stores-options-wrapper marketplace__home-office-options">
+            <div class="text-center">
+                <a href="#">
+                    <img src="{{ asset('themes/' ~  current_theme()  ~ '/images/hills.jpg') }}" alt="hills brand logo" class="img-fluid">
+                </a>
+            </div>
+            <div class="text-center">
+                <a href="#">
+                    <img src="{{ asset('themes/' ~  current_theme()  ~ '/images/watsons.jpg') }}" alt="watsons brand logo" class="img-fluid">
+                </a>
+            </div>
+            <div class="text-center">
+                <a href="#">
+                    <img src="{{ asset('themes/' ~  current_theme()  ~ '/images/lynx.jpg') }}" alt="lynx brand logo" class="img-fluid">
+                </a>
+            </div>
+            <div class="text-center">
+                <a href="#">
+                    <img src="{{ asset('themes/' ~  current_theme()  ~ '/images/Axe.jpg') }}" alt="Axe brand logo" class="img-fluid">
+                </a>
+            </div>
+            <div class="text-center">
+                <a href="#">
+                    <img src="{{ asset('themes/' ~  current_theme()  ~ '/images/Braun.jpg') }}" alt="Braun brand logo" class="img-fluid">
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="marketplace__stores-explore">
+        <div class="marketplace__stores-explore-top">
+            <p>Explore Our stores</p>
+        </div>
+        <div class="marketplace__stores-explore-products">
+            <!-- Fragrance -->
+            <a href="#">
+                <h3 class="marketplace__stores-explore-products-heading mt-0">Fragrance</h3>
+            </a>
+            <a href="#">
+                <p class="marketplace__stores-explore-products-name">Men's Fragrance</p>
+            </a>
+            <a href="#">
+                <p class="marketplace__stores-explore-products-name">Women's Fragrance</p>
+            </a>
+
+            <!-- Home & Office -->
+            <a href="#">
+                <h3 class="marketplace__stores-explore-products-heading">Hair Care</h3>
+            </a>
+            <a href="#">
+                <p class="marketplace__stores-explore-products-name">Hair Pieces</p>
+            </a>
+            <a href="#">
+                <p class="marketplace__stores-explore-products-name">Hair Tools</p>
+            </a>
+
+            <!-- Lighting-->
+            <a href="#">
+                <h3 class="marketplace__stores-explore-products-heading">Men's Grooming</h3>
+            </a>
+            <!-- Storage Organization -->
+            <a href="#">
+                <h3 class="marketplace__stores-explore-products-heading">Makeup</h3>
+            </a>
+            <a href="#">
+                <p class="marketplace__stores-explore-products-name">Face</p>
+            </a>
+            <a href="#">
+                <p class="marketplace__stores-explore-products-name">Eyes</p>
+            </a>
+            <a href="#">
+                <p class="marketplace__stores-explore-products-name">Lips</p>
+            </a>
+
+            <a href="#">
+                <h3 class="marketplace__stores-explore-products-heading">Healthcare</h3>
+            </a>
+            <a href="#">
+                <p class="marketplace__stores-explore-products-name">Vitamins & Dietary Supplements</p>
+            </a>
+            <a href="#">
+                <p class="marketplace__stores-explore-products-name">Sexual Wellness</p>
+            </a>
+            <a href="#">
+                <p class="marketplace__stores-explore-products-name">Fitness & Activity Monitors</p>
+            </a>
+        </div>
+    </div>
+    <div class="marketplace__stores-banner">
+        <img src="{{ asset('themes/' ~  current_theme()  ~ '/images/health-beauty.jpg') }}" alt="phone banner" class="img-fluid h-100">
+    </div>
+    <div class="marketplace__stores-product-slider">
+        <div class="marketplace__stores-product-slider-wrapper">
+            <div class="marketplace__stores-product-slider-top d-flex">
+                <div class="marketplace__product">
+                    <div class="marketplace__product-image">
+                        <img src="{{ asset('themes/' ~  current_theme()  ~ '/images/pixel2.png') }}" alt="" class="img-fluid">
+                        <div class="marketplace__product-new">New</div>
+                        <div class="marketplace__product-quickview">
+                            <button class="btn btn-primary marketplace__product-quickview-btn" data-toggle="modal"
+                                data-target="#exampleModal">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="marketplace__product-details">
+                        <small class="marketplace__product-brand">Google</small>
+                        <hr class="marketplace__product-line">
+                        <a href="#" class="marketplace__product-name">Google Pixel 3 XL, Android 9, 4GB RAM, 64GB
+                            ROM...</a>
+                        <div class="marketplace__product-price-wrapper">
+                            <p class="marketplace__product-price"><span>₦</span>55,990.00</p>
+                            <div class="marketplace__product-discount">
+                                -25%
+                            </div>
+                        </div>
+                        <div class="marketplace__product-rating">
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <p class="marketplace__product-rating-number">(899)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="marketplace__stores-product-slider-bottom d-flex">
+                <div class="marketplace__product">
+                    <div class="marketplace__product-image">
+                        <img src="{{ asset('themes/' ~  current_theme()  ~ '/images/pixel2.png') }}" alt="" class="img-fluid">
+                        <div class="marketplace__product-new">New</div>
+                        <div class="marketplace__product-quickview">
+                            <button class="btn btn-primary marketplace__product-quickview-btn" data-toggle="modal"
+                                data-target="#exampleModal">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="marketplace__product-details">
+                        <small class="marketplace__product-brand">Google</small>
+                        <hr class="marketplace__product-line">
+                        <a href="#" class="marketplace__product-name">Google Pixel 3 XL, Android 9, 4GB RAM, 64GB
+                            ROM...</a>
+                        <div class="marketplace__product-price-wrapper">
+                            <p class="marketplace__product-price"><span>₦</span>55,990.00</p>
+                            <div class="marketplace__product-discount">
+                                -25%
+                            </div>
+                        </div>
+                        <div class="marketplace__product-rating">
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <p class="marketplace__product-rating-number">(899)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="marketplace__stores-product-slider-wrapper">
+            <div class="marketplace__stores-product-slider-top d-flex">
+                <div class="marketplace__product">
+                    <div class="marketplace__product-image">
+                        <img src="{{ asset('themes/' ~  current_theme()  ~ '/images/pixel2.png') }}" alt="" class="img-fluid">
+                        <div class="marketplace__product-new">New</div>
+                        <div class="marketplace__product-quickview">
+                            <button class="btn btn-primary marketplace__product-quickview-btn" data-toggle="modal"
+                                data-target="#exampleModal">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="marketplace__product-details">
+                        <small class="marketplace__product-brand">Google</small>
+                        <hr class="marketplace__product-line">
+                        <a href="#" class="marketplace__product-name">Google Pixel 3 XL, Android 9, 4GB RAM, 64GB
+                            ROM...</a>
+                        <div class="marketplace__product-price-wrapper">
+                            <p class="marketplace__product-price"><span>₦</span>55,990.00</p>
+                            <div class="marketplace__product-discount">
+                                -25%
+                            </div>
+                        </div>
+                        <div class="marketplace__product-rating">
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <p class="marketplace__product-rating-number">(899)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="marketplace__stores-product-slider-bottom d-flex">
+                <div class="marketplace__product">
+                    <div class="marketplace__product-image">
+                        <img src="images/pixel2.png" alt="" class="img-fluid">
+                        <div class="marketplace__product-new">New</div>
+                        <div class="marketplace__product-quickview">
+                            <button class="btn btn-primary marketplace__product-quickview-btn" data-toggle="modal"
+                                data-target="#exampleModal">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="marketplace__product-details">
+                        <small class="marketplace__product-brand">Google</small>
+                        <hr class="marketplace__product-line">
+                        <a href="#" class="marketplace__product-name">Google Pixel 3 XL, Android 9, 4GB RAM, 64GB
+                            ROM...</a>
+                        <div class="marketplace__product-price-wrapper">
+                            <p class="marketplace__product-price"><span>₦</span>55,990.00</p>
+                            <div class="marketplace__product-discount">
+                                -25%
+                            </div>
+                        </div>
+                        <div class="marketplace__product-rating">
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <p class="marketplace__product-rating-number">(899)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="marketplace__stores-product-slider-wrapper">
+            <div class="marketplace__stores-product-slider-top d-flex">
+                <div class="marketplace__product">
+                    <div class="marketplace__product-image">
+                        <img src="images/pixel2.png" alt="" class="img-fluid">
+                        <div class="marketplace__product-new">New</div>
+                        <div class="marketplace__product-quickview">
+                            <button class="btn btn-primary marketplace__product-quickview-btn" data-toggle="modal"
+                                data-target="#exampleModal">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="marketplace__product-details">
+                        <small class="marketplace__product-brand">Google</small>
+                        <hr class="marketplace__product-line">
+                        <a href="#" class="marketplace__product-name">Google Pixel 3 XL, Android 9, 4GB RAM, 64GB
+                            ROM...</a>
+                        <div class="marketplace__product-price-wrapper">
+                            <p class="marketplace__product-price"><span>₦</span>55,990.00</p>
+                            <div class="marketplace__product-discount">
+                                -25%
+                            </div>
+                        </div>
+                        <div class="marketplace__product-rating">
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <p class="marketplace__product-rating-number">(899)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="marketplace__stores-product-slider-bottom d-flex">
+                <div class="marketplace__product">
+                    <div class="marketplace__product-image">
+                        <img src="images/pixel2.png" alt="" class="img-fluid">
+                        <div class="marketplace__product-new">New</div>
+                        <div class="marketplace__product-quickview">
+                            <button class="btn btn-primary marketplace__product-quickview-btn" data-toggle="modal"
+                                data-target="#exampleModal">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="marketplace__product-details">
+                        <small class="marketplace__product-brand">Google</small>
+                        <hr class="marketplace__product-line">
+                        <a href="#" class="marketplace__product-name">Google Pixel 3 XL, Android 9, 4GB RAM, 64GB
+                            ROM...</a>
+                        <div class="marketplace__product-price-wrapper">
+                            <p class="marketplace__product-price"><span>₦</span>55,990.00</p>
+                            <div class="marketplace__product-discount">
+                                -25%
+                            </div>
+                        </div>
+                        <div class="marketplace__product-rating">
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <p class="marketplace__product-rating-number">(899)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="marketplace__stores-product-slider-wrapper">
+            <div class="marketplace__stores-product-slider-top d-flex">
+                <div class="marketplace__product">
+                    <div class="marketplace__product-image">
+                        <img src="images/pixel2.png" alt="" class="img-fluid">
+                        <div class="marketplace__product-new">New</div>
+                        <div class="marketplace__product-quickview">
+                            <button class="btn btn-primary marketplace__product-quickview-btn" data-toggle="modal"
+                                data-target="#exampleModal">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="marketplace__product-details">
+                        <small class="marketplace__product-brand">Google</small>
+                        <hr class="marketplace__product-line">
+                        <a href="#" class="marketplace__product-name">Google Pixel 3 XL, Android 9, 4GB RAM, 64GB
+                            ROM...</a>
+                        <div class="marketplace__product-price-wrapper">
+                            <p class="marketplace__product-price"><span>₦</span>55,990.00</p>
+                            <div class="marketplace__product-discount">
+                                -25%
+                            </div>
+                        </div>
+                        <div class="marketplace__product-rating">
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <p class="marketplace__product-rating-number">(899)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="marketplace__stores-product-slider-bottom d-flex">
+                <div class="marketplace__product">
+                    <div class="marketplace__product-image">
+                        <img src="images/pixel2.png" alt="" class="img-fluid">
+                        <div class="marketplace__product-new">New</div>
+                        <div class="marketplace__product-quickview">
+                            <button class="btn btn-primary marketplace__product-quickview-btn" data-toggle="modal"
+                                data-target="#exampleModal">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="marketplace__product-details">
+                        <small class="marketplace__product-brand">Google</small>
+                        <hr class="marketplace__product-line">
+                        <a href="#" class="marketplace__product-name">Google Pixel 3 XL, Android 9, 4GB RAM, 64GB
+                            ROM...</a>
+                        <div class="marketplace__product-price-wrapper">
+                            <p class="marketplace__product-price"><span>₦</span>55,990.00</p>
+                            <div class="marketplace__product-discount">
+                                -25%
+                            </div>
+                        </div>
+                        <div class="marketplace__product-rating">
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <svg class="icon icon-star marketplace__product-rating-stars">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <p class="marketplace__product-rating-number">(899)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="marketplace__loading text-center">
+    <svg class="icon icon-loading">
+        <use xlink:href="#icon-loading"></use>
+    </svg>
+    <span>Loading</span>
+</div>
+
+
+<section class="newsletter marketplace__newsletter">
+    <div class="row m-0">
+        <div class="col-lg-5 col-md-5 col-sm-6 col-12 mb-4 pl-0">
+            <div class="row m-0">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                    <h4 class="newsletter__head">PHONE SUPPORT</h4>
+                    <svg class="icon icon-phone newsletter__icon">
+                        <use xlink:href="#icon-phone"></use>
+                    </svg>
+                    <span class=" newsletter__info">+234 803 400 0000</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                    <h4 class="newsletter__head">EMAIL SUPPORT</h4>
+                    <svg class="icon icon-email newsletter__icon">
+                        <use xlink:href="#icon-email"></use>
+                    </svg>
+                    <span class=" newsletter__info">info@afiaanyi.com</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-7 col-md-7 col-sm-6 col-12 newsletter__get-latest">
+            <div class="row m-0">
+                <div class="col-lg-6 col-md-12 mb-3">
+                    <h4 class="newsletter__head">GET LATEST DEALS & UPDATES</h4>
+                    <p class="newsletter__info newsletter__info-getupdate">Stay in the loop on all upcoming
+                        promotions, discounts and latest
+                        updates.</p>
+                </div>
+                <div class="col-lg-6 col-md-12 pr-0">
+                    <div class="newsletter__input-wrapper">
+                        <input type="text" name="" id="" placeholder="Enter e-mail" class="newsletter__input">
+                        <div class="newsletter__input-btn">
+                            <svg class="icon icon-go">
+                                <use xlink:href="#icon-go"></use>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

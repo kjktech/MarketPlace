@@ -1,0 +1,71 @@
+{% extends "layouts.app" %}
+
+{% block content %}
+<div class="container-fluid inner mt-3">
+    <div class="row">
+			<div class="col-sm-12">
+
+				<nav aria-label="breadcrumb" role="navigation">
+				  <ol class="breadcrumb bg-transparent pt-3 pl-0 mb-0">
+					<li class="breadcrumb-item small">
+						<a href="{{route('home')}}" class="text-muted">{{ __("Home") }}</a>
+					</li>
+					{% for breadcrumb in breadcrumbs %}
+					<li class="breadcrumb-item small">
+						<a href="{{ route(setting('afiaanyi_index'), {'category': breadcrumb.id}) }}" class="text-muted">{{ _l(breadcrumb.name) }}</a>
+					</li>
+					{% endfor %}
+					<li class="breadcrumb-item active small" aria-current="page">
+						<a href="{{ route(setting('afiaanyi_index'), {'category': breadcrumb.id}) }}" class="text-muted">{{_l(branding.category.name)}}</a>
+					</li>
+				  </ol>
+				</nav>
+		</div>
+	</div>
+
+
+	<div class="row" id="branding-panel">
+		<div class="col-sm-12 mx-auto">
+
+            {% include 'notifications' %}
+
+            <h1 class="h3 mt-0 pb-2">{{branding.title}}</h1>
+
+            {% if auth_check() and (branding.user_id == auth_user().id or auth_user().can('edit branding')) %}
+                <div class="mb-3">
+                <strong class="badge badge-info">{{ (branding.is_published)?__('Published'):__('Unpublished') }}</strong>
+                <a class="badge badge-secondary" href="{{branding.edit_url}}">{{ __("Edit branding") }}</a>
+
+                {% if auth_user().can('disable branding') %}
+                    <a data-turbolinks="false" ic-indicator="#branding-panel-indicator" class="badge badge-secondary" id="spotlight-branding" ic-get-from="{{ route('branding.spotlight', [branding, branding.slug]) }}" ic-target="#spotlight-branding" ic-select-from-response="#spotlight-branding" href="#">{{ (branding.spotlight)?__('Remove from spotlight'):__('Add to spotlight')}}</a>
+                    <a data-turbolinks="false" ic-indicator="#branding-panel-indicator" class="badge badge-{{ (branding.is_verified)?'secondary':'danger'}}" id="verify-branding" ic-get-from="{{ route('branding.verify', [branding, branding.slug]) }}" ic-target="#branding-panel" ic-select-from-response="#branding-panel" href="#">{{ (branding.is_verified)?__('Disable branding'):__('Approve branding')}}</a>
+                {% endif %}
+
+
+                <i id="branding-panel-indicator" class="fa fa-spinner fa-spin" style="display: none"></i>
+                </div>
+            {% endif %}
+
+		</div>
+    </div>
+
+	<div class="row mb-5">
+		<div class="col-sm-8">
+            {% include 'branding.partials.overview' %}
+            {%  if(module_enabled('ratings') and setting('rating_branding_page')) %}
+                {{ asyncWidget('Modules.Ratings.Widgets.brandingReviews', {'branding': branding.id, 'limit': setting('rating_branding_limit')}) | raw }}
+            {% endif %}
+		</div>
+		<div class="col-sm-4">
+            {% include 'branding.partials.sidebar' %}
+		</div>
+	</div>
+
+
+</div>
+
+
+<script>
+$('.carousel').carousel()
+</script>
+{% endblock %}

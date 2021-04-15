@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel='shortcut icon' type='image/x-icon' href="{{ asset('images/favicon.ico') }}" />
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('themes/' ~  current_theme()  ~ '/css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('themes/' ~  current_theme()  ~ '/css/slick.css') }}">
+    <link rel="stylesheet" href="{{ asset('themes/' ~  current_theme()  ~ '/css/slick-theme.css') }}">
+    <link rel="stylesheet" href="{{ asset('themes/' ~  current_theme()  ~ '/css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('themes/' ~  current_theme()  ~ '/css/overload.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/14.0.8/css/intlTelInput.css">
+
+    <script src="{{ asset('themes/' ~  current_theme()  ~ '/js/csi.min.js') }}"></script>
+
+    <title>Afiaanyi | Home</title>
+    <style>
+    input.hero_search-fields.hero_search-companies::placeholder {
+
+       font-size: 14px;
+       color: #000000 !important;
+       font-family: 'Montserrat', sans-serif;
+       font-weigth: 600 !important;
+    }
+    .intl-tel-input {
+       width: 100% !important;
+    }
+    .hero__search-companies::-webkit-input-placeholder {
+      font-size: 14px;
+      color: #000000 !important;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 500 !important;
+    }
+    .hero__search-companies:-moz-placeholder {
+      font-size: 14px;
+      color: #000000 !important;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 500 !important;
+    }
+    .hero__search-companies::-moz-placeholder {
+      font-size: 14px;
+      color: #000000 !important;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 500 !important;
+    }
+    .hero__search-companies:-moz-placeholder {
+      font-size: 14px;
+      color: #000000 !important;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 500 !important;
+    }
+    .hero__tab span {
+      font-size: 10px;
+    }
+    .news-update__wrapper img {
+      margin-top: -30px;
+    }
+ </style>
+</head>
+
+<body>
+    <!--<div data-include="svg.html"></div>-->
+
+    {% include "layouts.svg" %}
+
+    <section class="hero">
+        <div class="hero__background">
+            <div class="hero__background-carousel">
+                <div class="hero__background-img-wrapper">
+                    <img src="{{ asset('themes/' ~ current_theme() ~ '/images/background-one.png') }}" alt="" class="img-fluid w-100 hero__background-img hero__background-img-desktop">
+                    <img src="{{ asset('themes/' ~ current_theme() ~ '/images/background-one-tab.png') }}" alt="" class="img-fluid w-100 hero__background-img hero__background-img-tab">
+                    <img src="{{ asset('themes/' ~ current_theme() ~ '/images/background-one-mobile.png') }}" alt="" class="img-fluid w-100 hero__background-img hero__background-img-mobile">
+                    <div class="hero__overlay hero__overlay-one"></div>
+                </div>
+                <div class="hero__background-img-wrapper">
+                    <img src="{{ asset('themes/' ~ current_theme() ~ '/images/background-two.png') }}" alt="" class="img-fluid w-100 hero__background-img hero__background-img-desktop">
+                    <img src="{{ asset('themes/' ~ current_theme() ~ '/images/background-two-tab.png') }}" alt="" class="img-fluid w-100 hero__background-img hero__background-img-tab">
+                    <img src="{{ asset('themes/' ~ current_theme() ~ '/images/background-two-mobile.png') }}" alt="" class="img-fluid w-100 hero__background-img hero__background-img-mobile">
+                    <div class="hero__overlay hero__overlay-two"></div>
+                </div>
+                <div class="hero__background-img-wrapper">
+                    <img src="{{ asset('themes/' ~ current_theme() ~ '/images/background-three.png') }}" alt="" class="img-fluid w-100 hero__background-img hero__background-img-desktop">
+                    <img src="{{ asset('themes/' ~ current_theme() ~ '/images/background-three-tab.png') }}" alt="" class="img-fluid w-100 hero__background-img hero__background-img-tab">
+                    <img src="{{ asset('themes/' ~ current_theme() ~ '/images/background-three-mobile.png') }}" alt="" class="img-fluid w-100 hero__background-img hero__background-img-mobile">
+                    <div class="hero__overlay"></div>
+                </div>
+                <div class="hero__background-img-wrapper">
+                    <img src="{{ asset('themes/' ~ current_theme() ~ '/images/background-four.png') }}" alt="" class="img-fluid w-100 hero__background-img hero__background-img-desktop">
+                    <img src="{{ asset('themes/' ~ current_theme() ~ '/images/background-four-tab.png') }}" alt="" class="img-fluid w-100 hero__background-img hero__background-img-tab">
+                    <img src="{{ asset('themes/' ~ current_theme() ~ '/images/background-four-mobile.png') }}" alt="" class="img-fluid w-100 hero__background-img hero__background-img-mobile">
+                    <div class="hero__overlay"></div>
+                </div>
+                <div class="hero__background-img-wrapper">
+                    <img src="{{ asset('themes/' ~ current_theme() ~ '/images/background-five.png') }}" alt="" class="img-fluid w-100 hero__background-img hero__background-img-desktop">
+                    <img src="{{ asset('themes/' ~ current_theme() ~ '/images/background-five-tab.png') }}" alt="" class="img-fluid w-100 hero__background-img hero__background-img-tab">
+                    <img src="{{ asset('themes/' ~ current_theme() ~ '/images/background-five-mobile.png') }}" alt="" class="img-fluid w-100 hero__background-img hero__background-img-mobile">
+                    <div class="hero__overlay"></div>
+                </div>
+                <div class="hero__background-img-wrapper">
+                    <img src="{{ asset('themes/' ~ current_theme() ~ '/images/background-six.png') }}" alt="" class="img-fluid w-100 hero__background-img hero__background-img-desktop">
+                    <img src="{{ asset('themes/' ~ current_theme() ~ '/images/background-six-tab.png') }}" alt="" class="img-fluid w-100 hero__background-img hero__background-img-tab">
+                    <img src="{{ asset('themes/' ~ current_theme() ~ '/images/background-six-mobile.png') }}" alt="" class="img-fluid w-100 hero__background-img hero__background-img-mobile">
+                    <div class="hero__overlay"></div>
+                </div>
+                <div class="hero__background-img-wrapper">
+                    <img src="{{ asset('themes/' ~ current_theme() ~ '/images/background-seven.png') }}" alt="" class="img-fluid w-100 hero__background-img hero__background-img-desktop">
+                    <img src="{{ asset('themes/' ~ current_theme() ~ '/images/background-seven-tab.png') }}" alt="" class="img-fluid w-100 hero__background-img hero__background-img-tab">
+                    <img src="{{ asset('themes/' ~ current_theme() ~ '/images/background-seven-mobile.png') }}" alt="" class="img-fluid w-100 hero__background-img hero__background-img-mobile">
+                    <div class="hero__overlay"></div>
+                </div>
+            </div>
+            <!--<div data-include="navbar.html"></div>-->
+             {% if auth_guest() %}
+            <header class="navbar__home fixed-top" id="topnav">
+                <nav class="navbar navbar-expand-lg navbar-light">
+                    <a class="navbar-brand p-0 navbar__brand" href="#">
+                        <img src="{{ asset('themes/' ~ current_theme() ~ '/images/logo.png') }}" width="76" height="71" alt="">
+                    </a>
+
+                    <ul class="d-sm-block d-lg-none ml-auto">
+                        <li class="nav-item navbar__create-account navbar__create-account-resp ">
+                            <a class="nav-link" href="#">Create an account</a>
+                        </li>
+                    </ul>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse responsive__nav-menu" id="navbarSupportedContent">
+                        <ul class="navbar-nav ml-auto">
+                          <li class="nav-item navbar__item">
+                            <a style="font-weight: bold; color: #E6B712 !important;" class="nav-link navbar__link" href="{{ route('page.topbrands') }}">Afiaanyi's Top Brands</a>
+                          </li>
+                            <li class="nav-item navbar__item">
+                                <a class="nav-link navbar__link" href="{{ route('page.directory') }}">Directory</a>
+                            </li>
+                            <li class="nav-item navbar__item">
+                                <a class="nav-link navbar__link" href="{{ route('browse') }}">Shop</a>
+                            </li>
+                            <li class="nav-item navbar__item">
+                                <a class="nav-link navbar__link" href="{{ route('page.comingsoon') }}">Jobs</a>
+                            </li>
+                            <li class="nav-item navbar__item">
+                                <a class="nav-link navbar__link" href="#login" data-toggle="modal">Login</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <ul class="d-lg-block d-none">
+                        <li class="nav-item navbar__create-account">
+                            <a class="nav-link" href="#signup-one" data-toggle="modal">Create an account</a>
+                        </li>
+                    </ul>
+                </nav>
+            </header>
+            {% else %}
+            <header class="navbar__home logged-navbar fixed-top" id="topnav">
+                <nav class="navbar navbar-expand-lg navbar-light">
+                    <a class="navbar-brand p-0 navbar__brand" href="{{ route('home') }}">
+                        <img src="{{ asset('themes/' ~ current_theme() ~ '/images/logo.png') }}" width="76" height="71" alt="">
+                    </a>
+
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse responsive__nav-menu" id="navbarSupportedContent">
+
+                        <ul class="navbar-nav ml-auto">
+                           <li class="nav-item navbar__item">
+                             <a style="font-weight: bold; color: #E6B712 !important;" class="nav-link navbar__link" href="{{ route('page.topbrands') }}">Afiaanyi's Top Brands</a>
+                           </li>
+                            <li class="nav-item navbar__item">
+                                <a class="nav-link navbar__link" href="{{ route('page.directory') }}">Directory</a>
+                            </li>
+                            <li class="nav-item navbar__item">
+                                <a class="nav-link navbar__link" href="{{ route('browse') }}">Shop</a>
+                            </li>
+                            <li class="nav-item navbar__item">
+                                <a class="nav-link navbar__link" href="{{ route('page.comingsoon') }}">Jobs</a>
+                            </li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="nav-item navbar__item p-0" style="line-height: 48px;">
+                                <span class="logged-navbar__welcome" style="color: #FFFFFF;">Welcome,&nbsp;&nbsp;<span style="color: white !important">{{ auth_user().first_name() }}!</span></span>
+                            </li>
+                            <li class="nav-item navbar__item dropdown">
+                                <a href="#" class="inset dropdown-toggle navbar__link" href="#" id="navbarDropdown" role="button"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                                    <img src="{{ auth_user().avatar }}">
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('account.') }}">User Dashboard</a>
+                                    {% if auth_user().hasRole('admin') or auth_user().hasRole('super-admin') %}
+                                      <div class="dropdown-divider"></div>
+                                       <a href="./panel" class="dropdown-item">Manage Site</a>
+                                    {% endif %}
+                                    <div class="dropdown-divider"></div>
+                                    <a onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="dropdown-item" href="#">Logout</a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        {{ csrf_field() }}
+                                    </form>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                </nav>
+            </header>
+            {% endif %}
+            <div class="hero__content">
+                <div class="d-flex">
+                    <div>
+                        <h3 class="hero__content-heading">Afịaanyị ...<span>Our Market</span></h3>
+                        <h3 class="hero__content-subhead">Business Directory & Marketplace</h3>
+                    </div>
+                    <div class="hero__content-logo"><img src="{{ asset('themes/' ~ current_theme() ~ '/images/hero-logo.png') }}" alt="" class="img-fluid"></div>
+                </div>
+
+                <span class="hero__content-about">Locate</span>
+                <div class="hero__content-about-seperator"></div>
+                <span class="hero__content-about">Sell</span>
+                <div class="hero__content-about-seperator"></div>
+                <span class="hero__content-about">Buy</span>
+                <form id="search-form" method="get" action="./brands">
+                <div class="hero__search">
+                   <!--
+                    <select class="hero__search-fields hero__search-companies">
+                        <option disabled selected>Search for companies and services</option>
+                        <option value="saab">Saab</option>
+                        <option value="mercedes">Mercedes</option>
+                        <option value="audi">Audi</option>
+                    </select>
+                   -->
+                   <input style="background-color: #FFFFFF;" name="q" type="text" class="hero__search-fields hero__search-companies" placeholder="Search Business Name" />
+                    <!--
+                    <select class="hero__search-fields hero__search-categories">
+                        <option disabled selected>Categories</option>
+
+                    </select>
+                     -->
+                    {{ form_select('category', categories, request('category'), {'class' : 'hero__search-fields hero__search-categories'}) }}
+                    <select name="city" class="hero__search-fields hero__search-location">
+                        <!--<option disabled selected>Location</option>-->
+                        <option value="all">Location</option>
+                        {% for city in city_array %}
+                          <option value="{{city}}">{{city}}</option>
+                        {% endfor %}
+                    </select>
+                    <div class="hero__search-btn">
+                        <div class="hero__search-icon-wrapper">
+                            <img id="search-image" src="{{ asset('themes/' ~ current_theme() ~ '/icons/search-icon.svg') }}" alt="">
+                        </div>
+                    </div>
+                </div>
+              </form>
+            </div>
+            <div class="hero__tabs">
+                <div class="d-flex hero__tabs-wrapper">
+                    <a href="{{ route('browsebrand') }}?category={{categories_arr[0]['id']}}" class="">
+                        <div class="hero__tab">
+                            <div class="mx-auto hero__tab-wrapper">
+                               {% if categories_arr[0]['icon'] %}
+                                 <img src="{{ categories_arr[0]['icon'] }}" alt="">
+                               {% else %}
+                                 <img src="{{ asset('themes/' ~ current_theme() ~ '/icons/cat_placeholder.png') }}" alt="">
+                               {% endif %}
+                                <span>
+                                  {{ categories_arr[0]['name'] }}
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="{{ route('browsebrand') }}?category={{categories_arr[1]['id']}}" class="">
+                        <div class="hero__tab">
+                            <div class="mx-auto hero__tab-wrapper">
+                              {% if categories_arr[1]['icon'] %}
+                                 <img src="{{ categories_arr[1]['icon'] }}" alt="">
+                              {% else %}
+                                 <img src="{{ asset('themes/' ~ current_theme() ~ '/icons/cat_placeholder.png') }}" alt="">
+                              {% endif %}
+                                <span>{{ categories_arr[1]['name'] }}</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="{{ route('browsebrand') }}?category={{categories_arr[2]['id']}}" class="d-lg-block d-sm-none d-md-block d-none">
+                        <div class="hero__tab">
+                            <div class="mx-auto hero__tab-wrapper">
+                              {% if categories_arr[2]['icon'] %}
+                                 <img src="{{ categories_arr[2]['icon'] }}" alt="">
+                              {% else %}
+                                 <img src="{{ asset('themes/' ~ current_theme() ~ '/icons/cat_placeholder.png') }}" alt="">
+                              {% endif %}
+                                <span>{{ categories_arr[2]['name'] }}</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="{{ route('browsebrand') }}?category={{categories_arr[3]['id']}}" class="d-lg-block d-sm-none d-md-block d-none">
+                        <div class="hero__tab">
+                            <div class="mx-auto hero__tab-wrapper">
+                              {% if categories_arr[3]['icon'] %}
+                                 <img src="{{ categories_arr[3]['icon'] }}" alt="">
+                              {% else %}
+                                 <img src="{{ asset('themes/' ~ current_theme() ~ '/icons/cat_placeholder.png') }}" alt="">
+                              {% endif %}
+                                <span>{{ categories_arr[3]['name'] }}</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="{{ route('browsebrand') }}?category={{categories_arr[4]['id']}}" class="d-md-none d-lg-block d-sm-none d-none">
+                        <div class="hero__tab hero__tab-finance">
+                            <div class="mx-auto hero__tab-wrapper">
+                              {% if categories_arr[4]['icon'] %}
+                                 <img src="{{ categories_arr[4]['icon'] }}" alt="">
+                              {% else %}
+                                 <img src="{{ asset('themes/' ~ current_theme() ~ '/icons/cat_placeholder.png') }}" alt="">
+                              {% endif %}
+                                <span>{{ categories_arr[4]['name'] }}</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="{{ route('browsebrand') }}?category={{categories_arr[5]['id']}}" class="d-md-none d-lg-block d-sm-none d-none">
+                        <div class="hero__tab">
+                            <div class="mx-auto hero__tab-wrapper">
+                               {% if categories_arr[5]['icon'] %}
+                                  <img src="{{ categories_arr[5]['icon'] }}" alt="">
+                               {% else %}
+                                  <img src="{{ asset('themes/' ~ current_theme() ~ '/icons/cat_placeholder.png') }}" alt="">
+                               {% endif %}
+                                <span>{{ categories_arr[5]['name'] }}</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#">
+                        <div class="hero__tab-more">
+                            <span><a style="font-size: 14px; color: #E6B712;" href="{{ route('page.services') }}">See more...</a></span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% block content %}
+
+
+    {% endblock %}
+    <section class="newsletter">
+        <div class="row m-0">
+            <div class="col-lg-5 col-md-5 col-sm-6 col-12 mb-4 pl-0">
+                <div class="row m-0">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                        <h4 class="newsletter__head">PHONE SUPPORT</h4>
+                        <svg class="icon icon-phone newsletter__icon">
+                            <use xlink:href="#icon-phone"></use>
+                        </svg>
+                        <span class=" newsletter__info">+234 905 300 0056-9</span>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                        <h4 class="newsletter__head">EMAIL SUPPORT</h4>
+                        <svg class="icon icon-email newsletter__icon">
+                            <use xlink:href="#icon-email"></use>
+                        </svg>
+                        <span class=" newsletter__info">info@afiaanyi.com</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7 col-md-7 col-sm-6 col-12 newsletter__get-latest">
+                <div class="row m-0">
+                    <div class="col-lg-6 col-md-12 mb-3">
+                        <h4 class="newsletter__head">GET LATEST DEALS & UPDATES</h4>
+                        <p class="newsletter__info newsletter__info-getupdate">Stay in the loop on all upcoming
+                            promotions, discounts and latest
+                            updates.</p>
+                    </div>
+                    <div class="col-lg-6 col-md-12 pr-0 newsletter-wrapper">
+                       <form id="subscribe-form" method="get" action="{{route('page.subscribe')}}">
+                        <div class="newsletter__input-wrapper">
+                            <input type="email" name="email" placeholder="Enter e-mail"  required class="newsletter__input">
+                            <button style="visibility: hidden;" type="submit" id="subscribe-btn"></button>
+                            <div onclick="document.getElementById('subscribe-btn').click();" class="newsletter__input-btn">
+                                <svg class="icon icon-go">
+                                    <use xlink:href="#icon-go"></use>
+                                </svg>
+                            </div>
+                        </div>
+                      </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+     </section>
+
+    {% include "layouts.footer_latest_base.twig" %}
+    {% include "layouts.partials.auth_modals.twig" %}
+    <script src="{{ asset('themes/' ~  current_theme()  ~ '/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('themes/' ~  current_theme()  ~ '/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('themes/' ~  current_theme()  ~ '/js/tether.min.js') }}"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="{{ asset('themes/' ~  current_theme()  ~ '/js/slick.min.js') }}"></script>
+    <script src="{{ asset('themes/' ~  current_theme()  ~ '/js/main.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/14.0.8/js/intlTelInput-jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/14.0.8/js/intlTelInput.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/14.0.8/js/utils.js"></script>
+    <script>
+
+    </script>
+    {% include "layouts.partials.auth_js.twig" %}
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+     var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+      (function(){
+       var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+       s1.async=true;
+       s1.src='https://embed.tawk.to/5c6276e36cb1ff3c14cc1804/default';
+       s1.charset='UTF-8';
+       s1.setAttribute('crossorigin','*');
+       s0.parentNode.insertBefore(s1,s0);
+     })();
+    </script>
+   <!--End of Tawk.to Script-->
+   <script type="text/javascript">
+    function swapImages(){
+      var $active = $('.place-ad .active');
+      var $next = ($('.place-ad .active').next().length > 0) ? $('.place-ad .active').next() : $('.place-ad img:first');
+      $active.fadeOut(function(){
+      $active.removeClass('active');
+      $next.fadeIn().addClass('active');
+      });
+    }
+
+    $(document).ready(function(){
+      // Run our swapImages() function every 5secs
+      setInterval('swapImages()', 5000);
+    });
+  </script>
+</body>
+
+</html>

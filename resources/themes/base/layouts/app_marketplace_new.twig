@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='shortcut icon' type='image/x-icon' href="{{ asset('images/favicon.ico') }}" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Lato:100,300,300i,400');
+        @import url({{ asset('themes/' ~ current_theme() ~ '/css/market.css') }});
+        @import url({{ asset('themes/' ~  current_theme()  ~ '/css/footer.css')}});
+    </style>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+     $( function() {
+      $( "#tabs" ).tabs();
+     });
+</script>
+    <title>Market</title>
+</head>
+
+<body>
+    <header>
+        {% block nav %}
+          {% include 'layouts.base_nav.twig' %}
+        {% endblock %}
+
+        {# import mega-menu #}
+        {% include 'layouts.base_mega_menu.twig' %}
+
+        <div class="hero-ad-container row">
+            <div class="hero">
+                <div class="slides">
+                    <div class="slider__outer-cont">
+                        <div class="slider__container">
+                            <div class="slide--market"></div>
+                            <div class="slide--market"></div>
+                            <div class="slide--market"></div>
+                            <div class="slide--market"></div>
+                            <div class="slide--market"></div>
+                        </div>
+                    </div>
+
+                    <div class="legend__controller">
+                        <div class=".control">
+                            <img src="resources/img/pause.svg" class="pause" height="10px">
+                            <img src="resources/img/play-button.svg" class="hide play" height="10px" width="10px">
+                        </div>
+                        <div class="legend legend--active"></div>
+                        <div class="legend"></div>
+                        <div class="legend"></div>
+                        <div class="legend"></div>
+                        <div class="legend"></div>
+                    </div>
+                    <div class="hero--text">Perfume Tips &
+                        <br> Tricks
+                        <br>
+                        <a href="" class="btn btn--hero">Shop Now</a>
+                    </div>
+
+                    <img class="hero__slider-nav" src="{{ asset('themes/' ~ current_theme() ~ '/images/slider-nav.svg') }}">
+                    <img class="hero__slider-nav--left" src="{{ asset('themes/' ~ current_theme() ~ '/images/slider-left-nav.svg') }}">
+                </div>
+
+                <div class="hero__next"></div>
+                <div class="hero__previous"></div>
+            </div>
+            <div class="advert-space">
+                <div class="advert-space__upper-division">
+                    <p>
+                        <img src="{{ asset('themes/' ~ current_theme() ~ '/images/sell.svg') }}">
+                        <span>
+                            SELL ON AFIAANYI
+                            <br>Become a Vendor!
+                        </span>
+                    </p>
+
+
+                    <p>
+                        <img src="{{ asset('themes/' ~ current_theme() ~ '/images/free_ret.svg') }}">
+                        <span>
+                            FREE RETURNS
+                            <br>Within 7 days
+                        </span>
+                    </p>
+
+
+                    <p>
+                        <img src="{{ asset('themes/' ~ current_theme() ~ '/images/exclusive.svg') }}">
+                        <span>
+                            EXCLUSIVE OFFERS
+                            <br>Download Afiaanyi app
+                        </span>
+                    </p>
+
+                </div>
+                <div class="advert-space__lower-division">
+                    <img src="{{ asset('themes/' ~ current_theme() ~ '/images/electronics.png') }}">
+                </div>
+            </div>
+        </div>
+
+    </header>
+    {% block content %}
+
+    {% endblock %}
+    {# include footer #}
+    {% set new_res_img = {'foo': 'bar'} %}
+    {% include 'layouts.footer_latest'  %}
+
+    {% block scripts %}
+      <script src="{{ asset('themes/' ~ current_theme() ~ '/js/slider.js') }}"></script>
+      <script src="{{ asset('themes/' ~ current_theme() ~ '/js/market.js') }}"></script>
+    {% endblock %}
+  </body>
+  </html>

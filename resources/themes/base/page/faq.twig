@@ -1,0 +1,125 @@
+{% extends "layouts.app_general" %}
+{% set title='Faq' %}
+{% block style%}
+  
+  @import url({{ asset('themes/' ~ current_theme() ~ '/css/faq.css') }});
+{% endblock %}
+{% block hero %}
+<div class="hero">
+         <!--
+          <form class="hero__box">
+              <img class="search__btn-inner" src="{{ asset('themes/' ~ current_theme() ~ '/images/search-grey.svg') }}">
+              <input class="hero__box-input" type="search" placeholder="Ask a question.....">
+              <input type="submit" class="hero__box-send" value="SEARCH">
+              <h2 class="hero__title">
+                  Or choose a category to quickly find the help you need!
+              </h2>
+          </form>
+          -->
+
+      </div>
+
+{% endblock %}
+{% block content %}
+<section class="card__section">
+
+     <div class="hide__scroll">
+
+         <div class="card-w">
+
+             <div class="card__outer-wrapper">
+
+                 <div class="card card__active">
+                     <div class="card__content">
+                         <img src="{{ asset('themes/' ~ current_theme() ~ '/images/general--white.svg') }}" class="img__card" alt="general">
+                         <p>General</p>
+                     </div>
+                 </div>
+
+                 <div class="card">
+                     <div class="card__content">
+                         <img src="{{ asset('themes/' ~ current_theme() ~ '/images/payment.svg') }}" class="img__card" alt="Payment">
+                         <p>Payment</p>
+                     </div>
+                 </div>
+
+                 <div class="card">
+                     <div class="card__content">
+                         <img src="{{ asset('themes/' ~ current_theme() ~ '/images/wallet.svg') }}" class="img__card" alt="wallet">
+                         <p>Wallet</p>
+                     </div>
+                 </div>
+
+                 <div class="card">
+                     <div class="card__content">
+                         <img src="{{ asset('themes/' ~ current_theme() ~ '/images/shipping.svg') }}" class="img__card" alt="shipping">
+                         <p>Shipping/ Delivery</p>
+                     </div>
+                 </div>
+
+                 <div class="card card">
+                     <div class="card__content">
+                         <img src="{{ asset('themes/' ~ current_theme() ~ '/images/return.svg') }}" class="img__card" alt="">
+                         <p>Returns policy</p>
+                     </div>
+                 </div>
+
+                 <div class="card">
+                     <div class="card__content">
+                         <img src="{{ asset('themes/' ~ current_theme() ~ '/images/product.svg') }}" alt="product">
+                         <p>Products</p>
+                     </div>
+                 </div>
+
+                 <div class="card">
+                     <div class="card__content">
+                         <img src="{{ asset('themes/' ~ current_theme() ~ '/images/services-agreement.svg') }}" class="img__card" alt="Services">
+                         <p>Services Deal</p>
+                     </div>
+                 </div>
+
+                 <div class="card">
+                     <div class="card__content">
+                         <img src="{{ asset('themes/' ~ current_theme() ~ '/images/warranty.svg') }}" alt="warranty">
+                         <p>Warranty</p>
+                     </div>
+                 </div>
+
+             </div>
+
+         </div>
+
+     </div>
+
+
+ </section>
+
+ <section>
+
+     <div class="row">
+
+         <div class="faq__wrapper">
+
+
+             <div class="faq">
+
+                 <h3 class="faq__title">
+                     Do I need to have a Afiaanyi.com account to make a Purchase?
+                     <img class="faq__arrow faq__arrow--opened" src="{{ asset('themes/' ~ current_theme() ~ '/images/arrow__down.svg') }}">
+                 </h3>
+
+                 <p class="faq__content">
+                     Yes, you do. Registration is free of charge, click sign up on the upper right hand of the
+                     screen, fill your details and submit. Verify your account through the verification link sent to
+                     your mail and then proceed to make a purchase.
+                 </p>
+
+             </div>
+
+         </div>
+
+     </div>
+
+ </section>
+ <script src="{{ asset('themes/' ~ current_theme() ~ '/js/faq.js')}}"></script>
+{% endblock %}

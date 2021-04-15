@@ -1,0 +1,44 @@
+<style>
+ .drop-drop__list-title a{
+    color: black;
+    text-decoration: none;
+}
+</style>
+<div class="full--nav main_row">
+    <ul class="header__full-nav">
+       <div class="header__triangle"></div>
+       {% for category in categories_nested %}
+       <li class="header__full-nav-list">
+           <a href="{{ categoryUrl(category.header.id, category.header.slug) }}" class="header__full-nav-link ">
+           {% if category.header.icon %}
+              <img style="filter: invert(100%);" width="13px;" src="{{ category.header.icon  }}" alt="">
+           {% else %}
+              <img style="filter: invert(100%);" width="13px;" src="{{ asset('themes/' ~ current_theme() ~ '/icons/cat_placeholder.png') }}" alt="">
+           {% endif %}
+               &nbsp;{{ category.header.name}}
+          </a>
+           <img class="header__drp-arrow" src="{{ asset('themes/' ~ current_theme() ~ '/images/gold-up-arrow.svg')}}">
+           {% if loop.index0 == 3 %}
+            {% set drop_down_loop = ' ' %}
+           {% else %}
+            {% set drop_down_loop = ' dropdown__header--' ~ loop.index0 %}
+           {% endif %}
+           <div class="dropdown__header {{ (loop.last) ? ' dropdown__header--categories ' : drop_down_loop }} animated fadeIn">
+               <div class="drop-down__content">
+                   {% for item in category.new_array %}
+                      {% if loop.index0 % 2 == 0 %}
+                       <div class="drop-down__column">
+                      {% endif %}
+                       {{ item|raw}}
+                      {% if loop.index0 % 2 == 1 or loop.last %}
+                    </div>
+                   {% endif %}
+                  {% endfor %}
+              </div>
+           </div>
+       </li>
+       {% endfor %}
+    </ul>
+
+
+</div>
